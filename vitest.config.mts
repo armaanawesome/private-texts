@@ -14,7 +14,12 @@ export default defineConfig({
     },
   },
   test: {
-    include: ['src/engine/**/*.test.ts', 'src/state/**/*.test.ts', 'content/**/*.test.ts'],
+    include: [
+      'src/engine/**/*.test.ts',
+      'src/state/**/*.test.ts',
+      'content/**/*.test.ts',
+      'plugins/**/*.test.ts',
+    ],
     environment: 'node',
     coverage: {
       include: ['src/engine/**', 'src/state/**'],
