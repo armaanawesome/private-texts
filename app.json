@@ -8,6 +8,13 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#0E1013",
+    "ios": {
+      "bundleIdentifier": "com.armaan.shipatondetective",
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"]
+      }
+    },
     "android": {
       "package": "com.armaan.shipatondetective",
       "adaptiveIcon": {
