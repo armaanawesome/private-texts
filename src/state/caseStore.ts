@@ -12,6 +12,12 @@ interface CaseState {
   pinnedClaimIds: string[];
   confirmedContradictionIds: string[];
   lastVerdict: ContradictionVerdict | null;
+  /**
+   * The contradiction proven by the most recent submit, so the board can show
+   * that revelation specifically. Without it the UI cannot tell which of several
+   * proven contradictions the player just landed.
+   */
+  lastConfirmedId: string | null;
 
   loadScript: (script: CaseScript) => void;
   markRead: (messageId: string) => void;
@@ -41,6 +47,7 @@ const empty = () => ({
   pinnedClaimIds: [] as string[],
   confirmedContradictionIds: [] as string[],
   lastVerdict: null,
+  lastConfirmedId: null,
 });
 
 export const useCaseStore = create<CaseState>((set, get) => ({
@@ -97,13 +104,14 @@ export const useCaseStore = create<CaseState>((set, get) => ({
     // The engine found a genuine conflict the author did not anticipate.
     // Accept it as a valid deduction, but it unlocks nothing.
     if (!match) {
-      set({ lastVerdict: verdict, pinnedClaimIds: [] });
+      set({ lastVerdict: verdict, pinnedClaimIds: [], lastConfirmedId: null });
       return;
     }
 
     set({
       lastVerdict: verdict,
       pinnedClaimIds: [],
+      lastConfirmedId: match.id,
       confirmedContradictionIds: confirmedContradictionIds.includes(match.id)
         ? confirmedContradictionIds
         : [...confirmedContradictionIds, match.id],

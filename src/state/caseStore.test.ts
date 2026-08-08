@@ -119,6 +119,32 @@ describe('useCaseStore', () => {
     expect(after.pinnedClaimIds).toEqual(['c1']);
   });
 
+  it('reports which contradiction the latest submit proved', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+    expect(useCaseStore.getState().lastConfirmedId).toBe('x1');
+  });
+
+  it('clears lastConfirmedId when a pairing conflicts but was not authored', () => {
+    // A genuine conflict the author never anticipated is still a valid deduction,
+    // but it unlocks nothing and must not surface a stale revelation.
+    useCaseStore.setState({ lastConfirmedId: 'x1' });
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    useCaseStore.setState({
+      script: { ...SCRIPT, contradictions: [] } as CaseScript,
+    });
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+    expect(useCaseStore.getState().lastConfirmedId).toBeNull();
+  });
+
   it('does not confirm the same contradiction twice', () => {
     const s = useCaseStore.getState();
     s.markRead('m1');
