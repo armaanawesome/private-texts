@@ -6,6 +6,7 @@ import { PinSlot } from './PinSlot';
 import { ClaimChip } from './ClaimChip';
 import { ContradictionResult } from './ContradictionResult';
 import { useCaseStore } from '@/state/caseStore';
+import { saveProgress } from '@/state/persistence';
 import { availableClaims, type Claim } from '@/engine';
 
 export function EvidenceBoard() {
@@ -50,6 +51,9 @@ export function EvidenceBoard() {
         onPress={() => {
           void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           submitPins();
+          // Persist after the verdict resolves: a proven contradiction unlocks
+          // threads, and losing that to a force-quit would be brutal.
+          void saveProgress(script.id);
         }}
         accessibilityRole="button"
         accessibilityLabel="Compare the two pinned statements"

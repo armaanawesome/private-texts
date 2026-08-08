@@ -1,0 +1,116 @@
+import { useState } from 'react';
+import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
+import { Stack } from 'expo-router';
+import { theme } from '@/ui/theme';
+import { useEntitlements } from '@/entitlements/useEntitlements';
+import { getCasePackOffering, purchaseCasePack, restorePurchases } from '@/entitlements/revenuecat';
+
+/** Verification harness for the RevenueCat Test Store. Not part of the game. */
+export default function DebugPurchaseScreen() {
+  const { entitlementIds, loading, error, refresh } = useEntitlements();
+  const [log, setLog] = useState<string[]>([]);
+  // StoreKit and Play Billing queue duplicate calls; the UI must not let the
+  // user fire a second purchase while one is in flight.
+  const [buying, setBuying] = useState(false);
+
+  const say = (line: string) => setLog((l) => [...l, line]);
+
+  async function handlePurchase() {
+    if (buying) return;
+    setBuying(true);
+    try {
+      say('Fetching current offering...');
+      const offering = await getCasePackOffering();
+      if (!offering) {
+        say('No current offering. Check the "default" offering in the dashboard.');
+        return;
+      }
+      const pkg = offering.availablePackages[0];
+      if (!pkg) {
+        say(`Offering "${offering.identifier}" has no packages.`);
+        return;
+      }
+      say(`Purchasing ${pkg.product.identifier} (${pkg.product.priceString})...`);
+      const outcome = await purchaseCasePack(pkg);
+      switch (outcome.kind) {
+        case 'purchased':
+          say('Purchased. Waiting for the entitlement listener...');
+          break;
+        case 'cancelled':
+          say('Cancelled by user (this is not an error).');
+          break;
+        case 'failed':
+          say(`Failed: ${String((outcome.error as { message?: string })?.message ?? outcome.error)}`);
+          break;
+      }
+    } catch (e) {
+      say(`Error: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBuying(false);
+    }
+  }
+
+  async function handleRestore() {
+    try {
+      const ids = await restorePurchases();
+      say(`Restored: ${ids.length ? ids.join(', ') : 'nothing'}`);
+      await refresh();
+    } catch (e) {
+      say(`Error: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+
+  return (
+    <ScrollView contentContainerStyle={styles.root}>
+      <Stack.Screen options={{ title: 'Test Store harness' }} />
+      <Text style={styles.meta}>Platform: {Platform.OS}</Text>
+      <Text style={styles.meta}>
+        Entitlements:{' '}
+        {loading ? 'loading...' : entitlementIds.length ? entitlementIds.join(', ') : 'none'}
+      </Text>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+
+      <Pressable
+        style={[styles.button, buying && styles.buttonBusy]}
+        onPress={handlePurchase}
+        disabled={buying}
+        accessibilityState={{ disabled: buying }}
+      >
+        <Text style={styles.buttonText}>{buying ? 'Working...' : 'Buy case pack'}</Text>
+      </Pressable>
+      <Pressable style={[styles.button, styles.buttonGhost]} onPress={handleRestore}>
+        <Text style={styles.buttonText}>Restore purchases</Text>
+      </Pressable>
+
+      <View style={styles.log}>
+        {log.map((line, i) => (
+          <Text key={i} style={styles.logLine}>
+            {line}
+          </Text>
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    padding: theme.space.lg,
+    gap: theme.space.md,
+    backgroundColor: theme.color.bg,
+    flexGrow: 1,
+  },
+  meta: { ...theme.type.meta, color: theme.color.textDim },
+  error: { ...theme.type.meta, color: theme.color.dangerText },
+  button: {
+    backgroundColor: theme.color.bubbleYou,
+    padding: theme.space.md,
+    borderRadius: theme.radius.chip,
+    alignItems: 'center',
+  },
+  buttonGhost: { backgroundColor: theme.color.surface },
+  buttonBusy: { opacity: 0.5 },
+  buttonText: { ...theme.type.body, color: theme.color.text },
+  log: { marginTop: theme.space.lg, gap: theme.space.xs },
+  logLine: { ...theme.type.meta, color: theme.color.textDim, fontFamily: theme.font.mono },
+});

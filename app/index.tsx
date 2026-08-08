@@ -1,119 +1,71 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Link } from 'expo-router';
 import { theme } from '@/ui/theme';
+import { CASES } from '@content/cases';
 import { useEntitlements } from '@/entitlements/useEntitlements';
-import {
-  getCasePackOffering,
-  purchaseCasePack,
-  restorePurchases,
-} from '@/entitlements/revenuecat';
 
-/**
- * TEMPORARY harness for Task 5, replaced by the real case-select screen in Task 14.
- * Its only job is to prove a Test Store purchase completes end to end on both
- * platforms before any UI work starts.
- */
-export default function DebugPurchaseScreen() {
-  const { entitlementIds, loading, error, refresh } = useEntitlements();
-  const [log, setLog] = useState<string[]>([]);
-  // StoreKit and Play Billing queue duplicate calls; the UI must not let the
-  // user fire a second purchase while one is in flight.
-  const [buying, setBuying] = useState(false);
-
-  const say = (line: string) => setLog((l) => [...l, line]);
-
-  async function handlePurchase() {
-    if (buying) return;
-    setBuying(true);
-    try {
-      say('Fetching current offering...');
-      const offering = await getCasePackOffering();
-      if (!offering) {
-        say('No current offering. Check the "default" offering in the dashboard.');
-        return;
-      }
-      const pkg = offering.availablePackages[0];
-      if (!pkg) {
-        say(`Offering "${offering.identifier}" has no packages.`);
-        return;
-      }
-      say(`Purchasing ${pkg.product.identifier} (${pkg.product.priceString})...`);
-      const outcome = await purchaseCasePack(pkg);
-      switch (outcome.kind) {
-        case 'purchased':
-          say('Purchased. Waiting for the entitlement listener...');
-          break;
-        case 'cancelled':
-          say('Cancelled by user (this is not an error).');
-          break;
-        case 'failed':
-          say(`Failed: ${String((outcome.error as { message?: string })?.message ?? outcome.error)}`);
-          break;
-      }
-    } catch (e) {
-      say(`Error: ${e instanceof Error ? e.message : String(e)}`);
-    } finally {
-      setBuying(false);
-    }
-  }
-
-  async function handleRestore() {
-    try {
-      const ids = await restorePurchases();
-      say(`Restored: ${ids.length ? ids.join(', ') : 'nothing'}`);
-      await refresh();
-    } catch (e) {
-      say(`Error: ${e instanceof Error ? e.message : String(e)}`);
-    }
-  }
+export default function CaseSelectScreen() {
+  const { entitlementIds, loading } = useEntitlements();
 
   return (
-    <ScrollView contentContainerStyle={styles.root}>
-      <Text style={styles.title}>Task 5 · Test Store harness</Text>
-      <Text style={styles.meta}>Platform: {Platform.OS}</Text>
-      <Text style={styles.meta}>
-        Entitlements:{' '}
-        {loading ? 'loading...' : entitlementIds.length ? entitlementIds.join(', ') : 'none'}
+    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+      <Text style={styles.title}>Private Texts</Text>
+      <Text style={styles.sub}>
+        Someone is dead. All you have is their messages. Find the statement that cannot be true.
       </Text>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      <Pressable
-        style={[styles.button, buying && styles.buttonBusy]}
-        onPress={handlePurchase}
-        disabled={buying}
-        accessibilityState={{ disabled: buying }}
-      >
-        <Text style={styles.buttonText}>{buying ? 'Working...' : 'Buy case pack'}</Text>
-      </Pressable>
-      <Pressable style={[styles.button, styles.buttonGhost]} onPress={handleRestore}>
-        <Text style={styles.buttonText}>Restore purchases</Text>
-      </Pressable>
+      {CASES.map((c) => {
+        const locked =
+          c.requiredEntitlementId !== undefined && !entitlementIds.includes(c.requiredEntitlementId);
+        return (
+          <View key={c.id} style={styles.card}>
+            <Text style={styles.caseTitle}>{c.title}</Text>
+            <Text style={styles.blurb}>{c.blurb}</Text>
+            {locked ? (
+              <Link href="/paywall" asChild>
+                <Pressable style={({ pressed }) => [styles.cta, pressed && styles.pressed]}>
+                  <Text style={styles.ctaText}>{loading ? 'Checking...' : 'Unlock'}</Text>
+                </Pressable>
+              </Link>
+            ) : (
+              <Link href={`/case/${c.id}/threads`} asChild>
+                <Pressable style={({ pressed }) => [styles.cta, pressed && styles.pressed]}>
+                  <Text style={styles.ctaText}>Open</Text>
+                </Pressable>
+              </Link>
+            )}
+          </View>
+        );
+      })}
 
-      <View style={styles.log}>
-        {log.map((line, i) => (
-          <Text key={i} style={styles.logLine}>
-            {line}
-          </Text>
-        ))}
-      </View>
+      <Link href="/debug" style={styles.debug}>
+        Test Store harness
+      </Link>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { padding: theme.space.lg, gap: theme.space.md, backgroundColor: theme.color.bg, flexGrow: 1 },
+  root: { flex: 1, backgroundColor: theme.color.bg },
+  content: { padding: theme.space.lg, gap: theme.space.md },
   title: { ...theme.type.title, color: theme.color.text },
-  meta: { ...theme.type.meta, color: theme.color.textDim },
-  error: { ...theme.type.meta, color: theme.color.dangerText },
-  button: {
-    backgroundColor: theme.color.bubbleYou,
-    padding: theme.space.md,
+  sub: { ...theme.type.body, color: theme.color.textDim, marginBottom: theme.space.md },
+  card: {
+    backgroundColor: theme.color.surface,
     borderRadius: theme.radius.chip,
-    alignItems: 'center',
+    padding: theme.space.md,
+    gap: theme.space.sm,
   },
-  buttonGhost: { backgroundColor: theme.color.surface },
-  buttonBusy: { opacity: 0.5 },
-  buttonText: { ...theme.type.body, color: theme.color.text },
-  log: { marginTop: theme.space.lg, gap: theme.space.xs },
-  logLine: { ...theme.type.meta, color: theme.color.textDim, fontFamily: 'monospace' },
+  caseTitle: { ...theme.type.body, color: theme.color.text, fontWeight: '600' },
+  blurb: { ...theme.type.meta, color: theme.color.textDim },
+  cta: {
+    minHeight: theme.hit.min,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.color.bubbleYou,
+    borderRadius: theme.radius.chip,
+  },
+  ctaText: { ...theme.type.body, color: theme.color.text },
+  pressed: { opacity: 0.7 },
+  debug: { ...theme.type.meta, color: theme.color.textDim, marginTop: theme.space.xl },
 });
