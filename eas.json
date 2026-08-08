@@ -17,6 +17,9 @@
     "demo": {
       "distribution": "internal",
       "channel": "demo",
+      "env": {
+        "FORCE_BUNDLING": "1"
+      },
       "android": {
         "gradleCommand": ":app:assembleDebug"
       },
