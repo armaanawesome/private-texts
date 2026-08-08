@@ -14,6 +14,17 @@
         "simulator": true
       }
     },
+    "demo": {
+      "distribution": "internal",
+      "channel": "demo",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "simulator": true,
+        "buildConfiguration": "Debug"
+      }
+    },
     "preview": {
       "distribution": "internal",
       "android": {

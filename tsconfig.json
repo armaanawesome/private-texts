@@ -3,6 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "noUncheckedIndexedAccess": true,
+    // boundary.test.ts walks the filesystem to enforce the engine/content
+    // purity rule, so the Node built-ins need to be in scope for tsc.
+    "types": ["node"],
     "paths": {
       "@/*": ["./src/*"],
       "@content/*": ["./content/*"]

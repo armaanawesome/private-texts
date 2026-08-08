@@ -27,6 +27,17 @@ function resolveApiKey(): string {
         'your RevenueCat Test Store key (app.revenuecat.com -> Apps and providers -> Test Store).',
     );
   }
+
+  // The SDK refuses a test_ key in a Release build: it shows a "Wrong API Key"
+  // alert and terminates the app at configure() time. Nothing here can override
+  // that, so surface the actual fix in the logs before the SDK kills us.
+  if (!__DEV__ && key.startsWith('test_')) {
+    console.error(
+      '[RevenueCat] A Test Store key cannot run in a Release build — the SDK will ' +
+        'close the app. Build with the "demo" EAS profile (Debug configuration):\n' +
+        '  eas build --profile demo --platform ios',
+    );
+  }
   return key;
 }
 
