@@ -39,3 +39,21 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# local secrets
+.env
+
+# Ruflo local secrets and runtime data
+.env.local
+.env.*.local
+
+# Agent tooling. Kept out of version control on purpose: ruflo scaffolds ~250
+# files of agents, skills, and runtime state. It still runs from disk, but this
+# repo is part of the Shipaton submission and judges read it for code quality,
+# so the tooling must not bury src/, content/, and app/.
+.claude-flow/
+.claude/
+.agents/
+
+# Test coverage output
+coverage/
