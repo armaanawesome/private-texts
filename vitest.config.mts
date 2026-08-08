@@ -17,6 +17,7 @@ export default defineConfig({
     include: [
       'src/engine/**/*.test.ts',
       'src/state/**/*.test.ts',
+      'src/entitlements/**/*.test.ts',
       'content/**/*.test.ts',
       'plugins/**/*.test.ts',
     ],

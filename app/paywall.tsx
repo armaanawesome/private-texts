@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ActivityIndicator, ScrollView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import type { PurchasesPackage } from 'react-native-purchases';
@@ -59,8 +59,17 @@ export default function PaywallScreen() {
   // The listener in useEntitlements is the source of truth, not the purchase
   // call — so this closes the paywall whether the unlock came from a purchase,
   // a restore, or a renewal that happened elsewhere.
+  //
+  // The ref makes it fire at most once. router.back() triggers a re-render, and
+  // if anything in the dependency list has an unstable identity that re-entered
+  // this effect and called back() again, forever — which is exactly what
+  // "Maximum update depth exceeded" was.
+  const dismissed = useRef(false);
   useEffect(() => {
-    if (entitlementIds.includes(CASE_PACK_ENTITLEMENT)) router.back();
+    if (dismissed.current) return;
+    if (!entitlementIds.includes(CASE_PACK_ENTITLEMENT)) return;
+    dismissed.current = true;
+    router.back();
   }, [entitlementIds, router]);
 
   async function buy(pkg: PurchasesPackage) {
