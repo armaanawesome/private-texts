@@ -1,0 +1,143 @@
+import { describe, it, expect, beforeEach } from 'vitest';
+import { useCaseStore } from './caseStore';
+import type { CaseScript } from '@/engine';
+
+const SCRIPT = {
+  id: 'c',
+  title: 'C',
+  blurb: '',
+  characters: [{ id: 'nadia', name: 'Nadia', avatarColor: '#c33' }],
+  places: [
+    { id: 'studio', name: 'Studio' },
+    { id: 'harbour', name: 'Harbour' },
+  ],
+  threads: [
+    {
+      id: 't',
+      title: 'T',
+      participantIds: ['nadia'],
+      requiresContradictionIds: [],
+      messages: [
+        {
+          id: 'm1',
+          threadId: 't',
+          senderId: 'nadia',
+          sentAt: 1,
+          body: 'a',
+          claims: [
+            {
+              id: 'c1',
+              subject: 'nadia',
+              assertedBy: 'nadia',
+              predicate: { kind: 'at_place', placeId: 'studio' },
+              window: { start: 100, end: 200 },
+              sourceMessageId: 'm1',
+              label: 'L1',
+            },
+          ],
+        },
+        {
+          id: 'm2',
+          threadId: 't',
+          senderId: 'nadia',
+          sentAt: 2,
+          body: 'b',
+          claims: [
+            {
+              id: 'c2',
+              subject: 'nadia',
+              assertedBy: 'nadia',
+              predicate: { kind: 'at_place', placeId: 'harbour' },
+              window: { start: 150, end: 250 },
+              sourceMessageId: 'm2',
+              label: 'L2',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  contradictions: [{ id: 'x1', claimIdA: 'c1', claimIdB: 'c2', revelation: 'Caught.' }],
+  solution: { killerId: 'nadia', requiredContradictionIds: ['x1'], epilogue: 'e' },
+} as CaseScript;
+
+describe('useCaseStore', () => {
+  beforeEach(() => {
+    useCaseStore.getState().reset();
+    useCaseStore.getState().loadScript(SCRIPT);
+  });
+
+  it('starts with nothing read, pinned, or confirmed', () => {
+    const s = useCaseStore.getState();
+    expect(s.readMessageIds).toEqual([]);
+    expect(s.pinnedClaimIds).toEqual([]);
+    expect(s.confirmedContradictionIds).toEqual([]);
+  });
+
+  it('records a message as read exactly once', () => {
+    useCaseStore.getState().markRead('m1');
+    useCaseStore.getState().markRead('m1');
+    expect(useCaseStore.getState().readMessageIds).toEqual(['m1']);
+  });
+
+  it('pins and unpins a claim', () => {
+    useCaseStore.getState().togglePin('c1');
+    expect(useCaseStore.getState().pinnedClaimIds).toEqual(['c1']);
+    useCaseStore.getState().togglePin('c1');
+    expect(useCaseStore.getState().pinnedClaimIds).toEqual([]);
+  });
+
+  it('holds at most two pins, dropping the oldest', () => {
+    const { togglePin } = useCaseStore.getState();
+    togglePin('c1');
+    togglePin('c2');
+    togglePin('c3');
+    expect(useCaseStore.getState().pinnedClaimIds).toEqual(['c2', 'c3']);
+  });
+
+  it('confirms a real contradiction on submit', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+    const after = useCaseStore.getState();
+    expect(after.confirmedContradictionIds).toEqual(['x1']);
+    expect(after.lastVerdict?.ok).toBe(true);
+    expect(after.pinnedClaimIds).toEqual([]);
+  });
+
+  it('rejects a non-contradiction and keeps the pins on the board', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.togglePin('c1');
+    s.submitPins();
+    const after = useCaseStore.getState();
+    expect(after.confirmedContradictionIds).toEqual([]);
+    expect(after.lastVerdict?.ok).toBe(false);
+    expect(after.pinnedClaimIds).toEqual(['c1']);
+  });
+
+  it('does not confirm the same contradiction twice', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+    expect(useCaseStore.getState().confirmedContradictionIds).toEqual(['x1']);
+  });
+
+  it('clears the verdict when a pin changes', () => {
+    const s = useCaseStore.getState();
+    s.togglePin('c1');
+    s.submitPins();
+    expect(useCaseStore.getState().lastVerdict).not.toBeNull();
+    s.togglePin('c2');
+    expect(useCaseStore.getState().lastVerdict).toBeNull();
+  });
+});

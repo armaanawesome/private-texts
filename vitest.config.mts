@@ -18,6 +18,10 @@ export default defineConfig({
     environment: 'node',
     coverage: {
       include: ['src/engine/**', 'src/state/**'],
+      // persistence.ts is a thin AsyncStorage adapter — it cannot execute under
+      // the Node environment, and mocking the module would only assert that the
+      // mock was called. The logic worth testing lives in caseStore.
+      exclude: ['src/state/persistence.ts'],
       reporter: ['text', 'html'],
     },
   },
