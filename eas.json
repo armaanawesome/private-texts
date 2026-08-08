@@ -7,23 +7,12 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "environment": "preview",
       "android": {
         "buildType": "apk"
       },
       "ios": {
         "simulator": true
-      }
-    },
-    "demo": {
-      "distribution": "internal",
-      "channel": "demo",
-      "environment": "preview",
-      "android": {
-        "gradleCommand": ":app:assembleDebug"
-      },
-      "ios": {
-        "simulator": true,
-        "buildConfiguration": "Debug"
       }
     },
     "preview": {

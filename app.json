@@ -44,8 +44,7 @@
         {
           "microphonePermission": false
         }
-      ],
-      "./plugins/with-force-bundling.js"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
