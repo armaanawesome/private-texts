@@ -29,6 +29,12 @@ export function useEntitlements(): EntitlementsState {
 
   const apply = useCallback((next: string[]) => {
     const sorted = [...next].sort();
+    if (__DEV__) {
+      // The entitlement id in the dashboard must match CASE_PACK_ENTITLEMENT
+      // exactly, or a purchase succeeds and unlocks nothing. Printing what
+      // RevenueCat actually reports turns that into a one-line diagnosis.
+      console.log('[entitlements] active:', sorted.length ? sorted.join(', ') : '(none)');
+    }
     setEntitlementIds((prev) => (sameIds(prev, sorted) ? prev : sorted));
   }, []);
 

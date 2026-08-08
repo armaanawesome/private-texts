@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ActivityIndicator, ScrollView } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import type { PurchasesPackage } from 'react-native-purchases';
 import { theme } from '@/ui/theme';
 import { useEntitlements } from '@/entitlements/useEntitlements';
@@ -103,8 +103,8 @@ export default function PaywallScreen() {
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: '', presentation: 'modal' }} />
-
+      {/* No <Stack.Screen options={{...}} /> here — an inline literal re-renders
+          the navigator forever. Options live in app/_layout.tsx. */}
       <Text style={styles.kicker}>CASE FILE — SEALED</Text>
       <Text style={styles.title}>More cases</Text>
       <Text style={styles.body}>

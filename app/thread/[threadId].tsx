@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
 import { useLocalSearchParams, Stack, Redirect } from 'expo-router';
 import { theme } from '@/ui/theme';
@@ -14,6 +14,9 @@ export default function ThreadScreen() {
   const togglePin = useCaseStore((s) => s.togglePin);
   const [sheetFor, setSheetFor] = useState<string | null>(null);
 
+  const title = script?.threads.find((t) => t.id === threadId)?.title ?? '';
+  const titleOptions = useMemo(() => ({ title }), [title]);
+
   if (!script) return <Redirect href="/" />;
   const thread = script.threads.find((t) => t.id === threadId);
   if (!thread) return <Redirect href="/" />;
@@ -24,7 +27,9 @@ export default function ThreadScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: thread.title }} />
+      {/* Memoised: an inline literal here makes the navigator setOptions on
+          every render, which loops. See app/_layout.tsx. */}
+      <Stack.Screen options={titleOptions} />
       <MessageList
         thread={thread}
         characters={script.characters}

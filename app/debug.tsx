@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
-import { Stack } from 'expo-router';
+
 import { theme } from '@/ui/theme';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import { getCasePackOffering, purchaseCasePack, restorePurchases } from '@/entitlements/revenuecat';
@@ -62,7 +62,6 @@ export default function DebugPurchaseScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.root}>
-      <Stack.Screen options={{ title: 'Test Store harness' }} />
       <Text style={styles.meta}>Platform: {Platform.OS}</Text>
       <Text style={styles.meta}>
         Entitlements:{' '}
