@@ -4,8 +4,8 @@ import Purchases, {
   type PurchasesPackage,
 } from 'react-native-purchases';
 
-/** Entitlement id as configured in the RevenueCat dashboard. */
-export const CASE_PACK_ENTITLEMENT = 'case_pack_01';
+export { CASE_PACK_ENTITLEMENT } from './ids';
+import { CASE_PACK_ENTITLEMENT } from './ids';
 
 let configured = false;
 
