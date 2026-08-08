@@ -54,6 +54,11 @@ yarn-error.*
 .claude-flow/
 .claude/
 .agents/
+.swarm/
+ruvector.db
+*.db
+*.db-shm
+*.db-wal
 
 # Test coverage output
 coverage/
