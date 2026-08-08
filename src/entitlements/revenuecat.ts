@@ -42,17 +42,30 @@ export async function getCasePackOffering(): Promise<PurchasesOffering | null> {
   return offerings.current;
 }
 
-/** True when the purchase completed and the entitlement is now active. */
-export async function purchaseCasePack(pkg: PurchasesPackage): Promise<boolean> {
+export type PurchaseOutcome =
+  | { kind: 'purchased' }
+  | { kind: 'cancelled' }
+  | { kind: 'failed'; error: unknown };
+
+/**
+ * Deliberately does NOT unlock content or return an entitlement boolean.
+ *
+ * A boolean would conflate "user cancelled" with "purchase failed" with "bought
+ * but not entitled" — three outcomes that need different UI. And unlocking here
+ * would create a second source of truth alongside the restore path; instead the
+ * CustomerInfo listener in useEntitlements flips gated UI, so purchase and
+ * restore converge on one path.
+ */
+export async function purchaseCasePack(pkg: PurchasesPackage): Promise<PurchaseOutcome> {
   try {
-    const { customerInfo } = await Purchases.purchasePackage(pkg);
-    return CASE_PACK_ENTITLEMENT in customerInfo.entitlements.active;
+    await Purchases.purchasePackage(pkg);
+    return { kind: 'purchased' };
   } catch (e) {
-    // A user backing out of the sheet is a normal outcome, not an error to surface.
-    if (typeof e === 'object' && e !== null && 'userCancelled' in e && e.userCancelled) {
-      return false;
+    // Backing out of the store sheet is a normal outcome, not an error to surface.
+    if (typeof e === 'object' && e !== null && 'userCancelled' in e && e.userCancelled === true) {
+      return { kind: 'cancelled' };
     }
-    throw e;
+    return { kind: 'failed', error: e };
   }
 }
 

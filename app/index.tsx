@@ -16,10 +16,15 @@ import {
 export default function DebugPurchaseScreen() {
   const { entitlementIds, loading, error, refresh } = useEntitlements();
   const [log, setLog] = useState<string[]>([]);
+  // StoreKit and Play Billing queue duplicate calls; the UI must not let the
+  // user fire a second purchase while one is in flight.
+  const [buying, setBuying] = useState(false);
 
   const say = (line: string) => setLog((l) => [...l, line]);
 
   async function handlePurchase() {
+    if (buying) return;
+    setBuying(true);
     try {
       say('Fetching current offering...');
       const offering = await getCasePackOffering();
@@ -33,11 +38,22 @@ export default function DebugPurchaseScreen() {
         return;
       }
       say(`Purchasing ${pkg.product.identifier} (${pkg.product.priceString})...`);
-      const ok = await purchaseCasePack(pkg);
-      say(ok ? 'Entitlement active.' : 'Cancelled or not entitled.');
-      await refresh();
+      const outcome = await purchaseCasePack(pkg);
+      switch (outcome.kind) {
+        case 'purchased':
+          say('Purchased. Waiting for the entitlement listener...');
+          break;
+        case 'cancelled':
+          say('Cancelled by user (this is not an error).');
+          break;
+        case 'failed':
+          say(`Failed: ${String((outcome.error as { message?: string })?.message ?? outcome.error)}`);
+          break;
+      }
     } catch (e) {
       say(`Error: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBuying(false);
     }
   }
 
@@ -61,8 +77,13 @@ export default function DebugPurchaseScreen() {
       </Text>
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      <Pressable style={styles.button} onPress={handlePurchase}>
-        <Text style={styles.buttonText}>Buy case pack</Text>
+      <Pressable
+        style={[styles.button, buying && styles.buttonBusy]}
+        onPress={handlePurchase}
+        disabled={buying}
+        accessibilityState={{ disabled: buying }}
+      >
+        <Text style={styles.buttonText}>{buying ? 'Working...' : 'Buy case pack'}</Text>
       </Pressable>
       <Pressable style={[styles.button, styles.buttonGhost]} onPress={handleRestore}>
         <Text style={styles.buttonText}>Restore purchases</Text>
@@ -83,7 +104,7 @@ const styles = StyleSheet.create({
   root: { padding: theme.space.lg, gap: theme.space.md, backgroundColor: theme.color.bg, flexGrow: 1 },
   title: { ...theme.type.title, color: theme.color.text },
   meta: { ...theme.type.meta, color: theme.color.textDim },
-  error: { ...theme.type.meta, color: theme.color.danger },
+  error: { ...theme.type.meta, color: theme.color.dangerText },
   button: {
     backgroundColor: theme.color.bubbleYou,
     padding: theme.space.md,
@@ -91,6 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonGhost: { backgroundColor: theme.color.surface },
+  buttonBusy: { opacity: 0.5 },
   buttonText: { ...theme.type.body, color: theme.color.text },
   log: { marginTop: theme.space.lg, gap: theme.space.xs },
   logLine: { ...theme.type.meta, color: theme.color.textDim, fontFamily: 'monospace' },
