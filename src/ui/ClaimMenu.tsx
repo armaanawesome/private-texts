@@ -1,0 +1,154 @@
+import { Modal, View, Text, StyleSheet, Pressable } from 'react-native';
+import { BlurView } from 'expo-blur';
+import Animated, { FadeIn, FadeOut, ZoomIn } from 'react-native-reanimated';
+import * as Haptics from 'expo-haptics';
+import { theme } from './theme';
+import { StaticBubble } from './ChatBubble';
+import type { Character, Claim, Message } from '@/engine';
+
+interface Props {
+  message: Message | null;
+  sender: Character | null;
+  isOwn: boolean;
+  pinnedClaimIds: readonly string[];
+  onPick: (claim: Claim) => void;
+  onClose: () => void;
+  reduceMotion: boolean;
+}
+
+/**
+ * The message lifts out of the conversation and everything else blurs away.
+ *
+ * Modelled on the iOS long-press pattern used by WhatsApp, X, Clubhouse and
+ * yope: the pressed message stays visible and elevated while its context
+ * recedes. It suits this game unusually well — interrogating a single statement
+ * is literally the mechanic, so the interface performing that isolation reads
+ * as meaning rather than decoration.
+ */
+export function ClaimMenu({
+  message,
+  sender,
+  isOwn,
+  pinnedClaimIds,
+  onPick,
+  onClose,
+  reduceMotion,
+}: Props) {
+  const open = message !== null && sender !== null;
+  const claims = message?.claims ?? [];
+
+  return (
+    <Modal visible={open} transparent animationType="none" onRequestClose={onClose}>
+      {open ? (
+        <Animated.View
+          entering={reduceMotion ? undefined : FadeIn.duration(160)}
+          exiting={reduceMotion ? undefined : FadeOut.duration(120)}
+          style={StyleSheet.absoluteFill}
+        >
+          <BlurView intensity={38} tint="dark" style={StyleSheet.absoluteFill} />
+          <Pressable style={styles.dismissArea} onPress={onClose} accessibilityLabel="Close" />
+
+          <View style={styles.stage} pointerEvents="box-none">
+            <Animated.View
+              entering={reduceMotion ? undefined : ZoomIn.springify().damping(16).mass(0.7)}
+              style={styles.lifted}
+            >
+              <StaticBubble
+                message={message}
+                sender={sender}
+                isOwn={isOwn}
+                geometry={{ first: true, last: true }}
+              />
+            </Animated.View>
+
+            <Animated.View
+              entering={reduceMotion ? undefined : FadeInUpDelayed}
+              style={styles.card}
+            >
+              <Text style={styles.heading}>Put on the record</Text>
+              {claims.map((c, i) => (
+                <Pressable
+                  key={c.id}
+                  onPress={() => {
+                    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                    onPick(c);
+                  }}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected: pinnedClaimIds.includes(c.id) }}
+                  style={({ pressed }) => [
+                    styles.action,
+                    i > 0 && styles.actionDivider,
+                    pressed && styles.actionPressed,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.actionText,
+                      pinnedClaimIds.includes(c.id) && styles.actionTextOn,
+                    ]}
+                  >
+                    {c.label}
+                  </Text>
+                  {pinnedClaimIds.includes(c.id) ? (
+                    <Text style={styles.check}>on the record</Text>
+                  ) : null}
+                </Pressable>
+              ))}
+            </Animated.View>
+          </View>
+        </Animated.View>
+      ) : null}
+    </Modal>
+  );
+}
+
+/** Card follows the lifted bubble rather than arriving with it. */
+const FadeInUpDelayed = FadeIn.duration(220).delay(90);
+
+const styles = StyleSheet.create({
+  dismissArea: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
+  stage: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: theme.space.lg,
+    gap: theme.space.md,
+  },
+  lifted: {
+    // Lifted objects cast shadow; that is what sells the elevation.
+    shadowColor: '#000',
+    shadowOpacity: 0.5,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 12 },
+    elevation: 12,
+  },
+  card: {
+    backgroundColor: theme.color.surface,
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 10,
+  },
+  heading: {
+    ...theme.type.meta,
+    color: theme.color.textDim,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    paddingHorizontal: theme.space.md,
+    paddingTop: theme.space.md,
+    paddingBottom: theme.space.sm,
+  },
+  action: {
+    minHeight: theme.hit.min,
+    justifyContent: 'center',
+    paddingHorizontal: theme.space.md,
+    paddingVertical: theme.space.sm,
+  },
+  actionDivider: { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.color.bubbleThem },
+  actionPressed: { backgroundColor: theme.color.bubbleThem },
+  actionText: { ...theme.type.claim, color: theme.color.text },
+  actionTextOn: { color: theme.color.proof },
+  check: { ...theme.type.meta, color: theme.color.proof, marginTop: 2 },
+});

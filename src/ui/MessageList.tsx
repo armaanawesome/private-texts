@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollView, Pressable, View, Text, StyleSheet } from 'react-native';
-import { useReducedMotion } from 'react-native-reanimated';
+import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
 import { theme } from './theme';
-import { ChatBubble } from './ChatBubble';
+import { ChatBubble, type BubbleGeometry } from './ChatBubble';
 import { TypingIndicator } from './TypingIndicator';
+import { DateDivider } from './DateDivider';
 import { useCaseStore } from '@/state/caseStore';
 import type { Character, Thread } from '@/engine';
 
-/** The player's own seat in every thread. */
 export const PLAYER_ID = 'you';
+
+/** A visible pause in the conversation earns a time marker. */
+const TIME_GAP_MINUTES = 5;
 
 interface Props {
   thread: Thread;
@@ -16,16 +19,11 @@ interface Props {
   onPressClaims: (messageId: string) => void;
 }
 
-/** Show a timestamp only when the conversation has visibly paused. */
-const TIME_GAP_MINUTES = 5;
-
 export function MessageList({ thread, characters, onPressClaims }: Props) {
   const reduceMotion = useReducedMotion();
   const markRead = useCaseStore((s) => s.markRead);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
 
-  // Messages already read in a previous session are present immediately; only
-  // genuinely new ones play out. Re-reading a thread must not replay the wait.
   const initialCount = thread.messages.filter((m) => readMessageIds.includes(m.id)).length;
   const [shown, setShown] = useState(Math.max(initialCount, 1));
   const [typing, setTyping] = useState(false);
@@ -40,8 +38,6 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
     timers.current = [];
   }, []);
 
-  /** Flush the whole thread instantly. Without this the game is unplayable on a
-   *  replay, and impossible to film for the demo video. */
   const skip = useCallback(() => {
     clearTimers();
     setTyping(false);
@@ -57,20 +53,16 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
     if (done) return;
     const next = thread.messages[shown];
     if (!next) return;
-
     if (reduceMotion) {
       skip();
       return;
     }
-
-    const delay = theme.motion.typingFor(next.body);
     setTyping(true);
-    const t1 = setTimeout(() => {
+    const t = setTimeout(() => {
       setTyping(false);
       setShown((n) => n + 1);
-    }, delay);
-    timers.current.push(t1);
-
+    }, theme.motion.typingFor(next.body));
+    timers.current.push(t);
     return clearTimers;
   }, [shown, done, thread.messages, reduceMotion, skip, clearTimers]);
 
@@ -79,8 +71,12 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
   const visible = thread.messages.slice(0, shown);
 
   return (
-    <Pressable onPress={done ? undefined : skip} style={styles.flex} accessibilityRole="button"
-      accessibilityLabel={done ? 'Conversation' : 'Tap to skip ahead'}>
+    <Pressable
+      onPress={done ? undefined : skip}
+      style={styles.flex}
+      accessibilityRole={done ? undefined : 'button'}
+      accessibilityLabel={done ? 'Conversation' : 'Tap to skip ahead'}
+    >
       <ScrollView
         ref={scrollRef}
         contentContainerStyle={styles.content}
@@ -88,28 +84,45 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
       >
         {visible.map((m, i) => {
           const prev = i > 0 ? visible[i - 1] : undefined;
+          const next = visible[i + 1];
           const sender = byId.get(m.senderId);
           if (!sender) return null;
+
+          const gap = !prev || m.sentAt - prev.sentAt >= TIME_GAP_MINUTES;
+          const geometry: BubbleGeometry = {
+            // A time marker breaks the run, so the bubble below it reads as new.
+            first: gap || prev?.senderId !== m.senderId,
+            last:
+              !next ||
+              next.senderId !== m.senderId ||
+              next.sentAt - m.sentAt >= TIME_GAP_MINUTES,
+          };
+
           return (
-            <ChatBubble
-              key={m.id}
-              message={m}
-              sender={sender}
-              isOwn={m.senderId === PLAYER_ID}
-              showSender={prev?.senderId !== m.senderId}
-              showTime={!prev || m.sentAt - prev.sentAt >= TIME_GAP_MINUTES}
-              onPressClaims={() => onPressClaims(m.id)}
-              reduceMotion={reduceMotion}
-            />
+            <View key={m.id}>
+              {gap ? <DateDivider minutes={m.sentAt} /> : null}
+              <ChatBubble
+                message={m}
+                sender={sender}
+                isOwn={m.senderId === PLAYER_ID}
+                geometry={geometry}
+                onPressClaims={() => onPressClaims(m.id)}
+                reduceMotion={reduceMotion}
+              />
+            </View>
           );
         })}
         {typing ? <TypingIndicator /> : null}
       </ScrollView>
 
       {!done ? (
-        <View style={styles.skipHint} pointerEvents="none">
+        <Animated.View
+          entering={reduceMotion ? undefined : FadeIn.duration(400).delay(900)}
+          style={styles.skipHint}
+          pointerEvents="none"
+        >
           <Text style={styles.skipText}>Tap to skip</Text>
-        </View>
+        </Animated.View>
       ) : null}
     </Pressable>
   );
@@ -117,16 +130,17 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
 
 const styles = StyleSheet.create({
   flex: { flex: 1, backgroundColor: theme.color.bg },
-  content: { padding: theme.space.md, paddingBottom: theme.space.xl },
+  content: { paddingHorizontal: theme.space.md, paddingBottom: theme.space.xl },
   skipHint: {
     position: 'absolute',
-    bottom: theme.space.md,
+    bottom: theme.space.lg,
     alignSelf: 'center',
     backgroundColor: theme.color.surface,
     paddingHorizontal: theme.space.md,
     paddingVertical: theme.space.sm,
-    borderRadius: theme.radius.chip,
-    opacity: 0.9,
+    borderRadius: 100,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: theme.color.bubbleThem,
   },
-  skipText: { ...theme.type.meta, color: theme.color.textDim },
+  skipText: { ...theme.type.meta, color: theme.color.textDim, letterSpacing: 0.4 },
 });

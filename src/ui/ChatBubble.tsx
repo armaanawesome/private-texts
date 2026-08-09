@@ -1,76 +1,98 @@
-import { memo } from 'react';
+import { forwardRef, memo } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { theme } from './theme';
 import type { Character, Message } from '@/engine';
 
+export interface BubbleGeometry {
+  /** First message of a run from this sender. */
+  first: boolean;
+  /** Last message of a run from this sender. */
+  last: boolean;
+}
+
 interface Props {
   message: Message;
   sender: Character;
-  /** True when this is the player's own message. */
   isOwn: boolean;
-  /** First in a run from the same sender — only then is the name shown. */
-  showSender: boolean;
-  /** More than 5 in-fiction minutes since the previous message. */
-  showTime: boolean;
-  onPressClaims?: () => void;
+  geometry: BubbleGeometry;
+  onPressClaims?: (layout: { x: number; y: number; width: number; height: number }) => void;
   reduceMotion: boolean;
 }
 
-/** In-fiction clock, from minutes since the case epoch. */
-function formatTime(minutes: number): string {
-  const h = Math.floor(minutes / 60) % 24;
-  const m = minutes % 60;
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+const R = theme.radius.bubble;
+const TIGHT = 6;
+
+/**
+ * Corner geometry follows the run, not the message.
+ *
+ * A run of messages from one person reads as a single utterance when the inner
+ * corners tighten and only the outer ones stay round. Uniformly rounded bubbles
+ * are the giveaway of a chat UI built from a single reusable box.
+ */
+function radii(isOwn: boolean, { first, last }: BubbleGeometry) {
+  const near = isOwn ? 'Right' : 'Left';
+  return {
+    borderTopLeftRadius: R,
+    borderTopRightRadius: R,
+    borderBottomLeftRadius: R,
+    borderBottomRightRadius: R,
+    [`borderTop${near}Radius`]: first ? R : TIGHT,
+    [`borderBottom${near}Radius`]: last ? R : TIGHT,
+  } as const;
 }
 
-function ChatBubbleImpl({
-  message,
-  sender,
-  isOwn,
-  showSender,
-  showTime,
-  onPressClaims,
-  reduceMotion,
-}: Props) {
+function ChatBubbleImpl({ message, sender, isOwn, geometry, onPressClaims, reduceMotion }: Props) {
   const hasClaims = (message.claims?.length ?? 0) > 0;
 
-  const body = (
+  const bubble = (
     <View
       style={[
         styles.bubble,
         isOwn ? styles.own : styles.them,
-        // A hairline marker: this message put something on the record.
+        radii(isOwn, geometry),
         hasClaims && styles.hasClaims,
       ]}
     >
-      {showSender && !isOwn ? <Text style={styles.sender}>{sender.name}</Text> : null}
+      {geometry.first && !isOwn ? <Text style={styles.sender}>{sender.name}</Text> : null}
       <Text style={styles.body}>{message.body}</Text>
-      {showTime ? <Text style={styles.time}>{formatTime(message.sentAt)}</Text> : null}
     </View>
   );
 
   return (
     <Animated.View
-      entering={reduceMotion ? undefined : FadeInDown.duration(180).springify()}
-      style={[styles.row, isOwn ? styles.rowOwn : styles.rowThem]}
+      entering={reduceMotion ? undefined : FadeInDown.springify().damping(18).mass(0.6)}
+      style={[
+        styles.row,
+        isOwn ? styles.rowOwn : styles.rowThem,
+        // Tight within a run, open between speakers — the rhythm that makes a
+        // transcript read as conversation instead of a list.
+        { marginTop: geometry.first ? theme.space.md : 2 },
+      ]}
     >
       {hasClaims ? (
         <Pressable
-          onLongPress={() => {
-            void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            onPressClaims?.();
+          onLongPress={(e) => {
+            void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            const { pageX, pageY, locationX, locationY } = e.nativeEvent;
+            onPressClaims?.({
+              x: pageX - locationX,
+              y: pageY - locationY,
+              width: 0,
+              height: 0,
+            });
           }}
+          delayLongPress={280}
           hitSlop={theme.hit.slop}
           accessibilityRole="button"
-          accessibilityLabel={`Message from ${sender.name}. Long press to record a statement.`}
+          accessibilityLabel={`Message from ${sender.name}. Hold to put a statement on the record.`}
           style={({ pressed }) => (pressed ? styles.pressed : undefined)}
         >
-          {body}
+          {bubble}
         </Pressable>
       ) : (
-        body
+        bubble
       )}
     </Animated.View>
   );
@@ -78,20 +100,40 @@ function ChatBubbleImpl({
 
 export const ChatBubble = memo(ChatBubbleImpl);
 
+/** Same visual, no interaction — used for the lifted copy in the claim menu. */
+export const StaticBubble = forwardRef<View, Omit<Props, 'onPressClaims' | 'reduceMotion'>>(
+  function StaticBubble({ message, sender, isOwn, geometry }, ref) {
+    return (
+      <View ref={ref} style={[styles.row, isOwn ? styles.rowOwn : styles.rowThem]}>
+        <View
+          style={[
+            styles.bubble,
+            isOwn ? styles.own : styles.them,
+            radii(isOwn, geometry),
+            styles.hasClaims,
+          ]}
+        >
+          {geometry.first && !isOwn ? <Text style={styles.sender}>{sender.name}</Text> : null}
+          <Text style={styles.body}>{message.body}</Text>
+        </View>
+      </View>
+    );
+  },
+);
+
 const styles = StyleSheet.create({
-  row: { marginVertical: theme.space.xs, maxWidth: '82%' },
+  row: { maxWidth: '80%' },
   rowOwn: { alignSelf: 'flex-end' },
   rowThem: { alignSelf: 'flex-start' },
-  pressed: { opacity: 0.7 },
+  pressed: { opacity: 0.75, transform: [{ scale: 0.985 }] },
   bubble: {
-    borderRadius: theme.radius.bubble,
-    paddingHorizontal: theme.space.md,
-    paddingVertical: theme.space.sm,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
   },
   them: { backgroundColor: theme.color.bubbleThem },
   own: { backgroundColor: theme.color.bubbleYou },
+  // A message that put something on the record carries a quiet marker.
   hasClaims: { borderLeftWidth: 2, borderLeftColor: theme.color.proof },
-  sender: { ...theme.type.sender, color: theme.color.accent, marginBottom: 2 },
+  sender: { ...theme.type.sender, color: theme.color.accent, marginBottom: 3 },
   body: { ...theme.type.body, color: theme.color.text },
-  time: { ...theme.type.meta, color: theme.color.textDim, alignSelf: 'flex-end', marginTop: 2 },
 });
