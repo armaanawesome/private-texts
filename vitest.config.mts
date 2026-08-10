@@ -18,6 +18,9 @@ export default defineConfig({
       'src/engine/**/*.test.ts',
       'src/state/**/*.test.ts',
       'src/entitlements/**/*.test.ts',
+      // .ts only, never .tsx: the pure helpers a component leans on are testable
+      // here, the components themselves need a renderer and are not.
+      'src/ui/**/*.test.ts',
       'content/**/*.test.ts',
       'plugins/**/*.test.ts',
     ],

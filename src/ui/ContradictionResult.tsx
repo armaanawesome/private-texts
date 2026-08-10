@@ -1,12 +1,5 @@
-import { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  withSequence,
-  Easing,
-} from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import { theme } from './theme';
 import type { ContradictionVerdict } from '@/engine';
 
@@ -18,76 +11,48 @@ interface Props {
 }
 
 /**
- * The connector between the two pin slots, plus the verdict copy.
+ * The words that follow the comparison.
+ *
+ * This used to draw its own connector line between two pin slots. The timeline
+ * above now *is* that connector — it shows the overlap rather than gesturing at
+ * it — and running both left two competing animations for one idea. So this is
+ * copy only, and it enters after the geometry has settled.
  *
  * The rejection branch matters as much as the success one: telling the player
  * *why* two statements do not conflict turns a wrong guess into a lesson rather
- * than a wall, and it is the clearest on-camera evidence that a real rules
- * engine is running underneath rather than a scripted if-statement.
+ * than a wall, and it is the clearest evidence that a real rules engine is
+ * running underneath rather than a scripted if-statement.
  */
 export function ContradictionResult({ verdict, revelation, reduceMotion }: Props) {
-  const draw = useSharedValue(0);
-  const shake = useSharedValue(0);
-
-  useEffect(() => {
-    if (!verdict) {
-      draw.value = 0;
-      return;
-    }
-    if (reduceMotion) {
-      draw.value = 1;
-      return;
-    }
-    draw.value = withTiming(1, {
-      duration: theme.motion.compare,
-      easing: Easing.out(Easing.cubic),
-    });
-    if (verdict.ok) {
-      shake.value = withSequence(
-        withTiming(-6, { duration: 60 }),
-        withTiming(6, { duration: 60 }),
-        withTiming(0, { duration: 60 }),
-      );
-    }
-  }, [verdict, reduceMotion, draw, shake]);
-
-  const lineStyle = useAnimatedStyle(() => ({
-    width: `${draw.value * 100}%`,
-    transform: [{ translateX: shake.value }],
-  }));
+  if (!verdict) {
+    return <Text style={styles.hint}>Pin two statements, then run the check.</Text>;
+  }
 
   return (
-    <View style={styles.root}>
-      <View style={styles.track}>
-        <Animated.View
-          style={[
-            styles.line,
-            lineStyle,
-            { backgroundColor: verdict?.ok ? theme.color.danger : theme.color.textDim },
-          ]}
-        />
+    <Animated.View
+      // Keyed on the reason so a second verdict re-enters instead of swapping
+      // text silently under the player's eyes.
+      key={verdict.reason}
+      entering={reduceMotion ? undefined : FadeIn.duration(theme.motion.base).delay(theme.motion.base)}
+      style={styles.copy}
+    >
+      <View style={styles.headline}>
+        {verdict.ok ? <View style={styles.mark} /> : null}
+        <Text style={verdict.ok ? styles.reasonOk : styles.reasonNo}>{verdict.reason}</Text>
       </View>
-
-      {verdict ? (
-        <View style={styles.copy}>
-          <Text style={verdict.ok ? styles.reasonOk : styles.reasonNo}>{verdict.reason}</Text>
-          {verdict.ok && revelation ? <Text style={styles.revelation}>{revelation}</Text> : null}
-        </View>
-      ) : (
-        <Text style={styles.hint}>Pin two statements, then compare them.</Text>
-      )}
-    </View>
+      {verdict.ok && revelation ? <Text style={styles.revelation}>{revelation}</Text> : null}
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { gap: theme.space.sm },
-  track: { height: 2, backgroundColor: theme.color.bubbleThem, borderRadius: 1, overflow: 'hidden' },
-  line: { height: 2, borderRadius: 1 },
-  copy: { gap: theme.space.xs },
+  copy: { gap: theme.space.sm },
+  headline: { flexDirection: 'row', alignItems: 'center', gap: theme.space.sm },
+  /** Hairline, not a 2px colour bar down the side of a card. */
+  mark: { width: 14, height: 1, backgroundColor: theme.color.danger },
   // dangerText, not danger: the 3.1:1 line colour is unreadable as type.
-  reasonOk: { ...theme.type.body, color: theme.color.dangerText, fontWeight: '600' },
-  reasonNo: { ...theme.type.body, color: theme.color.textDim },
+  reasonOk: { ...theme.type.body, color: theme.color.dangerText, fontWeight: '600', flexShrink: 1 },
+  reasonNo: { ...theme.type.body, color: theme.color.textDim, flexShrink: 1 },
   revelation: { ...theme.type.body, color: theme.color.text },
-  hint: { ...theme.type.meta, color: theme.color.textDim, textAlign: 'center' },
+  hint: { ...theme.type.meta, color: theme.color.textDim },
 });

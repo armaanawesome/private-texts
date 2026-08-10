@@ -32,6 +32,22 @@ export const theme = {
     danger: '#C4483C',
     /** Any danger-coloured text. 5.9:1 on bg. */
     dangerText: '#F2695C',
+
+    /*
+     * Structural neutrals for the comparison sheet. Three additions, each with
+     * one job — they carry the forensic-timeline surface and nothing else.
+     */
+
+    /** Hairline separators: the time axis, section rules. Never a fill. */
+    rule: '#2A2F36',
+    /** The unfilled track a claim bar is drawn along. Reads as "clock not covered". */
+    rail: '#23272E',
+    /**
+     * The stretch of clock two statements both cover. NON-TEXT ONLY — it sits
+     * under bars and is bounded by `danger` hairlines, so it must stay quiet
+     * enough that the bars still read through it.
+     */
+    dangerWash: 'rgba(196,72,60,0.20)',
   },
 
   space: { xs: 4, sm: 8, md: 12, lg: 20, xl: 32 },

@@ -18,6 +18,15 @@ interface CaseState {
    * proven contradictions the player just landed.
    */
   lastConfirmedId: string | null;
+  /**
+   * The pair the most recent check actually compared.
+   *
+   * A success clears `pinnedClaimIds`, which is right for the chips — they
+   * deselect ready for the next pairing. But the comparison sheet draws the two
+   * statements it just broke, so it has to keep showing them, or the board
+   * blanks itself at the exact moment the player wins.
+   */
+  lastComparedClaimIds: string[];
 
   loadScript: (script: CaseScript) => void;
   markRead: (messageId: string) => void;
@@ -48,6 +57,7 @@ const empty = () => ({
   confirmedContradictionIds: [] as string[],
   lastVerdict: null,
   lastConfirmedId: null,
+  lastComparedClaimIds: [] as string[],
 });
 
 export const useCaseStore = create<CaseState>((set, get) => ({
@@ -90,10 +100,11 @@ export const useCaseStore = create<CaseState>((set, get) => ({
     }
 
     const verdict = checkContradiction(script.places, a, b);
+    const compared = [idA, idB];
     // A rejected pairing keeps its pins on the board so the player can swap one
     // out and try again, rather than rebuilding the comparison from scratch.
     if (!verdict.ok) {
-      set({ lastVerdict: verdict });
+      set({ lastVerdict: verdict, lastComparedClaimIds: compared });
       return;
     }
 
@@ -104,7 +115,12 @@ export const useCaseStore = create<CaseState>((set, get) => ({
     // The engine found a genuine conflict the author did not anticipate.
     // Accept it as a valid deduction, but it unlocks nothing.
     if (!match) {
-      set({ lastVerdict: verdict, pinnedClaimIds: [], lastConfirmedId: null });
+      set({
+        lastVerdict: verdict,
+        pinnedClaimIds: [],
+        lastConfirmedId: null,
+        lastComparedClaimIds: compared,
+      });
       return;
     }
 
@@ -112,6 +128,7 @@ export const useCaseStore = create<CaseState>((set, get) => ({
       lastVerdict: verdict,
       pinnedClaimIds: [],
       lastConfirmedId: match.id,
+      lastComparedClaimIds: compared,
       confirmedContradictionIds: confirmedContradictionIds.includes(match.id)
         ? confirmedContradictionIds
         : [...confirmedContradictionIds, match.id],

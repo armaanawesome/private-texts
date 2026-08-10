@@ -166,4 +166,68 @@ describe('useCaseStore', () => {
     s.togglePin('c2');
     expect(useCaseStore.getState().lastVerdict).toBeNull();
   });
+
+  /**
+   * Success clears the pins, which is right for the chips — they deselect ready
+   * for the next pairing. But the comparison sheet draws the two statements it
+   * just broke, so it needs them to survive the clear. Without this the board
+   * blanks itself at the exact moment the player wins.
+   */
+  it('remembers the compared pair after a win clears the pins', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+
+    const after = useCaseStore.getState();
+    expect(after.pinnedClaimIds).toEqual([]);
+    expect([...after.lastComparedClaimIds].sort()).toEqual(['c1', 'c2']);
+  });
+
+  it('remembers the compared pair after a rejection too', () => {
+    // Both claims at the same place, so the engine rejects the pairing. The
+    // sheet still has to draw what was compared, or a rejected check explains
+    // itself against an empty picture.
+    const sameArea = {
+      ...SCRIPT,
+      threads: [
+        {
+          ...SCRIPT.threads[0]!,
+          messages: SCRIPT.threads[0]!.messages.map((m) =>
+            m.id !== 'm2'
+              ? m
+              : {
+                  ...m,
+                  claims: [{ ...m.claims![0]!, predicate: { kind: 'at_place', placeId: 'studio' } }],
+                },
+          ),
+        },
+      ],
+    } as CaseScript;
+
+    useCaseStore.getState().loadScript(sameArea);
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+
+    const after = useCaseStore.getState();
+    expect(after.lastVerdict?.ok).toBe(false);
+    expect([...after.lastComparedClaimIds].sort()).toEqual(['c1', 'c2']);
+  });
+
+  it('forgets the compared pair on reset', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+    useCaseStore.getState().reset();
+    expect(useCaseStore.getState().lastComparedClaimIds).toEqual([]);
+  });
 });
