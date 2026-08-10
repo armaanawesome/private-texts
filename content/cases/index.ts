@@ -1,5 +1,5 @@
 import { loadCase, type CaseScript } from '@/engine';
-import { fixtureRaw } from './fixture';
+import { theLighthouseRaw } from './the-lighthouse';
 import { lockedFixtureRaw } from './fixture-locked';
 
 /**
@@ -9,7 +9,10 @@ import { lockedFixtureRaw } from './fixture-locked';
  * rather than halfway through someone's playthrough. That is the whole point of
  * validating here instead of lazily.
  */
-export const CASES: readonly CaseScript[] = [loadCase(fixtureRaw), loadCase(lockedFixtureRaw)];
+export const CASES: readonly CaseScript[] = [
+  loadCase(theLighthouseRaw),
+  loadCase(lockedFixtureRaw),
+];
 
 export function getCase(caseId: string): CaseScript | undefined {
   return CASES.find((c) => c.id === caseId);

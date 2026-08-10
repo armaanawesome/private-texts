@@ -5,30 +5,87 @@ understanding before changing `eas.json`.
 
 ## The constraint
 
-Two rules pull in opposite directions:
+**A RevenueCat Test Store key only works in a Debug build.** The SDK checks the
+`test_` prefix at `Purchases.configure()` time, shows a *"Wrong API Key"* alert,
+and **terminates the app**. There is no override — it is a deliberate safeguard
+against shipping a test key to a store. Confirmed against RevenueCat's own
+guidance and reproduced on device.
 
-1. **A RevenueCat Test Store key only works in a non-Release build.** The SDK
-   checks the `test_` prefix at `Purchases.configure()` time, shows a
-   *"Wrong API Key"* alert, and **terminates the app**. There is no override —
-   it is a deliberate safeguard against shipping a test key to a store.
+That is the only hard constraint. Everything else that looked like a constraint
+turned out to be a bug in this repo (see below).
 
-2. **A Debug build does not embed the JS bundle.** It expects Metro to serve it
-   at runtime, and fails with *"No script URL provided…
-   unsanitizedScriptURLString = (null)"* otherwise.
+## What was actually broken (fixed 2026-08-11)
 
-Release gives an app that closes itself on launch. Debug gives an app that
-cannot start. Expo supports **Debug + Metro** or **Release + embedded bundle** —
-not Debug + embedded bundle.
+For four builds, this project believed a second rule: *"a Release build closes
+itself on launch, so we must use Debug, and Debug cannot embed a bundle."*
 
-Three attempts to force the second combination failed (`FORCE_BUNDLING` as an
-EAS env var, then as a config plugin). Each was verified by extracting the built
-`.app` and checking for `main.jsbundle`. **Do not retry this** without reading
-the git history first.
+The first half of that was **our bug, not Expo's and not RevenueCat's**.
+`resolveApiKey()` logged a warning that a `test_` key cannot run in Release —
+and then called `configure()` with it anyway. The SDK did exactly what it
+documents and killed the process on the splash screen.
 
-## The working setup: development build + Metro
+`src/entitlements/keyPolicy.ts` now decides *before* the SDK is touched. If the
+key on hand cannot legally run in this build, purchases are switched off and the
+app runs normally. So:
 
-`development` is the profile that works. It builds a dev client, and Metro
-serves the bundle over a tunnel so a remote simulator can reach it.
+> **A Release (`preview`) build now launches standalone — no Metro, no tunnel, no
+> laptop. It is the build to use for playing and testing the game.**
+
+## Correcting the record on Debug + embedded bundle
+
+The old version of this file said Expo "supports Debug + Metro or Release +
+embedded bundle, not Debug + embedded bundle." **That is wrong**, and it is worth
+stating precisely so nobody re-derives the wrong lesson.
+
+`node_modules/expo/scripts/react-native-xcode.sh` skips bundling only under a
+narrow condition:
+
+```sh
+case "$CONFIGURATION" in
+  *Debug*)
+    if [[ "$PLATFORM_NAME" == *simulator ]]; then
+      if [[ "$FORCE_BUNDLING" ]]; then
+        echo "FORCE_BUNDLING enabled; continuing to bundle."
+      else
+        echo "Skipping bundling in Debug for the Simulator"; exit 0;
+      fi
+    else
+      echo "Bundling for physical device."   # Debug DOES bundle here
+    fi
+```
+
+So Debug + embedded bundle **is** supported — via `FORCE_BUNDLING`, and
+automatically for physical devices. Two attempts to use it failed for mechanical
+reasons, not because the combination is impossible:
+
+1. `env: { FORCE_BUNDLING: "1" }` in `eas.json` — the variable did not reach the
+   Xcode script phase. Verified by extracting the `.app`: no `main.jsbundle`.
+2. A config plugin patching the build phase — Expo never resolved
+   `"./plugins/with-force-bundling.js"`, so it silently did nothing.
+
+If this is ever needed again, the mechanism most likely to work is a config
+plugin that adds `FORCE_BUNDLING = 1` to the target's **Xcode build settings**
+(build settings are exported into script-phase environments by definition,
+unlike an outer shell variable). It has not been tried. Do not spend more than
+one build on it — the Release path above removes the need.
+
+## Profiles
+
+| Profile | Config | Bundle | Purchases | Use |
+|---|---|---|---|---|
+| `preview` | Release | embedded | **off** (guarded) | **Play and test the game.** Launches standalone. Android APK + iOS simulator. |
+| `development` | Debug | Metro (tunnel) | **live** | Test Store purchases, and recording the submission video. |
+| `production` | Release | embedded | needs real keys | Store submission. Needs paid developer accounts. |
+
+### Play and test the game
+
+```bash
+npx eas-cli@latest build --profile preview --platform android
+```
+
+Install the APK directly on an Android phone. Nothing else to run.
+
+### Demo a real purchase
 
 ```bash
 npx eas-cli@latest build --profile development --platform ios
@@ -40,18 +97,8 @@ Then, on the machine holding the source:
 npx expo start --tunnel --dev-client
 ```
 
-Install the resulting `.app` on the simulator (Limrun works for this from
-Windows), open it, and point it at the tunnel URL that `expo start` prints.
-
-**Test Store purchases work here** because the dev client is a Debug build.
-
-## Profiles
-
-| Profile | Config | Bundle | Use |
-|---|---|---|---|
-| `development` | Debug | Metro (tunnel) | **The one that works.** Test Store purchases, and the demo-video recording. |
-| `preview` | Release | embedded | Only useful with real Apple/Google store products and a production RevenueCat key. Closes on launch with a `test_` key. |
-| `production` | Release | embedded | Store submission. Needs paid developer accounts. |
+The tunnel needs an ngrok authtoken configured. Test Store purchases work here
+because the dev client is a Debug build.
 
 ## Environment variables
 
@@ -65,9 +112,8 @@ Cloud builds read these from EAS, registered once with:
 npx eas-cli@latest env:create --name EXPO_PUBLIC_RC_TEST_STORE_KEY --value <key> --environment preview --visibility plaintext --scope project
 ```
 
-**A build profile must declare which environment it reads.** A profile with no
-`"environment"` field resolves *none* of the stored variables, and the app
-launches with no API key at all. Every profile here sets it explicitly.
+**Uncommitted work is not in your build.** EAS uploads the git tree, not the
+working directory. Commit before building or you will test the previous code.
 
 Anything behind `EXPO_PUBLIC_` is extractable from a shipped bundle. A Test
 Store key is fine there; a production RevenueCat secret key is not.
