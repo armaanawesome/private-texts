@@ -50,10 +50,11 @@ accuse.
 | Routes | ✅ threads → board → accuse |
 | Paywall | ✅ custom UI, **purchase unverified** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
-| Case 1 content | ❌ not written — fixtures only |
+| Case 1 content | ✅ written — 6 threads, 76 messages, 3 contradictions, **unplayed by a human** |
+| Standalone build | ✅ `preview` launches with no Metro (bundle verified inside the `.app`) |
 | OneSignal | ❌ not started |
 | Sound, video, assets | ❌ not started |
-| Android | ❌ never built or tested |
+| Android | ⚠️ APK builds; never installed on a handset |
 
 **Tests:** `npm test` → 86 passing in ~100ms. `npx tsc --noEmit` → clean.
 
@@ -100,43 +101,55 @@ Test Store key is fine there; a production RevenueCat secret key never would be.
 
 ---
 
-## 5. The build pipeline — hard-won, read before changing anything
+## 5. The build pipeline — corrected 2026-08-11, read before changing anything
 
-**Four cloud builds died before this worked. `docs/BUILDING.md` has the full
-trail. Do not re-litigate it.**
+**`docs/BUILDING.md` has the full trail.** An earlier version of this section
+was wrong in a way that cost four builds; the correction is below.
 
-Two rules pull against each other:
+There is exactly **one** hard rule:
 
-1. A **Test Store key only works in a non-Release build.** The SDK checks the
-   `test_` prefix at `configure()` and **terminates the app** otherwise.
-2. A **Debug build does not embed the JS bundle** — it needs Metro, or it dies
-   with *"No script URL provided"*.
+> A **Test Store key only works in a Debug build.** The SDK checks the `test_`
+> prefix at `configure()`, shows a "Wrong API Key" alert, and **terminates the
+> app**. Confirmed against RevenueCat's own guidance and reproduced on device.
 
-Release → app closes itself. Debug → app can't start. Expo supports
-**Debug+Metro** or **Release+embedded**, *not* Debug+embedded.
+The *second* rule this project used to believe — "a Release build closes itself,
+so we are forced into Debug" — was **our own bug**, not Expo's and not
+RevenueCat's. `resolveApiKey()` logged that a `test_` key cannot run in Release
+and then called `configure()` with it anyway, so every Release build killed
+itself on the splash screen. `src/entitlements/keyPolicy.ts` now decides before
+the SDK is touched, and a Release build runs normally with purchases off.
 
-**Attempts that failed** (verified by extracting the `.app` and finding no
-`main.jsbundle`): `FORCE_BUNDLING` as an eas.json env var; the same via a config
-plugin (Expo could not even resolve `./plugins/*.js` as a plugin module, so it
-silently never ran).
+### Two builds, two jobs
 
-### The working setup
+| Want | Profile | How |
+|---|---|---|
+| **Play and test the game** | `preview` (Release) | Install and open. Standalone — no Metro, no tunnel, no laptop. |
+| **Demo a real purchase** | `development` (Debug) | Needs Metro over a tunnel. |
+
+```bash
+npx.cmd eas-cli@latest build --profile preview --platform android
+```
+
+That APK installs straight onto a phone and is the fastest way to look at
+anything. For the purchase demo and the submission video:
 
 ```bash
 npx.cmd eas-cli@latest build --profile development --platform ios
-```
-
-Then on the machine holding the source:
-
-```bash
 npx.cmd expo start --tunnel --dev-client
 ```
 
-Install the `.app` on Limrun, open it, point it at the printed tunnel URL.
-Test Store purchases work because the dev client is a Debug build.
+Metro must stay running for that one. Acceptable — Next Gen wants a video and
+source, not an installable binary.
 
-**Metro must stay running while testing and while recording the demo video.**
-That is acceptable — Next Gen wants a video and source, not an installable binary.
+### Correcting the record on Debug + embedded bundle
+
+The old claim that Expo "does not support Debug + embedded bundle" is **false**.
+`node_modules/expo/scripts/react-native-xcode.sh` skips bundling *only* for
+Debug **+ simulator**, and only when `FORCE_BUNDLING` is unset; Debug builds for
+a physical device bundle automatically. The two attempts to use it failed for
+mechanical reasons (an env var that never reached the Xcode phase; a config
+plugin Expo never resolved), not because the combination is impossible. It is no
+longer needed — see the table above — so do not spend builds on it.
 
 ### Build gotchas
 
@@ -192,18 +205,24 @@ before every task.** They have called this out when it lapsed. Honour it.
 
 ## 7. Open bugs and unknowns
 
-**1. Entitlement identifier may be wrong — highest priority.**
-The RevenueCat log shows product `case_pack_1`, but the code gates on entitlement
-**`case_pack_01`** (`src/entitlements/ids.ts`). Product and entitlement are
-different objects so this may be fine, but if the dashboard entitlement is
-`case_pack_1`, **a purchase will succeed and unlock nothing, silently.**
+**1. Entitlement identifier — still unconfirmed against the dashboard.**
+The code gates on **`case_pack_01`** (`src/entitlements/ids.ts`); the RevenueCat
+log shows *product* `case_pack_1`. Product and entitlement are different objects,
+so this may be fine — but if the dashboard **entitlement** is `case_pack_1`,
+**a purchase succeeds and unlocks nothing, silently.**
 
-A dev log now prints it on every update:
+A later session changed the constant to `case_pack_1`, claiming the dashboard
+uses that. That work was discarded for unrelated reasons (see §1) and the claim
+was never independently verified, so the constant is back to `case_pack_01`.
+**Treat it as unknown.** The discarded commit is kept at the git tag
+`discarded/session-2-attempt` if the reasoning is worth re-reading.
+
+A dev log prints the truth on every update:
 ```
 [entitlements] active: …
 ```
-Buy the case pack and read that line. If it disagrees with `ids.ts`, change the
-constant. One-line fix.
+Buy the case pack in a **development** build and read that line. If it disagrees
+with `ids.ts`, change the constant. One-line fix, but it decides eligibility.
 
 **2. Paywall render loop — fixed, unverified.** Root cause was
 `<Stack.Screen options={{...}} />` with an inline literal (new reference every
@@ -215,8 +234,10 @@ screen component.**
 but the write-up was never captured. `docs/task-0-clue-test.md` is specified in
 the plan and belongs in the judged repo — it is evidence of a design process.
 
-**4. Android never built.** `FORCE_BUNDLING` behaves differently there
-(`react { debuggableVariants }` in generated Gradle). Unknown territory.
+**4. Android — first APK built 2026-08-11** via the `preview` profile (a
+keystore already existed on EAS). It has not yet been installed on a real
+handset, so Android remains the least-exercised platform. The `development`
+(Debug + Metro) path on Android is still untried.
 
 ---
 
@@ -270,9 +291,17 @@ remaining, and the Design Award is judged on craft alone.
 | 2026-09-25 | Demo video locked |
 | **2026-09-28** | **Submit.** Not the 30th. |
 
-**Next task is Task 13 — Case 1, "The Lighthouse".** Highest risk in the plan and
-the only one no tool can do. ~20 minutes of play, 5 characters, 6 threads, ~90
-messages, **3 contradictions**, all required to accuse.
+**Task 13 — Case 1, "The Lighthouse" — is written** (2026-08-11). 5 characters,
+6 threads, 76 messages, 14 claims, 3 contradictions, all required to accuse.
+Design notes and the claim table: `docs/case-1-design.md`.
+
+**It has never been played by a human.** The kill gate says *playable end to
+end*, and a passing test suite is not that. Step 6 of Task 13 — play it twice,
+once knowing the answer and once trying to forget it, and time both — is the
+outstanding half of the task. If the second run exceeds 30 minutes, cut a thread.
+
+**Next after that:** the craft pass on the evidence board and accusation screen
+(§8), which is where the Design Award is won or lost.
 
 Write it **backwards**: solution first, then the claim table, then the dialogue.
 Writing forwards produces a story with a mystery bolted on. Every case
