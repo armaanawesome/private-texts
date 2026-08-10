@@ -52,10 +52,10 @@ Times are minutes since the case epoch (day 1, 00:00), so `1300` = 21:40.
 | `c-callum-ferry` | callum | callum | at_place `ferry` | 1140–1200 | `t-group` |
 | `c-esme-cottage` | esme | esme | at_place `cottage` | 1140–1290 | `t-esme` |
 | `c-esme-path` | esme | esme | at_place `path` | 1300–1330 | `t-esme` |
-| `c-esme-cottage-late` | esme | mairi | at_place `cottage` | 1350–1440 | `t-mairi` |
+| `c-esme-cottage-late` | esme | mairi | at_place `cottage` | 1380–1440 | `t-mairi` |
 | `c-ruth-tower` | ruth | ruth | at_place `lighthouse` | 1245–1350 | `t-ruth` |
 | `c-ruth-lamp` | ruth | esme | at_place `lighthouse` | 1300–1320 | `t-esme` |
-| `c-you-ferry` | you | you | at_place `ferry` | 1200–1260 | `t-group` |
+| `c-you-ferry` | you | you | at_place `ferry` | 1140–1200 | `t-group` |
 | `c-you-cafe` | you | mairi | at_place `cafe` | 1265–1290 | `t-mairi` |
 
 14 claims. Only 6 of them take part in a contradiction; the other 8 exist so the
