@@ -6,49 +6,60 @@ import Purchases, {
 
 export { CASE_PACK_ENTITLEMENT } from './ids';
 import { CASE_PACK_ENTITLEMENT } from './ids';
+import { decidePurchasesMode, type PurchasesMode } from './keyPolicy';
 
-let configured = false;
+export type { PurchasesMode };
 
 /**
- * Resolves the API key.
+ * Null until the first configure attempt, then sticky.
  *
  * The RevenueCat Test Store issues ONE key that works on both iOS and Android,
  * which is what lets this project run real purchase flows with no paid Apple or
  * Google developer account — the reason the Next Gen award is reachable at all.
- *
- * A production build would branch here on Platform.OS and return separate Apple
- * and Google keys. Never ship a `test_` key to a real store listing.
  */
-function resolveApiKey(): string {
-  const key = process.env.EXPO_PUBLIC_RC_TEST_STORE_KEY;
-  if (!key) {
-    throw new Error(
-      'EXPO_PUBLIC_RC_TEST_STORE_KEY is not set. Copy .env.example to .env and add ' +
-        'your RevenueCat Test Store key (app.revenuecat.com -> Apps and providers -> Test Store).',
-    );
+let mode: PurchasesMode | null = null;
+
+/**
+ * Configures the SDK, or decides not to.
+ *
+ * Never throws on a key problem. `decidePurchasesMode` is what stops a Test
+ * Store key reaching configure() in a release build, where the SDK would put up
+ * a "Wrong API Key" alert and terminate the process on the splash screen.
+ * See keyPolicy.ts for why that guard has to live outside the SDK.
+ */
+export async function configurePurchases(): Promise<PurchasesMode> {
+  if (mode) return mode;
+
+  const decided = decidePurchasesMode({
+    key: process.env.EXPO_PUBLIC_RC_TEST_STORE_KEY,
+    isDev: __DEV__,
+  });
+
+  if (decided.kind === 'disabled') {
+    console.warn('[RevenueCat] purchases disabled —', decided.reason);
+    mode = decided;
+    return mode;
   }
 
-  // The SDK refuses a test_ key in a Release build: it shows a "Wrong API Key"
-  // alert and terminates the app at configure() time. Nothing here can override
-  // that, so surface the actual fix in the logs before the SDK kills us.
-  if (!__DEV__ && key.startsWith('test_')) {
-    console.error(
-      '[RevenueCat] A Test Store key cannot run in a Release build — the SDK will ' +
-        'close the app. Build with the "demo" EAS profile (Debug configuration):\n' +
-        '  eas build --profile demo --platform ios',
-    );
-  }
-  return key;
+  Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.DEBUG : LOG_LEVEL.ERROR);
+  await Purchases.configure({ apiKey: decided.apiKey });
+  mode = decided;
+  return mode;
 }
 
-export async function configurePurchases(): Promise<void> {
-  if (configured) return;
-  Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.DEBUG : LOG_LEVEL.ERROR);
-  await Purchases.configure({ apiKey: resolveApiKey() });
-  configured = true;
+/**
+ * Whether the native SDK has actually been configured.
+ *
+ * Every call below is guarded by this. Calling into react-native-purchases
+ * before configure() throws a native "singleton instance not set" error, so a
+ * disabled build would trade one crash for another without these guards.
+ */
+export function purchasesAreLive(): boolean {
+  return mode?.kind === 'live';
 }
 
 export async function getCasePackOffering(): Promise<PurchasesOffering | null> {
+  if (!purchasesAreLive()) return null;
   const offerings = await Purchases.getOfferings();
   return offerings.current;
 }
@@ -68,6 +79,10 @@ export type PurchaseOutcome =
  * restore converge on one path.
  */
 export async function purchaseCasePack(pkg: PurchasesPackage): Promise<PurchaseOutcome> {
+  if (!purchasesAreLive()) {
+    const why = mode?.kind === 'disabled' ? mode.reason : 'Purchases are not available.';
+    return { kind: 'failed', error: new Error(why) };
+  }
   try {
     await Purchases.purchasePackage(pkg);
     return { kind: 'purchased' };
@@ -81,11 +96,13 @@ export async function purchaseCasePack(pkg: PurchasesPackage): Promise<PurchaseO
 }
 
 export async function restorePurchases(): Promise<string[]> {
+  if (!purchasesAreLive()) return [];
   const customerInfo = await Purchases.restorePurchases();
   return Object.keys(customerInfo.entitlements.active);
 }
 
 export async function getActiveEntitlementIds(): Promise<string[]> {
+  if (!purchasesAreLive()) return [];
   const customerInfo = await Purchases.getCustomerInfo();
   return Object.keys(customerInfo.entitlements.active);
 }

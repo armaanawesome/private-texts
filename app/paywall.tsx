@@ -27,12 +27,19 @@ type Phase =
  */
 export default function PaywallScreen() {
   const router = useRouter();
-  const { entitlementIds } = useEntitlements();
+  const { entitlementIds, unavailableReason } = useEntitlements();
   const [phase, setPhase] = useState<Phase>({ kind: 'loading' });
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     setPhase({ kind: 'loading' });
+    // A build that cannot legally configure the store fails here, not at the
+    // offering call — otherwise this reports "nothing to sell", which sends the
+    // reader looking at the dashboard instead of at the build configuration.
+    if (unavailableReason) {
+      setPhase({ kind: 'unavailable', reason: unavailableReason });
+      return;
+    }
     try {
       const offering = await getCasePackOffering();
       const pkg = offering?.availablePackages[0];
@@ -50,7 +57,7 @@ export default function PaywallScreen() {
         reason: e instanceof Error ? e.message : 'Could not reach the store.',
       });
     }
-  }, []);
+  }, [unavailableReason]);
 
   useEffect(() => {
     void load();
@@ -125,9 +132,14 @@ export default function PaywallScreen() {
       {phase.kind === 'unavailable' ? (
         <View style={styles.problem}>
           <Text style={styles.problemText}>{phase.reason}</Text>
-          <Pressable onPress={load} style={styles.retry} accessibilityRole="button">
-            <Text style={styles.retryText}>Try again</Text>
-          </Pressable>
+          {/* No retry when the store is off by construction — retrying a build
+              configuration cannot succeed, and a button that never works is
+              worse than no button. */}
+          {unavailableReason ? null : (
+            <Pressable onPress={load} style={styles.retry} accessibilityRole="button">
+              <Text style={styles.retryText}>Try again</Text>
+            </Pressable>
+          )}
         </View>
       ) : null}
 
@@ -153,9 +165,16 @@ export default function PaywallScreen() {
         </Pressable>
       ) : null}
 
-      <Pressable onPress={restore} disabled={busy} accessibilityRole="button" hitSlop={theme.hit.slop}>
-        <Text style={styles.restore}>Restore purchases</Text>
-      </Pressable>
+      {unavailableReason ? null : (
+        <Pressable
+          onPress={restore}
+          disabled={busy}
+          accessibilityRole="button"
+          hitSlop={theme.hit.slop}
+        >
+          <Text style={styles.restore}>Restore purchases</Text>
+        </Pressable>
+      )}
 
       <Pressable onPress={() => router.back()} accessibilityRole="button" hitSlop={theme.hit.slop}>
         <Text style={styles.notNow}>Not now</Text>

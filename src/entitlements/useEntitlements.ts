@@ -1,11 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import Purchases, { type CustomerInfo } from 'react-native-purchases';
-import { configurePurchases, getActiveEntitlementIds } from './revenuecat';
+import { configurePurchases, getActiveEntitlementIds, purchasesAreLive } from './revenuecat';
 
 export interface EntitlementsState {
   entitlementIds: string[];
   loading: boolean;
   error: string | null;
+  /**
+   * Set when the store could not be switched on for this build — most often a
+   * Test Store key in a release binary. The paywall shows this instead of a
+   * dead "Buy" button, so the reason is visible in the app rather than only in
+   * a native log the player cannot reach.
+   */
+  unavailableReason: string | null;
   refresh: () => Promise<void>;
 }
 
@@ -26,6 +33,7 @@ export function useEntitlements(): EntitlementsState {
   const [entitlementIds, setEntitlementIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [unavailableReason, setUnavailableReason] = useState<string | null>(null);
 
   const apply = useCallback((next: string[]) => {
     const sorted = [...next].sort();
@@ -42,7 +50,8 @@ export function useEntitlements(): EntitlementsState {
     setLoading(true);
     setError(null);
     try {
-      await configurePurchases();
+      const mode = await configurePurchases();
+      setUnavailableReason(mode.kind === 'disabled' ? mode.reason : null);
       apply(await getActiveEntitlementIds());
     } catch (e) {
       // A store outage must not brick the app: the free case still has to open.
@@ -65,19 +74,26 @@ export function useEntitlements(): EntitlementsState {
       apply(Object.keys(info.entitlements.active));
     };
 
+    let listening = false;
+
     void (async () => {
       await refresh();
       if (!active) return;
+      // Registering against an unconfigured SDK throws a native "singleton
+      // instance not set" error, which would turn a build with purchases
+      // switched off into a different crash than the one we just removed.
+      if (!purchasesAreLive()) return;
       Purchases.addCustomerInfoUpdateListener(onUpdate);
+      listening = true;
     })();
 
     return () => {
       active = false;
       // Must pass the same reference that was registered — a fresh closure
       // here would silently fail to detach and leak a listener per mount.
-      Purchases.removeCustomerInfoUpdateListener(onUpdate);
+      if (listening) Purchases.removeCustomerInfoUpdateListener(onUpdate);
     };
   }, [refresh, apply]);
 
-  return { entitlementIds, loading, error, refresh };
+  return { entitlementIds, loading, error, unavailableReason, refresh };
 }
