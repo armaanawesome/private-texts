@@ -4,6 +4,7 @@ import { theUnderstudyRaw } from './the-understudy';
 import { theNightRoundRaw } from './the-night-round';
 import { deepFieldRaw } from './deep-field';
 import { theWakeRaw } from './the-wake';
+import { theLongCourseRaw } from './the-long-course';
 
 /**
  * Every case, validated at module load.
@@ -18,6 +19,7 @@ export const CASES: readonly CaseScript[] = [
   loadCase(theNightRoundRaw),
   loadCase(deepFieldRaw),
   loadCase(theWakeRaw),
+  loadCase(theLongCourseRaw),
 ];
 
 export function getCase(caseId: string): CaseScript | undefined {
