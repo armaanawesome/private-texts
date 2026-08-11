@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { describePredicate, attributionFor } from './claimText';
-import type { Character, Claim, Place } from '@/engine';
+import { describePredicate, attributionFor, type ClaimWorld } from './claimText';
+import type { CaseObject, Character, Claim, Place } from '@/engine';
 
 const places: Place[] = [
   { id: 'point', name: 'Ardnoe Point' },
@@ -10,6 +10,8 @@ const characters: Character[] = [
   { id: 'mairi', name: 'Mairi', avatarColor: '#000' },
   { id: 'esme', name: 'Esme', avatarColor: '#000' },
 ];
+const objects: CaseObject[] = [{ id: 'knife', name: 'the gutting knife', unique: true }];
+const WORLD: ClaimWorld = { places, characters, objects };
 
 function claimWith(predicate: Claim['predicate']): Claim {
   return {
@@ -31,14 +33,13 @@ function claimWith(predicate: Claim['predicate']): Claim {
  */
 describe('describePredicate', () => {
   it('names the place for an at_place claim', () => {
-    const text = describePredicate(places, characters, claimWith({ kind: 'at_place', placeId: 'cafe' }));
+    const text = describePredicate(WORLD, claimWith({ kind: 'at_place', placeId: 'cafe' }));
     expect(text).toBe('the café');
   });
 
   it('names the person for a with_person claim', () => {
     const text = describePredicate(
-      places,
-      characters,
+      WORLD,
       claimWith({ kind: 'with_person', personId: 'esme' }),
     );
     expect(text).toBe('with Esme');
@@ -46,17 +47,21 @@ describe('describePredicate', () => {
 
   it('turns an action id into readable words', () => {
     const text = describePredicate(
-      places,
-      characters,
+      WORLD,
       claimWith({ kind: 'doing', actionId: 'cashing_up', exclusiveGroup: 'g' }),
     );
     expect(text).toBe('cashing up');
   });
 
+  it('names the object for a has_object claim', () => {
+    const text = describePredicate(WORLD, claimWith({ kind: 'has_object', objectId: 'knife' }));
+    expect(text).toBe('had the gutting knife');
+  });
+
   it('falls back to the raw id rather than rendering undefined', () => {
     // A dangling reference should already have been caught by loadCase, but the
     // board must never print "undefined" at a player if one slips through.
-    const text = describePredicate(places, characters, claimWith({ kind: 'at_place', placeId: 'nowhere' }));
+    const text = describePredicate(WORLD, claimWith({ kind: 'at_place', placeId: 'nowhere' }));
     expect(text).toBe('nowhere');
   });
 });
@@ -64,7 +69,7 @@ describe('describePredicate', () => {
 describe('attributionFor', () => {
   it('reads as self-reported when the speaker is the subject', () => {
     const claim = { ...claimWith({ kind: 'at_place', placeId: 'cafe' }), assertedBy: 'mairi' };
-    expect(attributionFor(characters, claim)).toBe('own account');
+    expect(attributionFor(WORLD, claim)).toBe('own account');
   });
 
   it('carries no pronoun, because the cast is not all one gender', () => {
@@ -75,11 +80,11 @@ describe('attributionFor', () => {
       subject: 'callum',
       assertedBy: 'callum',
     };
-    expect(attributionFor(characters, claim)).not.toMatch(/\b(her|his|she|he)\b/);
+    expect(attributionFor(WORLD, claim)).not.toMatch(/\b(her|his|she|he)\b/);
   });
 
   it('names the witness when someone else said it', () => {
     const claim = { ...claimWith({ kind: 'at_place', placeId: 'cafe' }), assertedBy: 'esme' };
-    expect(attributionFor(characters, claim)).toBe('per Esme');
+    expect(attributionFor(WORLD, claim)).toBe('per Esme');
   });
 });

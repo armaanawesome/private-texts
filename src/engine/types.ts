@@ -20,10 +20,22 @@ export interface Character {
   readonly avatarColor: string;
 }
 
+/** A thing that can be held, and that only one person can hold at a time. */
+export interface CaseObject {
+  readonly id: string;
+  readonly name: string;
+  /**
+   * True when only one exists. Two people holding a `unique` object at the same
+   * moment is a contradiction; two people both holding "a torch" is not.
+   */
+  readonly unique: boolean;
+}
+
 export type ClaimPredicate =
   | { readonly kind: 'at_place'; readonly placeId: string }
   | { readonly kind: 'with_person'; readonly personId: string }
-  | { readonly kind: 'doing'; readonly actionId: string; readonly exclusiveGroup: string };
+  | { readonly kind: 'doing'; readonly actionId: string; readonly exclusiveGroup: string }
+  | { readonly kind: 'has_object'; readonly objectId: string };
 
 /** A factual assertion extracted from one message. */
 export interface Claim {
@@ -84,6 +96,8 @@ export interface CaseScript {
   readonly requiredEntitlementId?: string;
   readonly characters: readonly Character[];
   readonly places: readonly Place[];
+  /** Things that can be held. Empty for cases with no object axis. */
+  readonly objects: readonly CaseObject[];
   readonly threads: readonly Thread[];
   readonly contradictions: readonly IntendedContradiction[];
   readonly solution: CaseSolution;

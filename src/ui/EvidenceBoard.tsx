@@ -142,8 +142,8 @@ function Sheet({
 
   const name = (id: string) => script.characters.find((c) => c.id === id)?.name ?? id;
   const claimOf = (c: Claim) => ({
-    what: describePredicate(script.places, script.characters, c),
-    who: attributionFor(script.characters, c),
+    what: describePredicate(script, c),
+    who: attributionFor(script, c),
     window: c.window,
   });
 

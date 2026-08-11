@@ -7,6 +7,7 @@ const SCRIPT = {
   title: 'C',
   blurb: '',
   characters: [{ id: 'nadia', name: 'Nadia', avatarColor: '#c33' }],
+  objects: [],
   places: [
     { id: 'studio', name: 'Studio' },
     { id: 'harbour', name: 'Harbour' },

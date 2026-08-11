@@ -8,6 +8,7 @@ const SCRIPT = {
   blurb: '',
   characters: [{ id: 'nadia', name: 'Nadia', avatarColor: '#c33' }],
   places: [{ id: 'studio', name: 'Studio' }],
+  objects: [],
   threads: [
     {
       id: 'open',

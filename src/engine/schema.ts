@@ -9,6 +9,7 @@ const predicate = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('at_place'), placeId: z.string() }),
   z.object({ kind: z.literal('with_person'), personId: z.string() }),
   z.object({ kind: z.literal('doing'), actionId: z.string(), exclusiveGroup: z.string() }),
+  z.object({ kind: z.literal('has_object'), objectId: z.string() }),
 ]);
 
 const claim = z.object({
@@ -38,6 +39,10 @@ const caseSchema = z.object({
   requiredEntitlementId: z.string().optional(),
   characters: z.array(z.object({ id: z.string(), name: z.string(), avatarColor: z.string() })),
   places: z.array(z.object({ id: z.string(), name: z.string(), parentId: z.string().optional() })),
+  // Defaulted, so every case written before the object axis existed still loads.
+  objects: z
+    .array(z.object({ id: z.string(), name: z.string(), unique: z.boolean() }))
+    .default([]),
   threads: z.array(
     z.object({
       id: z.string(),
@@ -75,6 +80,7 @@ export function loadCase(raw: unknown): CaseScript {
 
   const characterIds = new Set(parsed.characters.map((c) => c.id));
   const placeIds = new Set(parsed.places.map((p) => p.id));
+  const objectIds = new Set(parsed.objects.map((o) => o.id));
   const claimIds = new Set<string>();
 
   const requireCharacter = (id: string, where: string) => {
@@ -105,6 +111,9 @@ export function loadCase(raw: unknown): CaseScript {
         }
         if (c.predicate.kind === 'with_person') {
           requireCharacter(c.predicate.personId, `Claim "${c.id}"`);
+        }
+        if (c.predicate.kind === 'has_object' && !objectIds.has(c.predicate.objectId)) {
+          throw new Error(`Claim "${c.id}" references unknown object "${c.predicate.objectId}"`);
         }
       }
     }

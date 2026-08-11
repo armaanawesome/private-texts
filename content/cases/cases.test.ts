@@ -27,7 +27,7 @@ describe.each(CASES.map((c) => [c.id, c] as const))('case: %s', (_id, script) =>
       const b = claims.get(con.claimIdB);
       expect(a, `claim ${con.claimIdA} missing`).toBeDefined();
       expect(b, `claim ${con.claimIdB} missing`).toBeDefined();
-      const verdict = checkContradiction(script.places, a!, b!);
+      const verdict = checkContradiction(script, a!, b!);
       expect(verdict.ok, `${con.id} does not validate: ${verdict.reason}`).toBe(true);
     }
   });

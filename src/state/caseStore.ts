@@ -99,7 +99,7 @@ export const useCaseStore = create<CaseState>((set, get) => ({
       return;
     }
 
-    const verdict = checkContradiction(script.places, a, b);
+    const verdict = checkContradiction(script, a, b);
     const compared = [idA, idB];
     // A rejected pairing keeps its pins on the board so the player can swap one
     // out and try again, rather than rebuilding the comparison from scratch.

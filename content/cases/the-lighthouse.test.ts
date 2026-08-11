@@ -36,7 +36,7 @@ describe('The Lighthouse', () => {
 
   it('confirms every intended contradiction actually validates in the engine', () => {
     for (const c of script.contradictions) {
-      const verdict = checkContradiction(script.places, claim(c.claimIdA), claim(c.claimIdB));
+      const verdict = checkContradiction(script, claim(c.claimIdA), claim(c.claimIdB));
       expect(verdict, `${c.id} does not validate: ${verdict.reason}`).toMatchObject({ ok: true });
     }
   });
@@ -59,7 +59,7 @@ describe('The Lighthouse', () => {
       for (let j = i + 1; j < allClaims.length; j += 1) {
         const a = allClaims[i]!;
         const b = allClaims[j]!;
-        if (!checkContradiction(script.places, a, b).ok) continue;
+        if (!checkContradiction(script, a, b).ok) continue;
         const key = [a.id, b.id].sort().join('|');
         if (!intended.has(key)) surprises.push(key);
       }
