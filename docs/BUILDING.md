@@ -1,5 +1,36 @@
 # Building this app
 
+## Read this first: do not spend a build on a JS change
+
+EAS free-tier builds are limited and **the quota is shared across platforms** —
+`--platform android` costs exactly what `--platform ios` costs. Switching
+platform to save builds does not work. This is an Expo project on both.
+
+What actually costs nothing:
+
+> **Install a development build once, then iterate over Metro.** Every
+> JavaScript change — screens, layout, motion, copy, engine, content — reloads
+> on the device with **no new build**. Only a native change needs a rebuild:
+> adding or upgrading a native module, or editing `app.json` plugins,
+> permissions, icons, or the bundle id.
+
+```bash
+npx.cmd expo start --tunnel --dev-client
+```
+
+Scan the QR from the installed dev client. The tunnel needs an ngrok authtoken
+configured. **Android phone + dev client is the cheapest iteration loop** and is
+the default while the app is being built; iOS simulator builds are for checking
+the platform before submission.
+
+Rebuild only when:
+
+- a dependency with native code is added or upgraded
+- `app.json` changes (plugins, permissions, icons, scheme, bundle id)
+- the Expo SDK is upgraded
+
+---
+
 One non-obvious constraint shapes every build decision here, and it is worth
 understanding before changing `eas.json`.
 

@@ -110,7 +110,7 @@ export const StaticBubble = forwardRef<View, Omit<Props, 'onPressClaims' | 'redu
             styles.bubble,
             isOwn ? styles.own : styles.them,
             radii(isOwn, geometry),
-            styles.hasClaims,
+            styles.lifted,
           ]}
         >
           {geometry.first && !isOwn ? <Text style={styles.sender}>{sender.name}</Text> : null}
@@ -132,8 +132,21 @@ const styles = StyleSheet.create({
   },
   them: { backgroundColor: theme.color.bubbleThem },
   own: { backgroundColor: theme.color.bubbleYou },
-  // A message that put something on the record carries a quiet marker.
-  hasClaims: { borderLeftWidth: 2, borderLeftColor: theme.color.proof },
+  /**
+   * A message you can hold to pin straight to the board.
+   *
+   * Deliberately almost invisible. Reading a message is already enough to put
+   * its claim on the record — `availableClaims` derives from what you have read
+   * — so this marks a shortcut, not a gate, and it does not need to advertise.
+   * It was a 2px blue bar, which shouted "game" on the one surface whose whole
+   * job is to be mistaken for a real messaging app.
+   */
+  hasClaims: { borderWidth: StyleSheet.hairlineWidth, borderColor: theme.color.rule },
+  /**
+   * The copy that floats above the blur. This one *is* the moment, so it takes
+   * the accent outline the in-thread marker deliberately refuses.
+   */
+  lifted: { borderWidth: 1, borderColor: theme.color.accent },
   sender: { ...theme.type.sender, color: theme.color.accent, marginBottom: 3 },
   body: { ...theme.type.body, color: theme.color.text },
 });
