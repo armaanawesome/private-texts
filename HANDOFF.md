@@ -292,15 +292,19 @@ remaining, and the Design Award is judged on craft alone.
 | 2026-09-25 | Demo video locked |
 | **2026-09-28** | **Submit.** Not the 30th. |
 
-**Packs 1–13 of 15 are written** (2026-08-12), each with its own test file.
-Remaining: 14 "The Night Ferry", 15 "The Listener" (the finale). The uniqueness
-contract — shape of the lie, engine axis, red herring, arc beat, all fixed before
-writing — is `docs/pack-ledger.md`, and it is the authority on what each
-remaining pack must be. It has been corrected in flight twice; both corrections
-are recorded in it.
+**All 15 packs are written** (2026-08-12), each with its own test file. The
+uniqueness contract — shape of the lie, engine axis, red herring, arc beat — is
+`docs/pack-ledger.md`, and the parts of it that can be checked mechanically now
+are, in `content/cases/ledger.test.ts`. It was corrected in flight three times;
+all three corrections are recorded in it.
 
-Case 1 has been played end to end by the owner. Packs 2–13 have not, and a
-passing test suite is not a playthrough.
+**Packs 1–3 are free**, per `docs/arc-design.md`: the free tier ends on Pack 3's
+first arc connection, so it closes on the floor moving rather than a full stop.
+Packs 2 and 3 shipped gated by mistake until Pack 15 and a test now pins it.
+
+Case 1 has been played end to end by the owner. **Packs 2–15 have not**, and a
+passing test suite is not a playthrough. That is the largest remaining risk to
+the content, and it is a reading job rather than a coding one.
 
 Write every case **backwards**: solution first, then the claim table, then the
 dialogue. Writing forwards produces a story with a mystery bolted on. Every case

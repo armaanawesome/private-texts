@@ -13,6 +13,7 @@ import { theAllotmentsRaw } from './the-allotments';
 import { theHelplineRaw } from './the-helpline';
 import { theReunionRaw } from './the-reunion';
 import { theNightFerryRaw } from './the-night-ferry';
+import { theListenerRaw } from './the-listener';
 
 /**
  * Every case, validated at module load.
@@ -36,6 +37,7 @@ export const CASES: readonly CaseScript[] = [
   loadCase(theHelplineRaw),
   loadCase(theReunionRaw),
   loadCase(theNightFerryRaw),
+  loadCase(theListenerRaw),
 ];
 
 export function getCase(caseId: string): CaseScript | undefined {

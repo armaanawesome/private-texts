@@ -1,5 +1,3 @@
-import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
-
 /**
  * Case 2 — "The Understudy". Paid.
  *
@@ -24,7 +22,8 @@ export const theUnderstudyRaw = {
   title: 'The Understudy',
   blurb:
     'A lead actress dies in a locked dressing room on press night. One key exists, and two people say they had it.',
-  requiredEntitlementId: CASE_PACK_ENTITLEMENT,
+  // Free. Packs 1–3 are the free tier, so the free content ends on Pack 3's
+  // first arc connection rather than on a full stop.
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'coral', name: 'Coral', avatarColor: '#8A7B5C' },

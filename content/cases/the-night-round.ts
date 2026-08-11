@@ -1,5 +1,3 @@
-import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
-
 /**
  * Case 3 — "The Night Round".
  *
@@ -22,7 +20,8 @@ export const theNightRoundRaw = {
   title: 'The Night Round',
   blurb:
     'A signature in the night book says somebody looked in on her at eleven. Nobody did.',
-  requiredEntitlementId: CASE_PACK_ENTITLEMENT,
+  // Free, and the last free case. It carries the first arc connection, so the
+  // paywall lands the moment the floor moves rather than after a full stop.
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'ivy', name: 'Ivy', avatarColor: '#8A7B5C' },

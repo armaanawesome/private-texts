@@ -1,7 +1,13 @@
 # The arc — "The Listener"
 
-Story architecture across all 15 case packs. Design only; Pack 1's hook is the
-only part written into content so far.
+Story architecture across all 15 case packs.
+
+**Status, 2026-08-12: all 15 packs are written.** This document is no longer a
+plan — it is the spec the content was built against, and `content/cases/*.test.ts`
+holds it in place. The finale's proof is pinned across two files:
+`the-listener.test.ts` asserts that Pack 1 still carries `x-papers-lie`, that it
+is still optional there, and that both its claims match the ones the finale
+re-records. Editing the tutorial case's clue breaks the ending, loudly.
 
 Written end-first, per the storytelling skill: the ending below is fixed, and
 everything earlier exists to earn it.
@@ -172,9 +178,9 @@ matters, and each pack stays inside the length where this mechanic is a pleasure
 | Per pack | 5–6 characters, 6–7 threads, 3 contradictions + 1–2 motives |
 | Campaign | **15 hours** |
 
-**For the hackathon (2026-09-30):** Pack 1 plus the hook. Packs 2–3 if time
-allows, since the free tier is the first three. Everything after is
-post-submission.
+**For the hackathon (2026-09-30):** all fifteen are written and tested. What is
+left is not content — it is the README, the icon and screenshots, sound, the
+final Android build and the demo video. See HANDOFF.md §8.
 
 ---
 

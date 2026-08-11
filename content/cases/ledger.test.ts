@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { CASES } from './index';
+import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
 import type { CaseScript } from '@/engine';
 
 /**
@@ -96,6 +97,27 @@ describe('pack ledger', () => {
       expect(already, `${script.id} repeats the shape of ${already}`).toBeUndefined();
       seen.set(dimension!, script.id);
     }
+  });
+
+  /**
+   * The free tier, per docs/arc-design.md. Packs 1–3 are free and Pack 3 carries
+   * the first arc connection, so the free content ends on the floor moving
+   * rather than on a full stop. Packs 2 and 3 shipped gated by mistake until
+   * Pack 15; this is the kind of thing that regresses silently, because nothing
+   * about a paywalled case looks broken.
+   */
+  it('keeps the first three packs free and gates everything after', () => {
+    const free = new Set(['the-lighthouse', 'the-understudy', 'the-night-round']);
+    for (const script of CASES) {
+      if (free.has(script.id)) {
+        expect(script.requiredEntitlementId, `${script.id} should be free`).toBeUndefined();
+      } else {
+        expect(script.requiredEntitlementId, `${script.id} should be paid`).toBe(
+          CASE_PACK_ENTITLEMENT,
+        );
+      }
+    }
+    expect([...free].every((id) => CASES.some((c) => c.id === id))).toBe(true);
   });
 
   /**

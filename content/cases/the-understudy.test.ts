@@ -31,9 +31,16 @@ const at = (proven: string[]) => ({
 });
 
 describe('The Understudy', () => {
-  it('is the paid case', () => {
+  /**
+   * Free, changed at Pack 15. This asserted the opposite when Pack 2 was the
+   * first paid case, which predates the 15-pack plan. The free tier is 1–3 so
+   * that it ends on Pack 3's arc connection rather than on a full stop; the
+   * whole boundary is pinned in ledger.test.ts.
+   */
+  it('is free, and is not the paywall', () => {
     expect(script.id).toBe('the-understudy');
-    expect(script.requiredEntitlementId).toBe(CASE_PACK_ENTITLEMENT);
+    expect(script.requiredEntitlementId).toBeUndefined();
+    expect(script.requiredEntitlementId).not.toBe(CASE_PACK_ENTITLEMENT);
   });
 
   it('requires three contradictions and the motive to accuse', () => {
