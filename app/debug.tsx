@@ -3,7 +3,12 @@ import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-n
 
 import { theme } from '@/ui/theme';
 import { useEntitlements } from '@/entitlements/useEntitlements';
-import { getCasePackOffering, purchaseCasePack, restorePurchases } from '@/entitlements/revenuecat';
+import {
+  getCasePackOffering,
+  purchaseCasePack,
+  restorePurchases,
+  diagnoseEntitlements,
+} from '@/entitlements/revenuecat';
 
 /** Verification harness for the RevenueCat Test Store. Not part of the game. */
 export default function DebugPurchaseScreen() {
@@ -33,9 +38,19 @@ export default function DebugPurchaseScreen() {
       say(`Purchasing ${pkg.product.identifier} (${pkg.product.priceString})...`);
       const outcome = await purchaseCasePack(pkg);
       switch (outcome.kind) {
-        case 'purchased':
-          say('Purchased. Waiting for the entitlement listener...');
+        case 'purchased': {
+          say('Purchased. Checking what it actually granted...');
+          // The whole point of this screen. A purchase reporting success proves
+          // nothing about whether the gate opens, and the two reasons it might
+          // not need opposite fixes.
+          const d = await diagnoseEntitlements();
+          say(`  expects:   ${d.expected}`);
+          say(`  active:    ${d.activeIds.length ? d.activeIds.join(', ') : '(none)'}`);
+          say(`  all:       ${d.allIds.length ? d.allIds.join(', ') : '(none)'}`);
+          say(`  products:  ${d.purchasedProductIds.length ? d.purchasedProductIds.join(', ') : '(none)'}`);
+          say(d.ok ? 'OK. ' + d.fix : 'NOT UNLOCKED. ' + d.fix);
           break;
+        }
         case 'cancelled':
           say('Cancelled by user (this is not an error).');
           break;
@@ -79,6 +94,19 @@ export default function DebugPurchaseScreen() {
       </Pressable>
       <Pressable style={[styles.button, styles.buttonGhost]} onPress={handleRestore}>
         <Text style={styles.buttonText}>Restore purchases</Text>
+      </Pressable>
+      <Pressable
+        style={[styles.button, styles.buttonGhost]}
+        onPress={async () => {
+          const d = await diagnoseEntitlements();
+          say(`expects:  ${d.expected}`);
+          say(`active:   ${d.activeIds.length ? d.activeIds.join(', ') : '(none)'}`);
+          say(`all:      ${d.allIds.length ? d.allIds.join(', ') : '(none)'}`);
+          say(`products: ${d.purchasedProductIds.length ? d.purchasedProductIds.join(', ') : '(none)'}`);
+          say(d.ok ? 'OK. ' + d.fix : 'NOT UNLOCKED. ' + d.fix);
+        }}
+      >
+        <Text style={styles.buttonText}>Why is it still locked?</Text>
       </Pressable>
 
       <View style={styles.log}>

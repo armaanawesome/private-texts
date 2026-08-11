@@ -7,6 +7,11 @@ import Purchases, {
 export { CASE_PACK_ENTITLEMENT } from './ids';
 import { CASE_PACK_ENTITLEMENT } from './ids';
 import { decidePurchasesMode, type PurchasesMode } from './keyPolicy';
+import {
+  explainEntitlementGap,
+  type EntitlementEvidence,
+  type EntitlementVerdict,
+} from './diagnosis';
 
 export type { PurchasesMode };
 
@@ -105,4 +110,33 @@ export async function getActiveEntitlementIds(): Promise<string[]> {
   if (!purchasesAreLive()) return [];
   const customerInfo = await Purchases.getCustomerInfo();
   return Object.keys(customerInfo.entitlements.active);
+}
+
+/**
+ * Why the case is still locked after a purchase that appeared to work.
+ *
+ * Reads the whole customer record — inactive entitlements and purchased product
+ * ids included — because the useful signal is in what is *missing*. See
+ * diagnosis.ts for how the evidence becomes a verdict.
+ */
+export async function diagnoseEntitlements(): Promise<EntitlementEvidence & EntitlementVerdict> {
+  if (!purchasesAreLive()) {
+    const why = mode?.kind === 'disabled' ? mode.reason : 'Purchases are not configured.';
+    const evidence: EntitlementEvidence = {
+      expected: CASE_PACK_ENTITLEMENT,
+      activeIds: [],
+      allIds: [],
+      purchasedProductIds: [],
+    };
+    return { ...evidence, ok: false, fix: why };
+  }
+
+  const info = await Purchases.getCustomerInfo();
+  const evidence: EntitlementEvidence = {
+    expected: CASE_PACK_ENTITLEMENT,
+    activeIds: Object.keys(info.entitlements.active),
+    allIds: Object.keys(info.entitlements.all),
+    purchasedProductIds: info.allPurchasedProductIdentifiers,
+  };
+  return { ...evidence, ...explainEntitlementGap(evidence) };
 }
