@@ -102,6 +102,9 @@ const caseSchema = z.object({
       confession: z.string(),
     })
     .optional(),
+  coda: z
+    .object({ from: z.string(), messages: z.array(z.string()).min(1) })
+    .optional(),
   solution: z.object({
     killerId: z.string(),
     requiredContradictionIds: z.array(z.string()),

@@ -177,6 +177,20 @@ export interface Confrontation {
   readonly confession: string;
 }
 
+/**
+ * What arrives after the epilogue.
+ *
+ * A message from someone who was never in the case, landing once the player
+ * thinks the case is over. It carries the campaign arc without touching the
+ * case: nothing here gates anything, and a player who ignores it still finished
+ * the case correctly.
+ */
+export interface CaseCoda {
+  /** Shown as the sender. Usually not a name. */
+  readonly from: string;
+  readonly messages: readonly string[];
+}
+
 export interface CaseSolution {
   readonly killerId: string;
   /** Every one of these must be confirmed before an accusation can stick. */
@@ -208,6 +222,8 @@ export interface CaseScript {
   readonly briefing?: CaseBriefing;
   /** The endgame. Without one, a correct accusation goes straight to the epilogue. */
   readonly confrontation?: Confrontation;
+  /** Arrives after the epilogue. Carries the campaign arc, gates nothing. */
+  readonly coda?: CaseCoda;
   readonly threads: readonly Thread[];
   readonly contradictions: readonly IntendedContradiction[];
   readonly solution: CaseSolution;

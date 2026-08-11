@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
-import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, useReducedMotion } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { theme } from './theme';
 import { ConfrontationScreen } from './ConfrontationScreen';
@@ -68,6 +68,27 @@ export function AccusationScreen() {
       >
         <Text style={styles.endTitle}>Case closed</Text>
         <Text style={styles.epilogue}>{result.epilogue}</Text>
+
+        {/* The coda lands after the player believes it is over. Staggered so it
+            reads as messages arriving, not as more of the epilogue. */}
+        {script.coda ? (
+          <View style={styles.coda}>
+            <Text style={styles.codaFrom}>{script.coda.from}</Text>
+            {script.coda.messages.map((m, i) => (
+              <Animated.View
+                key={i}
+                entering={
+                  reduceMotion
+                    ? undefined
+                    : FadeInDown.springify().damping(18).mass(0.6).delay(1400 + i * 1100)
+                }
+                style={styles.codaBubble}
+              >
+                <Text style={styles.codaText}>{m}</Text>
+              </Animated.View>
+            ))}
+          </View>
+        ) : null}
       </Animated.ScrollView>
     );
   }
@@ -175,4 +196,22 @@ const styles = StyleSheet.create({
   endRoot: { padding: theme.space.lg, gap: theme.space.lg, flexGrow: 1, justifyContent: 'center' },
   endTitle: { ...theme.type.title, color: theme.color.accent, textAlign: 'center' },
   epilogue: { ...theme.type.body, color: theme.color.text },
+
+  coda: {
+    marginTop: theme.space.xl,
+    paddingTop: theme.space.lg,
+    borderTopWidth: 1,
+    borderTopColor: theme.color.rule,
+    gap: theme.space.sm,
+  },
+  codaFrom: { ...theme.type.claim, fontSize: 11, color: theme.color.textDim },
+  codaBubble: {
+    alignSelf: 'flex-start',
+    maxWidth: '88%',
+    backgroundColor: theme.color.bubbleThem,
+    borderRadius: theme.radius.bubble,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+  },
+  codaText: { ...theme.type.body, color: theme.color.text },
 });

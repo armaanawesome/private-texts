@@ -325,7 +325,22 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'esme',
           sentAt: 2110,
-          body: 'Whoever is handling the Trust — her survey notebook is still in the tower and it is not mine to take. Someone should tell the family.',
+          body: 'Whoever is handling the Trust, her survey notebook is still up in the tower where she left it. It is not mine to take. Someone should tell the family.',
+          claims: [
+            {
+              id: 'c-papers-kept',
+              subject: 'ruth',
+              assertedBy: 'esme',
+              predicate: {
+                kind: 'doing',
+                actionId: 'still_had_the_papers',
+                exclusiveGroup: 'ruth-papers',
+              },
+              window: { start: 1245, end: 1440 },
+              sourceMessageId: 'g17',
+              label: 'Ruth: still had the Trust papers, 20:45 onward',
+            },
+          ],
         },
         {
           id: 'g18',
@@ -848,6 +863,42 @@ export const theLighthouseRaw = {
           sentAt: 3246,
           body: 'Whatever my son has told you, he was at the slipway in the dark and the beam plays tricks out there. Ask anyone. Ask him again tomorrow.',
         },
+        {
+          id: 'n9',
+          threadId: 't-mairi-again',
+          senderId: 'mairi',
+          sentAt: 3252,
+          body: 'And there is a thing I have not said to anyone, because it sounds like I am building myself an excuse. A man telephoned the café that night. Half nine, near enough.',
+        },
+        {
+          id: 'n10',
+          threadId: 't-mairi-again',
+          senderId: 'mairi',
+          sentAt: 3254,
+          body: 'He said he was with the auditors. He said Ruth had already sent the papers down to them, and that it was out of her hands now, and Callum would be named on them by the Monday whatever anybody did.',
+          claims: [
+            {
+              id: 'c-papers-sent',
+              subject: 'ruth',
+              assertedBy: 'mairi',
+              predicate: {
+                kind: 'doing',
+                actionId: 'had_already_sent_the_papers',
+                exclusiveGroup: 'ruth-papers',
+              },
+              window: { start: 1200, end: 1380 },
+              sourceMessageId: 'n10',
+              label: 'Ruth: had already sent the papers, 20:00–23:00 (per a caller)',
+            },
+          ],
+        },
+        {
+          id: 'n11',
+          threadId: 't-mairi-again',
+          senderId: 'mairi',
+          sentAt: 3260,
+          body: 'I never asked him his name. I never asked how he had the café number. He did not push me to do anything, he barely said a word, and I put the phone down and got my coat. You can make of that what you like. I have stopped trying to.',
+        },
       ],
     },
   ],
@@ -883,6 +934,13 @@ export const theLighthouseRaw = {
       claimIdB: 'c-mairi-path',
       revelation:
         'She put herself behind the counter from half eight until eleven. At 21:47 a woman with a survey log and no stake in this passed her on the cliff path, going the other way, with a coat over her head. The café was not an alibi. It was a place to put herself.',
+    },
+    {
+      id: 'x-papers-lie',
+      claimIdA: 'c-papers-sent',
+      claimIdB: 'c-papers-kept',
+      revelation:
+        'The auditors never had those papers. Ruth wrote the whole of it in the back of her survey notebook, and the notebook was still up in the tower where she left it. So the man who telephoned the café at half nine was not from the Trust, he had no business knowing about the Trust at all, and what he told Mairi Bell was not a mistake. He knew what a woman with one night left would do with it.',
     },
     {
       id: 'x-mairi-door',
@@ -935,7 +993,25 @@ export const theLighthouseRaw = {
       'Say something that means something.',
     ],
     confession:
-      'She was at the top of the stairs with the folder in her hand and she would not put it down.\n\nI only wanted the morning. One morning, to find the money from somewhere, so his name never went in it. She said she had already written it down.\n\nI did not decide anything. I have gone over it every hour since and I cannot find the moment I decided.',
+      'She was at the top of the stairs with the folder in her hand and she would not put it down.\n\nI only wanted the morning. One morning, to find the money from somewhere, so his name never went in it. She said she had already written it down.\n\nI did not decide anything. I have gone over it every hour since and I cannot find the moment I decided.\n\nThat man on the telephone. He never once said her name and he never once said a word about hurting her. He asked me what I was going to do about it, and I told him, all of it, out loud, the way you do at half nine at night to somebody you are never going to meet.\n\nAnd he let me finish. He did not interrupt me the whole time.\n\nThen he said: then you already know.\n\nAnd he put the phone down, and I got my coat.',
+  },
+
+  /**
+   * The arc clue, and the first thing the Listener ever leaves behind.
+   *
+   * Deliberately NOT in solution.requiredContradictionIds. It gates nothing, it
+   * is not a confrontation beat, and a player can finish the case having never
+   * noticed it — which is the point. During the case Mairi's account of the call
+   * reads as a guilty woman building herself an excuse. It only turns cold
+   * afterwards.
+   */
+  coda: {
+    from: 'Unknown number',
+    messages: [
+      'Ardnoe was good work. Four days. I had allowed a fortnight and I am not often wrong by that much.',
+      'You were slow on the son. He was always going to tell you. He had been waiting since the Tuesday for somebody to ask him properly.',
+      'I will not use this number again. Congratulations. I mean that.',
+    ],
   },
 
   solution: {

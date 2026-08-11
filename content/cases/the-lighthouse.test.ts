@@ -36,12 +36,35 @@ describe('The Lighthouse', () => {
     expect(script.threads).toHaveLength(6);
   });
 
-  it('has exactly three intended contradictions, all required to accuse', () => {
-    expect(script.contradictions).toHaveLength(3);
+  it('requires three contradictions to accuse', () => {
     expect(script.solution.requiredContradictionIds).toHaveLength(3);
-    expect([...script.solution.requiredContradictionIds].sort()).toEqual(
-      [...script.contradictions.map((c) => c.id)].sort(),
-    );
+  });
+
+  /**
+   * The arc clue is deliberately optional.
+   *
+   * `x-papers-lie` proves the caller lied to Mairi, which is the first thing the
+   * campaign's serial killer ever leaves behind. It must NOT gate the case: a
+   * player can finish The Lighthouse correctly having never noticed it, and
+   * during the case Mairi's account of the call reads as a guilty woman building
+   * an excuse. It only turns cold afterwards.
+   */
+  it('keeps the arc contradiction out of the win condition', () => {
+    expect(script.contradictions.map((c) => c.id)).toContain('x-papers-lie');
+    expect(script.solution.requiredContradictionIds).not.toContain('x-papers-lie');
+
+    // And it is not a confrontation beat either, or a player who missed it could
+    // not finish the endgame.
+    const beatEvidence = (script.confrontation?.beats ?? []).map((b) => b.evidence.id);
+    expect(beatEvidence).not.toContain('x-papers-lie');
+  });
+
+  it('can still be won without ever proving the arc clue', () => {
+    const withoutArc = {
+      confirmedContradictionIds: [...script.solution.requiredContradictionIds],
+      readMessageIds: allMessageIds,
+    };
+    expect(evaluateAccusation(script, 'mairi', withoutArc).correct).toBe(true);
   });
 
   it('confirms every intended contradiction actually validates in the engine', () => {
