@@ -15,11 +15,40 @@ What actually costs nothing:
 > permissions, icons, or the bundle id.
 
 ```bash
-npx.cmd expo start --tunnel --dev-client
+.\dev.cmd
 ```
 
 Scan the QR from the installed dev client. The tunnel needs an ngrok authtoken
 configured.
+
+### Why `.cmd` and not `npx`
+
+This machine's PowerShell execution policy is **`AllSigned`** at LocalMachine
+scope, and npm ships `npx.ps1` and `npm.ps1` **unsigned**. So a bare `npx expo
+start` fails with *"npx.ps1 is not digitally signed"*.
+
+`dev.cmd` and `check.cmd` exist to sidestep that: a `.cmd` file runs through
+cmd.exe, which never consults the PowerShell execution policy. No admin rights,
+no security setting changed.
+
+```bash
+.\check.cmd
+```
+
+runs the typecheck and the full suite the same way. The leading `.\` matters in
+PowerShell.
+
+If you would rather fix it machine-wide, `MachinePolicy` and `UserPolicy` are
+both `Undefined` here — nothing is group-policy locked — so a CurrentUser
+setting wins over LocalMachine without admin:
+
+```bash
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+`RemoteSigned` allows local scripts and requires signatures only on downloaded
+ones. That is a genuine loosening of a security setting, so it is the user's
+call to make, not something to run on their behalf.
 
 ### Dev clients that already exist
 
