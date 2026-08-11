@@ -25,7 +25,7 @@ Rules this table enforces:
 | 8 | **Sunday Service** | Village church, missing funds | The lie is a **forged record** that contradicts a living memory | object + action | — |
 | 9 | **The Cut** | Canal boat community | The lie is about **movement** — a boat that could not have gone that far in that time | place + time | **Connection 3** |
 | 10 | **Open Mic** | Comedy club, filmed night | The alibi is **on video**, and the timestamp is wrong | object | — |
-| 11 | **The Allotments** | Allotment society, long feud | The lie is about **possession** — whose tool, whose key, whose shed | object | — |
+| 11 | **The Allotments** | Allotment society, long feud | The lie is about **possession** — whose tool, whose key, whose shed | action + place | — |
 | 12 | **The Helpline** | A crisis line, overnight | The lie is about **a call that was never made** | action | **Connection 4** |
 | 13 | **The Reunion** | School reunion, twenty years on | A **twenty-year-old lie**, and this killing exists to keep it | with_person | — |
 | 14 | **The Night Ferry** | Overnight crossing | The lie depends on a **crossing time** | time | — |
@@ -51,6 +51,17 @@ Each must be innocent for a reason the player can prove.
 | 3 | had private access | **7** — someone who knew because they cleaned the house |
 | 6 | been at it for decades | **10** — the right age, the right towns, and simply unlucky |
 | 12 | trained on a crisis line | **13** — a suspect who volunteered on one. Thousands did |
+
+## Corrections made in flight
+
+**Pack 11 axis, changed 2026-08-12.** The ledger originally filed both Pack 10
+and Pack 11 under `object`, which breaks its own rule 2. Caught before Pack 11
+was written.
+
+Possession stays the *theme* — it is what the whole feud is about — but the three
+required proofs now run on action and place. The object appears exactly once, in
+the optional contradiction that clears the red herring, which is the right weight
+for it: the fork everybody argues about is not what convicts anybody.
 
 ## Standing craft rules
 
