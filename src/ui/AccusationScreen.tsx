@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-nati
 import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { theme } from './theme';
+import { ConfrontationScreen } from './ConfrontationScreen';
 import { useCaseStore } from '@/state/caseStore';
 import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
 
@@ -12,6 +13,7 @@ export function AccusationScreen() {
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const [result, setResult] = useState<AccusationResult | null>(null);
+  const [closed, setClosed] = useState(false);
 
   if (!script) return null;
 
@@ -46,6 +48,15 @@ export function AccusationScreen() {
         },
       ],
       { cancelable: true },
+    );
+  }
+
+  // A correct accusation opens the confrontation rather than the epilogue: the
+  // player has proved it, now they have to say it to her face. The epilogue is
+  // what is left after she stops arguing.
+  if (result?.correct && script.confrontation && !closed) {
+    return (
+      <ConfrontationScreen script={script} progress={progress} onClosed={() => setClosed(true)} />
     );
   }
 

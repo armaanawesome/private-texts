@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { theme } from '@/ui/theme';
+import { BriefingScreen } from '@/ui/BriefingScreen';
 import { clockOf } from '@/ui/timeScale';
 import { useCaseStore } from '@/state/caseStore';
 import { visibleThreads, type CaseScript, type Thread } from '@/engine';
@@ -19,8 +21,16 @@ export default function ThreadsScreen() {
   const script = useCaseStore((s) => s.script);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
+  const [briefed, setBriefed] = useState(false);
 
   if (!script) return null;
+
+  // The briefing stands in front of the inbox on a fresh case only. Once a
+  // single message has been read the player has started, and re-showing the
+  // settled facts every time they come back would be noise.
+  if (script.briefing && readMessageIds.length === 0 && !briefed) {
+    return <BriefingScreen script={script} onStart={() => setBriefed(true)} />;
+  }
 
   const threads = visibleThreads(script, {
     confirmedContradictionIds: confirmedIds,

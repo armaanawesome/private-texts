@@ -4,7 +4,10 @@ import {
   checkContradiction,
   evaluateAccusation,
   visibleThreads,
+  press,
+  remainingBeats,
   type Claim,
+  type EvidenceRef,
 } from '@/engine';
 import { theLighthouseRaw } from './the-lighthouse';
 
@@ -111,6 +114,37 @@ describe('The Lighthouse', () => {
     expect(evaluateAccusation(script, 'callum', at(all))).toMatchObject({ correct: false });
     expect(evaluateAccusation(script, 'esme', at(all))).toMatchObject({ correct: false });
     expect(evaluateAccusation(script, 'mairi', at(all))).toMatchObject({ correct: true });
+  });
+
+  /**
+   * The confrontation has to be finishable with exactly what a winning player
+   * holds — no more. A beat pointing at evidence outside the required set would
+   * strand them at the last screen of the game with nothing left to say.
+   */
+  it('can be driven to a confession using only the evidence the win requires', () => {
+    const c = script.confrontation;
+    expect(c, 'case has no confrontation').toBeDefined();
+    if (!c) return;
+
+    const held: EvidenceRef[] = [
+      ...script.solution.requiredContradictionIds.map(
+        (id) => ({ kind: 'contradiction', id }) as const,
+      ),
+      ...script.solution.requiredMotiveIds.map((id) => ({ kind: 'motive', id }) as const),
+    ];
+
+    let landed: string[] = [];
+    let complete = false;
+    for (const evidence of held) {
+      const outcome = press(c, landed, evidence);
+      expect(outcome.kind, `nothing to say for ${evidence.kind} "${evidence.id}"`).toBe('lands');
+      if (outcome.kind !== 'lands') return;
+      landed = [...landed, outcome.beat.id];
+      complete = outcome.complete;
+    }
+
+    expect(complete, 'ran out of required evidence before she confessed').toBe(true);
+    expect(remainingBeats(c, landed)).toEqual([]);
   });
 
   it('sources every claim from the message it is attached to', () => {

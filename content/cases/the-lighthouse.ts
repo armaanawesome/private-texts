@@ -31,6 +31,16 @@ export const theLighthouseRaw = {
     { id: 'cottage', name: 'the cottage' },
     { id: 'ferry', name: 'the ferry' },
   ],
+  /** The settled facts. What the player is about to disprove is the ruling. */
+  briefing: {
+    victimId: 'ruth',
+    foundAt: { placeId: 'lighthouse', minutes: 1330 },
+    causeOfDeath: 'A fall from the tower stairs.',
+    ruling: 'Recorded as accidental. No further enquiry.',
+    opening:
+      'Ruth Calder kept the light at Ardnoe Point for forty years after they automated it, because nobody ever asked her to stop. She was found at the foot of the tower stairs on the night of the equinox storm.\n\nYou came in on the last ferry. You have her phone, and everyone still has their story straight.',
+  },
+
   threads: [
     // ---------------------------------------------------------------- t-ruth
     {
@@ -882,6 +892,52 @@ export const theLighthouseRaw = {
         'The path could still have been a walk to clear her head. The door cannot. At ten past ten she was standing at the foot of the tower, lit up by her friend\'s own lamp — at the minute Ruth stopped answering, and an hour before she came home and washed a coat she had never washed at night in her life.',
     },
   ],
+  /**
+   * The endgame. Every beat is something the player proved or read, so the
+   * confession is earned by holding the whole case rather than by outlasting a
+   * script. She gives ground one fact at a time, and each answer is smaller than
+   * the last.
+   */
+  confrontation: {
+    opening:
+      'I wondered how long it would take you. Sit down, then. Say it properly, to my face, and be very sure before you do.',
+    beats: [
+      {
+        id: 'b-alibi',
+        evidence: { kind: 'contradiction', id: 'x-callum-alibi' },
+        press: 'You told everyone Callum was in the café with you. He was at the slipway, and he said so first, in front of the whole village.',
+        rebuttal:
+          'A woman misremembers an evening after a shock. That is not a crime, and you know it is not.',
+      },
+      {
+        id: 'b-path',
+        evidence: { kind: 'contradiction', id: 'x-mairi-path' },
+        press: 'You put yourself behind that counter from half eight until eleven. Esme Trian passed you on the cliff path at 21:47 and wrote the time down.',
+        rebuttal:
+          'So I walked. People walk. It was the first still half hour in a week and I wanted the air.',
+      },
+      {
+        id: 'b-door',
+        evidence: { kind: 'contradiction', id: 'x-mairi-door' },
+        press: 'You said you turned at the gate. Callum saw you at the lighthouse door at ten past ten. He saw you in her own beam.',
+        rebuttal: 'He was soaked and it was dark and that light plays tricks. Ask anyone.',
+      },
+      {
+        id: 'b-why',
+        evidence: { kind: 'motive', id: 'm-trust' },
+        press: 'She found the hole in the Trust books that week. Two years of it. And it had your son inside it.',
+        rebuttal: '',
+      },
+    ],
+    deflections: [
+      'That proves nothing at all.',
+      'You have been away six years. You do not know what you are looking at.',
+      'Say something that means something.',
+    ],
+    confession:
+      'She was at the top of the stairs with the folder in her hand and she would not put it down.\n\nI only wanted the morning. One morning, to find the money from somewhere, so his name never went in it. She said she had already written it down.\n\nI did not decide anything. I have gone over it every hour since and I cannot find the moment I decided.',
+  },
+
   solution: {
     killerId: 'mairi',
     requiredContradictionIds: ['x-callum-alibi', 'x-mairi-path', 'x-mairi-door'],

@@ -72,6 +72,36 @@ const caseSchema = z.object({
       }),
     )
     .default([]),
+  briefing: z
+    .object({
+      victimId: z.string(),
+      foundAt: z.object({ placeId: z.string(), minutes: z.number() }),
+      causeOfDeath: z.string(),
+      ruling: z.string(),
+      opening: z.string(),
+      recoveredObjectIds: z.array(z.string()).optional(),
+    })
+    .optional(),
+  confrontation: z
+    .object({
+      opening: z.string(),
+      beats: z
+        .array(
+          z.object({
+            id: z.string(),
+            evidence: z.discriminatedUnion('kind', [
+              z.object({ kind: z.literal('contradiction'), id: z.string() }),
+              z.object({ kind: z.literal('motive'), id: z.string() }),
+            ]),
+            press: z.string(),
+            rebuttal: z.string(),
+          }),
+        )
+        .min(1),
+      deflections: z.array(z.string()).min(1),
+      confession: z.string(),
+    })
+    .optional(),
   solution: z.object({
     killerId: z.string(),
     requiredContradictionIds: z.array(z.string()),
@@ -158,6 +188,37 @@ export function loadCase(raw: unknown): CaseScript {
 
   for (const id of parsed.solution.requiredMotiveIds) {
     if (!motiveIds.has(id)) throw new Error(`Solution requires unknown motive "${id}"`);
+  }
+
+  if (parsed.briefing) {
+    requireCharacter(parsed.briefing.victimId, 'Briefing');
+    if (!placeIds.has(parsed.briefing.foundAt.placeId)) {
+      throw new Error(`Briefing references unknown place "${parsed.briefing.foundAt.placeId}"`);
+    }
+    for (const id of parsed.briefing.recoveredObjectIds ?? []) {
+      if (!objectIds.has(id)) throw new Error(`Briefing recovered unknown object "${id}"`);
+    }
+  }
+
+  if (parsed.confrontation) {
+    const contradictionIdSet = new Set(parsed.contradictions.map((c) => c.id));
+    const beatIds = new Set<string>();
+    for (const beat of parsed.confrontation.beats) {
+      if (beatIds.has(beat.id)) throw new Error(`Duplicate confrontation beat "${beat.id}"`);
+      beatIds.add(beat.id);
+
+      // A beat pointing at evidence the player can never hold would make the
+      // confession unreachable, and only after they had solved everything else.
+      const known =
+        beat.evidence.kind === 'contradiction'
+          ? contradictionIdSet.has(beat.evidence.id)
+          : motiveIds.has(beat.evidence.id);
+      if (!known) {
+        throw new Error(
+          `Confrontation beat "${beat.id}" references unknown ${beat.evidence.kind} "${beat.evidence.id}"`,
+        );
+      }
+    }
   }
 
   for (const con of parsed.contradictions) {

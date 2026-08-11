@@ -124,6 +124,59 @@ export interface IntendedContradiction {
   readonly revelation: string;
 }
 
+/**
+ * What is NOT in dispute.
+ *
+ * Shown before the first thread. Stating the settled facts is what makes the
+ * disputed ones legible — a claim only contradicts something if you already know
+ * what it is supposed to line up with.
+ */
+export interface CaseBriefing {
+  readonly victimId: string;
+  readonly foundAt: { readonly placeId: string; readonly minutes: Minutes };
+  /** "a fall from the tower stairs" */
+  readonly causeOfDeath: string;
+  /** What the authorities concluded. The thing the player is about to disprove. */
+  readonly ruling: string;
+  /** Two sentences of hook. */
+  readonly opening: string;
+  /** Objects recovered at the scene, by id. Facts, so a later claim can jar. */
+  readonly recoveredObjectIds?: readonly string[];
+}
+
+/** A thing the player can put to the killer: something they proved, or found. */
+export type EvidenceRef =
+  | { readonly kind: 'contradiction'; readonly id: string }
+  | { readonly kind: 'motive'; readonly id: string };
+
+/** One exchange in the confrontation: the player presses, the killer answers. */
+export interface ConfrontationBeat {
+  readonly id: string;
+  readonly evidence: EvidenceRef;
+  /** The player's line when they lay this fact down. */
+  readonly press: string;
+  /** How the killer answers it — pushing back, until they cannot. */
+  readonly rebuttal: string;
+}
+
+/**
+ * The endgame. After a correct accusation the killer answers, and the player has
+ * to lay out what they have, one fact at a time, until there is nothing left to
+ * push back with.
+ *
+ * It is the payoff for the deduction rather than a cutscene: every move is
+ * something the player earned, and the confession comes when the evidence runs
+ * out, not after a fixed number of turns.
+ */
+export interface Confrontation {
+  /** The killer's first answer to being named. */
+  readonly opening: string;
+  readonly beats: readonly ConfrontationBeat[];
+  /** Used when the player presses something that is not one of the beats. */
+  readonly deflections: readonly string[];
+  readonly confession: string;
+}
+
 export interface CaseSolution {
   readonly killerId: string;
   /** Every one of these must be confirmed before an accusation can stick. */
@@ -151,6 +204,10 @@ export interface CaseScript {
   readonly objects: readonly CaseObject[];
   /** Why people would do it. Empty for cases with no motive axis. */
   readonly motives: readonly Motive[];
+  /** The settled facts, shown before the first thread. */
+  readonly briefing?: CaseBriefing;
+  /** The endgame. Without one, a correct accusation goes straight to the epilogue. */
+  readonly confrontation?: Confrontation;
   readonly threads: readonly Thread[];
   readonly contradictions: readonly IntendedContradiction[];
   readonly solution: CaseSolution;
