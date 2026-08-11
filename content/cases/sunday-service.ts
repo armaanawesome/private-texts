@@ -417,7 +417,11 @@ export const sundayServiceRaw = {
       id: 't-ines',
       title: 'Inés Barragán',
       participantIds: ['you', 'ines'],
-      requiresContradictionIds: ['x-cordy-vestry', 'x-cordy-register'],
+      // Deadlock, found at Pack 14. This also gated on `x-cordy-register`, whose
+      // two claims are both inside this thread — so opening it required a proof
+      // only it could supply. The vestry contradiction is built from t-parish and
+      // t-jack, so it opens from outside.
+      requiresContradictionIds: ['x-cordy-vestry'],
       messages: [
         {
           id: 'i1',

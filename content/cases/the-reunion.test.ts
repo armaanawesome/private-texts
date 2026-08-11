@@ -109,26 +109,17 @@ describe('The Reunion', () => {
   });
 
   /**
-   * Deadlock check. Mr Vale carries two of the three proofs, so the proof that
-   * opens him must be reachable without him. Written as a rule over every gated
-   * thread rather than a fact about this one, because it is the bug class that
-   * would only surface mid-playthrough.
+   * Mr Vale carries two of the three proofs, so the proof that opens him has to
+   * come from elsewhere — Rafe's own account against Marika's. The general
+   * deadlock check now lives in the shared contract.
    */
-  it('never gates a thread on a proof that thread supplies', () => {
-    for (const t of script.threads) {
-      const ownClaimIds = new Set(t.messages.flatMap((m) => (m.claims ?? []).map((c) => c.id)));
-      for (const id of t.requiresContradictionIds) {
-        const c = script.contradictions.find((x) => x.id === id)!;
-        for (const cid of [c.claimIdA, c.claimIdB]) {
-          expect(ownClaimIds.has(cid), `thread ${t.id} is gated on its own claim ${cid}`).toBe(
-            false,
-          );
-        }
-      }
-    }
+  it('opens Mr Vale on the one proof he does not supply', () => {
     expect(script.threads.find((t) => t.id === 't-corin')?.requiresContradictionIds).toEqual([
       'x-rafe-speech',
     ]);
+    for (const cid of ['c-rafe-speech', 'c-rafe-outside']) {
+      expect(claim(cid).assertedBy, `${cid} comes from Mr Vale`).not.toBe('corin');
+    }
   });
 
   /**

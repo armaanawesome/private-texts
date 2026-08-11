@@ -434,7 +434,11 @@ export const theBothyRaw = {
       id: 't-hamish',
       title: 'Hamish Dunnet',
       participantIds: ['you', 'hamish'],
-      requiresContradictionIds: ['x-keir-mainroom', 'x-keir-book'],
+      // Deadlock, found at Pack 14. This also gated on `x-keir-book`, half of
+      // which (`c-keir-book-early`) is inside this thread, so opening it required
+      // a proof only it could supply. `x-keir-mainroom` is built from t-group and
+      // t-morven, so it opens from outside.
+      requiresContradictionIds: ['x-keir-mainroom'],
       messages: [
         {
           id: 'h1',

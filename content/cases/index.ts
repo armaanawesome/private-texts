@@ -12,6 +12,7 @@ import { openMicRaw } from './open-mic';
 import { theAllotmentsRaw } from './the-allotments';
 import { theHelplineRaw } from './the-helpline';
 import { theReunionRaw } from './the-reunion';
+import { theNightFerryRaw } from './the-night-ferry';
 
 /**
  * Every case, validated at module load.
@@ -34,6 +35,7 @@ export const CASES: readonly CaseScript[] = [
   loadCase(theAllotmentsRaw),
   loadCase(theHelplineRaw),
   loadCase(theReunionRaw),
+  loadCase(theNightFerryRaw),
 ];
 
 export function getCase(caseId: string): CaseScript | undefined {

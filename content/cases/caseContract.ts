@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  availableClaims,
   checkContradiction,
   evaluateAccusation,
   press,
@@ -114,6 +115,53 @@ export function describeCaseContract(script: CaseScript) {
         }
       }
       expect(visibleThreads(script, solved())).toHaveLength(script.threads.length);
+    });
+
+    /**
+     * Attainability, played forward from nothing.
+     *
+     * `leaves every thread reachable on a winning run` hands the player every
+     * contradiction at once and so cannot see ordering: a thread gated on a
+     * proof that only that thread supplies still passes it. Two shipped packs
+     * were doing exactly that, found at Pack 14 — Sunday Service gated Inés on a
+     * contradiction whose claims are both inside her thread, and The Bothy gated
+     * Hamish on half a proof of his own. Both were unopenable, and it would have
+     * surfaced as a player staring at a locked conversation with nothing left to
+     * read.
+     *
+     * This runs the real loop instead: open what is open, read it, confirm every
+     * declared contradiction both of whose claims you now hold, repeat to a
+     * fixpoint. It catches a cycle across two threads as well as direct
+     * self-supply.
+     */
+    it('opens every thread by playing forward from nothing', () => {
+      let readIds: string[] = [];
+      let confirmed: string[] = [];
+      let visible = 0;
+
+      for (let pass = 0; pass <= script.threads.length + 1; pass += 1) {
+        const open = visibleThreads(script, {
+          confirmedContradictionIds: confirmed,
+          readMessageIds: readIds,
+        });
+        if (open.length === visible && pass > 0) break;
+        visible = open.length;
+
+        readIds = open.flatMap((t) => t.messages.map((m) => m.id));
+        const held = new Set(availableClaims(script, readIds).map((c) => c.id));
+        confirmed = script.contradictions
+          .filter((c) => held.has(c.claimIdA) && held.has(c.claimIdB))
+          .map((c) => c.id);
+      }
+
+      const opened = new Set(
+        visibleThreads(script, {
+          confirmedContradictionIds: confirmed,
+          readMessageIds: readIds,
+        }).map((t) => t.id),
+      );
+      const stuck = script.threads.filter((t) => !opened.has(t.id)).map((t) => t.id);
+      expect(stuck, 'these threads can never be opened by playing').toEqual([]);
     });
 
     it('keeps every message in its thread, in send order', () => {
