@@ -95,10 +95,19 @@ export function AccusationScreen() {
               <View style={[styles.avatar, { backgroundColor: c.avatarColor }]}>
                 <Text style={styles.initial}>{c.name.slice(0, 1)}</Text>
               </View>
-              <Text style={styles.name}>{c.name}</Text>
-              <Text style={styles.count}>
-                {n === 0 ? 'nothing proven' : `${n} contradiction${n === 1 ? '' : 's'}`}
-              </Text>
+              <View style={styles.identity}>
+                <Text style={styles.name}>{c.name}</Text>
+                <Text style={styles.count}>
+                  {n === 0 ? 'nothing proven' : `${n} contradiction${n === 1 ? '' : 's'}`}
+                </Text>
+              </View>
+              {/* One mark per proven contradiction naming them — the same bar the
+                  sheet draws, so weight of evidence reads at a glance. */}
+              <View style={styles.marks}>
+                {Array.from({ length: n }).map((_, i) => (
+                  <View key={i} style={styles.mark} />
+                ))}
+              </View>
             </Pressable>
           );
         })}
@@ -114,8 +123,8 @@ const styles = StyleSheet.create({
   sub: { ...theme.type.body, color: theme.color.textDim },
   refusal: {
     backgroundColor: theme.color.surface,
-    borderLeftWidth: 2,
-    borderLeftColor: theme.color.danger,
+    borderWidth: 1,
+    borderColor: theme.color.rule,
     borderRadius: theme.radius.chip,
     padding: theme.space.md,
     gap: theme.space.xs,
@@ -136,8 +145,11 @@ const styles = StyleSheet.create({
   pressed: { opacity: 0.7 },
   avatar: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   initial: { ...theme.type.sender, color: theme.color.bg, fontSize: 18 },
-  name: { ...theme.type.body, color: theme.color.text, flex: 1 },
+  identity: { flex: 1, gap: 2 },
+  name: { ...theme.type.body, color: theme.color.text },
   count: { ...theme.type.meta, color: theme.color.textDim },
+  marks: { flexDirection: 'row', gap: 3, alignItems: 'center' },
+  mark: { width: 3, height: 18, borderRadius: 1.5, backgroundColor: theme.color.danger },
   endRoot: { padding: theme.space.lg, gap: theme.space.lg, flexGrow: 1, justifyContent: 'center' },
   endTitle: { ...theme.type.title, color: theme.color.accent, textAlign: 'center' },
   epilogue: { ...theme.type.body, color: theme.color.text },

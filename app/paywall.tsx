@@ -112,7 +112,6 @@ export default function PaywallScreen() {
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       {/* No <Stack.Screen options={{...}} /> here — an inline literal re-renders
           the navigator forever. Options live in app/_layout.tsx. */}
-      <Text style={styles.kicker}>CASE FILE — SEALED</Text>
       <Text style={styles.title}>More cases</Text>
       <Text style={styles.body}>
         Another death, another phone, another story that does not hold up. Unlock the case pack to
@@ -120,9 +119,16 @@ export default function PaywallScreen() {
       </Text>
 
       <View style={styles.list}>
-        <Text style={styles.bullet}>· A second full-length case</Text>
-        <Text style={styles.bullet}>· New suspects, new contradictions</Text>
-        <Text style={styles.bullet}>· Yours permanently — this is not a subscription</Text>
+        {[
+          'A second full-length case',
+          'New suspects, new contradictions',
+          'Yours permanently — this is not a subscription',
+        ].map((line) => (
+          <View key={line} style={styles.bulletRow}>
+            <View style={styles.bulletMark} />
+            <Text style={styles.bullet}>{line}</Text>
+          </View>
+        ))}
       </View>
 
       {phase.kind === 'loading' ? (
@@ -186,11 +192,13 @@ export default function PaywallScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: theme.color.bg },
   content: { padding: theme.space.lg, gap: theme.space.md, flexGrow: 1, justifyContent: 'center' },
-  kicker: { ...theme.type.claim, color: theme.color.accent, letterSpacing: 1.5 },
   title: { ...theme.type.title, color: theme.color.text },
   body: { ...theme.type.body, color: theme.color.textDim },
   list: { gap: theme.space.xs, marginVertical: theme.space.sm },
-  bullet: { ...theme.type.body, color: theme.color.text },
+  bulletRow: { flexDirection: 'row', alignItems: 'center', gap: theme.space.sm },
+  /** Drawn, not a "·" character standing in for an icon. */
+  bulletMark: { width: 3, height: 16, borderRadius: 1.5, backgroundColor: theme.color.accent },
+  bullet: { ...theme.type.body, color: theme.color.text, flexShrink: 1 },
   spinner: { marginVertical: theme.space.lg },
   problem: {
     backgroundColor: theme.color.surface,
