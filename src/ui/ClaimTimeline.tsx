@@ -36,6 +36,8 @@ interface Props {
 const GROW_MS = 520;
 const STAGGER_MS = 120;
 const BAND_MS = 300;
+/** Ticks across the axis. A multiple of 4 so the majors land evenly. */
+const TICKS = 24;
 
 /**
  * Two statements drawn against one clock.
@@ -116,7 +118,23 @@ export function ClaimTimeline({ subjectName, a, b, conflict, reduceMotion }: Pro
         <Text style={styles.axisLabel}>{clockOf(domain.end)}</Text>
       </View>
 
+      {/* The instrument's own scale. Majors every fourth tick give the eye
+          something to measure the bars against. */}
+      <View style={styles.ticks} pointerEvents="none">
+        {Array.from({ length: TICKS }).map((_, i) => (
+          <View key={i} style={[styles.tick, i % 4 === 0 && styles.tickMajor]} />
+        ))}
+      </View>
+
       <View style={styles.plot} onLayout={(e: LayoutChangeEvent) => setTrackWidth(e.nativeEvent.layout.width)}>
+        {/* Vertical rules behind the rails, aligned to the major ticks, so the
+            bars read as measured against a scale rather than floating. */}
+        <View style={styles.vgrid} pointerEvents="none">
+          {Array.from({ length: TICKS / 4 + 1 }).map((_, i) => (
+            <View key={i} style={styles.vline} />
+          ))}
+        </View>
+
         {lit && trackWidth > 0 ? (
           <Animated.View
             pointerEvents="none"
@@ -192,7 +210,21 @@ const styles = StyleSheet.create({
   axisLabel: { ...theme.type.claim, color: theme.color.textDim, fontSize: 11 },
   axisRule: { flex: 1, height: 1, backgroundColor: theme.color.rule },
 
+  ticks: { flexDirection: 'row', justifyContent: 'space-between', height: 6, marginTop: -2 },
+  tick: { width: StyleSheet.hairlineWidth, height: 3, backgroundColor: theme.color.rule },
+  tickMajor: { height: 6, backgroundColor: theme.color.textDim },
+
   plot: { gap: theme.space.md, paddingVertical: theme.space.xs },
+  vgrid: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  vline: { width: StyleSheet.hairlineWidth, backgroundColor: theme.color.rule, opacity: 0.5 },
 
   /**
    * Spans both rows on purpose. The overlap is a property of the pair, not of
