@@ -1,6 +1,6 @@
 import { loadCase, type CaseScript } from '@/engine';
 import { theLighthouseRaw } from './the-lighthouse';
-import { lockedFixtureRaw } from './fixture-locked';
+import { theUnderstudyRaw } from './the-understudy';
 
 /**
  * Every case, validated at module load.
@@ -11,7 +11,7 @@ import { lockedFixtureRaw } from './fixture-locked';
  */
 export const CASES: readonly CaseScript[] = [
   loadCase(theLighthouseRaw),
-  loadCase(lockedFixtureRaw),
+  loadCase(theUnderstudyRaw),
 ];
 
 export function getCase(caseId: string): CaseScript | undefined {
