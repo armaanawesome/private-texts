@@ -153,12 +153,33 @@ event is a bug.
 
 Each step ships and is playable on its own.
 
-| # | Step | Why here |
+| # | Step | Status |
 |---|---|---|
-| 1 | Anchor generalisation + `has_object` | Pure engine, fully unit-testable, unlocks the weapon axis |
-| 2 | `ThreadGate.readMessageIds` | Smallest change with the largest effect on how the game *feels* |
-| 3 | Motive + the accusation step | Changes the win condition, so it wants the other two settled |
-| 4 | Case briefing screen | Presentation only, but reads better once weapon and motive exist to point at |
+| 1 | Anchor generalisation + `has_object` | **Done** 2026-08-11 |
+| 2 | Thread discovery by reading | **Done** 2026-08-11 |
+| 3 | Motive + the accusation step | **Done** 2026-08-11 |
+| 4 | Case briefing screen | Not started |
+
+### Deviations from this design, and why
+
+**No unified `ThreadGate` object.** The doc proposed collapsing the gates into
+one nested field. Shipped instead as three sibling fields —
+`requiresContradictionIds` (existing), `requiresReadMessageIds`,
+`requiresMotiveIds` — because that reads better in a case script, needed no
+migration of Case 1, and is exactly as expressive. Revisit only if a fourth gate
+appears.
+
+**Motive is checked globally, not against the accused.** The doc said "motive
+established for the accused". That leaks: refusing Tom on motive would confirm
+the player had landed on someone whose story is otherwise breakable, which is
+brute-forcing by elimination — the exact thing the proof-before-identity order
+exists to prevent. `solution.requiredMotiveIds` is a flat global gate instead,
+and a test asserts the refusal text is identical whoever you accuse.
+
+**`Progress` replaced the widening argument lists.** `visibleThreads` and
+`evaluateAccusation` both needed the same two facts, so they take
+`{ confirmedContradictionIds, readMessageIds }`. Motive is *derived* from the
+read list rather than stored, so there is no third field to keep consistent.
 
 ## Risks
 

@@ -24,7 +24,8 @@ export default function CaseLayout() {
 
   // Only counts threads the player can actually open — a gated thread is not
   // "unread", it does not exist yet as far as they are concerned.
-  const unread = visibleThreads(script, confirmedIds)
+  const progress = { confirmedContradictionIds: confirmedIds, readMessageIds };
+  const unread = visibleThreads(script, progress)
     .flatMap((t) => t.messages)
     .filter((m) => !readMessageIds.includes(m.id)).length;
 

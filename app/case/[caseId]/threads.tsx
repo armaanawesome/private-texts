@@ -22,7 +22,10 @@ export default function ThreadsScreen() {
 
   if (!script) return null;
 
-  const threads = visibleThreads(script, confirmedIds);
+  const threads = visibleThreads(script, {
+    confirmedContradictionIds: confirmedIds,
+    readMessageIds,
+  });
   const hidden = script.threads.length - threads.length;
 
   return (

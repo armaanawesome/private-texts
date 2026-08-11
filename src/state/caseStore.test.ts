@@ -8,6 +8,7 @@ const SCRIPT = {
   blurb: '',
   characters: [{ id: 'nadia', name: 'Nadia', avatarColor: '#c33' }],
   objects: [],
+  motives: [],
   places: [
     { id: 'studio', name: 'Studio' },
     { id: 'harbour', name: 'Harbour' },
@@ -59,7 +60,7 @@ const SCRIPT = {
     },
   ],
   contradictions: [{ id: 'x1', claimIdA: 'c1', claimIdB: 'c2', revelation: 'Caught.' }],
-  solution: { killerId: 'nadia', requiredContradictionIds: ['x1'], epilogue: 'e' },
+  solution: { killerId: 'nadia', requiredContradictionIds: ['x1'], requiredMotiveIds: [], epilogue: 'e' },
 } as CaseScript;
 
 describe('useCaseStore', () => {

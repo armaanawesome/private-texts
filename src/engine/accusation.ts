@@ -1,19 +1,29 @@
-import type { CaseScript } from './types';
+import type { CaseScript, Progress } from './types';
+import { establishedMotiveIds } from './motive';
 
 export type AccusationResult =
   | { readonly correct: true; readonly epilogue: string }
   | { readonly correct: false; readonly reason: string; readonly missingCount: number };
 
 /**
- * Proof is checked before identity on purpose. Reporting "right person, wrong proof"
- * would let a player brute-force the killer by tapping every suspect in turn.
+ * Three gates, in this order, and the order is the whole design.
+ *
+ * 1. Proof — every required contradiction broken.
+ * 2. Motive — every required motive read and established.
+ * 3. Identity — the right person.
+ *
+ * Proof and motive are checked **globally**, never against the accused. Asking
+ * "does this person have a motive" would leak: refusing on motive would confirm
+ * the player had landed on someone whose story is otherwise breakable, and they
+ * could brute-force the killer by elimination. Identity is checked last for the
+ * same reason.
  */
 export function evaluateAccusation(
   script: CaseScript,
   accusedId: string,
-  confirmedContradictionIds: readonly string[],
+  progress: Progress,
 ): AccusationResult {
-  const confirmed = new Set(confirmedContradictionIds);
+  const confirmed = new Set(progress.confirmedContradictionIds);
   const missing = script.solution.requiredContradictionIds.filter((id) => !confirmed.has(id));
 
   if (missing.length > 0) {
@@ -23,6 +33,18 @@ export function evaluateAccusation(
       missingCount: missing.length,
     };
   }
+
+  const established = new Set(establishedMotiveIds(script.motives, progress.readMessageIds));
+  const missingMotives = script.solution.requiredMotiveIds.filter((id) => !established.has(id));
+
+  if (missingMotives.length > 0) {
+    return {
+      correct: false,
+      reason: 'You can break the story, but you cannot yet say why. Keep reading.',
+      missingCount: missingMotives.length,
+    };
+  }
+
   if (accusedId !== script.solution.killerId) {
     return {
       correct: false,

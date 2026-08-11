@@ -1,13 +1,25 @@
-import type { CaseScript, Claim, Thread } from './types';
+import type { CaseScript, Claim, Progress, Thread } from './types';
+import { establishedMotiveIds } from './motive';
 
-/** Threads whose gating contradictions have all been confirmed. */
-export function visibleThreads(
-  script: CaseScript,
-  confirmedContradictionIds: readonly string[],
-): Thread[] {
-  const confirmed = new Set(confirmedContradictionIds);
-  return script.threads.filter((t) =>
-    t.requiresContradictionIds.every((id) => confirmed.has(id)),
+/**
+ * Threads the player can open.
+ *
+ * Three independent gates, all of which must pass. Contradictions model
+ * escalation — prove something and a door opens. `requiresReadMessageIds` models
+ * *discovery*: someone mentions a person and that person becomes reachable,
+ * which is what produces a natural chain from first responders outward rather
+ * than a ladder of puzzle rewards.
+ */
+export function visibleThreads(script: CaseScript, progress: Progress): Thread[] {
+  const confirmed = new Set(progress.confirmedContradictionIds);
+  const read = new Set(progress.readMessageIds);
+  const motives = new Set(establishedMotiveIds(script.motives, progress.readMessageIds));
+
+  return script.threads.filter(
+    (t) =>
+      t.requiresContradictionIds.every((id) => confirmed.has(id)) &&
+      (t.requiresReadMessageIds ?? []).every((id) => read.has(id)) &&
+      (t.requiresMotiveIds ?? []).every((id) => motives.has(id)),
   );
 }
 

@@ -49,6 +49,8 @@ const caseSchema = z.object({
       title: z.string(),
       participantIds: z.array(z.string()),
       requiresContradictionIds: z.array(z.string()),
+      requiresReadMessageIds: z.array(z.string()).optional(),
+      requiresMotiveIds: z.array(z.string()).optional(),
       messages: z.array(message),
     }),
   ),
@@ -60,9 +62,20 @@ const caseSchema = z.object({
       revelation: z.string(),
     }),
   ),
+  motives: z
+    .array(
+      z.object({
+        id: z.string(),
+        characterId: z.string(),
+        summary: z.string(),
+        establishedByMessageIds: z.array(z.string()).min(1),
+      }),
+    )
+    .default([]),
   solution: z.object({
     killerId: z.string(),
     requiredContradictionIds: z.array(z.string()),
+    requiredMotiveIds: z.array(z.string()).default([]),
     epilogue: z.string(),
   }),
 });
@@ -81,6 +94,8 @@ export function loadCase(raw: unknown): CaseScript {
   const characterIds = new Set(parsed.characters.map((c) => c.id));
   const placeIds = new Set(parsed.places.map((p) => p.id));
   const objectIds = new Set(parsed.objects.map((o) => o.id));
+  const motiveIds = new Set(parsed.motives.map((m) => m.id));
+  const messageIds = new Set(parsed.threads.flatMap((t) => t.messages.map((m) => m.id)));
   const claimIds = new Set<string>();
 
   const requireCharacter = (id: string, where: string) => {
@@ -117,6 +132,32 @@ export function loadCase(raw: unknown): CaseScript {
         }
       }
     }
+  }
+
+  for (const t of parsed.threads) {
+    for (const id of t.requiresReadMessageIds ?? []) {
+      if (!messageIds.has(id)) {
+        throw new Error(`Thread "${t.id}" is gated on unknown message "${id}"`);
+      }
+    }
+    for (const id of t.requiresMotiveIds ?? []) {
+      if (!motiveIds.has(id)) throw new Error(`Thread "${t.id}" is gated on unknown motive "${id}"`);
+    }
+  }
+
+  for (const m of parsed.motives) {
+    requireCharacter(m.characterId, `Motive "${m.id}"`);
+    for (const id of m.establishedByMessageIds) {
+      if (!messageIds.has(id)) {
+        // A motive that can never be established makes the case unwinnable, and
+        // it would only surface when a player had done everything else right.
+        throw new Error(`Motive "${m.id}" is established by unknown message "${id}"`);
+      }
+    }
+  }
+
+  for (const id of parsed.solution.requiredMotiveIds) {
+    if (!motiveIds.has(id)) throw new Error(`Solution requires unknown motive "${id}"`);
   }
 
   for (const con of parsed.contradictions) {

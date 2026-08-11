@@ -32,16 +32,31 @@ describe.each(CASES.map((c) => [c.id, c] as const))('case: %s', (_id, script) =>
     }
   });
 
-  it('is solvable with the killer plus all required proof', () => {
-    const r = evaluateAccusation(script, script.solution.killerId, [
-      ...script.solution.requiredContradictionIds,
-    ]);
-    expect(r.correct).toBe(true);
+  /** Everything proven and every message read — the state a finished player is in. */
+  const solved = () => ({
+    confirmedContradictionIds: [...script.solution.requiredContradictionIds],
+    readMessageIds: script.threads.flatMap((t) => t.messages.map((m) => m.id)),
+  });
+
+  it('is solvable with the killer plus all required proof and motive', () => {
+    expect(evaluateAccusation(script, script.solution.killerId, solved()).correct).toBe(true);
   });
 
   it('is not solvable without complete proof', () => {
     const partial = script.solution.requiredContradictionIds.slice(0, -1);
-    expect(evaluateAccusation(script, script.solution.killerId, [...partial]).correct).toBe(false);
+    expect(
+      evaluateAccusation(script, script.solution.killerId, {
+        ...solved(),
+        confirmedContradictionIds: [...partial],
+      }).correct,
+    ).toBe(false);
+  });
+
+  it('every required motive is establishable by reading the case', () => {
+    // A motive gated on a message that no thread contains would make the case
+    // unwinnable, and only at the very last step.
+    const r = evaluateAccusation(script, script.solution.killerId, solved());
+    expect(r.correct, 'required motives are not all establishable').toBe(true);
   });
 
   it('every gated thread references a real contradiction', () => {

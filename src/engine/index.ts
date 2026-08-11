@@ -5,4 +5,5 @@ export { checkContradiction, type ContradictionVerdict, type RuleContext } from 
 export { anchorOf } from './anchor';
 export { loadCase } from './schema';
 export { visibleThreads, availableClaims } from './progression';
+export { establishedMotiveIds, motivesFor } from './motive';
 export { evaluateAccusation, type AccusationResult } from './accusation';

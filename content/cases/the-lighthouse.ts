@@ -841,6 +841,24 @@ export const theLighthouseRaw = {
       ],
     },
   ],
+  /**
+   * One motive, established by two messages that already existed.
+   *
+   * Ruth names the hole in the Trust books before she dies (r7); Callum says
+   * whose it was (k11), and his thread only opens once the first two
+   * contradictions are proven. So the reason arrives after the alibi breaks,
+   * which is the order the story wants — and it cannot be stumbled into from
+   * the board, because it is earned by reading.
+   */
+  motives: [
+    {
+      id: 'm-trust',
+      characterId: 'mairi',
+      summary:
+        'She had been taking from the Ardnoe Light Trust for two years to cover Callum\'s debts, and Ruth had found the hole in the books that week.',
+      establishedByMessageIds: ['r7', 'k11'],
+    },
+  ],
   contradictions: [
     {
       id: 'x-callum-alibi',
@@ -867,6 +885,8 @@ export const theLighthouseRaw = {
   solution: {
     killerId: 'mairi',
     requiredContradictionIds: ['x-callum-alibi', 'x-mairi-path', 'x-mairi-door'],
+    // Breaking the alibi is not enough. You have to be able to say why.
+    requiredMotiveIds: ['m-trust'],
     epilogue:
       'She did not deny it when they came. She asked whether Callum would have to stand up in a room and say it out loud, and when they told her he would, she said the whole thing herself so that he would not have to.\n\nThe Trust was eleven thousand pounds short. Ruth had written it all out in the back of the survey notebook, in her own hand, with the date she meant to go to the police. She had also written, underneath: "M. has been my friend since we were five. Ask them to be kind to her."\n\nThey took the lamp out that winter. Nobody had been asked to stand beside it for forty years.',
   },

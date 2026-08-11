@@ -4,15 +4,18 @@ import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { theme } from './theme';
 import { useCaseStore } from '@/state/caseStore';
-import { evaluateAccusation, type AccusationResult, type Character } from '@/engine';
+import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
 
 export function AccusationScreen() {
   const reduceMotion = useReducedMotion();
   const script = useCaseStore((s) => s.script);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
+  const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const [result, setResult] = useState<AccusationResult | null>(null);
 
   if (!script) return null;
+
+  const progress = { confirmedContradictionIds: confirmedIds, readMessageIds };
 
   /** How many proven contradictions name this person. Shown as pressure, not as an answer. */
   const proofAgainst = (id: string) =>
@@ -38,7 +41,7 @@ export function AccusationScreen() {
           style: 'destructive',
           onPress: () => {
             void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-            setResult(evaluateAccusation(script!, person.id, confirmedIds));
+            setResult(evaluateAccusation(script!, person.id, progress));
           },
         },
       ],
@@ -100,6 +103,13 @@ export function AccusationScreen() {
                 <Text style={styles.count}>
                   {n === 0 ? 'nothing proven' : `${n} contradiction${n === 1 ? '' : 's'}`}
                 </Text>
+                {/* Without this the motive gate is invisible: the player would
+                    be refused for a reason they cannot see they are missing. */}
+                {motivesFor(script.motives, c.id, readMessageIds).map((m) => (
+                  <Text key={m.id} style={styles.motive}>
+                    {m.summary}
+                  </Text>
+                ))}
               </View>
               {/* One mark per proven contradiction naming them — the same bar the
                   sheet draws, so weight of evidence reads at a glance. */}
@@ -148,6 +158,7 @@ const styles = StyleSheet.create({
   identity: { flex: 1, gap: 2 },
   name: { ...theme.type.body, color: theme.color.text },
   count: { ...theme.type.meta, color: theme.color.textDim },
+  motive: { ...theme.type.meta, color: theme.color.accent, marginTop: 2 },
   marks: { flexDirection: 'row', gap: 3, alignItems: 'center' },
   mark: { width: 3, height: 18, borderRadius: 1.5, backgroundColor: theme.color.danger },
   endRoot: { padding: theme.space.lg, gap: theme.space.lg, flexGrow: 1, justifyContent: 'center' },

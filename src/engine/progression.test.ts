@@ -9,6 +9,7 @@ const SCRIPT = {
   characters: [{ id: 'nadia', name: 'Nadia', avatarColor: '#c33' }],
   places: [{ id: 'studio', name: 'Studio' }],
   objects: [],
+  motives: [],
   threads: [
     {
       id: 'open',
@@ -63,16 +64,76 @@ const SCRIPT = {
     },
   ],
   contradictions: [{ id: 'x1', claimIdA: 'c1', claimIdB: 'c2', revelation: 'r' }],
-  solution: { killerId: 'nadia', requiredContradictionIds: ['x1'], epilogue: 'e' },
+  solution: { killerId: 'nadia', requiredContradictionIds: ['x1'], requiredMotiveIds: [], epilogue: 'e' },
 } as CaseScript;
 
 describe('visibleThreads', () => {
   it('shows only unconditional threads at the start', () => {
-    expect(visibleThreads(SCRIPT, []).map((t) => t.id)).toEqual(['open']);
+    expect(visibleThreads(SCRIPT, { confirmedContradictionIds: [], readMessageIds: [] }).map((t) => t.id)).toEqual(['open']);
   });
 
   it('reveals a gated thread once its contradiction is confirmed', () => {
-    expect(visibleThreads(SCRIPT, ['x1']).map((t) => t.id)).toEqual(['open', 'locked']);
+    expect(visibleThreads(SCRIPT, { confirmedContradictionIds: ['x1'], readMessageIds: [] }).map((t) => t.id)).toEqual(['open', 'locked']);
+  });
+
+  /**
+   * Discovery, as opposed to escalation. Someone mentions a person and that
+   * person becomes reachable — the chain that runs from first responders
+   * outward, rather than a ladder of puzzle rewards.
+   */
+  describe('discovery by reading', () => {
+    const withMention = {
+      ...SCRIPT,
+      threads: [
+        ...SCRIPT.threads,
+        {
+          id: 'mentioned',
+          title: 'Mentioned',
+          participantIds: ['nadia'],
+          requiresContradictionIds: [],
+          requiresReadMessageIds: ['m1', 'm2'],
+          messages: [],
+        },
+      ],
+    } as CaseScript;
+
+    it('hides a thread until every message naming it has been read', () => {
+      const ids = visibleThreads(withMention, {
+        confirmedContradictionIds: [],
+        readMessageIds: ['m1'],
+      }).map((t) => t.id);
+      expect(ids).not.toContain('mentioned');
+    });
+
+    it('reveals it once they all have', () => {
+      const ids = visibleThreads(withMention, {
+        confirmedContradictionIds: [],
+        readMessageIds: ['m1', 'm2'],
+      }).map((t) => t.id);
+      expect(ids).toContain('mentioned');
+    });
+
+    it('still applies the contradiction gate alongside it', () => {
+      // Both gates are independent and both must pass.
+      const both = {
+        ...withMention,
+        threads: withMention.threads.map((t) =>
+          t.id === 'mentioned' ? { ...t, requiresContradictionIds: ['x1'] } : t,
+        ),
+      } as CaseScript;
+
+      const readOnly = visibleThreads(both, {
+        confirmedContradictionIds: [],
+        readMessageIds: ['m1', 'm2'],
+      }).map((t) => t.id);
+      expect(readOnly).not.toContain('mentioned');
+
+      const bothDone = visibleThreads(both, {
+        confirmedContradictionIds: ['x1'],
+        readMessageIds: ['m1', 'm2'],
+      }).map((t) => t.id);
+      expect(bothDone).toContain('mentioned');
+    });
   });
 });
 

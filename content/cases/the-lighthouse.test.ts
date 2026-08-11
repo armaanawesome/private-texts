@@ -11,6 +11,13 @@ import { theLighthouseRaw } from './the-lighthouse';
 const script = loadCase(theLighthouseRaw);
 
 const allClaims: Claim[] = script.threads.flatMap((t) => t.messages.flatMap((m) => m.claims ?? []));
+const allMessageIds = script.threads.flatMap((t) => t.messages.map((m) => m.id));
+
+/** Progress with the given contradictions proven and everything read. */
+const at = (proven: string[]) => ({
+  confirmedContradictionIds: proven,
+  readMessageIds: allMessageIds,
+});
 const byId = new Map(allClaims.map((c) => [c.id, c]));
 
 function claim(id: string): Claim {
@@ -69,7 +76,7 @@ describe('The Lighthouse', () => {
   });
 
   it('gives the player two contradictions from threads that are open at the start', () => {
-    const open = visibleThreads(script, []);
+    const open = visibleThreads(script, at([]));
     const reachable = new Set(
       open.flatMap((t) => t.messages.flatMap((m) => (m.claims ?? []).map((c) => c.id))),
     );
@@ -81,10 +88,10 @@ describe('The Lighthouse', () => {
   });
 
   it('gates the third contradiction behind the first two', () => {
-    const beforeAnyProof = visibleThreads(script, []).map((t) => t.id);
+    const beforeAnyProof = visibleThreads(script, at([])).map((t) => t.id);
     expect(beforeAnyProof).not.toContain('t-callum-truth');
 
-    const afterTwo = visibleThreads(script, ['x-callum-alibi', 'x-mairi-path']).map((t) => t.id);
+    const afterTwo = visibleThreads(script, at(['x-callum-alibi', 'x-mairi-path'])).map((t) => t.id);
     expect(afterTwo).toContain('t-callum-truth');
 
     // And the claim that completes contradiction 3 lives behind that gate.
@@ -94,16 +101,16 @@ describe('The Lighthouse', () => {
   });
 
   it('refuses an accusation until all three are proven, then accepts only Mairi', () => {
-    expect(evaluateAccusation(script, 'mairi', [])).toMatchObject({ correct: false });
+    expect(evaluateAccusation(script, 'mairi', at([]))).toMatchObject({ correct: false });
     expect(
-      evaluateAccusation(script, 'mairi', ['x-callum-alibi', 'x-mairi-path']),
+      evaluateAccusation(script, 'mairi', at(['x-callum-alibi', 'x-mairi-path'])),
     ).toMatchObject({ correct: false, missingCount: 1 });
 
     const all = ['x-callum-alibi', 'x-mairi-path', 'x-mairi-door'];
     // Right proof, wrong person: must still fail, or the killer is brute-forceable.
-    expect(evaluateAccusation(script, 'callum', all)).toMatchObject({ correct: false });
-    expect(evaluateAccusation(script, 'esme', all)).toMatchObject({ correct: false });
-    expect(evaluateAccusation(script, 'mairi', all)).toMatchObject({ correct: true });
+    expect(evaluateAccusation(script, 'callum', at(all))).toMatchObject({ correct: false });
+    expect(evaluateAccusation(script, 'esme', at(all))).toMatchObject({ correct: false });
+    expect(evaluateAccusation(script, 'mairi', at(all))).toMatchObject({ correct: true });
   });
 
   it('sources every claim from the message it is attached to', () => {

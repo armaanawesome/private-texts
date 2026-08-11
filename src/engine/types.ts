@@ -70,6 +70,49 @@ export interface Thread {
   readonly messages: readonly Message[];
   /** Confirmed contradiction ids required before this thread appears. Empty = open from the start. */
   readonly requiresContradictionIds: readonly string[];
+  /**
+   * Messages that must have been read before this thread appears — someone has
+   * to mention a person before you can talk to them.
+   *
+   * This is what produces a natural chain (first responders, then family, then
+   * whoever they name) rather than pure escalation.
+   *
+   * Content rule: the unlocking message must actually *name* them. If nothing
+   * named them, a thread appearing out of nowhere reads as a bug, not a reward.
+   */
+  readonly requiresReadMessageIds?: readonly string[];
+  /** Motives that must be established first. */
+  readonly requiresMotiveIds?: readonly string[];
+}
+
+/**
+ * Why someone would do it.
+ *
+ * Deliberately not a contradiction: "why would they?" cannot be falsified by
+ * pairing two statements, and forcing it through `checkContradiction` would
+ * produce verdicts the game cannot explain in one line. It is established by
+ * reading instead, which is what makes reading matter as much as pairing.
+ */
+export interface Motive {
+  readonly id: string;
+  readonly characterId: string;
+  /** Shown once established. */
+  readonly summary: string;
+  /** Every one of these must have been read. Never empty. */
+  readonly establishedByMessageIds: readonly string[];
+}
+
+/**
+ * How far the player has got.
+ *
+ * One object rather than a widening argument list, because both thread
+ * visibility and the accusation now depend on the same two facts, and motive is
+ * derived from `readMessageIds` rather than stored — so there is no third field
+ * to keep consistent.
+ */
+export interface Progress {
+  readonly confirmedContradictionIds: readonly string[];
+  readonly readMessageIds: readonly string[];
 }
 
 /** A contradiction the case author intends the player to find. */
@@ -85,6 +128,14 @@ export interface CaseSolution {
   readonly killerId: string;
   /** Every one of these must be confirmed before an accusation can stick. */
   readonly requiredContradictionIds: readonly string[];
+  /**
+   * Motives that must be established before any accusation is accepted.
+   *
+   * Checked globally rather than per suspect, deliberately. Checking "does the
+   * accused have a motive" would leak: refusing on motive would confirm the
+   * player had picked someone whose story is otherwise breakable.
+   */
+  readonly requiredMotiveIds: readonly string[];
   readonly epilogue: string;
 }
 
@@ -98,6 +149,8 @@ export interface CaseScript {
   readonly places: readonly Place[];
   /** Things that can be held. Empty for cases with no object axis. */
   readonly objects: readonly CaseObject[];
+  /** Why people would do it. Empty for cases with no motive axis. */
+  readonly motives: readonly Motive[];
   readonly threads: readonly Thread[];
   readonly contradictions: readonly IntendedContradiction[];
   readonly solution: CaseSolution;
