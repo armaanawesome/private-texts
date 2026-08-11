@@ -78,7 +78,32 @@ they can both be true, and learns that co-presence was never proof. That is the
 whole emotional content of the setting, enforced by a rule rather than narrated.
 
 The axis column now reads `axis (theme: X)` where a pack's subject matter and its
-proving axis differ. Only the first half constrains rule 2.
+proving axis differ.
+
+**Rule 2 is not mechanically checkable, established 2026-08-12.** Moving Pack 13
+to `time` put it next to Pack 14, which is also `time`, so the rule was measured
+against the written packs rather than argued about. The result
+(`content/cases/ledger.test.ts` computes it):
+
+> Eight of the first thirteen packs break on exactly `at_place + doing`.
+
+That is not a variety failure. Place and action are the ordinary vocabulary of
+any alibi, and the set does not distinguish Pack 7 (who arrived before whom) from
+Pack 8 (a forged record) from Pack 9 (a boat that could not have gone that far).
+Those are plainly different cases. There is also no time *rule* in the engine —
+`windowsOverlap` is a gate every comparison passes through, not a predicate — so
+a "time pack" is always realised through place or action claims with carefully
+chosen windows. Pack 4 and Pack 7 were already doing that.
+
+So **rule 1 is the one that protects variety**, and rule 2 was a proxy for it
+that could never have been enforced. Rule 1 is now executable: every pack
+declares its dimension in `ledger.test.ts` and no two may match. The same file
+also fails any pack whose required proof runs on `with_person`, which is the bug
+that started this.
+
+Keep reading the axis column when writing — varying the engine vocabulary is
+still good practice, and it is what stopped Packs 10 and 11 being the same case.
+It is guidance now, not a contract.
 
 ## Standing craft rules
 
