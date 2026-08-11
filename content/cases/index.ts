@@ -2,6 +2,7 @@ import { loadCase, type CaseScript } from '@/engine';
 import { theLighthouseRaw } from './the-lighthouse';
 import { theUnderstudyRaw } from './the-understudy';
 import { theNightRoundRaw } from './the-night-round';
+import { deepFieldRaw } from './deep-field';
 
 /**
  * Every case, validated at module load.
@@ -14,6 +15,7 @@ export const CASES: readonly CaseScript[] = [
   loadCase(theLighthouseRaw),
   loadCase(theUnderstudyRaw),
   loadCase(theNightRoundRaw),
+  loadCase(deepFieldRaw),
 ];
 
 export function getCase(caseId: string): CaseScript | undefined {
