@@ -205,24 +205,25 @@ before every task.** They have called this out when it lapsed. Honour it.
 
 ## 7. Open bugs and unknowns
 
-**1. Entitlement identifier — still unconfirmed against the dashboard.**
-The code gates on **`case_pack_01`** (`src/entitlements/ids.ts`); the RevenueCat
-log shows *product* `case_pack_1`. Product and entitlement are different objects,
-so this may be fine — but if the dashboard **entitlement** is `case_pack_1`,
-**a purchase succeeds and unlocks nothing, silently.**
+**1. Entitlement identifier — RESOLVED 2026-08-11. Do not revert it.**
+The constant is **`case_pack_1`** — one digit, no leading zero
+(`src/entitlements/ids.ts`). It was `case_pack_01`, a real purchase unlocked
+nothing, and the owner confirmed the dashboard identifier cannot be changed, so
+the code moved to match it.
 
-A later session changed the constant to `case_pack_1`, claiming the dashboard
-uses that. That work was discarded for unrelated reasons (see §1) and the claim
-was never independently verified, so the constant is back to `case_pack_01`.
-**Treat it as unknown.** The discarded commit is kept at the git tag
-`discarded/session-2-attempt` if the reasoning is worth re-reading.
+This section previously said the opposite: that an earlier session's change to
+`case_pack_1` was unverified and the constant was "back to `case_pack_01`". That
+is no longer true and following it would silently re-break purchases. The failure
+mode is the worst kind — `purchase()` succeeds, the receipt is valid, and the
+player pays for nothing with no error anywhere.
 
-A dev log prints the truth on every update:
+`explainEntitlementGap()` (`src/entitlements/diagnosis.ts`) is what tells the two
+causes apart: a wrong constant, versus a dashboard that grants nothing at all. A
+dev log still prints the truth on every update:
 ```
 [entitlements] active: …
 ```
-Buy the case pack in a **development** build and read that line. If it disagrees
-with `ids.ts`, change the constant. One-line fix, but it decides eligibility.
+If that line ever disagrees with `ids.ts`, the log wins.
 
 **2. Paywall render loop — fixed, unverified.** Root cause was
 `<Stack.Screen options={{...}} />` with an inline literal (new reference every
@@ -291,29 +292,34 @@ remaining, and the Design Award is judged on craft alone.
 | 2026-09-25 | Demo video locked |
 | **2026-09-28** | **Submit.** Not the 30th. |
 
-**Task 13 — Case 1, "The Lighthouse" — is written** (2026-08-11). 5 characters,
-6 threads, 76 messages, 14 claims, 3 contradictions, all required to accuse.
-Design notes and the claim table: `docs/case-1-design.md`.
+**Packs 1–13 of 15 are written** (2026-08-12), each with its own test file.
+Remaining: 14 "The Night Ferry", 15 "The Listener" (the finale). The uniqueness
+contract — shape of the lie, engine axis, red herring, arc beat, all fixed before
+writing — is `docs/pack-ledger.md`, and it is the authority on what each
+remaining pack must be. It has been corrected in flight twice; both corrections
+are recorded in it.
 
-**It has never been played by a human.** The kill gate says *playable end to
-end*, and a passing test suite is not that. Step 6 of Task 13 — play it twice,
-once knowing the answer and once trying to forget it, and time both — is the
-outstanding half of the task. If the second run exceeds 30 minutes, cut a thread.
+Case 1 has been played end to end by the owner. Packs 2–13 have not, and a
+passing test suite is not a playthrough.
 
-**Next after that:** the craft pass on the evidence board and accusation screen
-(§8), which is where the Design Award is won or lost.
+Write every case **backwards**: solution first, then the claim table, then the
+dialogue. Writing forwards produces a story with a mystery bolted on. Every case
+inherits the shared contract in `content/cases/caseContract.ts` — including an
+exhaustive pairwise scan that fails on any contradiction the author did not
+declare, which is the check that catches a nudged time window silently letting a
+player skip a gated thread.
 
-Write it **backwards**: solution first, then the claim table, then the dialogue.
-Writing forwards produces a story with a mystery bolted on. Every case
-automatically inherits 7 tests (`content/cases/cases.test.ts`) that mechanically
-prove it is solvable and has no orphaned threads.
+**The three writing skills are not optional, per standing instruction:**
+`/storytelling` for the case as a whole, `/anti-ai-writing` for the in-game
+message text, `/viral-hooks` for the blurb. Invoke them per pack, not from
+memory.
 
-**Write the prose by hand.** LLM-drafted mystery generates plot holes at branch
-depth 3, and 2026 judges have calibrated AI-prose radar. Use AI to check the
-claim table for consistency, not to generate dialogue.
+**Sweep straight apostrophes before committing a pack.** A `'` inside a
+single-quoted TypeScript string breaks the whole file, and it has done so twice.
 
-Then: Task 15 (OneSignal), 16 (Case 2), 17 (polish + sound), 18 (icon,
-screenshots, README), 20 (video), 21 (submit).
+Then: Task 15 (OneSignal), 17 (polish + sound — `expo-audio` is installed and
+wired to nothing), 18 (icon, screenshots, **README — none exists, and judges open
+the repo first**), 19 (final Android build), 20 (video), 21 (submit).
 
 ---
 
