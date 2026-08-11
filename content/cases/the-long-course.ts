@@ -11,7 +11,7 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * boat in identical kit. Warren photographed the whole race and the photographs
  * prove eight people were in it. They cannot prove which eight.
  *
- * Story Lens: the sport's own uniformity is the alibi. Nobody had to hide.
+ * Story Lens: the sport’s own uniformity is the alibi. Nobody had to hide.
  *
  * Race day timeline. Head race starts 11:00 (minute 660), 22 minutes on the
  * water. Hester is found at 12:10.

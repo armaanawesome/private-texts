@@ -12,14 +12,14 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * Story Lens (pushed past the obvious, per the storytelling skill): the family
  * is NOT protecting the killer. The shield was built for a nineteen year old
  * over four hundred pounds taken from a handbag, on the day of her
- * grandfather's funeral, and the family decided that was not the day. Donal
+ * grandfather’s funeral, and the family decided that was not the day. Donal
  * simply stepped inside it. Their decency is the weapon.
  *
- * The other inversion: the wake is for the first victim. Gerald Mulvey's death
+ * The other inversion: the wake is for the first victim. Gerald Mulvey’s death
  * three weeks earlier was recorded as natural, and Tony had the prescription
  * records in his bag when he died.
  *
- * Epoch is the start of Gerald's last month, so the script-collection
+ * Epoch is the start of Gerald’s last month, so the script-collection
  * contradiction can sit weeks before the funeral on the same timeline. Funeral
  * day is day 43; 16:00 that day is minute 61440.
  */

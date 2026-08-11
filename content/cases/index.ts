@@ -5,12 +5,13 @@ import { theNightRoundRaw } from './the-night-round';
 import { deepFieldRaw } from './deep-field';
 import { theWakeRaw } from './the-wake';
 import { theLongCourseRaw } from './the-long-course';
+import { theBothyRaw } from './the-bothy';
 
 /**
  * Every case, validated at module load.
  *
  * loadCase throws on a dangling reference, so a broken case fails at startup
- * rather than halfway through someone's playthrough. That is the whole point of
+ * rather than halfway through someone’s playthrough. That is the whole point of
  * validating here instead of lazily.
  */
 export const CASES: readonly CaseScript[] = [
@@ -20,6 +21,7 @@ export const CASES: readonly CaseScript[] = [
   loadCase(deepFieldRaw),
   loadCase(theWakeRaw),
   loadCase(theLongCourseRaw),
+  loadCase(theBothyRaw),
 ];
 
 export function getCase(caseId: string): CaseScript | undefined {

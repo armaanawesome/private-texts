@@ -24,14 +24,14 @@ describe('The Wake', () => {
   /**
    * The shape of this case: a collective alibi. Every adult repeats the same
    * sentence and it is nearly all true, which is what makes it hold. Two of them
-   * assert it independently, and the killer's copy is the one that breaks.
+   * assert it independently, and the killer’s copy is the one that breaks.
    */
   it('has more than one person asserting the front room', () => {
     const frontRoom = [...byId.values()].filter(
       (c) => c.predicate.kind === 'at_place' && c.predicate.placeId === 'frontroom',
     );
     expect(frontRoom.length).toBeGreaterThan(1);
-    // And Nuala's copy of the lie must NOT be breakable — she really was there.
+    // And Nuala’s copy of the lie must NOT be breakable — she really was there.
     const nuala = frontRoom.filter((c) => c.subject === 'nuala');
     expect(nuala).toHaveLength(1);
     for (const other of [...byId.values()].filter((c) => c.subject === 'nuala')) {
@@ -43,7 +43,7 @@ describe('The Wake', () => {
   });
 
   /**
-   * The red herring is the person the family's own shield was built for, and the
+   * The red herring is the person the family’s own shield was built for, and the
    * only one anybody accuses out loud. Clearing her must be provable and must
    * not be required.
    */

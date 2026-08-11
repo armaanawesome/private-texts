@@ -5,7 +5,7 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  *
  * Pack 3, and the **first arc connection**. Per docs/arc-design.md the reveal
  * happens only in the confrontation, after the case is already solved: the
- * caller knew Ivy's prognosis, which was in no record Fen could reach.
+ * caller knew Ivy’s prognosis, which was in no record Fen could reach.
  *
  * Shape of the lie, per docs/pack-ledger.md: **routine**. A round signed for and
  * never walked, which is why nobody looked in on Ivy for ten hours. Axis is

@@ -27,7 +27,7 @@ describe('The Night Round', () => {
   });
 
   /**
-   * The shape of this case's lie, per docs/pack-ledger.md: routine. A round
+   * The shape of this case’s lie, per docs/pack-ledger.md: routine. A round
    * signed for and never walked. It has to be provable and it has to NOT be the
    * murder, or the red herring is just a second suspect.
    */
@@ -39,7 +39,7 @@ describe('The Night Round', () => {
   });
 
   it('breaks the alibi on a machine, not only on witnesses', () => {
-    // Two of the three rest on an old man's hearing and a carer's ear. The fob
+    // Two of the three rest on an old man’s hearing and a carer’s ear. The fob
     // record is the one the killer cannot call unreliable, which is why the
     // confrontation saves it for third.
     const v = checkContradiction(script, claim('c-fen-home'), claim('c-fen-carpark'));

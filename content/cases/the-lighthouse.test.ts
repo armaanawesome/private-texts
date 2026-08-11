@@ -44,9 +44,9 @@ describe('The Lighthouse', () => {
    * The arc clue is deliberately optional.
    *
    * `x-papers-lie` proves the caller lied to Mairi, which is the first thing the
-   * campaign's serial killer ever leaves behind. It must NOT gate the case: a
+   * campaign’s serial killer ever leaves behind. It must NOT gate the case: a
    * player can finish The Lighthouse correctly having never noticed it, and
-   * during the case Mairi's account of the call reads as a guilty woman building
+   * during the case Mairi’s account of the call reads as a guilty woman building
    * an excuse. It only turns cold afterwards.
    */
   it('keeps the arc contradiction out of the win condition', () => {

@@ -44,7 +44,7 @@ describe('Deep Field', () => {
   it('rejects the log against the victim on subject, before time is even reached', () => {
     // Worth pinning: a player who pairs the log with Orla learns nothing about
     // the clock, because "different people" fires first. The case has to point
-    // them at a claim about Mal, and Pilar's messages do.
+    // them at a claim about Mal, and Pilar’s messages do.
     const v = checkContradiction(script, claim('c-mal-log'), claim('c-orla-coldporch'));
     expect(v.ok).toBe(false);
     expect(v.reason).toMatch(/different people/i);

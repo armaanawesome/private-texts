@@ -1001,7 +1001,7 @@ export const theLighthouseRaw = {
    *
    * Deliberately NOT in solution.requiredContradictionIds. It gates nothing, it
    * is not a confrontation beat, and a player can finish the case having never
-   * noticed it — which is the point. During the case Mairi's account of the call
+   * noticed it — which is the point. During the case Mairi’s account of the call
    * reads as a guilty woman building herself an excuse. It only turns cold
    * afterwards.
    */
