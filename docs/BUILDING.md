@@ -21,6 +21,20 @@ What actually costs nothing:
 Scan the QR from the installed dev client. The tunnel needs an ngrok authtoken
 configured.
 
+Both scripts `cd` to the project root themselves, so they work from **either**
+`ClaudeCode\` or `ClaudeCode\shipaton-detective\`. Thin shims of the same names
+sit in the parent folder (untracked — the parent is not a git repo) because the
+terminal usually opens there.
+
+Running Expo from the parent folder *without* them gives:
+
+```
+ConfigError: The expected package.json path: ...\ClaudeCode\package.json does not exist
+```
+
+which means only "wrong directory" — Expo reads its config from the current
+directory, not from wherever the command lives.
+
 ### Why `.cmd` and not `npx`
 
 This machine's PowerShell execution policy is **`AllSigned`** at LocalMachine

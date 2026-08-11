@@ -9,6 +9,9 @@ REM     .\check.cmd
 REM ---------------------------------------------------------------------------
 setlocal
 
+REM Run from the project root regardless of the caller's directory.
+cd /d "%~dp0"
+
 where npx.cmd >nul 2>&1
 if errorlevel 1 (
   echo   Could not find npx.cmd on PATH. Node is normally at "C:\Program Files\nodejs".

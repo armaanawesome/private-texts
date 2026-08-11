@@ -18,6 +18,12 @@ REM URL in the iOS simulator. Leave this window running while you test.
 REM ---------------------------------------------------------------------------
 setlocal
 
+REM Run from the project root no matter where this was invoked from. Without
+REM this, launching it from the parent folder gives
+REM "ConfigError: the expected package.json path ... does not exist",
+REM because Expo reads the config from the current directory, not the script's.
+cd /d "%~dp0"
+
 where npx.cmd >nul 2>&1
 if errorlevel 1 (
   echo.
