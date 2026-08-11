@@ -19,9 +19,35 @@ npx.cmd expo start --tunnel --dev-client
 ```
 
 Scan the QR from the installed dev client. The tunnel needs an ngrok authtoken
-configured. **Android phone + dev client is the cheapest iteration loop** and is
-the default while the app is being built; iOS simulator builds are for checking
-the platform before submission.
+configured.
+
+### Dev clients that already exist
+
+Both were verified to contain **no embedded JS bundle**, which is what makes them
+stay current: they fetch everything from Metro at launch.
+
+| Platform | Built from | Notes |
+|---|---|---|
+| Android APK | `9189368` (2026-08-11) | Dev launcher confirmed inside the APK. ~244 MB. |
+| iOS simulator | `bcc6cca` (2026-08-09) | Still valid — every commit since changed only `.ts`/`.tsx`/`.md`. |
+
+An older dev client stays valid as long as nothing **native** has changed. To
+check before assuming, list what actually changed:
+
+```bash
+git diff <build-commit>..HEAD --name-only
+```
+
+If that touches only `.ts`, `.tsx`, or docs, the existing dev client is fine.
+`app.json`, `package.json`, `plugins/`, or an SDK bump means rebuild.
+
+EAS artifact links expire (roughly 30 days on the free tier). If a link is dead
+the build itself is gone, and a rebuild is the only option — so keep the APK
+somewhere local rather than relying on the URL.
+
+**Test Store purchases work in these builds** because a dev client is Debug.
+That makes the dev client, not a preview build, the one to record the submission
+video on.
 
 Rebuild only when:
 
