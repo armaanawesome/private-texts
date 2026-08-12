@@ -1,43 +1,35 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { z } from 'zod';
 import { useCaseStore } from './caseStore';
-
-const key = (caseId: string) => `save:${caseId}`;
-
-/**
- * Saves are validated, not cast. `as SaveBlob` on parsed JSON is a lie the
- * compiler cannot check: a hand-edited or corrupted save could put a string
- * where the app expects an array and the failure would surface far from here.
- */
-const saveBlob = z.object({
-  readMessageIds: z.array(z.string()).catch([]),
-  confirmedContradictionIds: z.array(z.string()).catch([]),
-});
-
-type SaveBlob = z.infer<typeof saveBlob>;
+import { saveBlobSchema, type SaveBlob } from './saveBlob';
+import { saveKey } from './saveKeys';
 
 /**
  * Pins are deliberately not persisted — an in-progress comparison is not
  * meaningful across sessions, and restoring one would put the player back
  * mid-thought with no memory of why.
+ *
+ * The blob shape and the key space now live in saveBlob.ts and saveKeys.ts,
+ * because progress sync has to validate a row that came back from the server
+ * against exactly the same schema, and "reset progress" has to find every save
+ * key without hand-writing the prefix a second time.
  */
 export async function saveProgress(caseId: string): Promise<void> {
   const { readMessageIds, confirmedContradictionIds } = useCaseStore.getState();
   const blob: SaveBlob = { readMessageIds, confirmedContradictionIds };
-  await AsyncStorage.setItem(key(caseId), JSON.stringify(blob));
+  await AsyncStorage.setItem(saveKey(caseId), JSON.stringify(blob));
 }
 
 export async function loadProgress(caseId: string): Promise<void> {
-  const raw = await AsyncStorage.getItem(key(caseId));
+  const raw = await AsyncStorage.getItem(saveKey(caseId));
   if (!raw) return;
   try {
-    const blob = saveBlob.parse(JSON.parse(raw));
+    const blob = saveBlobSchema.parse(JSON.parse(raw));
     useCaseStore.setState({
       readMessageIds: blob.readMessageIds,
       confirmedContradictionIds: blob.confirmedContradictionIds,
     });
   } catch {
     // A corrupt save should start a fresh case, not crash the app.
-    await AsyncStorage.removeItem(key(caseId));
+    await AsyncStorage.removeItem(saveKey(caseId));
   }
 }
