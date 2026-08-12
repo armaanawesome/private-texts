@@ -42,7 +42,7 @@ accuse.
 
 | Area | State |
 |---|---|
-| Deduction engine (`src/engine`) | ✅ pure TS, 86 tests, ~98% stmts |
+| Deduction engine (`src/engine`) | ✅ pure TS, part of 595 tests below, 94% stmts |
 | State store (`src/state`) | ✅ |
 | Chat UI + craft pass | ✅ Mobbin-grounded |
 | Evidence board | ✅ functional, **no craft pass** |
@@ -56,7 +56,13 @@ accuse.
 | Sound, video, assets | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `npm test` → 86 passing in ~100ms. `npx tsc --noEmit` → clean.
+**Tests:** `npm test` → **595 passing across 34 files** (34 = engine + state +
+entitlements + UI helpers + all 15 case packs + the ledger and case
+contracts). The "86 tests" figure earlier in this file's history was from
+before the other 14 packs existed — corrected 2026-08-12, verified by
+actually running the suite rather than copied forward. `npx tsc --noEmit` →
+clean. Coverage on `src/engine/` + `src/state/` (the only directories
+`vitest.config.mts` measures): 93.8% statements, 90.2% branches.
 
 ---
 
@@ -322,8 +328,33 @@ memory.
 single-quoted TypeScript string breaks the whole file, and it has done so twice.
 
 Then: Task 15 (OneSignal), 17 (polish + sound — `expo-audio` is installed and
-wired to nothing), 18 (icon, screenshots, **README — none exists, and judges open
-the repo first**), 19 (final Android build), 20 (video), 21 (submit).
+wired to nothing), 18 (icon, screenshots — **README done 2026-08-12**), 19
+(final Android build), 20 (video), 21 (submit).
+
+**README written 2026-08-12.** Root `README.md` follows the Task 18 Step 3
+spec: hook, GIF placeholder, engine pitch, architecture (with a mermaid
+diagram of the pure-engine boundary), the 15-case table, the RevenueCat
+integration writeup with the judge access note from Task 21 Step 3, run
+instructions (`cp .env.example .env`, the `preview`/`development` build
+split from §5), the real test count, an APK-link placeholder, a screenshot
+placeholder, and a license link. What's still missing, confirmed by looking
+rather than assuming:
+- **No GIF or screenshots exist yet.** `assets/` has no screenshot files at
+  all; the README placeholders point at Task 18 Steps 1-2, still open.
+- **`assets/icon.png` is the default Expo scaffold icon** (the blue chevron
+  with construction guides), not a designed mark. Linearity is still
+  unclaimed per §4. Task 18 Step 1 is not done, despite the file existing.
+- **No Codemagic APK** — Task 19 hasn't started, so the README's APK link is
+  a placeholder pointing at `docs/BUILDING.md`'s EAS instructions instead.
+- **`LICENSE` is still Expo's own boilerplate** — copyright "2015-present 650
+  Industries, Inc. (aka Expo)", left over from `create-expo-app`. The README
+  links to it as-is because rewriting a license file wasn't asked for, but a
+  judge-read public repo probably shouldn't ship someone else's copyright
+  notice. Worth a real decision (MIT in the owner's name, or something else)
+  before submission.
+- `docs/ARCHITECTURE.md` (Task 18 Step 4) is a separate deliverable and was
+  not written this session — the README's architecture section covers the
+  same ground at README depth, but the two-page standalone doc doesn't exist.
 
 ---
 
