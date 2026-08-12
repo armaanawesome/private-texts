@@ -70,6 +70,47 @@ describe('The Listener', () => {
   });
 
   /**
+   * Continuity with the tutorial case, found by reading the generated storybook
+   * rather than by any test. The finale had her as "Ruth Nairn", kept the light
+   * for nineteen years, wrote in careful sentences, and admired the still night
+   * she died on. She is Ruth Calder, she kept it for forty years, she is the
+   * player's aunt, she types in lowercase with no full stops, and it was the
+   * night of the equinox storm.
+   */
+  it('agrees with the tutorial case about who she was', () => {
+    const pack1 = loadCase(theLighthouseRaw);
+
+    expect(script.characters.find((c) => c.id === 'ruth')?.name).toBe('Ruth Calder');
+    expect(pack1.briefing!.opening).toContain('Ruth Calder');
+
+    const opening = script.briefing!.opening;
+    expect(opening).toContain('Ruth Calder');
+    expect(opening, 'the finale forgets she was his aunt').toMatch(/your aunt/i);
+    expect(opening).toMatch(/forty years/i);
+
+    // The archive is her real handset. At least one message is hers word for
+    // word, which is what a player who did Pack 1 will recognise.
+    const hersInPack1 = new Set(
+      pack1.threads.flatMap((t) => t.messages.filter((m) => m.senderId === 'ruth').map((m) => m.body)),
+    );
+    const archived = script.threads
+      .find((t) => t.id === 't-ruth')!
+      .messages.filter((m) => m.senderId === 'ruth')
+      .map((m) => m.body);
+    expect(archived.length).toBeGreaterThan(3);
+    expect(
+      archived.some((b) => hersInPack1.has(b)),
+      'nothing in the archive is actually from her Pack 1 handset',
+    ).toBe(true);
+
+    // Her voice: lowercase, no trailing full stop, never a still night.
+    for (const b of archived) {
+      expect(b.endsWith('.'), `Ruth does not end on a full stop: ${b}`).toBe(false);
+      expect(b).not.toMatch(/still night/i);
+    }
+  });
+
+  /**
    * The structural problem the pack exists to solve. He has asserted nothing for
    * fourteen packs, and the engine needs claims. So he is made to correct a
    * wrong account of his own work, and both halves of that proof are his — the

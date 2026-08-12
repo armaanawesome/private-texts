@@ -48,7 +48,7 @@ export const theListenerRaw = {
     { id: 'nkemdi', name: 'DS Nkemdi', avatarColor: '#3E6E8E' },
     { id: 'mairi', name: 'Mairi Bell', avatarColor: '#9C5B4E' },
     { id: 'beth', name: 'Beth', avatarColor: '#C9A227' },
-    { id: 'ruth', name: 'Ruth Nairn', avatarColor: '#5E8C6A' },
+    { id: 'ruth', name: 'Ruth Calder', avatarColor: '#5E8C6A' },
   ],
   places: [
     { id: 'ardnoe', name: 'Ardnoe' },
@@ -70,7 +70,7 @@ export const theListenerRaw = {
     ruling:
       'Closed. Mairi Bell pled guilty in the November and is eleven years into a life sentence, and nothing in this file has ever been in doubt.',
     opening:
-      'Ruth Nairn kept the Ardnoe light for nineteen years after there was any need to, and she was found at the foot of her own stairs at ten past ten on a Thursday night.\n\nYou proved it. Mairi Bell has never once said otherwise.\n\nWhat you did not do was ask why a woman who had known Ruth since they were five could not find the moment she decided. She told you there had been a telephone call. You wrote it down.\n\nYou have written down five more since.',
+      'Ruth Calder kept the light at Ardnoe Point for forty years after they automated it, because nobody ever asked her to stop.\n\nShe was your aunt.\n\nYou came in on the last ferry, and you proved what happened to her in four days, and Mairi Bell has never once said otherwise.\n\nWhat you did not do was ask why a woman who had known Ruth since they were five could not find the moment she decided. She told you there had been a telephone call. You wrote it down.\n\nYou have written down five more since.',
   },
 
   threads: [
@@ -249,7 +249,7 @@ export const theListenerRaw = {
           threadId: 't-nkemdi',
           senderId: 'nkemdi',
           sentAt: 2400,
-          body: 'I have had the Ardnoe file out for three weeks and I want to say at the start that nothing in it is wrong. Mairi Bell killed Ruth Nairn and you proved it and she has never said otherwise.',
+          body: 'I have had the Ardnoe file out for three weeks and I want to say at the start that nothing in it is wrong. Mairi Bell killed Ruth Calder and you proved it and she has never said otherwise.',
         },
         {
           id: 'k2',
@@ -367,7 +367,7 @@ export const theListenerRaw = {
     // ---------------------------------------------------------------- t-ruth
     {
       id: 't-ruth',
-      title: 'R. Nairn (archived)',
+      title: 'R. Calder (archived)',
       participantIds: ['you', 'ruth', 'nkemdi'],
       requiresContradictionIds: [],
       messages: [
@@ -383,35 +383,41 @@ export const theListenerRaw = {
           threadId: 't-ruth',
           senderId: 'ruth',
           sentAt: 2604,
-          body: 'The Trust books do not add up and I have gone through them four times now. It is not a mistake. It has been going on a long while.',
+          // Her voice is Pack 1's exactly: lowercase, no apostrophes, blunt. She
+          // was written that way in the-lighthouse.ts and a player who did the
+          // tutorial will hear it before they read it.
+          body: 'the trust books dont add up and ive been through them four times now. its not a mistake. its been going on a long while',
         },
         {
           id: 'r3',
           threadId: 't-ruth',
           senderId: 'ruth',
           sentAt: 2608,
-          body: 'I have written it all out in the back of the survey log because I do not trust myself to say it out loud without softening it.',
+          body: 'ive written the whole of it in the back of the survey log because i dont trust myself to say it out loud without softening it',
         },
         {
           id: 'r4',
           threadId: 't-ruth',
           senderId: 'ruth',
           sentAt: 2612,
-          body: 'Monday. I will go in on the Monday and I will take the log with me and they can do what they like with it after that.',
+          body: 'monday. ill go in on the monday and take the log with me and they can do what they like with it after that',
         },
         {
           id: 'r5',
           threadId: 't-ruth',
           senderId: 'ruth',
           sentAt: 2616,
-          body: 'M. has been my friend since we were five and I keep coming back to that and it keeps not changing anything.',
+          body: 'M has been my friend since we were five and i keep coming back to that and it keeps not changing anything',
         },
         {
           id: 'r6',
           threadId: 't-ruth',
           senderId: 'ruth',
           sentAt: 2620,
-          body: 'Going up to do the lamp. It is the last still night we will get before the equinox and you can see the whole of the sound from the gallery.',
+          // Word for word her last message in Pack 1. It was the night of the
+          // equinox storm, not a still night — an earlier draft of this archive
+          // had her admiring the weather she died in.
+          body: 'im away up the tower, the lamp is playing up again. forty years automated and it still wants a person standing beside it',
         },
       ],
     },
@@ -436,7 +442,7 @@ export const theListenerRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2808,
-          body: 'I killed Ruth Nairn. I have never once said different and I am not going to start now, and if this is you coming to take that off me you can save your money.',
+          body: 'I killed Ruth Calder. I have never once said different and I am not going to start now, and if this is you coming to take that off me you can save your money.',
         },
         {
           id: 'm3',
@@ -646,7 +652,7 @@ export const theListenerRaw = {
         id: 'z-papers',
         evidence: { kind: 'contradiction', id: 'x-papers' },
         press:
-          'Ruth Nairn never sent those papers anywhere. She wrote it all in the back of her survey log and left it in the tower, and it has been in an evidence store for eleven years. Whoever telephoned that café said a thing that was not true.',
+          'Ruth Calder never sent those papers anywhere. She wrote it all in the back of her survey log and left it in the tower, and it has been in an evidence store for eleven years. Whoever telephoned that café said a thing that was not true.',
         rebuttal:
           'Then somebody was wrong on the telephone in 2015. People are wrong on the telephone constantly. You have proved that a sentence was false. You have not put it in a mouth.',
       },
@@ -679,7 +685,7 @@ export const theListenerRaw = {
       'I have never once threatened you and I am not going to start because you have had a good afternoon.',
     ],
     confession:
-      'Ninety-four seconds. You are quite right, and I gave it to you, and I have known since the moment I sent it.\n\nI would like it understood that I did not slip. I have not slipped in thirty years. I wanted the account to be right more than I wanted the eleven years to continue, and when you find that out about yourself at sixty-nine there is not a great deal to be done about it.\n\nSo. Ardnoe.\n\nI broke my own rule there and it is the only time. Mairi Bell was three days short. She was going to go to Ruth Nairn and give her the whole of it herself and they would have sat in that kitchen and cried and it would have been finished, and I could see it coming from about the second minute. So I said one thing that was not true. One. It is the only sentence of mine in any file anywhere in this country and you have had it in a drawer since your first week back.\n\nI have thought about that a great deal.\n\nNow the other thing, and I am going to say it plainly because you will hear it worse from somebody else.\n\nCorrieburn was mine.\n\nAugust 2008. You were twenty-six and it was your fourth month and they gave it to you because nobody senior wanted a farm accident in the rain. You took nine days over it and you were right on the ninth and you have not had to buy a drink in that county since.\n\nI arranged the whole of it and I watched you take it apart, and I have never been prouder of anything I have done than I was of you that autumn.\n\nYou want to know why. I hear the moment. It is a real thing and it is about four seconds long and I have been able to hear it since I was thirty-nine, and there is no one alive I could ever have told, and hearing it is worthless unless you find out afterwards whether you were right.\n\nAn accident tells you nothing. A woman falls down her own stairs and the file says misadventure and I am no wiser than I was on the Wednesday.\n\nIt has to be proved. Somebody has to take it apart and write down exactly what happened and why, in order, in a document, and hand it to a court.\n\nThat is what you are. That is what you have been since you were twenty-six.\n\nI did not choose you because you were the best. You are the best because I chose you, and I have spent eighteen years feeding a very great detective the only work that could ever tell me whether I was right, and she has never once let me down, and I have never once been able to tell a living soul.\n\nThat is the whole of it. That is what this was.',
+      'Ninety-four seconds. You are quite right, and I gave it to you, and I have known since the moment I sent it.\n\nI would like it understood that I did not slip. I have not slipped in thirty years. I wanted the account to be right more than I wanted the eleven years to continue, and when you find that out about yourself at sixty-nine there is not a great deal to be done about it.\n\nSo. Ardnoe.\n\nI broke my own rule there and it is the only time. Mairi Bell was three days short. She was going to go to Ruth Calder and give her the whole of it herself and they would have sat in that kitchen and cried and it would have been finished, and I could see it coming from about the second minute. So I said one thing that was not true. One. It is the only sentence of mine in any file anywhere in this country and you have had it in a drawer since your first week back.\n\nI have thought about that a great deal.\n\nNow the other thing, and I am going to say it plainly because you will hear it worse from somebody else.\n\nCorrieburn was mine.\n\nAugust 2008. You were twenty-six and it was your fourth month and they gave it to you because nobody senior wanted a farm accident in the rain. You took nine days over it and you were right on the ninth and you have not had to buy a drink in that county since.\n\nI arranged the whole of it and I watched you take it apart, and I have never been prouder of anything I have done than I was of you that autumn.\n\nYou want to know why. I hear the moment. It is a real thing and it is about four seconds long and I have been able to hear it since I was thirty-nine, and there is no one alive I could ever have told, and hearing it is worthless unless you find out afterwards whether you were right.\n\nAn accident tells you nothing. A woman falls down her own stairs and the file says misadventure and I am no wiser than I was on the Wednesday.\n\nIt has to be proved. Somebody has to take it apart and write down exactly what happened and why, in order, in a document, and hand it to a court.\n\nThat is what you are. That is what you have been since you were twenty-six.\n\nI did not choose you because you were the best. You are the best because I chose you, and I have spent eighteen years feeding a very great detective the only work that could ever tell me whether I was right, and she has never once let me down, and I have never once been able to tell a living soul.\n\nThat is the whole of it. That is what this was.',
   },
 
   solution: {
@@ -687,7 +693,7 @@ export const theListenerRaw = {
     requiredContradictionIds: ['x-papers', 'x-ardnoe', 'x-box'],
     requiredMotiveIds: ['m-finding-out'],
     epilogue:
-      'John Fettes, sixty-nine, of Kirkcaldy. No record of any kind. A library card he had used every fortnight since 1991, and a small award in 2004 for a training module on reflective phrasing that half the volunteers in the country still learn from.\n\nThe flat had eleven box files in a wardrobe, in order, each one a person. Press cuttings, court listings, the dates of appeals. Beth Ivory’s had four sheets in it and the last one was a note in his hand that read: back at work, six years, wrong about her, and he had underlined wrong twice.\n\nThe Crown took Ardnoe and two others. He has never disputed a word of the Ardnoe count and he has never said anything at all about the rest, and his solicitor has stopped asking him to.\n\nMairi Bell was moved to open conditions in the spring. She wrote to Ruth’s brother in March and he has not answered, and she says that is fair and that she will write again at Christmas anyway.\n\nBeth Ivory gave evidence for two days. She was asked why she had not gone to the police and she said that she had, four times, and the court had the logs put up on the screen while she sat there.\n\nThe twelfth box file was empty and it had your name on it.\n\nHe had been keeping it since 2008. There is nothing in it. He told them at interview that he had never put anything in it because he had not finished with you, and that a file gets closed when you know how it came out, and then he asked the officer how you were.',
+      'John Fettes, sixty-nine, of Kirkcaldy. No record of any kind. A library card he had used every fortnight since 1991, and a small award in 2004 for a training module on reflective phrasing that half the volunteers in the country still learn from.\n\nThe flat had eleven box files in a wardrobe, in order, each one a person. Press cuttings, court listings, the dates of appeals. Beth Ivory’s had four sheets in it and the last one was a note in his hand that read: back at work, six years, wrong about her, and he had underlined wrong twice.\n\nThe Crown took Ardnoe and two others. He has never disputed a word of the Ardnoe count and he has never said anything at all about the rest, and his solicitor has stopped asking him to.\n\nMairi Bell was moved to open conditions in the spring. She wrote to your father in March and he has not answered, and she says that is fair and that she will write again at Christmas anyway.\n\nBeth Ivory gave evidence for two days. She was asked why she had not gone to the police and she said that she had, four times, and the court had the logs put up on the screen while she sat there.\n\nThe twelfth box file was empty and it had your name on it.\n\nHe had been keeping it since 2008. There is nothing in it. He told them at interview that he had never put anything in it because he had not finished with you, and that a file gets closed when you know how it came out, and then he asked the officer how you were.',
   },
 
   /**

@@ -1,0 +1,4209 @@
+# Private Texts — every case, as written
+
+Generated straight from `content/cases/`, so it cannot drift from what ships. Regenerate whenever the content changes.
+
+Read it as a book. Where you want something changed, name the case and quote the line — that is enough for me to find it.
+
+**15 cases · 769 messages · 19.8k words in the messages alone**, before briefings, confessions and epilogues.
+
+## The fifteen
+
+1. **The Lighthouse** `FREE` — Your aunt kept the light at Ardnoe Point. They are calling it a fall. You have her phone, and everyone still has their story straight.
+2. **The Understudy** `FREE` — A lead actress dies in a locked dressing room on press night. One key exists, and two people say they had it.
+3. **The Night Round** `FREE` — A signature in the night book says somebody looked in on her at eleven. Nobody did.
+4. **Deep Field** — Six people, four months of darkness, and nobody can leave. The alibi is a timestamp, and the timestamp is in the wrong clock.
+5. **The Wake** — Forty-one people were in the house and they all tell the same story, word for word. It was built to protect somebody who did not do it.
+6. **The Long Course** — Eight people in the same kit, on the water, for twenty-two minutes. The photographs prove eight were in that boat. They cannot prove which eight.
+7. **The Bothy** — Five people walked out of a whiteout into one room, hours apart. They agree on everything except the order.
+8. **Sunday Service** — The register says there was a wedding that August. The man who reroofed the church says there was no roof on it.
+9. **The Cut** — A narrowboat does three miles an hour, and everybody on the cut can do that arithmetic. Nobody thought to ask whether he took the boat.
+10. **Open Mic** — His alibi is on video. Same shirt, same five minutes, same laugh in the same place. It is from the Tuesday before.
+11. **The Allotments** — Everybody on that site knows whose fork it is. Nobody asked whose shed it had been in for ten days.
+12. **The Helpline** — Every call is logged by hand and nobody has ever had a reason to check one. His alibi is ninety minutes on a line that was never in use.
+13. **The Reunion** — Ninety people can tell you who they were standing with. Not one of them can tell you what time it was.
+14. **The Night Ferry** — He can tell you exactly what he did while the ship was alongside at Kirkwall. The ship never called at Kirkwall.
+15. **The Listener** — He has told you the truth for fifteen cases. He lied exactly once, to somebody else, and you wrote it down without knowing what it was.
+
+---
+## 1. The Lighthouse
+
+*Your aunt kept the light at Ardnoe Point. They are calling it a fall. You have her phone, and everyone still has their story straight.*
+
+`FREE` · 5 characters · 6 threads · 88 messages
+
+### The briefing
+
+> Ruth Calder kept the light at Ardnoe Point for forty years after they automated it, because nobody ever asked her to stop. She was found at the foot of the tower stairs on the night of the equinox storm.
+>
+> You came in on the last ferry. You have her phone, and everyone still has their story straight.
+
+**Ruth** — found at the lighthouse, 22:10.
+
+*Cause.* A fall from the tower stairs.
+
+*Ruling.* Recorded as accidental. No further enquiry.
+
+### The threads
+
+#### Ruth
+
+**Ruth**
+> you actually got on it then
+
+**You**
+> last ferry. six years and the same man taking the tickets
+
+**Ruth**
+> that will be wee Callum now. Mairi's boy. he was nine when you left
+
+**Ruth**
+> dont come up tonight. its blowing a hoolie out here and the path is nothing but glass
+
+**You**
+> tomorrow then. you sound off
+
+**Ruth**
+> im fine. theres a thing with the trust ill tell you about tomorrow when ive slept on it
+
+**Ruth**
+> two years of books and a hole in the middle of them the size of a boat
+
+**You**
+> ruth. what does that mean
+
+**Ruth**
+> it means i have to say something to someone i have known for forty years and i would rather walk into the sea
+
+**Ruth**
+> ive told her. thats done. shes to come and see me tonight and then in the morning i go to the police whatever she says
+
+**You**
+> told WHO
+
+**Ruth**
+> im away up the tower, the lamp is playing up again. forty years automated and it still wants a person standing beside it
+
+**Ruth**
+> dont worry about me. worry about the state of my spare room
+
+**You**
+> ruth?
+
+**You**
+> ruth please
+
+#### Ardnoe
+
+**Mairi**
+> For anyone who has not heard. Ruth was found at the foot of the tower stairs this morning. She is gone.
+
+**Mairi**
+> The café is open today for anyone who does not want to be in their own house. No charge. Just come.
+
+**Callum**
+> christ
+
+**Esme**
+> I am so sorry. I only met her three times and she still gave me a key to the tower so I could count seals from the gallery.
+
+**You**
+> i was on the boat over. she told me not to come up because of the path
+
+**You**
+> she told me not to come up
+
+**Mairi**
+> And she was right to. That path in that wind would have had you over too. Do not start on yourself.
+
+**Callum**
+> the polis were down the slip this morning asking everyone where they were. felt weird for a fall
+
+**Esme**
+> They have to. It is procedure with a sudden death, not an accusation. They asked me too.
+
+**Callum**
+> aye well i told them straight. i brought the last boat in at eight with your aunt on it
+
+**You**
+> you did. you carried my bag up the steps and i didnt say thank you
+
+**Callum**
+> and then i was down the slip from about twenty to ten till quarter past. the stern line had gone on her and i wasnt leaving it in that swell
+
+**Callum**
+> soaked to the skin by the end of it
+
+**Mairi**
+> Callum. Nobody needs the minute by minute.
+
+**Callum**
+> im just saying what i told them
+
+**Mairi**
+> I know love. Not here though.
+
+**Esme**
+> Whoever is handling the Trust, her survey notebook is still up in the tower where she left it. It is not mine to take. Someone should tell the family.
+
+**Mairi**
+> I do the Trust books. I will see to it.
+
+**You**
+> she said there was a thing with the trust. the night she died. she said there was a hole in it
+
+**Mairi**
+> She was tired and she was sixty one and the lamp had been failing for a month. Let her be tired.
+
+#### Mairi Bell
+
+**Mairi**
+> You should not have found out in a group chat. That was my doing and I am sorry for it.
+
+**You**
+> she said she told someone about the books. she said shes to come and see me tonight
+
+**You**
+> she. you keep the books
+
+**Mairi**
+> I keep the books because nobody else would do it for nothing. And yes she rang me about a column that did not add. I told her I would bring the folder up at the weekend.
+
+**Mairi**
+> I did not go up there. I was in the café.
+
+**Mairi**
+> From half eight until I locked up at eleven. In the café, the whole evening, like every evening of my life.
+
+**You**
+> on your own?
+
+**Mairi**
+> Callum was with me. He was in the café the whole night, from nine until we shut. So there is two of us saying it, if it is a witness you are after.
+
+**You**
+> i wasnt after a witness
+
+**Mairi**
+> No. I know. Ignore me, I have not slept.
+
+**Mairi**
+> You came in that night yourself, do you remember. Quarter past nine, before you went to hers. You had the tea and you did not touch it.
+
+**You**
+> i remember
+
+**Mairi**
+> I cashed up at twenty to eleven, same as always, and the float was eleven pound down and I sat and counted it three times like it mattered.
+
+**Mairi**
+> Eleven pound. And she was lying at the bottom of those stairs the whole time I was counting it.
+
+**Mairi**
+> The girl in the cottage had her light on when I walked home after eleven. I remember thinking somebody else is awake.
+
+**Mairi**
+> Come to the café tomorrow. I will feed you and you will let me, because that is what I have instead of anything useful to say.
+
+#### Esme Trian
+
+**Esme**
+> I hope this is not an intrusion. You said in the group that she told you not to come up. I wanted you to know she said the same to me that week.
+
+**Esme**
+> She was very firm about that path in weather. It was not a thing she was casual about, which is why the ruling bothers me.
+
+**You**
+> bothers you how
+
+**Esme**
+> I keep a survey log. Times, positions, conditions, every night. It is habit and it is also the only reason I can tell you any of this precisely.
+
+**Esme**
+> I was in the cottage from seven until half nine writing up the afternoon count.
+
+**Esme**
+> Then the wind dropped for about half an hour, which it does before it backs, and I went out onto the cliff path to get a last listen for the pups.
+
+**Esme**
+> Her lamp was lit up the tower the whole time I was out. I logged it at 21:40 and again at 22:00 because the beam is my timing mark.
+
+**You**
+> you were on the path at the same time she was up there
+
+**Esme**
+> Yes. And I was not the only one on it.
+
+**Esme**
+> I passed Mairi Bell coming the other way at 21:47. I logged it because I log everything, and because I was surprised — she had a coat over her head and she went by me without a word.
+
+**You**
+> shes telling everyone she was in the cafe all night
+
+**Esme**
+> Then one of us is wrong, and I have it written down at the time with a wind speed next to it. I am not saying what that means. I am saying I will not un-write it.
+
+**Esme**
+> I did tell the officer. He wrote it in the back of the notebook, after the part where he had already written "fall".
+
+**Esme**
+> I am here another six weeks. If you want the log, it is yours.
+
+#### Callum
+
+*opens once you prove x-callum-alibi and x-mairi-path*
+
+**Callum**
+> you know dont you
+
+**Callum**
+> she told everyone i was in the cafe. i wasnt in the cafe. you can ask anyone who was down the slip that night
+
+**You**
+> why would she say it
+
+**Callum**
+> because if im in the cafe with her then nobody asks me anything. thats the whole reason. she wasnt covering for me. she was covering for herself and using me to do it
+
+**Callum**
+> i finished the line about quarter past ten and came up the back way past the point because its shorter
+
+**Callum**
+> she was at the lighthouse door. ten past ten, maybe a minute either side. i saw her in the beam when it came round
+
+**Callum**
+> i didnt shout. i dont know why. she was standing that still
+
+**You**
+> callum
+
+**Callum**
+> she came in after eleven wet through and she put her coat in the machine. mum has never washed a coat at night in her life
+
+**Callum**
+> and i have sat with that for two days and let her tell people i was beside her
+
+**Callum**
+> the money was mine. the hole in ruths books. it was for me. i didnt know where it came from and i didnt ask and thats the same as knowing isnt it
+
+**Callum**
+> do what you have to do. i am not going to say it isnt true a second time
+
+#### Mairi Bell
+
+*opens once you prove x-callum-alibi and x-mairi-path*
+
+**Mairi**
+> He has spoken to you. I can tell by how long you have not answered me.
+
+**Mairi**
+> Alright. I walked out to the Point. I have said the café because the café is easier and because once you have said a thing to a policeman you have to keep saying it.
+
+**Mairi**
+> I got as far as the gate and I turned round. I could not do it. I came home the long way so nobody would see my face.
+
+**You**
+> the gate
+
+**Mairi**
+> The gate. Not the door. I never went near the door.
+
+**Mairi**
+> She was going to take him from me. Not the money — she could have had the money, I would have sold the café. She was going to put his name in it.
+
+**Mairi**
+> Forty years I have known her and she could not give me the one morning.
+
+**Mairi**
+> Whatever my son has told you, he was at the slipway in the dark and the beam plays tricks out there. Ask anyone. Ask him again tomorrow.
+
+**Mairi**
+> And there is a thing I have not said to anyone, because it sounds like I am building myself an excuse. A man telephoned the café that night. Half nine, near enough.
+
+**Mairi**
+> He said he was with the auditors. He said Ruth had already sent the papers down to them, and that it was out of her hands now, and Callum would be named on them by the Monday whatever anybody did.
+
+**Mairi**
+> I never asked him his name. I never asked how he had the café number. He did not push me to do anything, he barely said a word, and I put the phone down and got my coat. You can make of that what you like. I have stopped trying to.
+
+### What breaks it
+
+**REQUIRED** — `x-callum-alibi`
+Callum could not have been mending a line at the slipway and sitting in his mother's café at the same time. He put himself at the slip freely, in front of everyone, before she said otherwise — so the false half is hers. She gave her son an alibi he never asked for, which means she needed him not to be asked.
+
+**REQUIRED** — `x-mairi-path`
+She put herself behind the counter from half eight until eleven. At 21:47 a woman with a survey log and no stake in this passed her on the cliff path, going the other way, with a coat over her head. The café was not an alibi. It was a place to put herself.
+
+**optional** — `x-papers-lie`
+The auditors never had those papers. Ruth wrote the whole of it in the back of her survey notebook, and the notebook was still up in the tower where she left it. So the man who telephoned the café at half nine was not from the Trust, he had no business knowing about the Trust at all, and what he told Mairi Bell was not a mistake. He knew what a woman with one night left would do with it.
+
+**REQUIRED** — `x-mairi-door`
+The path could still have been a walk to clear her head. The door cannot. At ten past ten she was standing at the foot of the tower, lit up by her friend's own lamp — at the minute Ruth stopped answering, and an hour before she came home and washed a coat she had never washed at night in her life.
+
+**Motive — Mairi**
+She had been taking from the Ardnoe Light Trust for two years to cover Callum's debts, and Ruth had found the hole in the books that week.
+
+### The confrontation
+
+**Mairi**
+> I wondered how long it would take you. Sit down, then. Say it properly, to my face, and be very sure before you do.
+
+**You**
+> You told everyone Callum was in the café with you. He was at the slipway, and he said so first, in front of the whole village.
+
+**Mairi**
+
+> A woman misremembers an evening after a shock. That is not a crime, and you know it is not.
+
+**You**
+> You put yourself behind that counter from half eight until eleven. Esme Trian passed you on the cliff path at 21:47 and wrote the time down.
+
+**Mairi**
+
+> So I walked. People walk. It was the first still half hour in a week and I wanted the air.
+
+**You**
+> You said you turned at the gate. Callum saw you at the lighthouse door at ten past ten. He saw you in her own beam.
+
+**Mairi**
+
+> He was soaked and it was dark and that light plays tricks. Ask anyone.
+
+**You**
+> She found the hole in the Trust books that week. Two years of it. And it had your son inside it.
+
+**Mairi** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That proves nothing at all.
+- You have been away six years. You do not know what you are looking at.
+- Say something that means something.
+
+### The confession
+
+> She was at the top of the stairs with the folder in her hand and she would not put it down.
+>
+> I only wanted the morning. One morning, to find the money from somewhere, so his name never went in it. She said she had already written it down.
+>
+> I did not decide anything. I have gone over it every hour since and I cannot find the moment I decided.
+>
+> That man on the telephone. He never once said her name and he never once said a word about hurting her. He asked me what I was going to do about it, and I told him, all of it, out loud, the way you do at half nine at night to somebody you are never going to meet.
+>
+> And he let me finish. He did not interrupt me the whole time.
+>
+> Then he said: then you already know.
+>
+> And he put the phone down, and I got my coat.
+
+### Afterwards
+
+> She did not deny it when they came. She asked whether Callum would have to stand up in a room and say it out loud, and when they told her he would, she said the whole thing herself so that he would not have to.
+>
+> The Trust was eleven thousand pounds short. Ruth had written it all out in the back of the survey notebook, in her own hand, with the date she meant to go to the police. She had also written, underneath: "M. has been my friend since we were five. Ask them to be kind to her."
+>
+> They took the lamp out that winter. Nobody had been asked to stand beside it for forty years.
+
+### Unknown number
+
+> Ardnoe was good work. Four days. I had allowed a fortnight and I am not often wrong by that much.
+
+> You were slow on the son. He was always going to tell you. He had been waiting since the Tuesday for somebody to ask him properly.
+
+> I will not use this number again. Congratulations. I mean that.
+
+---
+
+## 2. The Understudy
+
+*A lead actress dies in a locked dressing room on press night. One key exists, and two people say they had it.*
+
+`FREE` · 5 characters · 5 threads · 55 messages
+
+### The briefing
+
+> Coral Vane had been carrying the tour since Sheffield, and everybody said so, usually while she was in the room.
+>
+> On press night she came off at the interval, went to her dressing room, and did not come back. The door was locked. The company went on without her, and the understudy got the notice she had been waiting eleven months for.
+
+**Coral** — found at Coral’s dressing room, 20:40.
+
+*Cause.* An overdose of her own prescription.
+
+*Ruling.* Recorded as self-administered. The door was locked from the inside.
+
+### The threads
+
+#### Coral
+
+**Coral**
+> press night. seventeen of them in tonight and two that matter
+
+**You**
+> you have done this a hundred times
+
+**Coral**
+> not with Bea in the building. she has been in the auditorium every night this week with a notebook and she does not write anything in it
+
+**Coral**
+> she wants me to stop asking. I am not going to stop asking
+
+**You**
+> coral how much have you taken off her
+
+**Coral**
+> do not say it like that. she was the one driving. two of us knew and one of us has spent eleven years pretending she did not
+
+**Coral**
+> eleven grand this year. she offered it, I did not ask. and she can afford it and Joel Petrie cannot walk
+
+**You**
+> that is still a thing you are doing to her
+
+**Coral**
+> I know what it is. after tonight I am done with it either way. beginners. talk after
+
+**You**
+> coral
+
+#### Alhambra company
+
+**Beatrice**
+> Company. Coral died last night in her dressing room. The police have been and gone and they are satisfied it was her own medication.
+
+**Beatrice**
+> We play tonight. She would have insisted and I am not going to pretend otherwise. Nell goes on.
+
+**Nell**
+> I do not want it like this
+
+**Beatrice**
+> Nobody wants it like this. You are on at seven thirty.
+
+**Dev**
+> the door was locked. I want to say that out loud because nobody in that room said it out loud
+
+**Dev**
+> there is one key. one. the spare went in Sheffield and we never had another cut because it was forty quid and Bea said no
+
+**Dev**
+> and it was on my belt the whole of the interval, in the prompt corner, where it lives
+
+**Beatrice**
+> Dev. Not here.
+
+**Beatrice**
+> And you were not in the building for all of it, so please be careful how certain you sound.
+
+**Nell**
+> that is not fair and you know it is not
+
+**You**
+> she texted me at seven. she said after tonight she was done with it either way
+
+**Beatrice**
+> She said a great many things to a great many people. That was rather the difficulty with her.
+
+**Nell**
+> she was kind to me. she was the only one who was
+
+**Dev**
+> ask Nell where she was stood at ten past. she saw more than she has said in here
+
+#### Dev
+
+**Dev**
+> sorry about in there. twenty two years I have called shows and I have never lost anybody in an interval
+
+**You**
+> she said you were not in the building
+
+**Dev**
+> I was going to be. our set dresser was coming in on the 20:12 and I said I would walk down and get her, it is four minutes
+
+**Dev**
+> the 20:12 was forty minutes down. it came in at 20:51. I never left the stage door, I stood in it and smoked and watched the board on my phone
+
+**Dev**
+> Nell came past me twice. she will tell you. she was in the corridor at five past waiting to be told she was not needed, like every night
+
+**You**
+> and Beatrice
+
+**Dev**
+> Bea came down the corridor about twelve minutes past and went back up about twenty past. I saw her from the door. I did not think anything of it, she goes where she likes
+
+**Dev**
+> Coral went down at ten past and that was the last of her. I called the second half and she did not come and I thought she was being Coral about the notices
+
+**Dev**
+> I have thought about it all night. if I had gone down at twenty past instead of standing there like a post
+
+#### Nell
+
+*opens when somebody mentions them*
+
+**Nell**
+> Dev said you would want to talk to me. everyone thinks it is me. I would think it was me
+
+**Nell**
+> eleven months of getting into the frock and taking it off again. you can say it. it is what it looks like
+
+**You**
+> where were you in the interval
+
+**Nell**
+> corridor, five past to twelve past, stood outside wardrobe waiting for Dev to tell me I was not on. then up to the wings for the second half because I watch it from there
+
+**Nell**
+> and then I was on stage from twenty to nine in front of four hundred people, which is the only alibi anybody in this company will ever have
+
+**You**
+> Dev says you saw more than you said
+
+**Nell**
+> Bea came past me at about ten past. she had the key in her hand. I know the key, it has the red tag on it that Dev put on so it stops going missing
+
+**Nell**
+> I did not say it in the group because she gives me my job. she gives me every job I will ever have in this town
+
+**You**
+> she says she was giving notes in the interval
+
+**Nell**
+> nobody got a note. ask any of them. I go up the back of the circle to get to the wings because they lock the pass door at the interval, and she was stood at the top of the aisle on her phone with her back to the house the whole time I was going past
+
+**You**
+> you are saying it now
+
+**Nell**
+> because I went on in her frock last night and it fit, and I have been sick about it since. she was kind to me and she was horrible to Bea and both of those were true at once
+
+#### Beatrice Kyd
+
+*opens once you prove x-key and x-bea-corridor*
+
+**Beatrice**
+> You have been busy. Two of my company have stopped meeting my eye and I do not think that is a coincidence.
+
+**Beatrice**
+> I was in the auditorium from five past until the second half went up. I sit in J14 every night of every run and forty people can tell you the shape of the back of my head.
+
+**Beatrice**
+> And I was working. I give interval notes on a press night, always, it is the only twenty minutes anybody listens.
+
+**You**
+> she was taking money off you
+
+**Beatrice**
+> She was. Eleven thousand this year and nineteen the year before that, and I paid all of it, and I would have gone on paying it, because the alternative was Joel Petrie reading about me in a newspaper.
+
+**Beatrice**
+> I was driving. That is the whole of it. Eleven years ago on a wet road outside Sheffield with a company van and two people in it, and one of them has not stood up since.
+
+**Beatrice**
+> I have never once said it was not me. I said it was the road. Coral was in the passenger seat and she knew it was not the road.
+
+**You**
+> and she said last week she was done with it either way
+
+**Beatrice**
+> Yes. Done meaning she was going to say it, on a press night, with seventeen of them in. Done is not the word you use when you are letting somebody off.
+
+**Beatrice**
+> None of which puts me in that corridor. Be careful what you think you have.
+
+### What breaks it
+
+**REQUIRED** — `x-key`
+There is one key and there has been one key since Sheffield. Dev says it was on his belt in the prompt corner; Nell watched Beatrice carry it down the corridor by the red tag. Both cannot be true, and only one of them locks a door from the outside and leaves it looking locked from the inside.
+
+**REQUIRED** — `x-bea-corridor`
+She put herself in J14 for the whole interval, where forty people know the back of her head. Dev watched her come down the dressing room corridor at twelve minutes past and go back up at twenty past, from a stage door he never left.
+
+**REQUIRED** — `x-bea-notes`
+Interval notes on a press night, she said, because it is the only twenty minutes anybody listens. Nobody in the company was given a note that night. She was on the telephone in the dark at the back of the circle, alone, for the whole of it.
+
+**optional** — `x-dev-train`
+The 20:12 was forty minutes down and did not arrive until 20:51, so there was no train for Dev to meet and he never left the stage door. He was the only person in the building who could see that corridor for the whole interval, and Beatrice was the one who tried to move him out of it.
+
+**Motive — Beatrice**
+Coral had been taking money from her for two years over the Sheffield crash, and had decided to say it out loud on press night.
+
+### The confrontation
+
+**Beatrice**
+> Sit down. I have directed forty-one productions and I have never once been late for a difficult conversation, so say it properly.
+
+**You**
+> There is one key. Dev had it on his belt all interval, and Nell watched you carry it down the corridor by the red tag.
+
+**Beatrice**
+
+> Nell would like my job and has wanted it since March. Put a nineteen year old in front of a policeman and she will remember whatever gets her through the room.
+
+**You**
+> You put yourself in J14 for the whole interval. Dev watched you come down that corridor at twelve minutes past and go back up at twenty past.
+
+**Beatrice**
+
+> Dev has called shows for twenty two years on four hours of sleep a night. He is a wonderful man and he could not tell you what he had for lunch.
+
+**You**
+> You said you were giving interval notes. Not one person in that company was given a note. You were on the phone at the back of the circle, on your own, in the dark.
+
+**Beatrice**
+
+> And a woman may make a telephone call.
+
+**You**
+> Nineteen thousand one year and eleven the next, for eleven years of it being the road and not you. And she had decided to say it on press night.
+
+**Beatrice** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is not evidence, that is a mood.
+- You have been in this building four days. I have been in it since March.
+- Try again, and this time with something I could not take apart in front of a jury.
+
+### The confession
+
+> She came off at the interval and she was lit up with it. Not cruel. That is what people will not understand about her. She was not being cruel, she was being *free*, finally, after eleven years of carrying it for me.
+>
+> She said she had told the two critics she was going to give them something better than the play. She said it the way you tell somebody good news.
+>
+> I had the key in my hand because I had gone down to ask her not to. That is all I went down for. I want that written somewhere.
+>
+> She laughed at me, and I have been laughed at by better, and then she turned round to her mirror and started taking her face off, and she said do not stand in my light.
+>
+> And I put the pills in front of her and I sat down on the other chair and I did not say one word to stop her. That is what I did. I did not make her take them. I just did not say the thing that would have stopped her, and I know exactly how long I did not say it for.
+
+### Afterwards
+
+> They found the second glass in the sink, washed, and the red tag on the key still warm in her coat pocket when the police finally asked her to turn it out.
+>
+> Nell played the run and then the transfer, and was very good in it, and has not spoken to a journalist about any of this once.
+>
+> Joel Petrie was written to by a solicitor in the spring. He had known about the road for eleven years. He said the only thing he had ever wanted was for somebody to say it out loud without him having to ask.
+
+---
+
+## 3. The Night Round
+
+*A signature in the night book says somebody looked in on her at eleven. Nobody did.*
+
+`FREE` · 6 characters · 5 threads · 45 messages
+
+### The briefing
+
+> Ivy Rennick had been at Marchbank House for three years and complained about it in writing, daily, to anybody who would give her a number.
+>
+> Her daughter visited on the Tuesday evening and signed out at twenty to ten. The night book says somebody looked in on Ivy at eleven and again at two. She was found at seven in the morning, cold, and the family did not ask for a post-mortem.
+
+**Ivy** — found at Ivy’s room, 07:00.
+
+*Cause.* Heart failure. She was eighty-four and had a heart.
+
+*Ruling.* Recorded as natural causes. No post-mortem requested by the family.
+
+### The threads
+
+#### Ivy
+
+**Ivy**
+> The soup was the same soup, dear. I have written it down. Thursday and Tuesday, the same soup, and they call one of them broth.
+
+**You**
+> you are the only person I know who keeps a soup ledger
+
+**Ivy**
+> I keep a ledger of everything. It is the only thing left that is mine to keep.
+
+**Ivy**
+> Fenella is coming at seven. She has that voice on the telephone that means she wants me to sign something.
+
+**You**
+> sign nothing
+
+**Ivy**
+> I have not signed anything since March and she knows it. That is rather the trouble.
+
+**Ivy**
+> I am in the day room with Teddy. He is being unkind about the crossword and I am letting him.
+
+**Ivy**
+> She has gone. She was here fifty minutes and forty of them were about the fees.
+
+**Ivy**
+> Ring me tomorrow and I will tell you what she asked me for. I want to say it out loud to somebody who is not paid to be here.
+
+**You**
+> first thing. go to sleep
+
+#### Marchbank families
+
+**Saoirse**
+> This is to let families know that we lost Ivy Rennick in the early hours of Wednesday. Her daughter has been informed and is with us. We will say more when there is more to say.
+
+**Margo**
+> I am so sorry. She was on my corridor for two years and she never once let me get away with anything!! I will miss her very much
+
+**Fen**
+> Thank you all. Obviously it was not unexpected at her age. We would rather not have a post mortem and I have said so to the GP, so please nobody suggest it to me again.
+
+**You**
+> she texted me at ten past ten. she was fine at ten past ten
+
+**Fen**
+> She was eighty four. Fine at ten and gone at midnight is exactly what happens, and I would ask you to be careful about the impression you are giving.
+
+**Fen**
+> I left at twenty to ten. I signed out at twenty to ten. I was home by quarter past and in bed by half ten like every other night of my life.
+
+**Fen**
+> Asleep from half ten. My phone is on the landing, it charges on the landing, ask anybody who knows me.
+
+**Saoirse**
+> Nobody is suggesting anything. I would ask that we let the family have a week.
+
+**Margo**
+> Teddy has been asking for you. He will not talk to me about it, he says I am staff. He is in the day room from six every morning if you want him
+
+#### Margo
+
+**Margo**
+> You are Ivy’s godson aren’t you. She showed me your photograph about four hundred times, I am not exaggerating!
+
+**You**
+> who checked on her that night
+
+**Margo**
+> Me. I do eleven and two on that corridor, it is in the night book with my initials. Eleven and two, every night, fourteen years I have done it
+
+**Margo**
+> She was asleep. That is what I wrote. Asleep, settled, no concerns
+
+**You**
+> did you see anyone else on the corridor
+
+**Margo**
+> I heard a car go out of the car park very late. Late enough that I looked up. We get taxis but not at that hour and not that engine, it was a diesel and it turned left
+
+**You**
+> how do you know it was her car
+
+**Margo**
+> Because she has been coming three years and I have heard that engine three years. I am not saying it in the group chat and please do not make me. I need this job, I have two at home
+
+**Margo**
+> I was in the office doing the medicines book from one until the handover anyway, so I would have heard anything else
+
+#### Teddy
+
+*opens when somebody mentions them*
+
+**Teddy**
+> You took your time.
+
+**Teddy**
+> Forty one years a quantity surveyor. I do not sleep and I do not guess at times. If I give you a time it is a time.
+
+**Teddy**
+> Ivy was with me in the day room until ten to ten. Her daughter came and got her and took her up. That is the last of her I saw.
+
+**You**
+> and after that
+
+**Teddy**
+> I sit in the day room doorway at night because my chair is there and my hip is what it is. I can see the desk and the bottom of the stairs. I saw the whole of it.
+
+**Teddy**
+> Margo did not go up at eleven. She sat at that desk from five to eleven until twenty past with her phone against her ear and she did not stand up once.
+
+**Teddy**
+> I am not telling you that to get her sacked. She talks to her mother in Lagos on a Tuesday because of the hours. Everybody here knows it and everybody here lets her.
+
+**Teddy**
+> The daughter came back down the stairs at twenty to twelve. Half eleven she was on that corridor, because I heard Ivy’s door, and Ivy’s door has needed doing for a year.
+
+**Teddy**
+> She did not see me. People do not see me. It is the one advantage of the whole business.
+
+**Teddy**
+> Ivy told me in September that they had given her a number. She would not tell me what it was. She said she had not told her daughter and she was not going to, because of what her daughter would do with it.
+
+#### Saoirse Nolan
+
+*opens once you prove x-fen-corridor and x-fen-asleep*
+
+**Saoirse**
+> I am going to tell you some things and I am going to be careful, because I have twenty nine residents and a registration to keep.
+
+**Saoirse**
+> The night book is signed. That is one record. The door fobs are another record and they do not agree, and I did not know that until you made me go and look.
+
+**Saoirse**
+> Fenella Rennick’s visitor fob opened the car park door outward at 23:47. There is no reading for it before that going in, because the inward door was propped for the laundry all evening, which is a separate conversation I am having with somebody else.
+
+**You**
+> the fees
+
+**Saoirse**
+> Three months unpaid. Fenella holds power of attorney and has done since 2021. I had written to her twice and the second letter said that if it went to four months I was required to make a safeguarding referral about the finances.
+
+**Saoirse**
+> That letter went out on the Friday. She would have had it on the Monday. Ivy died on the Tuesday night.
+
+**Saoirse**
+> A referral means somebody outside this building looks at three years of that account. I want to be plain that I did not think of it as a motive. I thought of it as a letter.
+
+### What breaks it
+
+**REQUIRED** — `x-fen-corridor`
+She signed out at twenty to ten and put herself at home from quarter past. Teddy Balfour sat in the day room doorway with a clear view of the stairs and heard Ivy’s door at half eleven, and that door has needed doing for a year.
+
+**REQUIRED** — `x-fen-asleep`
+Asleep from half ten, she said, with her phone charging on the landing. Margo heard a diesel engine leave the car park at that hour and turn left, and she has been listening to that engine arrive three years running.
+
+**REQUIRED** — `x-fen-carpark`
+The night book is a signature. The door fob is a machine. Hers opened the car park door outward at 23:47, two hours after she says she was in bed and eleven miles from where she says she was.
+
+**optional** — `x-margo-round`
+Margo signed the eleven o’clock round and did not walk it. She sat at the desk with her phone against her ear, talking to her mother in Lagos, the way she does every Tuesday because of the hours. It is why nobody looked in on Ivy for ten hours. It is a sackable offence and it is not a murder, and every person in that building knew about the Tuesday calls and let her have them.
+
+**Motive — Fen**
+She has held power of attorney since 2021, the fees were three months unpaid, and a safeguarding referral at four months would have put three years of that account in front of somebody outside the building.
+
+### The confrontation
+
+**Fen**
+> You have been talking to a ninety year old man who sits in a doorway all night and a carer who falsified a record. Obviously I am going to listen, but I want you to hear how it sounds.
+
+**You**
+> You signed out at twenty to ten and put yourself at home from quarter past. Teddy heard your mother’s door at half eleven, and that door announces itself.
+
+**Fen**
+
+> He is ninety one and he sits in the dark. Half the time he is not sure which day it is, and you have built this on him.
+
+**You**
+> You said asleep from half ten. Margo heard your car leave that car park and turn left, and she has listened to it arrive every week for three years.
+
+**Fen**
+
+> A diesel. In a town full of them. That is what you have.
+
+**You**
+> Then here is one that is not a person. Your fob opened the car park door outward at 23:47. The machine does not sit in a doorway and the machine does not need the job.
+
+**Fen** — *says nothing*
+
+**You**
+> Three months unpaid, and Saoirse’s letter said four months meant a safeguarding referral. That letter reached you on the Monday. Your mother died on the Tuesday.
+
+**Fen** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is not a fact, that is a feeling somebody had.
+- You were not here for any of the three years. You visited.
+- Bring me something that does not depend on somebody’s memory.
+
+### The confession
+
+> She was awake when I went back up. She always was. She said do not put the light on, and then she said I know what you have been doing, Fenella, and she said it kindly, which was the worst of it.
+>
+> I held the pillow and I counted and she did not fight me for very long. I am not going to describe it better than that. I have had eleven weeks to find a way of saying it that makes it smaller and there is not one.
+>
+> And I want to say the other thing, because you will find it eventually and I would rather it came from me.
+>
+> A man telephoned me on the Monday night. He said he was from the continuing care team. He knew what the letter said. He knew about the referral, which nobody outside that office knew, and then he told me that my mother had been given eight to fourteen months in September and that she had asked them not to tell the family.
+>
+> I did not know that. She never told me. He knew it and I did not, and he said it the way you would tell somebody the time.
+>
+> Then he said: so the money has to last longer than she does, and the letter comes first. And I said what am I supposed to do. And he did not answer for a while. He let me sit in it.
+>
+> And then he said, well. You have thought about it, or you would not have asked me.
+>
+> He never told me to do anything. I have gone over it and over it. He never once told me to do anything.
+
+### Afterwards
+
+> The account was looked at in the end. Forty one thousand pounds over three years, and a standing order to a storage unit in Kilmarnock that nobody has ever been able to explain.
+>
+> Margo Adeyemi was suspended for eleven days over the night book and then quietly reinstated, because Marchbank could not staff the corridor without her and because twenty nine families wrote in. She still does eleven and two. She walks them now.
+>
+> Teddy Balfour gave his statement in a single sitting, with times, and the officer taking it said afterwards that it was the cleanest account he had ever been given by anybody, of any age.
+>
+> Ivy’s ledger was in the drawer. Three years of it. The last entry was the Tuesday, and it says: Fenella, 7pm, wants me to sign. Did not sign.
+
+### Unknown number
+
+> Marchbank, then. You were quicker this time. Six days.
+
+> The old surveyor was a piece of luck and you should not congratulate yourself for him. He was going to say it to somebody. The carer you handled properly, and I noticed.
+
+> You will want to know how I had the September number. Sit with that one. It is the interesting question and you have not asked it yet.
+
+> Different number next time. As ever.
+
+---
+
+## 4. Deep Field
+
+*Six people, four months of darkness, and nobody can leave. The alibi is a timestamp, and the timestamp is in the wrong clock.*
+
+`PAID` · 6 characters · 6 threads · 48 messages
+
+### The briefing
+
+> Rothera Ridge keeps three clocks. Station time for the people, UTC for the instruments, and whatever each of them has left running on their own wrist from home.
+>
+> Orla Byrne was the doctor. She was found in the cold porch at two in the morning with her outer layer still on its hook, and the six of them agreed among themselves that she had gone out to look at the sky and misjudged it. The next aircraft is in October.
+>
+> You are her desk officer in Cambridge and the last person she wrote to.
+
+**Orla** — found at the cold porch, 05:00.
+
+*Cause.* Hypothermia. She went out of the cold porch without her outer layer.
+
+*Ruling.* Recorded as misadventure. Nobody can reach the station until October and nobody has asked to.
+
+### The threads
+
+#### Orla
+
+**Orla**
+> day sixty one of no sun. Theo has started giving the potatoes names. I am telling you this so Cambridge has it on file
+
+**You**
+> noted. how are the annuals going
+
+**Orla**
+> that is actually why I am up. I have a screen result I do not want to have
+
+**Orla**
+> atrial fibrillation, and not a borderline one. On a man who is sixty one and nineteen seasons deep and who has never once been off this continent when he had a choice about it
+
+**You**
+> protocol is protocol. that is a first flight out
+
+**Orla**
+> I know what it is. I wrote the wording twice and deleted it twice and I am going to file it in the morning because there is no version of this where I do not
+
+**Orla**
+> he will not get another season. He will not get another anything. He came out in 2007 and he has been back every year and I have watched him get off that plane in October like a man coming home
+
+**You**
+> have you told him
+
+**Orla**
+> tonight. I am not going to file something about a man without saying it to his face first, that is the whole job
+
+**Orla**
+> told him. he was very calm and very polite and he thanked me, and that was worse than if he had shouted
+
+**Orla**
+> going out for ten minutes. it is minus forty one and there is nothing above us but the whole of it. talk tomorrow x
+
+#### Rothera Ridge
+
+**Pilar**
+> Cambridge. Orla Byrne died last night. Found in the cold porch at 02:10 station time by Rune. Attempted resuscitation for forty minutes. I am recording it as misadventure and I will send the full report on the morning sked.
+
+**Pilar**
+> Before anybody asks me: yes I know what six people and four months of dark does to a report like that. I have written it straight anyway.
+
+**Theo**
+> she went out without her outer. she has told me off for that exact thing. twice. she wrote it on the board in the porch
+
+**Mal**
+> I was on the platform from quarter to ten until eleven, running the shutdown. I saw nothing and I heard nothing and I am sorry about it, because I was two hundred metres away.
+
+**Mal**
+> The platform log will have me. It logs an operator every time the dome moves and the dome moved all evening.
+
+**Theo**
+> mal I saw you in the block at ten past. you came through the corridor and you did not say anything to me
+
+**Mal**
+> You saw somebody in a red parka in a corridor in the dark. There are four red parkas on this station and one of them is yours.
+
+**Mal**
+> And while we are doing this, Rune was out at the mast half the evening and nobody has asked him a single question, and I would like to know why that is.
+
+**Pilar**
+> Enough. Nobody on this station accuses anybody on this station over a radio link with Cambridge listening. Take it to me.
+
+#### Theo
+
+**Theo**
+> I cooked for her for six months and I have made four hundred meals in that galley and I cannot make one tonight
+
+**Theo**
+> I was in the mess from nine until eleven doing the bread for tomorrow. you can see the whole corridor from the mess hatch, that is the only reason I know anything
+
+**You**
+> when did you last see orla
+
+**Theo**
+> quarter past ten, going through the porch. she had her indoor boots on. I have gone over that a hundred times because I saw her indoor boots and I said nothing
+
+**Theo**
+> and it was Mal in that corridor. I know what the parkas look like. I know what he walks like. nineteen seasons of a man is a shape you learn
+
+**You**
+> he says rune was outside
+
+**Theo**
+> Rune was on the radio to the Shackleton for the whole of it. I was stood next to him for ten minutes of it and the ship logs their end. that is not a thing you can be vague about
+
+**Theo**
+> talk to Rune. he will not type at you, he sends the voice ones. do not make anything of that, everybody here knows why and nobody here mentions it
+
+#### Rune
+
+*opens when somebody mentions them*
+
+**Rune**
+> [voice note, 0:41] It was me that found her. Two ten. I had gone for the porch because the door does not seat right in this cold and I check it last thing. I am not going to describe how she was.
+
+**Rune**
+> [voice note, 0:19] I do these because I do not read well and I have never got on with the typing. Pilar has known nine years. It is not a secret, it is only tiring.
+
+**You**
+> mal says you were at the mast
+
+**Rune**
+> [voice note, 1:02] I was on the set to the Shackleton from ten to ten until half past. Forty minutes about a fuel transfer that is not going to happen until December. Their radio room logs every call at their end and Cambridge can ask them tonight, so please do ask them, I would rather you did.
+
+**Rune**
+> [voice note, 0:33] He has said the mast because the mast is the only place on this station nobody can see. He is not stupid. That is the thing about him, he has never once been stupid.
+
+**Rune**
+> [voice note, 0:28] Ask Pilar about the platform log. Ask her which clock it keeps. I have said it to her twice and she has gone quiet at me twice, and I am a mechanic, so what would I know.
+
+#### Pilar Otxoa
+
+*opens once you prove x-mal-block and x-mal-porch*
+
+**Pilar**
+> I have six people and one hundred and eleven days. Whatever I say to you now, I still have to feed them all breakfast together in the morning. I want that on the record before the rest of it.
+
+**Pilar**
+> Rune is right about the log and I have been slow because I did not want him to be. The platform log writes in UTC. It has written in UTC since the instrument went in, because the instrument belongs to a consortium in Boulder and Boulder does not care what time it is here.
+
+**Pilar**
+> Station time is UTC plus three. So the entry that has him at the dome from 21:45 has him there from a quarter to one in the morning, station. Three hours after Theo watched her go through that porch.
+
+**Pilar**
+> The log is not his alibi. The log is a record of where he went afterwards.
+
+**You**
+> the surgery
+
+**Pilar**
+> Card access. His card opened the surgery at 22:35 and again at 22:44. Orla was already in that porch by then. He had no clinical reason to be in that room at any hour and he has never had one in nineteen seasons.
+
+**Pilar**
+> Her screen file is not on the system. The paper copy is not in the drawer. I have looked twice and I have had Theo look once so that it is not only me saying it.
+
+**Pilar**
+> She told me on the Tuesday what she had found and what she was going to have to do about it. She asked me whether nineteen seasons bought a man anything. I said no. I have thought about that answer every hour since.
+
+**Pilar**
+> And I was in the block from half nine to midnight with my door open, doing the resupply spreadsheet, which is the least useful alibi anybody has ever had.
+
+#### Cold porch camera
+
+*opens when somebody mentions them*
+
+**Theo**
+> there is a camera in the porch. it is for the door seal, it points at the hinge, it is not a security thing and it does not record sound
+
+**Theo**
+> twenty two eleven. someone comes into frame from the corridor side, stands at the hooks for eleven seconds, and goes out through the outer door after her. you cannot see a face. you can see a sleeve
+
+**Theo**
+> the sleeve has the cuff tear. Mal did that cuff on the winch in April and refused a new parka because he has had that one since 2011
+
+**You**
+> why has nobody looked at this before
+
+**Theo**
+> because it is a door seal camera and it writes over itself every ten days and none of us thought of it as a thing that watches people. it watched a person
+
+### What breaks it
+
+**REQUIRED** — `x-mal-block`
+He put himself two hundred metres away on the platform from quarter to ten. Theo watched him come through the accommodation corridor at ten past, from a mess hatch that sees the whole length of it, and knew him by how he walks.
+
+**REQUIRED** — `x-mal-porch`
+The door seal camera points at a hinge and nobody ever thought of it as a thing that watches people. At 22:11 a sleeve with a torn cuff stands at the hooks for eleven seconds and then goes out through the outer door after her. He did that cuff on the winch in April and would not take a new parka.
+
+**REQUIRED** — `x-mal-surgery`
+His card opened the surgery at 22:35 and again at 22:44, while he says he was still on the platform and while Orla was already in that porch. Her screen file is not on the system and the paper copy is not in the drawer, and in nineteen seasons he has never had a clinical reason to be in that room.
+
+**optional** — `x-rune-mast`
+Rune was on the set to the Shackleton for forty minutes about a fuel transfer that will not happen until December, and the ship logs their end of every call. Mal put him at the met mast because the met mast is the only place on that station nobody can see, and because a man who answers in voice notes is the easiest man on the ice to make strange.
+
+**Motive — Mal**
+Orla had found atrial fibrillation on his annual screen. Protocol is medical evacuation on the first flight, and at sixty one and nineteen seasons there would not have been a twentieth.
+
+### The confrontation
+
+**Mal**
+> Nineteen seasons. I have buried two people off this station and carried one of them myself, and now it is a radio link and a man in Cambridge. Go on.
+
+**You**
+> You put yourself on the platform from quarter to ten. Theo watched you come down the accommodation corridor at ten past and knew you by how you walk.
+
+**Mal**
+
+> Theo has been in the dark for sixty one days and there are four red parkas on this station. He wants it to be somebody. Everybody down here wants it to be somebody by now.
+
+**You**
+> The porch camera has a sleeve at the hooks at 22:11, eleven seconds, and then out through the outer door after her. The cuff is torn. You did that on the winch in April and you would not take a new parka.
+
+**Mal**
+
+> A cuff. In a building where we all wear the same thing and lend it to each other every day of the winter.
+
+**You**
+> Your card opened the surgery at 22:35 and again at 22:44. Her screen file is gone from the system and the paper copy is gone from the drawer, and you have never once had a reason to be in that room.
+
+**Mal** — *says nothing*
+
+**You**
+> She found atrial fibrillation on your annual and she was going to file it in the morning. First flight out, and no twentieth season.
+
+**Mal** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is Cambridge talking. Cambridge has never been here in the dark.
+- Bring me a thing and not an impression of a thing.
+- You are eleven thousand miles away and you are very sure.
+
+### The confession
+
+> She came and told me herself. She did not have to do that. She could have filed it and let me find out in October when the plane came and there was a seat on it with my name.
+>
+> I thanked her. I have gone back over that and I did thank her, and I meant it at the time.
+>
+> Then I sat on the edge of the bunk for about an hour and worked out what the rest of it was. A flat in Dunfermline. A chair. A television that is on in the afternoon. Nineteen years of the only thing I have ever been any use at, finished, because of a rhythm.
+>
+> She went out to look at the sky. She did that most nights. I went after her and I did not plan one thing about it, and I want that understood because it is not an excuse, it is only what happened.
+>
+> She had her indoor boots on. I put her outer layer back on the hook. That is the part I did decide, and I did it in about four seconds, and it is the four seconds that make it what it is.
+
+### Afterwards
+
+> The station finished the winter. There was no other option and there was no other place to put him, so for one hundred and eleven days six people ate breakfast together and five of them knew.
+>
+> Pilar Otxoa wrote a twelve page report and did not soften a line of it, and then cooked with Theo every night until October because Theo could not do it alone any more.
+>
+> Rune Sandved gave his account in eleven voice notes. The transcription clerk in Cambridge said afterwards it was the clearest witness statement she had ever taken down, and asked whether he was a writer.
+>
+> Orla Byrne’s screen file was never recovered. The arrhythmia was confirmed at Rothera in the October medical, by a doctor who had flown in that morning and had never met either of them.
+
+---
+
+## 5. The Wake
+
+*Forty-one people were in the house and they all tell the same story, word for word. It was built to protect somebody who did not do it.*
+
+`PAID` · 6 characters · 5 threads · 53 messages
+
+### The briefing
+
+> Gerald Mulvey was buried on the Thursday and forty-one people came back to the house.
+>
+> His eldest son Anthony was found at five o’clock at the bottom of the step into the garden room, with a glass still in his hand and his father’s prescription records in the bag beside him.
+>
+> You had not been in that house for nine years. Tony was the one who asked you to come.
+
+**Tony** — found at the garden room, 17:00.
+
+*Cause.* A single blow to the back of the head against the step.
+
+*Ruling.* Recorded as a fall. He had been drinking since eleven and the step into the garden room is a bad one.
+
+### The threads
+
+#### Tony
+
+**Tony**
+> nine years. nobody will say anything about it on the day, they will all just look at you and say god you are the image of him
+
+**You**
+> i am not coming for them
+
+**Tony**
+> good. because there is a thing I want to show somebody who is not in this family up to their neck
+
+**Tony**
+> da was on 5mg of the liquid morphine at the end and the chemist has him down for a hundred and eighty mils across three weeks. that is not a mistake, that is somebody collecting
+
+**You**
+> who collected
+
+**Tony**
+> that is the bit I have and I am not putting it in a text. I have the printout. I am bringing it Thursday in the bag with the readings for the mass
+
+**Tony**
+> I asked him straight out on Sunday, no messing, and he laughed at me and said mind yourself Tony. that is the exact phrase. mind yourself
+
+**You**
+> tony go to the guards
+
+**Tony**
+> with my mother in the house. after the funeral. I am not doing that to her on the week she buries him, I will do it on the Friday and I will do it properly
+
+**Tony**
+> youre here. I saw you at the back of the church and I nearly went over
+
+**Tony**
+> kitchen with the sandwiches like an eejit. find me before the speeches, I have the bag with me
+
+#### Mulveys
+
+**Nuala**
+> For anyone who has not been told properly and not through somebody else, Tony died yesterday at the house. He fell at the step into the garden room. Mammy is being seen to and please do not ring her today, ring me, anyway I will let ye all know about arrangements when there are any
+
+**Bridie**
+> I buried a husband on Thursday and a son on Thursday night. I have nothing to say to any of you except that God has a very poor sense of when a thing is enough.
+
+**Donal**
+> the guards were fine about it. they were in and out in an hour and they said what everyone in that house already knew. bad step, drink since eleven, no more to it
+
+**Donal**
+> and we were all in the front room from four for the speeches. all of us. that is what I told them and that is what everybody told them
+
+**Donal**
+> I was handing the glasses round the whole way through. ask any of them
+
+**Nuala**
+> We were all in the front room. Every one of us. I want that said clearly because there is talk already and I know where it is coming from
+
+**You**
+> he had a bag with him. where is the bag
+
+**Donal**
+> nine years and thats your first question. right
+
+**Bridie**
+> Answer him, Donal.
+
+**Donal**
+> I dont know where his bag is. its a house with forty people in it and a man dead in the back of it
+
+**Donal**
+> and if we are doing questions, Cass was out the back the whole of it and nobody has said a word about that either
+
+**Nuala**
+> Donal.
+
+**Bridie**
+> That child was with me. I will say that to you and to a guard and to a judge and I will not be asked twice.
+
+#### Bridie
+
+**Bridie**
+> You came. Nine years and you came, and he was the one that asked you. There is a lesson in that somewhere and I am too tired to go looking for it.
+
+**You**
+> were you in the front room
+
+**Bridie**
+> I was in my kitchen at ten past four looking for glasses, because nobody had handed a glass to anybody and the speeches were going on without them.
+
+**Bridie**
+> And from my kitchen window I can see the side return, and Donal Fahey was stood in it on his telephone with his back to the house.
+
+**You**
+> you told the guards everyone was in the front room
+
+**Bridie**
+> I did. And I would do it again, and I will tell you exactly why, and then you can think of me what you like.
+
+**Bridie**
+> Cassie took four hundred pounds out of my handbag on Wednesday. Nuala caught her at it and I caught the pair of them at it, and we agreed the three of us that the day we buried her grandfather was not the day.
+
+**Bridie**
+> So when the guard asked where everybody was, we said the front room, all of us, together. It was for her. It was not for anybody else and I did not think for one second it could be for anybody else.
+
+**Bridie**
+> That child was in the side return being sick with the shame of it, and my son was dying twenty feet from her, and I sent her out there.
+
+**Bridie**
+> Talk to her. She will not talk to me and I do not blame her for it.
+
+#### Cass
+
+*opens when somebody mentions them*
+
+**Cass**
+> nan said youd message
+
+**Cass**
+> i took the money. im not going to sit here and do the thing where i work up to saying it
+
+**You**
+> i did not ask about the money
+
+**Cass**
+> everyone asks about the money eventually. i was out the side the whole time. from four til nan came out and got me
+
+**Cass**
+> donal came out at about ten past. he didnt see me, im small and there is a wheelie bin, that is the entire reason i know anything
+
+**You**
+> what did he do
+
+**Cass**
+> went in the garden room door. the outside one. he was in there a bit and then he came back out and he was different. not upset. sort of tidy. he straightened his tie in the window
+
+**Cass**
+> and he had uncle tonys bag. i didnt know it was uncle tonys then. i know it now
+
+**You**
+> why did you not say
+
+**Cass**
+> because to say where he was i have to say where i was. and where i was is the side return being sick because i robbed my nan on the day of grandads funeral
+
+**Cass**
+> they all covered for me. all of them, straight away, no one even discussed it. and i have been lying in bed working out that the reason he got away with it is that they were being nice to me
+
+#### Nuala
+
+*opens once you prove x-donal-garden and x-donal-glasses*
+
+**Nuala**
+> I have been married to him for twenty six years and I have known for about nine hours, so you will have to give me a minute with how I am saying things
+
+**Nuala**
+> I told the guards we were all in the front room because Mammy said it first and I was not going to leave her standing there on her own having said it. That is the whole of my reasoning and it is not much of one
+
+**You**
+> the prescriptions
+
+**Nuala**
+> Donal did the chemist. The last one was the Tuesday, ten past eleven, and his name is on the register because they make you sign for the liquid. He did every one of them that month, because I could not walk in there and say Daddy’s name to the girl behind the counter without going
+
+**Nuala**
+> And he told the guards he never once collected them. He said it in front of me and I heard him say it and I said nothing, because at the time I thought he was only being lazy about the paperwork
+
+**Nuala**
+> A hundred and eighty mils. Tony said it to me on the Sunday and I told him he was making a show of himself at his own father’s month’s mind
+
+**Nuala**
+> Daddy had money. Not a lot. Enough that four more years of a nursing home would have taken all of it and three years would have left some
+
+**Nuala**
+> I keep going back to the front room and counting heads. I have counted that room forty times since yesterday and he is not in it, and I said he was, and I would have gone on saying it
+
+### What breaks it
+
+**REQUIRED** — `x-donal-garden`
+Every adult in that house told the guards the same sentence, and it was true of almost all of them. At ten past four Donal Fahey went in the outside door of the garden room, and a nineteen year old behind a wheelie bin watched him come back out and straighten his tie in the window.
+
+**REQUIRED** — `x-donal-glasses`
+He said he was handing the glasses round the whole way through. Bridie Mulvey went to her own kitchen at ten past four looking for glasses, because nobody had handed one to anybody, and from that window she watched him standing in the side return with his back to the house.
+
+**REQUIRED** — `x-donal-scripts`
+He told the guards he never once collected Gerald’s prescriptions. His wife did them for a month and knows exactly why she could not: she could not say her father’s name to the girl behind the counter. A hundred and eighty mils of liquid morphine went out against a five mil dose, and the printout was in Tony’s bag.
+
+**optional** — `x-cass-return`
+He put the child in the garden room, which is the only accusation anybody in that family made out loud. She was in the side return for the whole half hour, being sick with the shame of four hundred pounds, and her grandmother sent her out there and can say so.
+
+**Motive — Donal**
+He collected Gerald’s prescriptions every week of the last month and a hundred and eighty mils went out on a five mil dose. Tony had the chemist’s printout in his bag and was going to the guards on the Friday.
+
+### The confrontation
+
+**Donal**
+> Nine years you were gone. You come back for one afternoon and now you know this family, do you. Go on then.
+
+**You**
+> You told the guards everybody was in the front room from four. At ten past you went in the outside door of the garden room, and Cass watched you come back out and straighten your tie in the window.
+
+**Donal**
+
+> A child who robbed her grandmother on the day of a funeral. That is your witness. She has every reason in the world to put somebody else out the back with her.
+
+**You**
+> You said you were handing round the glasses the whole way through. Bridie went to the kitchen at ten past looking for glasses, because nobody had handed one to anybody, and she watched you from the window.
+
+**Donal**
+
+> She is eighty one and she buried a husband that morning.
+
+**You**
+> And you told them you never collected Gerald’s prescriptions. Nuala did them for a month, and she can tell you exactly why she could not.
+
+**Donal** — *says nothing*
+
+**You**
+> A hundred and eighty mils against a five mil dose. Tony had the printout in that bag and he was going to the guards on the Friday. You are the one who told him to mind himself.
+
+**Donal** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is a house full of grief and you are reading it like a ledger.
+- You were not here for nine years. You do not get to arrive and be right.
+- Bring me a thing. Not a feeling somebody had at a funeral.
+
+### The confession
+
+> He came out to the return to tell me. Not to threaten me. That was the thing about Tony, he could not do a threat, he came out to tell me what he was going to do on the Friday so that I would not hear it from a guard.
+>
+> He was being decent about it. He had the bag under his arm and he was being decent about it.
+>
+> And I said come inside a minute, and he went in ahead of me, and the step into that garden room has been a bad step since 1994.
+>
+> I want to say the other part because you will not believe the first part without it.
+>
+> I did not build any of it. The front room. All of us together. I did not say one word to make that happen. They did it themselves, in about four seconds, in the hall, because Cassie was crying and Bridie said we were all in the front room and Nuala said yes we were, and they looked at each other and it was done.
+>
+> And I stood there and I let it close over me like water.
+>
+> That is what I did. I stole a thing that was meant for a child.
+
+### Afterwards
+
+> Gerald Mulvey was exhumed in the February. The report used the word consistent four times and would not go further than that, and it did not have to, because by then there was the chemist’s log and there was Nuala.
+>
+> She gave her statement over two days and did not once ask what it would do to her. When they asked her why she had said the front room, she said: because my mother said it first.
+>
+> Bridie Mulvey did not attend the trial. She sent a letter to be read, of one line, asking that the court be told her granddaughter had been in the side return the whole time and had nothing to do with any of it.
+>
+> Cass paid the four hundred pounds back in instalments to a woman who never once asked for it.
+
+---
+
+## 6. The Long Course
+
+*Eight people in the same kit, on the water, for twenty-two minutes. The photographs prove eight were in that boat. They cannot prove which eight.*
+
+`PAID` · 6 characters · 5 threads · 49 messages
+
+### The briefing
+
+> Hester Vaine had been president of Ravensholt Rowing Club for nineteen years and had signed every set of minutes in the cupboard by hand.
+>
+> She was found in the boathouse at ten past twelve on the morning of the autumn head, with the doors open and the racks half empty.
+>
+> The senior eight were on the water from eleven until twenty past. Every one of them has the same alibi and every one of them is wearing it.
+
+**Hester** — found at the boathouse, 12:10.
+
+*Cause.* Blunt force. A riggers’ spanner from the rack by the doors.
+
+*Ruling.* Open. Nobody has been arrested, because forty-one members were on the towpath and the senior eight were on the water.
+
+### The threads
+
+#### Hester
+
+**Hester**
+> You will not remember Dorothy Nance. She came to the club dinner in 2011 and sat through the whole of it and did not eat anything.
+
+**You**
+> robbie’s mum
+
+**Hester**
+> She died in March and her sister has been clearing the house, and she has sent me a box because my name is on the minutes.
+
+**Hester**
+> The launch book for that week is in it. The original, not the one that went to the inquest. They are not the same book and I have had both on this table since Tuesday.
+
+**You**
+> different how
+
+**Hester**
+> The inquest was told Ken Wardle signed the boats out that morning. Ken had a stroke in 2013 and died in 2016 and could not contradict anybody by then.
+
+**Hester**
+> The original has S. Brightwell in the duty column, in his own hand, for the Saturday. He was twenty four and he was the only qualified person on that bank and the river was up two feet.
+
+**You**
+> what are you going to do
+
+**Hester**
+> Give it to the coroner’s office on the Monday. And tell Saul on the Saturday, before I do, because a man is entitled to hear it from a person and not from a letter.
+
+**You**
+> hester do not do that on your own in an empty boathouse
+
+**Hester**
+> Nine o’clock and the bar is full of parents. I have the book in my bag and I will do it after the senior race when the place is quiet.
+
+#### Ravensholt RC
+
+**Dilys**
+> Members will by now have heard that Hester was found in the boathouse yesterday afternoon. I am asked to say that the police will want to speak to everybody who was on site and that the club will be closed until further notice. I am sorry to put it so plainly, I do not know a better way.
+
+**Warren**
+> nineteen years. she taught half of you to feather
+
+**Saul**
+> For what it is worth to anybody the senior eight were boated at ten fifty and we did not touch the bank again until twenty past eleven. Eight of us. So that is eight people accounted for at least
+
+**Warren**
+> I filmed the whole race from the bank. bow to stern, both banks, start to finish. police have the card
+
+**Saul**
+> Then that is that sorted. Warren has eight of us on video for the entire window and Dilys has the towpath
+
+**Dilys**
+> I was on the towpath from twenty to eleven until nearly midday with the marshalling board, which I am afraid means I saw a great deal of everybody and very little of anything.
+
+**Saul**
+> And where was Warren for the middle of it. Because he had a row with Hester at the trestles at half nine that half the club heard
+
+**Warren**
+> we rowed about a junior trial. that is what we were rowing about. say the rest of it out loud saul
+
+**Dilys**
+> Not on here. Please.
+
+#### Dilys Prentice
+
+**Dilys**
+> You rowed here, did you not. Two seat, and Hester said you had the worst hands she ever bandaged and the best head she ever wasted.
+
+**Dilys**
+> I stand at the same place every head, at the top of the slipway where the board is, because I cannot manage the walk down to the start any more. It means I see everybody go past twice.
+
+**You**
+> did you see warren
+
+**Dilys**
+> Warren Ako was on the towpath the entire race with that camera on a monopod, shouting at a crew who could not hear him, which is the whole of coaching as far as I can tell. He did not move for half an hour.
+
+**Dilys**
+> And Hester went into the boathouse a little before eleven with her bag, and she did not come out while I was looking, and I was looking at those doors for an hour without once thinking about them.
+
+**You**
+> anyone else go in
+
+**Dilys**
+> Saul Brightwell, at about three minutes past, in his kit. I remember it because I thought he had gone back for a spanner and I thought no more about it than that, and I have thought about nothing else since.
+
+**You**
+> he says he was in the boat
+
+**Dilys**
+> Everybody in that crew wears the same suit and the same hat and I am seventy nine. I said as much to the officer and he wrote it down and I could hear him deciding I was no use.
+
+**Dilys**
+> Ask Imogen Kerr. She is a junior and she was in the changing room in senior kit at half past ten, and juniors do not wear senior kit, and she went very red when I said good morning to her.
+
+#### Imo
+
+*opens when somebody mentions them*
+
+**Imo**
+> sorry i didnt reply for ages. sorry. i have been sat looking at this
+
+**Imo**
+> i rowed five seat in the senior eight in the head. im nineteen and ive never sat in that boat in my life
+
+**You**
+> who asked you
+
+**Imo**
+> saul. at twenty past ten by the trestles. said his back had gone in the warm up and there was no time to scratch the crew and would i just sit in and not make a thing of it
+
+**Imo**
+> he gave me his suit and his hat. i said what about the entry and he said dilys does the entries and dilys is seventy nine
+
+**You**
+> and you said yes
+
+**Imo**
+> ive wanted to sit in that boat since i was eleven. he knew that. everyone knows that. thats not an excuse im just telling you the actual reason
+
+**Imo**
+> and then hester was dead and saul put in the group chat that eight of us were on the water and i realised nobody was going to count us
+
+**Imo**
+> he told everyone i was on the bank with the spares. thats the bit that made me sick. hes not just using me hes saying where i was
+
+**Imo**
+> im going to lose the club arent i. thats the thing i keep getting stuck on and i know how that sounds with her dead
+
+#### Warren Ako
+
+*opens once you prove x-saul-boathouse and x-imo-seat*
+
+**Warren**
+> he put me in that boathouse in front of the whole club. forty seconds it took him. i have coached here eleven years
+
+**You**
+> the video
+
+**Warren**
+> thirty one minutes continuous. i do not stop it, you cannot stop it, you lose the rate count. and i pan the bank between crews out of habit
+
+**Warren**
+> eleven oh eight. i swing off the water for about four seconds and there is a bloke on the slipway in a senior suit with the hat off. its saul. hair, build, the tape on his left wrist he has worn since april
+
+**Warren**
+> four seconds. i have watched it about two hundred times now and the timecode is burned in by the camera, its not something i typed
+
+**You**
+> why did you row with hester
+
+**Warren**
+> because i wanted imo in the senior boat for the spring and hester said not while saul is captain of it. i thought she meant imo wasnt ready. she meant something else and she couldnt say it yet
+
+**Warren**
+> she asked me in august what year i started. i said 2014. she said good, and she went off, and i thought nothing of it for four months
+
+**Warren**
+> i looked up robbie nance last night. fifteen. there is a bench by the start with his name on it and i have been shouting splits over it for eleven years
+
+### What breaks it
+
+**REQUIRED** — `x-saul-boathouse`
+He put himself on the water from eleven until twenty past, with seven witnesses in the same boat. Dilys Prentice stood at the top of the slipway for an hour and watched him walk into that boathouse in kit at three minutes past, and thought he had gone back for a spanner.
+
+**REQUIRED** — `x-imo-seat`
+He told the club Imogen Kerr was on the towpath with the spares. She was in five seat, in his suit and his hat, because he asked her at twenty past ten by the trestles and she has wanted that seat since she was eleven. Eight people went out in that boat and eight came back. Nobody ever counts which eight.
+
+**REQUIRED** — `x-saul-slipway`
+Warren Ako films the whole thirty one minutes without stopping, because stopping loses the rate count. At 11:08 he swings off the water for four seconds and there is a man on the slipway in a senior suit with the hat off, with tape on his left wrist that has been there since April. The timecode is burned in by the camera.
+
+**optional** — `x-warren-bank`
+Saul put Warren in the boathouse in front of the whole club, in forty seconds, on the strength of a row about a junior trial. Warren did not move off that towpath for half an hour and Dilys watched him not move, and the video he was making is the thing that finishes it.
+
+**Motive — Saul**
+The original launch book has S. Brightwell in the duty column for the Saturday Robbie Nance drowned in 2009, not the dead coach the inquest was given. Hester had both books on her table and was taking them to the coroner on the Monday.
+
+### The confrontation
+
+**Saul**
+> Nineteen years she ran this club and now there is a policeman in her office going through the minute books. Say what you came to say.
+
+**You**
+> You had yourself on the water from eleven. Dilys watched you walk into that boathouse in kit at three minutes past and thought you had gone back for a spanner.
+
+**Saul**
+
+> She is seventy nine and every one of us is dressed identically. She has said that herself, to a police officer, in those words.
+
+**You**
+> You told the club Imo was on the bank with the spares. She was in five seat in your suit, because you asked her at the trestles and she has wanted that boat since she was eleven.
+
+**Saul**
+
+> A junior who sat in a senior crew without an entry and has spent three days working out how not to be thrown out for it. Of course she has a story now.
+
+**You**
+> Warren does not stop the camera, because stopping loses the rate count. Eleven oh eight, four seconds, a man on the slipway with the hat off and the tape on his left wrist. The timecode is burned in by the camera.
+
+**Saul** — *says nothing*
+
+**You**
+> And the launch book that came out of Dorothy Nance’s house has your name in the duty column for that Saturday. Not Ken Wardle. Hester had both books on her table and she was going to the coroner on the Monday.
+
+**Saul** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is a club full of people who have known each other thirty years. Everybody has a version.
+- You have not been down here since you stopped rowing. You do not know what this place is.
+- Come back when you have something that is not somebody’s eyesight.
+
+### The confession
+
+> The river was up two feet and I sent them out anyway, because we had a trial the following weekend and I was twenty four and I thought a fortnight of not training was the worst thing that could happen to anybody.
+>
+> Robbie asked me not to go out. On the raft, in front of two other boys. He said the water looks fast and I said the water always looks fast, and he went, because I told him to.
+>
+> Ken Wardle put his name in that column three days later. I did not ask him to. He did it, and he told me he had done it, and I said nothing, and that is my entire defence and it is worth nothing.
+>
+> She came into the boathouse to tell me first. She said a man is entitled to hear it from a person. Nineteen years and she still thought that was how you did things.
+>
+> And there is one more thing and I will say it because you will hear it eventually.
+>
+> A man rang me on the Thursday. He said he was from the coroner’s office, doing a review, and could I confirm some details from 2009. And then he talked about that morning like he had been stood on the bank for it.
+>
+> He knew Robbie asked not to go. That was never in the inquest. It was never in the paper. Two boys heard it and neither of them ever said it out loud, I have checked, I checked that year and I have checked since.
+>
+> He said it to me like a man reminding me of something we had both been at.
+>
+> And then he asked me what Hester was going to do on Monday. And I told him. I sat in my kitchen and I told a voice on a telephone exactly what she was going to do and exactly when, and he never once told me anything.
+
+### Afterwards
+
+> The 2009 inquest was reopened in the spring on the strength of a launch book that had spent sixteen years in a box in Dorothy Nance’s spare room.
+>
+> Imogen Kerr was not thrown out. Dilys Prentice went to the committee with a written statement, ran out of it entirely, and finished by saying that the club had asked a nineteen year old to choose between a boat and a man, and that the club could hardly complain about which she chose. Imo rowed five seat for the seniors in the spring, with an entry.
+>
+> Warren Ako gave the police thirty one unbroken minutes of river and four seconds of slipway.
+>
+> Hester Vaine’s bag was under the trestles the whole time. Both books were still in it. She had put a paper clip on the page and written, in pencil, in the margin: tell Saul first.
+
+### Unknown number
+
+> Ravensholt. Eight in a boat and nobody counting. That is a good one and I did not see it coming, which does not often happen now.
+
+> You were kind to the girl. I noticed that. It cost you two days and I would not have spent them.
+
+> Ask yourself how a man reviewing a 2009 inquest knew what was said on a raft by a fifteen year old. Two boys heard it. Neither of them has ever repeated it.
+
+> You are getting closer to the wrong question. Keep going anyway.
+
+---
+
+## 7. The Bothy
+
+*Five people walked out of a whiteout into one room, hours apart. They agree on everything except the order.*
+
+`PAID` · 6 characters · 5 threads · 47 messages
+
+### The briefing
+
+> Corrie Fhithich bothy has two rooms, a stone hearth, no electricity and no signal. There is a book by the door that people sign because the code says you should.
+>
+> Struan Baillie was found in the back room on the Saturday morning. Five other people had come in out of the whiteout the night before, one at a time, hours apart, and not one of them owns a watch that agrees with anybody else’s.
+>
+> You organised the weekend. You broke an ankle in November and stayed at home.
+
+**Struan** — found at the back room, 01:00.
+
+*Cause.* A skull fracture. There is a stone hearth in the back room and he had been drinking.
+
+*Ruling.* Recorded as a fall. Nobody could get a vehicle up the glen until the Sunday and by then eleven people had walked through that room.
+
+### The threads
+
+#### Struan
+
+**Struan**
+> Book is at the printers!! Raven’s Line, hardback, February. Twenty two years of getting up things and one of them pays a mortgage
+
+**You**
+> congratulations. genuinely
+
+**Struan**
+> Keir is coming this weekend. First time in about four years he has said yes to anything I have organised
+
+**You**
+> you two alright?
+
+**Struan**
+> There is a conversation we have never had and I have decided I am going to have it at the bothy with a drink in me, which is how every bad idea I have ever had has started
+
+**You**
+> about the line
+
+**Struan**
+> He soloed it in 2016 and he told one person and the one person was me, and I put my name on it in 2018 and I have been dining out on it ever since
+
+**Struan**
+> I have written him into the acknowledgements. That is not enough and I know it is not enough. I am going to offer him the whole thing, in front of the others, and let him decide what he wants done
+
+**You**
+> that will end your book
+
+**Struan**
+> Aye. Well
+
+**Struan**
+> In first, fire on, absolutely horizontal snow outside. Morven here. Nobody else yet and it is going to be a long night for whoever is still on that path
+
+#### Corrie Fhithich
+
+**Morven**
+> signal at last. I do not know how to write this so I am going to write it badly. Struan died at the bothy on Friday night. we found him Saturday morning in the back room
+
+**Hamish**
+> Police were up on Sunday once the road went. They took the book and they took statements and they were content it was a fall against the hearth.
+
+**Keir**
+> I got in last. Twenty to ten, half dead, signed the book at the door because Hamish makes you. Struan was already away through the back by then and I never saw him
+
+**Keir**
+> I was on that path from about twenty to seven. Three hours for four miles. That is what that night was
+
+**Morven**
+> I was in that main room from six until we all gave up about eleven. I did not move, I had the stove going and I was not giving that seat up for anybody
+
+**Keir**
+> And the woman who cleans his house was in and out of that back room all evening, which nobody has mentioned to a policeman yet
+
+**Hamish**
+> Mrs Nkemelu walked in with me and she is a member of this club and she has been on that hill longer than you have, Keir.
+
+**Morven**
+> can we not do this in here
+
+#### Morven
+
+**Morven**
+> you organised it and you were not there and I keep thinking about how that is going to sit with you, so I am going to tell you everything I actually remember rather than everything I said to a policeman at eight in the morning
+
+**Morven**
+> the thing about a bothy is there is no clock. there is no light except head torches and a stove. you do not know what time it is, you know what has happened yet
+
+**Morven**
+> Struan first, me second about six. Hamish and Pris together, and Keir last, coming in stamping and swearing and everyone made a fuss of him because he looked wrecked
+
+**You**
+> was that the first time you saw keir that night
+
+**Morven**
+> no. and I have been sat with this for eleven days
+
+**Morven**
+> about ten to seven somebody came into the main room, no torch on, did not speak, went straight through to the back. I assumed it was Struan coming back from the peat store. it was not Struan because Struan was already through the back
+
+**Morven**
+> it was the jacket. blue, orange shoulder patch, that old Berghaus he has had for years. I did not think a single thing about it until three days later
+
+**You**
+> why did you not say
+
+**Morven**
+> because at eight in the morning with him dead in the next room I said what everybody said, which is that Keir came in last at twenty to ten. and he did. that is the whole problem. he did come in at twenty to ten
+
+**Morven**
+> Pris was in the porch the whole of that hour sorting a pack out. talk to her. she has been trying to get somebody to listen since Sunday and everybody has decided she is the cleaner
+
+#### Pris
+
+*opens when somebody mentions them*
+
+**Pris**
+> Nine years I did that man’s house. Nine years of his post and his bins and his bathroom, so yes, I know things about him. That is not a motive, that is a Tuesday.
+
+**Pris**
+> I also walk. I have done the Munros twice and the second time in winter, and I am in the same club as Hamish Dunnet, and I would like one person in this to hold both of those facts at once.
+
+**You**
+> keir put you in the back room
+
+**Pris**
+> He did. I was in the porch with my pack open across the whole floor from seven until eight, and Morven watched me do it, and Hamish stepped over me twice.
+
+**Pris**
+> And I will tell you the thing I know, since knowing things about him is apparently what I am for.
+
+**Pris**
+> There were two letters from a publisher on that kitchen table for a month and I dusted round them for a month. He had written a paragraph on the back of one in pencil. It said: tell them the truth about the Raven and let them cancel it.
+
+**Pris**
+> A man does not write that on the back of a publisher’s letter unless he has decided. He had decided. He was going up there to give it away.
+
+#### Hamish Dunnet
+
+*opens once you prove x-keir-mainroom*
+
+**Hamish**
+> I have been maintenance officer for that bothy since 1998 and I have gone up there four times a year for twenty seven years, and I have never once had to think about the book as a record of anything.
+
+**Hamish**
+> I check it when I arrive. It is not a rule, it is a habit, and I did it at eight o’clock with a head torch in my teeth like every other time.
+
+**Hamish**
+> There were five names in it at eight o’clock. Struan, Morven, myself, Mrs Nkemelu, and K. Lamont. His was the last of the five and it was already dry.
+
+**Hamish**
+> At twenty to ten he came in through that door and signed it again, on the next line, in front of four people. Two K. Lamonts, one under the other. The police took the book away and I do not believe anybody has turned that page.
+
+**You**
+> the back room
+
+**Hamish**
+> I went through at about quarter past seven for the spare gas, which lives on the shelf above the hearth. Struan was on the floor with his back against the wall and a man was crouched down in front of him.
+
+**Hamish**
+> I said sorry, gas, and I took the gas, and I came out. Struan had a drink in him and I have seen that man on a floor at a bothy on four separate occasions and thought nothing of any of them.
+
+**You**
+> you did not see who it was
+
+**Hamish**
+> A back and a blue jacket and a head torch that was off. I am sixty eight and it was a stone room lit by a doorway. But there were five people in that building and I have accounted for three of them at that minute, and Struan was the fourth.
+
+**Hamish**
+> The signing is the part I cannot get past. A man who is cold and beaten and has just walked four miles does not think about the book. A man who needs you to remember him arriving does.
+
+**Hamish**
+> Struan told me in the summer that he had taken something off Keir Lamont that was not his to take, and that he was going to give it back, and that he was frightened of doing it. I thought he meant a debt.
+
+### What breaks it
+
+**REQUIRED** — `x-keir-mainroom`
+He put himself on the path from twenty to seven until twenty to ten. At about ten to seven somebody walked through the main room with their torch off and did not speak, and Morven assumed it was Struan coming back from the peat store. Struan was already through the back. She knew the jacket and thought nothing of it for three days.
+
+**REQUIRED** — `x-keir-book`
+He signed the book at the door at twenty to ten, in front of four people, because Hamish makes you. Hamish had already read that book at eight o’clock with a head torch in his teeth, and K. Lamont was the fifth name in it and the ink was dry. There are two K. Lamonts on that page, one under the other, and nobody has turned it.
+
+**REQUIRED** — `x-keir-backroom`
+At quarter past seven Hamish went through for the spare gas and there was a man crouched in front of Struan, who was on the floor with his back to the wall. A blue jacket and a head torch that was switched off. Three of the five people in that building are accounted for at that minute and Struan was the fourth.
+
+**optional** — `x-pris-porch`
+He put the woman who cleans Struan’s house in and out of the back room all evening. She was in the porch from seven until eight with her pack open across the whole floor, Morven watched her do it and Hamish stepped over her twice. She has been trying to get somebody to listen since Sunday and everybody decided she was the cleaner.
+
+**Motive — Keir**
+Keir soloed the Raven’s Line in 2016 and told one person. Struan claimed it in 2018 and built seven years and a book on it, and had decided to give it back in front of witnesses that weekend.
+
+### The confrontation
+
+**Keir**
+> You were not there. You broke an ankle and you sat at home and you have read some text messages. Go on then, tell me about that night.
+
+**You**
+> You had yourself on the path for three hours. At ten to seven somebody crossed that main room with their torch off and went through the back, and Morven knew the jacket.
+
+**Keir**
+
+> A dark room and a blue jacket. Half the hill wears that jacket. She has had eleven days and a lot of people telling her it matters.
+
+**You**
+> You signed the book at the door at twenty to ten in front of four people. Hamish read that book at eight and your name was already the fifth in it, and dry. There are two K. Lamonts on that page.
+
+**Keir**
+
+> Then somebody wrote my name in a book. Anybody can write a name in a book.
+
+**You**
+> At quarter past seven Hamish came through for the gas. Struan was on the floor with his back to the wall and a man was crouched in front of him with his torch off. Three of the five are accounted for and Struan is the fourth.
+
+**Keir** — *says nothing*
+
+**You**
+> You soloed the Raven’s Line in 2016 and told one person. He put his name on it in 2018 and he was going to give it back to you that weekend, in front of everybody, and end his own book doing it.
+
+**Keir** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is a room with no light in it and five people who had all been walking for hours.
+- You were not on that hill. You have never been on that hill in February.
+- Come back with a thing that is not somebody remembering a coat.
+
+### The confession
+
+> He was going to give it back. That is the part nobody is going to be able to hold in their head, so I will say it plainly.
+>
+> I went up early. I came over the shoulder and dropped in before six because I have done that path forty times and it does not take three hours if you know it. I wanted an hour with him before the others came.
+>
+> And he sat on that floor and he said it. He said Keir, it is yours, I am giving it back on Sunday in front of them all, I have written it in the book already.
+>
+> And I have never in my life felt anything like what I felt then, and it was not gratitude.
+>
+> Seven years. Seven years of standing at the back of rooms while he told the story of my night. Seven years of deciding every single morning not to say it. And he was going to undo it in one Sunday afternoon and be a good man about it, and everyone would say what an extraordinary thing to do, and it would be his again. Even the giving back would be his.
+>
+> I did not bring anything with me. There is a hearth in that room and he was already on the floor.
+>
+> Then I walked back out into it for two and a half hours in the dark, and I came in at twenty to ten and let four people make a fuss of me, and I signed my name under my own name.
+
+### Afterwards
+
+> The book is in a police property store in Aviemore. Page forty one has K. Lamont written twice, four lines apart, in the same pencil.
+>
+> Priscilla Nkemelu was interviewed properly in the March, four months after she first asked to be. She gave them the letter with the pencil paragraph on the back of it, which she had kept in a drawer because nobody had ever asked her for anything.
+>
+> The Raven’s Line was published in the February with the original attribution, because the print run was already bound. The second edition carries a different name and a note of two paragraphs, and Struan Baillie wrote both of them himself in the autumn before he died.
+>
+> Hamish Dunnet still goes up four times a year. He has stopped checking the book.
+
+---
+
+## 8. Sunday Service
+
+*The register says there was a wedding that August. The man who reroofed the church says there was no roof on it.*
+
+`PAID` · 6 characters · 5 threads · 45 messages
+
+### The briefing
+
+> Avril Dacre had been churchwarden at St Ninian’s for twenty-two years and was three months into scanning four hundred years of parish registers for the diocese, page by page, on a flatbed scanner in the vestry.
+>
+> She was found at half nine on a Tuesday night with the 1974 marriage register still open on the desk.
+>
+> You run the diocesan record office. She had been emailing you every week since March and you had started looking forward to it.
+
+**Avril** — found at the vestry, 21:30.
+
+*Cause.* A fractured skull. She went down against the corner of the safe.
+
+*Ruling.* Recorded as a fall. She was seventy-one, the vestry floor is uneven, and she was alone in a locked church.
+
+### The threads
+
+#### Avril
+
+**Avril**
+> Question for the record office. If an entry in a register is in a different ink and a different hand to the entries either side of it, is that a thing you want to know about, or a thing every parish in England has?
+
+**You**
+> every parish has some. what has bothered you about this one
+
+**Avril**
+> The numbering. Entry 114 is squeezed in above 115 and the ruling of the page has been redrawn under it. Somebody has made room.
+
+**Avril**
+> It is a marriage. Third of August 1974. Hale and Sowerby.
+
+**You**
+> hale as in cordelia hale
+
+**Avril**
+> Her mother and the father she has on every document she owns. Cordelia was born in the November.
+
+**Avril**
+> And I have been in this parish my whole life and I could not tell you what is wrong with it, so I asked Jack Tenby, because Jack remembers 1974 better than 1974 does.
+
+**Avril**
+> He laughed at me. He said there was no roof on that church in August 1974 because he was on it. Every wedding that summer went over to St Cuthbert’s.
+
+**You**
+> avril. do not tell anyone in the village before you tell me
+
+**Avril**
+> I have told one person and I am not sorry about it. She has a right to hear it from a friend and not from a letter with a crest on it.
+
+**Avril**
+> Scanning tonight. Page 114 goes to you on Monday with the rest of the batch and then it is out of my hands and into yours, thank God.
+
+#### St Ninian’s PCC
+
+**Inés**
+> Dear all. Avril died in the vestry on Tuesday evening. I found her at half past nine when I came back for my phone. The police have been and they are treating it as a fall.
+
+**Inés**
+> There will be no service this Sunday. I am not able to do it and I am not going to pretend otherwise.
+
+**Cordy**
+> Twenty-two years she gave this church and she died on her own on that floor. I have not slept. I was at home all evening with the radio on and I keep thinking I could have gone down.
+
+**Petra**
+> I was in the building. I want to say that before somebody else says it for me. I was tuning the swell from seven and I did not know she was in the vestry at all.
+
+**Cordy**
+> You were in the nave for most of that evening, Petra. You must have walked past that door six times.
+
+**Petra**
+> That is not true and you know it is not true, and I am not doing this here.
+
+**Inés**
+> Nobody is doing this here. Cordy, please.
+
+#### Petra
+
+**Petra**
+> I have been the organist for four years and I am thirty-six and I am not from here, and I have worked out this week that those three facts are one fact.
+
+**You**
+> where were you
+
+**Petra**
+> In the tower. From seven until ten past eight, tuning, with the door shut because the door has to be shut or the sound comes back at you.
+
+**Petra**
+> And then I could not get out. That door has stuck since March and it is on a list. Jack let me out at ten past eight and he laughed at me for four minutes first.
+
+**You**
+> did you row with avril about the organ fund
+
+**Petra**
+> Yes. In front of eleven people at the PCC in January, and I said something about dead wood that I would give a great deal to take back now.
+
+**Petra**
+> She rang me the next morning and told me I had been right and rude in the same sentence, and then she got me two thousand pounds out of the fabric fund. That is who she was.
+
+**Petra**
+> Ask Jack about the door. Ask Jack about anything, honestly. He is eighty-four and he is the only person in this village who says what he saw instead of what it means.
+
+#### Jack Tenby
+
+*opens when somebody mentions them*
+
+**Jack**
+> I put that roof on in 1974 with my father and my uncle Ted. Started the last week of June, finished the second week of September. Eleven weeks and it rained for six of them.
+
+**Jack**
+> There was no wedding in that church in August 1974. There was no anything in that church in August 1974. It was open to the sky and there were pigeons in the chancel.
+
+**You**
+> you are certain about the year
+
+**Jack**
+> My father died in the February of 1975 and that roof was the last job we did together. I am certain about the year the way you are certain what your own name is.
+
+**Jack**
+> Avril asked me in the March and I told her and I thought that was the end of it, and I have been sat here since Tuesday wishing I had said I could not remember.
+
+**You**
+> you let petra out of the tower
+
+**Jack**
+> Ten past eight. She had been banging on it a while. That door wants a new latch and I have had it on a list since March and I will do it now, I expect, out of guilt.
+
+**Jack**
+> And I will tell you the other thing, since nobody has asked me and I have been waiting for somebody to.
+
+**Jack**
+> Cordelia Hale went into that vestry at about twenty to eight. I was in the nave doing the latch on the tower door and she went past me and she did not see me, because nobody sees a man on his knees with a screwdriver.
+
+**Jack**
+> I have known that woman since she was in a pram. I am not saying what it means. I am saying where she was.
+
+#### Inés Barragán
+
+*opens once you prove x-cordy-vestry*
+
+**Inés**
+> I have been here two years. Avril was the one who told me which of them to believe about what, and now I am doing it on my own and doing it badly.
+
+**Inés**
+> The registers do not leave the safe. That is not a rule I invented, it is in the measure, and there is a book where you sign if one goes out.
+
+**Inés**
+> Cordy took the 1974 volume out on the eleventh of March, signed for it, and had it for four days. She is on the PCC and she was doing the flower rota history and I did not think about it for one second.
+
+**Inés**
+> And when the police asked her on Wednesday whether she had ever handled the registers, she said never, not once, they are Avril’s department. I was stood next to her.
+
+**You**
+> was her car there
+
+**Inés**
+> I came back for my phone at twenty past eight and her car was in the car park under the yew, where she always puts it, and I remember being pleased because I thought somebody was with Avril.
+
+**Inés**
+> I went in, got my phone off the stall, and went out again. I did not go through to the vestry. I have to live with that and I would rather not do it in writing.
+
+**Inés**
+> Avril was in that vestry from seven. She had the scanner and the lamp and a flask and she would not have moved for a fire alarm.
+
+**Inés**
+> Cordelia Hale has arranged the flowers in that church for forty years. She has a plaque with her mother’s name on it in the south aisle. I have watched her walk past it twice a week for two years.
+
+### What breaks it
+
+**REQUIRED** — `x-cordy-vestry`
+She put herself at home with the radio on from seven until nine. Jack Tenby was on his knees in the nave doing the latch on the tower door and watched her walk into the vestry at twenty to eight. Nobody sees a man on his knees with a screwdriver.
+
+**REQUIRED** — `x-cordy-register`
+She told the police she had never handled the registers, that they were Avril’s department, with the vicar standing next to her. She signed the 1974 volume out of that safe on the eleventh of March and kept it for four days, and there is a book where you sign, because the registers do not leave the safe.
+
+**REQUIRED** — `x-cordy-carpark`
+At twenty past eight her car was under the yew where she always leaves it, and Inés saw it and was pleased, because she thought it meant somebody was sitting with Avril.
+
+**optional** — `x-petra-tower`
+Cordy put the organist in the nave walking past that door six times. Petra was shut in the tower from seven with the door closed because the sound comes back at you otherwise, and the latch has been broken since March. Jack let her out at ten past eight and laughed at her for four minutes first.
+
+**Motive — Cordy**
+Entry 114 was squeezed into the 1974 marriage register in a different hand, and there was no roof on the church that August. Her name, her father, her house and forty years of standing in that parish rest on four lines somebody wrote after the fact, and the scan was going to the diocese on Monday.
+
+### The confrontation
+
+**Cordy**
+> You have been in this village nine days and you have been talking to a builder and a girl who is not from here. I have done the flowers in that church since 1985. Go on.
+
+**You**
+> You were at home with the radio on. Jack was in the nave with a screwdriver and watched you go into that vestry at twenty to eight.
+
+**Cordy**
+
+> Jack Tenby is eighty-four and he has been telling that village what he has seen for sixty years, and half of it he has seen.
+
+**You**
+> You told the police you had never handled the registers. You signed the 1974 volume out of that safe on the eleventh of March and kept it four days, and the vicar was standing beside you when you said it.
+
+**Cordy**
+
+> The flower rota. I was doing the flower rota history for the anniversary, which anybody on that committee will tell you.
+
+**You**
+> Your car was under the yew at twenty past eight. Inés saw it and was glad, because she thought it meant Avril was not on her own.
+
+**Cordy** — *says nothing*
+
+**You**
+> Entry 114 was written in after the fact, and there was no roof on that church in August 1974. The scan was going to the diocese on Monday.
+
+**Cordy** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is not evidence. That is a village talking, which it has done since the Conquest.
+- You deal in paper. You have no idea what any of this is.
+- Bring me something that is not an old man on his knees.
+
+### The confession
+
+> I found out when I was thirty. My mother told me in a kitchen in Bicester with the immersion heater on, and then she died eleven weeks later and left me holding it.
+>
+> There was no wedding. There was a man in Coventry who did not want me, and a curate here who owed my grandmother something, and four lines written into a book in 1976 in a hand nobody was ever going to check.
+>
+> And I have arranged the flowers in that church for forty years, and I have read the lesson at Christmas, and there is a plaque in the south aisle with my mother’s name on it, and every single bit of that stands on those four lines.
+>
+> Avril came to tell me herself. That is the part I want said. She did not go to the diocese first, she came to my kitchen on the Sunday and sat down and said Cordy, I have found something and I am going to have to send it, and I wanted you to hear it from a friend.
+>
+> And I said thank you. I did say thank you.
+>
+> Then on the Tuesday I went down to ask her to hold the batch back. Just the batch. Just until after the anniversary, I said, and she said Cordelia, I cannot, and she turned round to the scanner.
+>
+> She was seventy-one and I put my hand on her shoulder and I do not know what I meant by it. I have said that to myself four hundred times and it is still the only true sentence I have got.
+
+### Afterwards
+
+> The 1974 volume went to the diocesan record office in the batch Avril had already labelled, on the Monday, because nobody thought to stop it.
+>
+> Entry 114 was examined under raking light in the June. The ruling of the page had been redrawn in ballpoint and the entry sits about two millimetres proud of the line it pretends to be on.
+>
+> Jack Tenby replaced the latch on the tower door on the Thursday, and then repainted the whole door, and then did the porch, and his daughter says he has not stopped since.
+>
+> Petra Voss played at the funeral. She chose the Bach that Avril had complained about in January, which the parish took a while to understand and then understood all at once.
+
+---
+
+## 9. The Cut
+
+*A narrowboat does three miles an hour, and everybody on the cut can do that arithmetic. Nobody thought to ask whether he took the boat.*
+
+`PAID` · 6 characters · 5 threads · 45 messages
+
+### The briefing
+
+> Verity Cusk had lived aboard for nineteen years and knew every liveaboard between Autherley and Nantwich by their boat before their name.
+>
+> She was found in the water alongside her own stern on a Friday night in October, with the stove still going and two glasses on the table.
+>
+> You gave up your boat and moved ashore four years ago and she texted you every week about it anyway.
+
+**Verity** — found at Verity’s boat, 23:00.
+
+*Cause.* Drowning. She went in off her own stern deck and the cut is four feet deep there.
+
+*Ruling.* Recorded as accidental. She was sixty-four, it was dark, and there had been a bottle of wine on the table.
+
+### The threads
+
+#### Verity
+
+**Verity**
+> Something has happened and I have been sat on it for four days because I did not know who to say it to first.
+
+**Verity**
+> Effie Ogilvy wrote to me. Nate’s girl. She is twenty-four and she is a paediatric nurse in Chester and she found me through the Facebook group.
+
+**You**
+> oh
+
+**Verity**
+> She thanked me. Four pages of it. She said the day I rang social services was the day her life started and she has been trying to say it since she was eighteen.
+
+**You**
+> you cried didnt you
+
+**Verity**
+> I sat on the gunwale in the rain like a fool. Fifteen years of being the woman who did that to Nate Ogilvy and it turns out I was the woman who did that for Effie Ogilvy, and both of those have been true the whole time.
+
+**Verity**
+> She is coming Saturday. To Norbury, to the moorings, in front of everybody. She wants to say it where the people who watched it happen can hear her say it.
+
+**You**
+> does nate know
+
+**Verity**
+> I told him myself on Tuesday. I am not having him hear it from Bo at the water point. I owed him that and I have never owed him anything else.
+
+**Verity**
+> He was very quiet. He said right. Twice. And then he asked me what time on Saturday.
+
+**Verity**
+> Stove on, bottle open, and I am not moving off this boat until Saturday. Come up if you can face the drive.
+
+#### Norbury moorings
+
+**Gwyn**
+> For anybody who has not heard it from someone. Verity went in off her own stern on Friday night and Bo found her at eleven. The police came Saturday morning and they are calling it accidental.
+
+**Tam**
+> nineteen years on this cut. she pulled my boat off the mud at bridge 39 in the dark in february and would not take a drink for it
+
+**Nate**
+> I was at Tyrley all week and I was at Tyrley all Friday night. Six miles and five locks off. Forty boats saw mine sat on the visitor moorings above the top lock from Wednesday.
+
+**Nate**
+> Never moved her. Not an inch, Wednesday to Sunday. Anybody who knows this cut can do the sums on that
+
+**Gwyn**
+> Nobody has asked you, Nate.
+
+**Nate**
+> They will. Fifteen years of this cut deciding what I am. I am getting in front of it
+
+**Nate**
+> And Tam was up at Norbury Friday and had a row with her in June about the fourteen day rule that half the moorings heard
+
+**Tam**
+> I was in A&E in shrewsbury with my mother from eight until two in the morning and I have the discharge letter and I am not putting it in a group chat
+
+**Gwyn**
+> Talk to Bo. Bo was on the towpath the whole of that evening walking the dog and Bo does not miss anything, which the rest of you know because it is why you do not moor next to Bo.
+
+#### Tam
+
+**Tam**
+> I rowed with her in June and I have thought about it every day since Friday. It was about the fourteen day rule and it lasted four minutes and she was right.
+
+**Tam**
+> My mother fell on the Friday teatime. Ambulance at half seven, A&E at eight, discharged twenty past two. I was in a plastic chair for six hours with my phone at four percent.
+
+**You**
+> nate put you at norbury
+
+**Tam**
+> He did. In front of the whole cut, forty minutes after Gwyn told him nobody had asked him anything.
+
+**Tam**
+> And I will say the thing I keep not saying. Everybody knows Nate hated her. It is the most known fact on this canal. So when it happened, everybody thought it and then everybody did the sums and put it away again.
+
+**Tam**
+> Six miles. Five locks. Three hours up and three back and forty boats watching his roof the whole time. There is no version of that. I have done it in my head twenty times.
+
+**Tam**
+> Go and see Bo. Bo walks that towpath at the same time every night and has done for three years, and Bo notices what has moved.
+
+#### Bo
+
+*opens when somebody mentions them*
+
+**Bo**
+> I found her. I am going to say that once and then I would rather answer questions than tell it.
+
+**Bo**
+> I walk Moss from eight to about nine forty every night. Norbury down to bridge 39 and back. Three years, same walk, because he is thirteen and he has his route.
+
+**You**
+> did you see anyone
+
+**Bo**
+> Nate Ogilvy. Half eight, on the offside path past the wharf, in the orange jacket. I said alright Nate and he did not answer and I thought nothing of it because he never does.
+
+**You**
+> his boat was at tyrley
+
+**Bo**
+> It was. I have said that to three people now and every one of them has explained the locks to me like I have not lived on this water for six years.
+
+**Bo**
+> He was on a bike. The Dawes with the drop bars that has been strapped to his roof since I got here. That is not a thing I am guessing at, I stepped off the path for it.
+
+**Bo**
+> Six miles of flat towpath is forty minutes on a bike. Everybody kept saying the boat, the boat, the boat, and the boat never went anywhere and neither did the question.
+
+**Bo**
+> Ask Gwyn about the key. The sanitary station takes a CRT key and the newer ones log. Gwyn has been on at the trust about that data for a year for the vandalism.
+
+#### Gwyn Pryce
+
+*opens once you prove x-nate-norbury and x-nate-bike*
+
+**Gwyn**
+> Eleven years a volunteer lock keeper at Tyrley and I have never once wanted the paperwork until this week.
+
+**Gwyn**
+> His boat did not move. That is true and I will say it in a court. I locked through forty-one boats that week and his was not one of them and I would have known his roof at half a mile.
+
+**Gwyn**
+> And that is exactly what has been wrong with all of it. Every one of us answered a question about the boat. Nobody asked a question about the man.
+
+**You**
+> the key log
+
+**Gwyn**
+> The elsan and the water point at Norbury wharf went over to the logging locks in the spring, because we had a year of somebody leaving the taps running. I have been asking the trust for that data since March about the taps.
+
+**Gwyn**
+> They sent it Tuesday. Nate Ogilvy’s key opened the wharf gate at 20:44 on the Friday. His key. Registered to his licence, on a boat that was six miles away and had not moved since Wednesday.
+
+**Gwyn**
+> Verity was in the Junction from six until seven with Bo and me and she had one glass and she was happier than I have seen her in fifteen years.
+
+**Gwyn**
+> She told the whole snug about the letter. Read some of it out. Effie was coming Saturday at two and Verity had bought a cake from the farm shop and left it on the side.
+
+**Gwyn**
+> The cake was still there when they took her out of the water. I have not been able to get past that and I am sixty-three and I have got past worse.
+
+### What breaks it
+
+**REQUIRED** — `x-nate-norbury`
+He put himself six miles and five locks away all evening, and forty boats will confirm where his roof was. At half eight Bo Ferreira said alright Nate to him on the offside path at Norbury, in the orange jacket, and got no answer, and thought nothing of it because he never answers.
+
+**REQUIRED** — `x-nate-bike`
+Six miles of flat towpath is forty minutes on a bicycle. Everybody on that cut answered a question about the boat, and the boat is not the thing that came down the towpath. The Dawes with the drop bars has been strapped to his roof since 2011.
+
+**REQUIRED** — `x-nate-wharf`
+The wharf gate at Norbury went over to a logging lock in the spring, because somebody had spent a year leaving the taps running. His key opened it at 20:44, registered to his licence, on a boat that had not moved since Wednesday.
+
+**optional** — `x-tam-hospital`
+He put Tam Oyelaran at Norbury forty minutes after being told nobody had asked him anything. Tam was in a plastic chair at the Royal Shrewsbury from eight until twenty past two with his mother and a phone on four percent.
+
+**Motive — Nate**
+Verity reported him to social services in 2009 and his daughter went to her aunt. Effie is twenty-four now, a nurse in Chester, and she was coming to Norbury on the Saturday to thank Verity out loud in front of the moorings that watched it happen.
+
+### The confrontation
+
+**Nate**
+> Fifteen years this cut has looked at me like that and I have moored where I was told and paid my licence and said nothing. Go on then. Say it properly.
+
+**You**
+> You were at Tyrley all night. Bo said alright Nate to you on the offside path at Norbury at half eight and you did not answer.
+
+**Nate**
+
+> Bo has been here six years and thinks that makes them from here. It was dark and there is one orange jacket on this canal, is there.
+
+**You**
+> Your boat never moved and that is true. You came down six miles of flat towpath on the Dawes off your roof. Forty minutes.
+
+**Nate**
+
+> So now I am on a bicycle. In the dark. Six miles. You have decided the answer and you are going backwards from it.
+
+**You**
+> The wharf gate logs now. It has since the spring, because of the taps. Your key opened it at 20:44, and your boat was six miles up the cut.
+
+**Nate** — *says nothing*
+
+**You**
+> Effie was coming on the Saturday at two. To say thank you to Verity, out loud, on those moorings, in front of everybody who watched it happen.
+
+**Nate** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is this canal talking. It has been talking about me since 2009.
+- You gave up your boat. You do not get to come back and tell me what happened on it.
+- Bring me a thing with my name on it.
+
+### The confession
+
+> I could have stood fifteen years of them thinking I was a bad father. I had got good at it. You get up and you do your locks and you nod at people who do not nod back and after a while it is just weather.
+>
+> What I could not do was Saturday.
+>
+> My daughter, twenty-four, a nurse, stood on those moorings in front of Gwyn and Bo and the whole of them, saying out loud that the best thing that ever happened to her was being taken off me. And every one of them nodding. And me on a boat six miles up with my curtains shut, and everybody knowing exactly where I was and why.
+>
+> She was on the stern deck when I came round the back. She was pleased to see me. That is the bit. She said Nate, come in, and she had two glasses out because she had been expecting somebody all evening and it was not me.
+>
+> And there is one more thing.
+>
+> A man rang me on the Wednesday. Said he was from the family court service doing a records review. He knew about 2009. He knew Effie was a nurse in Chester and he knew about the Saturday, which I had told nobody, because who would I tell.
+>
+> He asked me how I felt about it and I talked for a long time and he did not say very much at all.
+>
+> And on the Sunday he rang again. Just to ask how it had gone.
+>
+> That is what he said. How did it go, Nate. Like a man asking after an interview.
+
+### Afterwards
+
+> The Canal and River Trust supplied eleven months of key data in a single spreadsheet and apologised for the delay.
+>
+> Effie Ogilvy came to Norbury on the Saturday because nobody had her number to stop her. Gwyn Pryce met her at the top of the lane and told her in the car park, and then sat with her in the Junction for four hours.
+>
+> She read the letter out at the funeral. All four pages. She said afterwards that she had written it to be read to Verity and could not think of a reason to change a word of it now.
+>
+> Bo Ferreira still walks Moss from eight until twenty to ten. The route goes past Verity’s old mooring, and Bo has not changed it, because Moss is thirteen and has his route.
+
+### Unknown number
+
+> Norbury. You did that in five days and one of them was spent on the wrong man, which I would call fair.
+
+> The bicycle was good. Everybody on that canal thinks in miles and locks and it has never let them down before, so it never occurred to any of them to stop.
+
+> You have four of these now, if you are counting. I am.
+
+> And yes. I did ring him afterwards. I always do. You should be asking yourself why that is worth the risk to me, because it is the only careless thing I do.
+
+---
+
+## 10. Open Mic
+
+*His alibi is on video. Same shirt, same five minutes, same laugh in the same place. It is from the Tuesday before.*
+
+`PAID` · 6 characters · 5 threads · 44 messages
+
+### The briefing
+
+> The Hatch runs an open mic every Tuesday and films it for a channel nobody watches, which is how eleven acts a week end up with something to send a promoter.
+>
+> Marnie Vaux was found in the alley behind it at twenty past eleven. She had done seven minutes at five to ten and gone out for air.
+>
+> You make a podcast about the circuit. She had been sending you voice notes since March.
+
+**Marnie** — found at the alley, 23:20.
+
+*Cause.* A head injury against the kerb. She went down once and did not get up.
+
+*Ruling.* Recorded as a fall. She had been drinking, the alley slopes, and the whole room was inside watching a man do five minutes about trains.
+
+### The threads
+
+#### Marnie
+
+**Marnie**
+> the tour support came through. eight weeks. i have not told anyone and i am going to be sick
+
+**You**
+> MARNIE
+
+**Marnie**
+> i know. i know. i have to tell gil tonight and i have been putting it off for nine days
+
+**You**
+> why is that hard. hes your mate
+
+**Marnie**
+> because we started the same month. october 2009, the same room, the same open spot list. and i am going on tour and he is still booking the tuesday
+
+**Marnie**
+> and he does the same five. genuinely the same five. i could do gils set. everyone in that room could do gils set
+
+**You**
+> that is not your fault
+
+**Marnie**
+> no but it is going to be my face he sees when he thinks about it. for years. i have done this long enough to know exactly how that works
+
+**Marnie**
+> here. on at five to ten. going to do it after, in the alley, away from the room, like a coward
+
+**Marnie**
+> that went ok actually. right. going out
+
+#### Hatch Tuesdays
+
+**Roz**
+> Marnie died in the alley on Tuesday night. Police came Wednesday, took statements off nine of us, and are calling it a fall. The Hatch is shut this week.
+
+**Ferdy**
+> I have compered that room for eleven years and I have never once had to say a thing like this into it. I put her on for the first time in 2010 and she died at me for four minutes and came back the week after, which is the whole job.
+
+**Gil**
+> I was on when it happened. I was literally on the stage. Which I know is a horrible way to say it but it is where I was and somebody is going to ask so I would rather say it now
+
+**Gil**
+> And it is filmed, obviously. I have cut it and put it on the drive. Twenty two minutes, unbroken, me at half nine doing the trains bit with Marnie stood at the bar behind me
+
+**Roz**
+> Nobody asked you for a clip, Gil.
+
+**Gil**
+> I am trying to be useful
+
+**Gil**
+> And if we are doing where everyone was, Ferdy was out the back for a good twenty minutes in the middle of that show and I do not think anybody has said so
+
+**Ferdy**
+> Son, I was on the microphone.
+
+**Roz**
+> Right, that is enough of that. Anything else goes to me and not to twenty-eight people.
+
+#### Kit
+
+**Kit**
+> I do sound and door. I write the running order on the back of the float sheet in biro and I have every one of them since I started because I never throw anything out.
+
+**Kit**
+> Tuesday. Ferdy compering. Then Priya, Gil, Marnie, break, four more. Marnie was on at 21:30. Not 21:55, not five to ten. 21:30, and she came off at ten to.
+
+**You**
+> gil says she was at the bar at half nine
+
+**Kit**
+> She was on the stage at half nine. I had her mic up. I know where she was because I was listening to her breathe for twenty minutes.
+
+**Kit**
+> And Gil was on before her. He came off at 21:28 and he did not come back in until the break.
+
+**You**
+> you are sure about the order
+
+**Kit**
+> It is in biro on a float sheet in a drawer in that building. I am not sure about much but I am sure about that.
+
+**Kit**
+> Talk to Ferdy. He was on the mic the whole of the middle section and he sees that room better than the camera does, because the camera only points one way.
+
+#### Ferdy
+
+*opens when somebody mentions them*
+
+**Ferdy**
+> You will have to bear with me on the texting. I have a Nokia and I have had it since my daughter got married, and everybody finds that hilarious until they need somebody to still have a working phone at two in the morning.
+
+**Ferdy**
+> Thirty-one years. Glasgow, Leeds, the two rooms in Birmingham, the Wednesday in Bristol that is not there any more. I have compered in most towns you can name and I have been paid in most of them.
+
+**You**
+> gil said you were out the back
+
+**Ferdy**
+> I was holding a microphone in front of forty people for the whole of that section, son. There is a recording of me doing it. It is the same recording he wants you to watch.
+
+**Ferdy**
+> And I will tell you what I did see, since I was pointing the other way from that camera all night.
+
+**Ferdy**
+> Gil went out the fire door at about twenty-five to ten and he was not back for the break. I brought Marnie on and I could see the door was on the latch behind her the whole seven minutes.
+
+**Ferdy**
+> I have watched that clip he put on the drive about nine times. It is a lovely clip. He is very good in it.
+
+**Ferdy**
+> He does the trains, then the one about his mother, then he calls back to the swan. There is no swan on Tuesday. The swan is Priya and Priya was on Tuesday, but the swan bit is from the Tuesday before, because she dropped it.
+
+**Ferdy**
+> Sixteen years I have watched that man do the identical five minutes in the identical shirt and I have never once thought of it as useful to anybody.
+
+#### Roz Antrim
+
+*opens once you prove x-gil-alley and x-marnie-bar*
+
+**Roz**
+> I have run that room for fourteen years and I have never given a police officer a straight answer about anything, and this week I have given them nine.
+
+**Roz**
+> One camera, one card, one night. That is the whole system and it has been the whole system since 2016 because I will not spend money on it.
+
+**Roz**
+> Gil edits the channel. He takes the card at the end, cuts it up over the week, puts the clips on the drive. That is the arrangement and it has never once been a problem.
+
+**Roz**
+> Except Tuesday I took it out at nine and dumped the first half onto my laptop in the box, because the tour people wanted Marnie’s set by the Wednesday and I was not waiting on Gil for it.
+
+**Roz**
+> I put it back in at twenty past. So whatever he handed anybody, and whatever is on that drive, there is a copy of that night on my laptop that he has never seen.
+
+**You**
+> and marnie
+
+**Roz**
+> Told me about the tour on the Monday and asked me not to say anything until she had told Gil. She was worried about him. Actually worried, the way you are about somebody you like.
+
+**Roz**
+> They started the same month. Fifteen years. She had a tour and he had a Tuesday, and she was the one who felt bad about it, which tells you everything about the pair of them.
+
+### What breaks it
+
+**REQUIRED** — `x-gil-alley`
+He put himself on the stage, and said so first, before anybody asked him. Ferdy Boyce was holding the microphone and watched him go out of the fire door at twenty-five to ten, and could see it was still on the latch behind Marnie for the whole seven minutes she was on.
+
+**REQUIRED** — `x-marnie-bar`
+His clip has Marnie stood at the bar behind him. She was on the stage at that minute with her microphone up, and Kit was listening to her breathe. The clip is real and Gil is really in it. It is from the Tuesday before, which is the only week Priya did the swan.
+
+**REQUIRED** — `x-card`
+One camera, one card, one night, since 2016, because Roz will not spend money on it. She took it out at nine to get Marnie’s set to the tour people and had it in her laptop until twenty past. There is a copy of that night he has never seen.
+
+**optional** — `x-ferdy-stage`
+He put a sixty-one year old compere in the alley for twenty minutes, in a group chat, eight minutes after being told nobody had asked him anything. Ferdy was on the microphone in front of forty people, on the same recording Gil wanted everybody to watch.
+
+**Motive — Gil**
+They started the same month in 2009. She had eight weeks of tour support and had been putting off telling him for nine days, and she took him out to the alley to do it kindly.
+
+### The confrontation
+
+**Gil**
+> You do a podcast. That is what you do. You talk to people who are better than me about how they got better than me. Go on then, this will be great.
+
+**You**
+> You were on the stage, you said, before anybody asked. Ferdy had the microphone and watched you go out of the fire door at twenty-five to ten.
+
+**Gil**
+
+> Ferdy is sixty-one and has been doing this since before I was born and he compered eleven acts that night. He could not tell you what colour the walls are.
+
+**You**
+> Your clip has Marnie at the bar behind you. She was on stage with her mic up and Kit had her in the cans. And you call back to Priya’s swan, and Priya dropped the swan.
+
+**Gil**
+
+> So I misremembered a running order. I have done four hundred of these rooms. They are all the same room.
+
+**You**
+> One camera, one card. Roz pulled it at nine to get Marnie’s set to the tour people, and it was in her laptop until twenty past. There is a copy of that night you have never seen.
+
+**Gil** — *says nothing*
+
+**You**
+> She had eight weeks of support and she had been sitting on it for nine days because she could not work out how to tell you. She took you out to the alley to do it kindly.
+
+**Gil** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is a room full of people who have watched me die on my arse for sixteen years. Of course they have a version.
+- You have never stood on a stage in your life.
+- Bring me something that is not somebody remembering a Tuesday.
+
+### The confession
+
+> She said it really nicely. That is what I cannot get anybody to understand. She had worked out how to say it so that it would not land on me as anything, and she had been working on it for nine days, which is longer than she spent on most of her material.
+>
+> And I said congratulations and I meant it for about four seconds.
+>
+> Then she said the thing she thought was the kind bit. She said Gil, you should come and do a couple of the smaller ones, I will get you on.
+>
+> I will get you on.
+>
+> We started the same month. The same list, in the same room, in October 2009, and she was going to get me on.
+>
+> I put my hand out. That is all it was. There is a kerb and it slopes and she went down once.
+>
+> And then I had twenty minutes and a camera I have cut every week for six years, and I sat in that green room and I knew exactly what to do, because I have got the same five minutes on eleven different Tuesdays and they are identical. Same shirt. Same order. Same laugh in the same place.
+>
+> Sixteen years of never once changing anything, and the one time it was ever any use to me it was to do that.
+
+### Afterwards
+
+> Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called MARNIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.
+>
+> Kit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.
+>
+> Ferdy Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.
+>
+> The eight weeks went to somebody else. The tour manager sent Roz a message asking her to pass on that they had watched the set eleven times before they booked her and would have booked her off two minutes of it.
+
+---
+
+## 11. The Allotments
+
+*Everybody on that site knows whose fork it is. Nobody asked whose shed it had been in for ten days.*
+
+`PAID` · 6 characters · 5 threads · 41 messages
+
+### The briefing
+
+> Wilf Sankey had been secretary of Carr Bank allotments for thirty-one years and had written the minutes of every AGM in the same hardback notebook.
+>
+> He was found in the shed row at half past seven on an October evening, with the bonfire season two days old and somebody’s fork beside him.
+>
+> He was your father. He rang you every Sunday and told you about the water pressure.
+
+**Wilf** — found at the shed row, 19:30.
+
+*Cause.* A single blow. The fork was still in the path beside him.
+
+*Ruling.* Open. There has been a fifteen-year dispute on that site about a hedge, and the fork belongs to the man on the other end of it.
+
+### The threads
+
+#### Dad
+
+**Wilf**
+> The council have written again about uncultivated plots. Four on our site and they want a decision by the end of the month.
+
+**You**
+> is deb one of them
+
+**Wilf**
+> She is. Two thirds of it is couch grass and she has not turned a spade since Ray died, and that is three years in May.
+
+**You**
+> so you have to take it off her
+
+**Wilf**
+> I have to do what the tenancy says or I have to write and ask them not to make me. I have been sat with a blank sheet since Tuesday.
+
+**Wilf**
+> That shed is Ray’s shed. He built it in 1998 out of a pallet delivery and half of it is not straight. She sits in it on a Saturday with a flask.
+
+**You**
+> dad
+
+**Wilf**
+> I have done it. Two sides, recommending an exemption on compassionate grounds, and I have said in it that a plot is not only a plot, which they will hate.
+
+**Wilf**
+> I am going to tell her tonight before I post it. She has had three years of people talking about her plot in front of her and I would rather she heard it standing up.
+
+**Wilf**
+> Up there now doing the padlocks before the light goes. Ring me tomorrow and I will tell you how it went.
+
+#### Carr Bank plotholders
+
+**Joyce**
+> Plotholders. Wilf was found in the shed row on Tuesday evening and he has died. The police have taped off the top end and the site is closed until they say otherwise. I am acting secretary as of this message and I am sorry to be doing it this way.
+
+**Nev**
+> thirty one years he did the minutes and the water and the skip and the seed order and not one of us ever asked him to. I rowed with him for fifteen of them about a hedge and I would give a great deal to be rowing with him now
+
+**Deb**
+> I was on 14 all evening. Bonfire season started Sunday and I had a fortnight of prunings and I was down the far end with it from six until half seven.
+
+**Deb**
+> Burning the whole time. Anybody downwind of me on Tuesday will tell you.
+
+**Deb**
+> And it is Nev’s fork. Everybody on that site knows it is Nev’s fork, it has had that tape on it since the Jubilee.
+
+**Nev**
+> deb
+
+**Joyce**
+> That is enough. Whatever anybody has to say, say it to a police officer and not to sixty-one people who share a water tank.
+
+#### Nev
+
+**Nev**
+> your dad and me fell out in 2010 about a hedge and we never once stopped talking. that is what a site is and nobody outside one has ever understood it
+
+**You**
+> it is your fork
+
+**Nev**
+> it is. tape on the handle, my initials burnt in the shaft, and I have not laid a hand on it since the week before last because your dad borrowed it
+
+**Nev**
+> he came for it on the friday for the raspberry canes at the top end and I said keep it till youre done and it has been stood in his shed ever since. joyce saw him carry it up
+
+**Nev**
+> I was on 3 from six with a torch clearing the last of the beans. sami was two plots down the whole time and we shouted at each other about the football
+
+**Nev**
+> and I will say this once. deb threlfall put my name in a group chat of sixty one people before your dad was in the ground. I have known her twenty years and I did not know she had that in her
+
+**Nev**
+> talk to sami. hes newer and he does not owe anybody on that site anything, which on Carr Bank makes him the only reliable witness in a hundred and forty plots
+
+#### Sami
+
+*opens when somebody mentions them*
+
+**Sami**
+> I have had plot 22 for fourteen months. Your dad gave me a bag of onion sets on my first Saturday and told me not to bother with sweetcorn and he was right.
+
+**Sami**
+> I was at the tank a lot on Tuesday. The butts on 22 are empty until the roof goes on so I fill cans, and it is four trips.
+
+**You**
+> was deb burning
+
+**Sami**
+> No. And I have gone over that because I did not want to be the person who says it. Her heap was there and it was not lit. I passed the end of 14 four times and there was no smoke on that site all evening except Ted Harrap on 40.
+
+**Sami**
+> She was at the tank with me twice. We talked about the roof. She was completely normal and she asked after my mum.
+
+**You**
+> did you see her at the sheds
+
+**Sami**
+> Half six, near enough. She went up the shed row with an empty can in each hand, which I noticed because you do not carry empties up there, the tank is the other way.
+
+**Sami**
+> Ask Joyce about the lane. There is a camera on the scrapyard gate that looks straight up it and she has been trying to get them to give her the footage for the fly tipping for two years.
+
+#### Joyce Ubani
+
+*opens once you prove x-deb-shedrow and x-deb-burning*
+
+**Joyce**
+> I have been treasurer nineteen years and I keep everything, which people find funny until the week they do not.
+
+**Joyce**
+> The scrapyard gave me eleven days of footage on Thursday, having refused me for two years over the fly tipping. It took a police officer asking instead of me.
+
+**Joyce**
+> It looks straight up Carr Bank lane. Deborah Threlfall walks up it at 19:02 and back down at 19:11, and there is no fire visible on that site at any point in eleven days of it except Ted’s.
+
+**You**
+> the fork
+
+**Joyce**
+> Wilf carried that fork up to his own shed on the Friday week and I watched him do it, because he stopped and complained about his shoulder the whole way. It stood inside his door from then until Tuesday.
+
+**Joyce**
+> So whoever picked it up picked it up in that shed row, standing where he was standing. It is not evidence about Nev Ashworth. It is evidence about proximity.
+
+**Joyce**
+> And Wilf was up and down that row from five with the padlocks. He does them every October and it takes him an hour and a half because he talks to everybody.
+
+**Joyce**
+> The council letter about the four plots came to me as well. Deborah has been sat on it since the eleventh and she rang me twice about whether an appeal costs anything.
+
+**Joyce**
+> I told her Wilf decides. Those were my words. I said it to be kind, because Wilf was fond of her, and I have thought about the shape of that sentence every night since.
+
+### What breaks it
+
+**REQUIRED** — `x-deb-shedrow`
+She put herself down the far end of 14 from six until half seven. At about half past six Sami Rahimi watched her go up the shed row carrying an empty can in each hand, which he noticed because you do not carry empties up there. The tank is the other way.
+
+**REQUIRED** — `x-deb-burning`
+She said she was burning the whole time and that anybody downwind would say so. Her heap was never lit. Sami passed the end of 14 four times and the only smoke on Carr Bank that evening was Ted Harrap on 40, and she was at the tank filling cans with Sami twice, talking about his roof, asking after his mother.
+
+**REQUIRED** — `x-deb-lane`
+The scrapyard camera looks straight up Carr Bank lane and Joyce Ubani had been asking for that footage for two years about the fly tipping. It took a police officer asking instead of her. Deborah Threlfall walks up the lane at 19:02 and back down at 19:11, and in eleven days of footage there is no fire on that site except Ted’s.
+
+**optional** — `x-fork`
+Everybody on that site can identify that fork at forty feet, which is exactly why nobody asked where it had been. Wilf borrowed it on the Friday week for the raspberry canes and carried it up to his own shed himself, complaining about his shoulder the whole way, and Joyce watched him do it. It had stood inside his door ever since. It is not evidence about Nev Ashworth. It is evidence about standing where he was standing.
+
+**Motive — Deb**
+The council wanted a decision on four uncultivated plots by the end of the month and hers was one of them. Plot 14 was Ray’s plot and the shed is the shed he built in 1998, and she has sat in it on Saturdays for the three years since he died.
+
+### The confrontation
+
+**Deb**
+> You are his daughter and you have come up here to do this on his site. I want you to know I think he would have hated that.
+
+**You**
+> You were on 14 from six until half seven. At half six Sami watched you go up the shed row with an empty can in each hand.
+
+**Deb**
+
+> A lad who has been on that site fourteen months, in October, at dusk, walking backwards and forwards with cans. He does not know what he saw.
+
+**You**
+> You said you were burning the whole time. Your heap was never lit. He passed the end of 14 four times and you were at the tank with him twice, asking after his mum.
+
+**Deb**
+
+> It would not catch. It rained on the Sunday. Ask anybody who has ever tried to burn a fortnight of wet prunings.
+
+**You**
+> The scrapyard camera looks straight up the lane. You go up it at two minutes past seven and come back down at eleven minutes past, and there is no fire on that site in eleven days of footage.
+
+**Deb** — *says nothing*
+
+**You**
+> The council wanted four plots decided by the end of the month and yours was one of them. Joyce told you Wilf decides.
+
+**Deb** — *says nothing*
+
+*If you press with something that does not land:*
+
+- That is a hundred and forty people who have been talking about my plot in front of me for three years.
+- You have not been up here since the funeral tea. You do not know this site.
+- Bring me something that is not somebody with a watering can.
+
+### The confession
+
+> He said Deb, have you got a minute, and he put his hand in his coat pocket.
+>
+> I have gone over that hand a thousand times.
+>
+> Because Joyce had told me on the Sunday. Wilf decides, she said, and she said it kindly, and I went home and did not sleep and by Tuesday I had built the whole of it. The letter in his pocket. Him doing it standing up in the shed row so I could not make a scene in the hut. Ray’s shed with a council sticker on the door by Christmas.
+>
+> And the fork was stood inside his door and I did not even have to look for it.
+>
+> He never got the sentence out. That is the thing I want written down somewhere. I never heard the end of it.
+>
+> I have had eight weeks to work out what was in that pocket and I have known since about the second week, because it is Wilf, and there was only ever one thing it was going to be.
+
+### Afterwards
+
+> The letter was in his inside coat pocket, folded in three, in an envelope addressed to the parks and open spaces team and stamped ready to go.
+>
+> Two sides. It recommended an exemption on compassionate grounds for the tenant of plot 14 and set out the case at some length, and the last paragraph said that a plot is not only a plot and that the committee would know what he meant even if the council did not.
+>
+> The council granted it in the January, on the strength of a letter from a man who had been dead since October, and Joyce Ubani read the decision out at the AGM and then had to stop and hand the notebook to somebody else.
+>
+> Plot 14 was taken on by Sami Rahimi’s mother in the spring. She kept the shed. The committee voted unanimously that it stays, on the grounds that it is not straight and that Ray Threlfall built it out of a pallet delivery in 1998, which is now written in the minutes.
+
+---
+
+## 12. The Helpline
+
+*Every call is logged by hand and nobody has ever had a reason to check one. His alibi is ninety minutes on a line that was never in use.*
+
+`PAID` · 6 characters · 5 threads · 48 messages
+
+### The briefing
+
+> Beacon runs a listening line out of two rooms above a carpet shop. Nothing is recorded, nothing is traceable, and every call is written up by hand afterwards by whoever took it, which is the promise the whole thing rests on.
+>
+> Constance Bawa had been volunteer director for eleven years. She was found in the office at seven in the morning when the day pair came in.
+>
+> You did four years on that line before you moved away, and she trained you.
+
+**Connie** — found at the office, 07:00.
+
+*Cause.* A head injury. There is a step down into that office and it has been on the risk register since 2019.
+
+*Ruling.* Recorded as a fall. Two volunteers were on shift and both were on the phones, which is what the duty book says.
+
+### The threads
+
+#### Connie
+
+**Connie**
+> Are you awake, or are you a person with a normal job now. I have a thing and I would like to say it to somebody who did the training.
+
+**You**
+> go on
+
+**Connie**
+> A caller rang the office line last week to say thank you. Not the line. The office line, in the daytime, asking for a volunteer by first name.
+
+**You**
+> oh no
+
+**Connie**
+> She had his mobile number. She has had it for two years. She thought I would be pleased and she could not understand why I had gone quiet.
+
+**Connie**
+> It is Alun. Twenty-two years, two overnights a week, the best listener I have ever put on that line, and he has been giving people his number since about 2011 as far as I can work out.
+
+**You**
+> why would he
+
+**Connie**
+> Because at the end of a call you put the phone down and you do not find out. That is the job and it is the hardest part of the job and everybody who has ever done it has stood in that kitchen at four in the morning wanting to know.
+
+**Connie**
+> He wanted to know. So he stopped putting the phone down.
+
+**You**
+> you have to take it to the trustees
+
+**Connie**
+> I do, and it will finish him, and Prem will have to write to every caller we can identify, and there are people out there who will find out that the person they trusted was not doing it the way it was promised to them. That is the bit that keeps me up.
+
+**Connie**
+> I am on the Thursday overnight with him. I am going to say it to his face first, in the office, before I write anything down.
+
+**Connie**
+> In. Yusuf is on with us, poor lad, three weeks off his training. I will do it about two when the phones go quiet.
+
+#### Beacon volunteers
+
+**Prem**
+> All volunteers. Connie died at the branch during Thursday night. The day pair found her in the office at seven. The line is suspended until Monday and the trustees are meeting tomorrow.
+
+**Prem**
+> Nobody is to speak to anybody about branch business. That is not me being difficult, it is the only rule that has ever mattered here.
+
+**Alun**
+> Eleven years she ran this branch and she knew every one of our names and which of us she had to ring on a bad Sunday... I do not have anything better than that to say.
+
+**Alun**
+> I was on the phones. Ten past two until twenty to four, one call, and it was not an easy one. It is in the book.
+
+**Alun**
+> In the call room the whole shift, both of us, headsets on. That is why neither of us heard anything, and I have been sitting with that since Friday.
+
+**Sunny**
+> I want to say now, before somebody says it for me, that I have not been in that building since the third and I handed my fob to Prem myself.
+
+**Alun**
+> Nobody said anything about you, Sunny... although I did think I heard somebody on the back stairs about half two, and I did wonder.
+
+**Sunny**
+> Say it properly or do not say it at all. That is the whole training and you have had twenty-two years of it.
+
+**Prem**
+> Enough. Both of you. To me, not to forty people.
+
+#### Yusuf
+
+**Yusuf**
+> It was my fourth shift. I have done four shifts. I keep saying that to people as if it explains something.
+
+**Yusuf**
+> I was in the call room from two until four. I did not take a single call the whole night, which they tell you happens and which nobody prepares you for.
+
+**You**
+> was alun on a call
+
+**Yusuf**
+> There is a board on the wall with four lamps, one per line. When a line is engaged the lamp is lit. It is from about 1990 and it is the only thing in that room that tells you anything.
+
+**Yusuf**
+> No lamp was lit between about half two and half three. I know because I sat and looked at four unlit lamps for an hour thinking this is what I have joined.
+
+**You**
+> where was he
+
+**Yusuf**
+> He went through to the office at about half two. I saw him go and I did not see him come back for a while and I did not think anything of it, because he has done this twenty-two years and I have done it four times.
+
+**Yusuf**
+> Connie was in that office from midnight. She does the rota and the returns in there and she had the door open, which she always does so people will come in.
+
+**Yusuf**
+> Talk to Sunny Halvorsen. Everybody has decided she is difficult and she is the only person at that branch who says the actual thing out loud.
+
+#### Sunny
+
+*opens when somebody mentions them*
+
+**Sunny**
+> I raised a safeguarding concern in January and I was asked to step back in March, and those two facts have been allowed to sit next to each other for five months without anybody joining them up.
+
+**Sunny**
+> The concern was about a volunteer keeping contact with a caller. I did not have a name. I had a pattern and a bad feeling and no name, so it went nowhere, correctly.
+
+**You**
+> where were you thursday
+
+**Sunny**
+> In my flat, with my dog, watching four episodes of something Danish. Nobody can confirm that and I am not going to pretend somebody can.
+
+**Sunny**
+> What I can prove is that I gave my fob to Prem on the third of March in front of two people, and that door does not open without one, and the panel writes down every single time it does.
+
+**Sunny**
+> So when Alun Meredith says he heard somebody on the back stairs, he is either wrong or he is telling you where he was, and I would very much like somebody to ask him which.
+
+**Sunny**
+> And I liked him. That is the thing I cannot get anybody to hear. I have sat in that kitchen with that man at four in the morning and he is the kindest person on that rota.
+
+**Sunny**
+> Ask Prem for the panel. He has had it since Friday and he is a trustee and he is frightened of what it says.
+
+#### Prem Chandrasekaran
+
+*opens once you prove x-alun-office and x-alun-call*
+
+**Prem**
+> I have been a trustee for nine years and my entire job has been to protect the promise that nothing said on that line goes anywhere. I have spent this week doing the opposite and I am aware of it every hour.
+
+**Prem**
+> The duty book has one call for Alun on Thursday. 02:10 to 03:40, ninety minutes, written up in his hand with three lines of summary, which is exactly what a long call looks like.
+
+**Prem**
+> The telecoms bill came Wednesday. It does not say who rang or what was said, because it cannot. It says how many minutes each line carried, and on Thursday between two and four, all four lines carried nothing at all.
+
+**You**
+> the door panel
+
+**Prem**
+> The back stairs door is alarmed between eleven and six and every open is written down with a fob number. There is one open on Thursday night. 02:55, Alun Meredith’s fob, and a close at 03:05.
+
+**Prem**
+> Sunniva Halvorsen’s fob was deactivated on the third of March and has not opened anything since. I did it myself and I have the form.
+
+**Prem**
+> Connie came to me on the Monday about Alun and the numbers. She had two names and a date going back to 2011 and she was going to bring it to the board on the fourteenth.
+
+**Prem**
+> She was not angry with him. I want that recorded somewhere by somebody. She sat where you are sitting and she said, Prem, he did it because he could not bear not knowing, and that is not a defence and I am going to have to do it anyway.
+
+**Prem**
+> Twenty-two years. Two overnights a week. Work out what that is in hours some time, and then work out what it would take to lose it.
+
+### What breaks it
+
+**REQUIRED** — `x-alun-office`
+He put both of them in the call room with headsets on for the whole shift, which is why neither of them heard anything. Yusuf Kaya watched him go through to the office at about half two on his fourth ever shift, and did not think anything of it, because Alun has done this twenty-two years and Yusuf had done it four times.
+
+**REQUIRED** — `x-alun-call`
+The duty book has ninety minutes in his own hand with three lines of summary, and nothing on that line is recorded or traceable, which is the promise the whole charity rests on. There is a board on the call room wall with four lamps, one per line, and it is from about 1990. Yusuf sat and looked at four unlit lamps for an hour thinking this is what I have joined.
+
+**REQUIRED** — `x-alun-stairs`
+The back stairs door is alarmed from eleven until six and every open is written down against a fob number. There is exactly one open on Thursday night. His fob, 02:55, closed again at 03:05. He told forty volunteers he thought he had heard somebody on those stairs.
+
+**optional** — `x-sunny-fob`
+He put Sunniva Halvorsen in the building in a group of forty people, eight minutes after she said she had not been there since March. She handed her fob to Prem on the third in front of two witnesses, it was deactivated the same day, and that door does not open without one. She had liked him. She had sat in that kitchen with him at four in the morning.
+
+**Motive — Alun**
+He had been giving callers his personal number since about 2011, because at the end of a call you put the phone down and never find out. Connie had two names and a date and was taking it to the board on the fourteenth, which would have finished him.
+
+### The confrontation
+
+**Alun**
+> You did four years on this line. So you already know the first thing I am going to do is let you talk, and you already know that knowing it does not stop it working.
+
+**You**
+> You said you were both in the call room all night with headsets on. Yusuf watched you go through to the office at half two.
+
+**Alun**
+
+> A very frightened young man on his fourth shift, who had just found a woman he liked at the bottom of a step... I would be careful what weight you put on him. He will carry it either way.
+
+**You**
+> Ninety minutes in the book, in your hand. All four lines carried nothing between two and four, and Yusuf sat looking at four unlit lamps for an hour.
+
+**Alun**
+
+> Lamps fail. That board is older than Yusuf.
+
+**You**
+> The back stairs door is alarmed from eleven. One open on Thursday night. Your fob, five to three, closed at five past. And you told forty people you thought you had heard somebody on those stairs.
+
+**Alun** — *says nothing*
+
+**You**
+> She had two names and a date going back to 2011, and the board met on the fourteenth. She was not angry with you. She told Prem you did it because you could not bear not knowing.
+
+**Alun** — *says nothing*
+
+*If you press with something that does not land:*
+
+- Mm. And what would you want to happen, if that were true?
+- You are working very hard. I recognise it, because I do it for a living, twice a week, for nothing.
+- Bring me something that is not a young man remembering a bad night.
+
+### The confession
+
+> She had the door open. She always had the door open, because a shut door in that building means something.
+>
+> And she was kind about it. She said Alun, I know why, and she said it the way you are taught to, which is the way I taught half of them to.
+>
+> I have listened for twenty-two years and I have never once said what I wanted. That is the discipline. You do not put yourself in the room. And I sat down in that office and I heard her being professional at me, and I understood that I was going to be a case, and that people I have talked to at four in the morning for a decade were going to get a letter.
+>
+> I do not remember standing up.
+>
+> There is one more thing and I am going to say it because it has been the worst part of every day since.
+>
+> A man rang me at home on the Tuesday. Said he was doing a review of volunteer welfare for the umbrella body, and he wanted to hear how the branch was treating me.
+>
+> And he was good. He was so good. He did the pauses. He did the reflecting back, the exact words I use, the small ones you use to open somebody up without them noticing. He asked me what it would be like, afterwards, and he waited, and he did not fill it.
+>
+> I knew what he was doing. That is the thing. I have taught that. I sat in my own kitchen and I listened to a man use my own training on me and I let him do it, because it was the first time in twenty-two years that anybody had asked me anything and waited for the answer.
+>
+> He never said one word about Connie. Not one. He is very careful and he is one of us, or he was.
+
+### Afterwards
+
+> The trustees wrote to eleven people. Prem Chandrasekaran drafted the letter nine times and the ninth one was two paragraphs, and it did not use the word breach.
+>
+> Four of the eleven wrote back. Three of those said that the man on the other end had kept them alive, and asked whether they were allowed to say so.
+>
+> Sunniva Halvorsen was invited back onto the rota in the September and declined, and then accepted in the January, and now does the Thursday overnight.
+>
+> Yusuf Kaya has done a hundred and forty shifts. The board on the wall was replaced in the spring with one that logs, and he argued against it at the volunteers’ meeting on the grounds that a room where nothing is written down is the entire point, and he lost, and he was right.
+
+### Unknown number
+
+> Beacon. That one will have cost you something and I am sorry for it, which you may believe or not.
+
+> He is right, of course. It is where I learned. Nine years of Thursdays in a room like that one, a long time ago, and nobody has ever asked the question because nobody has ever thought to look for a man by his manner.
+
+> You have five now. Age, access, decades, the follow-up, and this. That is enough to find me and we both know it.
+
+> I am not going to stop. But I would like you to understand that I have never once had to say the thing myself. Not to any of them. Ask yourself whether that makes it better or worse, because I have been asking for thirty years and I have not got anywhere.
+
+---
+
+## 13. The Reunion
+
+*Ninety people can tell you who they were standing with. Not one of them can tell you what time it was.*
+
+`PAID` · 6 characters · 6 threads · 55 messages
+
+### The briefing
+
+> Nia Boateng taught Year 4 at a school eleven miles from the one she went to, and she had organised the twenty-year reunion because nobody else would.
+>
+> She was found on the river path below the playing fields at half past nine, thirty metres from where Ashley Crewe went into the same river in June 2005.
+>
+> She messaged you three weeks ago. You were in that year and you were never in that group, and she said that was exactly why she needed to talk to you.
+
+**Nia** — found at the river path, 21:30.
+
+*Cause.* She went into the Calder from the top of the bank. The path is unlit and the drop there is about twenty feet.
+
+*Ruling.* Open. Two people have already told the police it is the same stretch of water where a boy from her year drowned in 2005, and both of them said it unprompted.
+
+### The threads
+
+#### Nia
+
+**Nia**
+> You will not remember me. I sat behind you in geography for two years and you drew on my pencil case.
+
+**You**
+> i remember you
+
+**Nia**
+> I am doing the reunion. Twenty years. It is in the hall and the caterers are the ones who did my auntie and I have had to ring them four times.
+
+**Nia**
+> I wanted to ask you something and I have started this message about nine times.
+
+**Nia**
+> Ashley Crewe’s mum still lives on Brantwood Road. Same house. I walk past it going to my mum’s and I have walked past it for twenty years.
+
+**You**
+> nia
+
+**Nia**
+> There were four of us on that bank and she thinks he was on his own. She has thought that for twenty years. I have written her a letter and it is eight pages and I am going to post it before the reunion because if I wait until after I will not do it.
+
+**Nia**
+> I have not put anybody’s name in it. I want to be clear about that with you because I have been clear about it with nobody else. It says we. It says we the whole way through.
+
+**Nia**
+> She should know he was not on his own in the dark. That is the entire thing. That is the only reason I am doing it.
+
+**Nia**
+> Posted it at ten past eight this morning at the box outside the Co-op and then I sat in my car for a bit. Doors at seven if you change your mind. I would like it if you came.
+
+#### Ardenshaw 2005
+
+**Rafe**
+> Everyone. I am going to say this once and then I am going to stop using this group, because it is not the place for it.
+>
+> Nia died on Saturday night. The police have spoken to a number of us already and they will speak to more. Please answer them fully and please do not speculate here.
+
+**Marika**
+> she rang me on the thursday to ask if the tables should be rounds or long. rounds. i said rounds. that is the last conversation i had with her in my life
+
+**Tobi**
+> I was not there. I want to say that plainly rather than have people work it out. I was on shift and I found out on Sunday morning from my sister.
+
+**Marika**
+> the police asked me what time things happened and i could not tell them a single one. i said after the speech. i said it about four different things and it was the only answer i had
+
+**Rafe**
+> That is what everybody has said, and it is not a failing. Nobody looks at a watch at a party. I gave the police the running order and I have suggested they work from that.
+
+**Marika**
+> rafe there is a woman dead on the same bank as ashley and you are talking about a running order
+
+**Rafe**
+> I am talking about the only document anybody has. I will not do this here.
+
+#### Marika
+
+**Marika**
+> i stood with her from when the food went out until she went outside. whole time. we did the thing where you say you will get a drink and then you do not move for an hour
+
+**You**
+> what did she talk about
+
+**Marika**
+> her class. a boy in it who will not sit down. she was properly happy and i keep having to say that to people because they want her to have been frightened and she was not
+
+**Marika**
+> i was in the hall from quarter to nine till gone half past. anybody will tell you that and none of them will be able to tell you when
+
+**You**
+> the speech
+
+**Marika**
+> programme said nine. he did it at quarter past eight. i know because i told him to — the caterers were forty minutes behind and i went and found him and said do it now while people are still standing up
+
+**Marika**
+> i have the invoice on my phone. hot service 20:55. so anybody in that room who has told you something happened after the speech has told you it happened after quarter past eight and they think they have told you after nine
+
+**Marika**
+> nobody pushed ashley. i need you to hear that before anybody dresses it up for you. he went in off the top on a dare and we all stood there and shouted his name and nobody went in after him and nobody rang for twenty minutes. twenty minutes. that is the thing. that is the only thing there has ever been
+
+**Marika**
+> and rafe put the story together on the bank before the ambulance got there. we said we rang straight away. he said the words first and the three of us said them after him and i have said them to a police officer, a coroner and my own mother
+
+**Marika**
+> he was seventeen. so was i. i am not pretending i said no
+
+#### Rafe Ellory
+
+**Rafe**
+> I have been head at St Cuthbert’s for six years. I mention it only so that you understand why I am careful, and not because I think it entitles me to anything.
+
+**Rafe**
+> I was in that hall from quarter to nine until half past nine. I was on my feet in front of ninety people for a good part of it. I do not think there is a better answer available to anybody who was there.
+
+**You**
+> when was the speech
+
+**Rafe**
+> Nine o’clock. It is on the programme, there are two hundred of them printed, and I would be astonished if you could not find one in somebody’s coat pocket this afternoon. It ran about twenty minutes.
+
+**Rafe**
+> Marika was beside me for most of the evening and I was beside Nia for a stretch of it. It was a room of ninety people who have not seen each other since they were seventeen. Nobody was on their own for a moment.
+
+**You**
+> she wrote to ashley crewe’s mum
+
+**Rafe**
+> She told several people she intended to. I would ask you to consider who else that letter frightened, and I would start with Tobi Marchetti, who was in that hall on Saturday and who has spent two years on a crisis line and knows exactly how to sit with somebody and talk them into something.
+
+**Rafe**
+> I am aware of how that reads. I have thought about whether to say it for four days and I have concluded that withholding it would be worse.
+
+**Rafe**
+> What happened in 2005 was an accident that four children witnessed. There is no version of it in which anybody did anything to Ashley Crewe. I have said that to every person who has ever asked me and I will say it to you.
+
+#### Tobi
+
+*opens when somebody mentions them*
+
+**Tobi**
+> Somebody has told you about the crisis line. I can hear it in the question, and I would rather just answer it than make you go round the houses.
+
+**Tobi**
+> Two years. Every other Saturday, six until two, at the branch office in Calderside, which is forty-one miles from that hall. I was on it that night. Nine of us on the rota and a supervisor.
+
+**You**
+> rafe says you were in the hall
+
+**Tobi**
+> Does he. I told Nia in March that I could not come and she moved the date once to try and fit me in and could not, and she was lovely about it.
+
+**Tobi**
+> Thousands of people do it. There are four hundred in this region alone and there is a poster about it in every doctor’s waiting room in the country. It is not a rare thing to be. It only looks rare from where you are standing.
+
+**You**
+> were you on the bank in 2005
+
+**Tobi**
+> No. There were four of them and I was not one, and I have spent twenty years being the one who was not there, which is its own strange thing to be in a town this size.
+
+**Tobi**
+> Nia rang me in April. She talked for fifty minutes and I did not say very much, which is most of the job. She asked me at the end whether it was a selfish thing to do, telling his mum, and I said I could not answer that for her.
+
+**Tobi**
+> Go and see Corin Vale. He has had the keys to that building since 1989 and he was locking up on Saturday, and he is the only person in this whole thing who was not at a party.
+
+#### Mr Vale
+
+*opens once you prove x-rafe-speech*
+
+**Mr Vale**
+> I have been caretaker here thirty-six years. I taught none of you anything and I know all of your names.
+
+**Mr Vale**
+> I do not go by the party. I go by my rounds. I do the music block at nine and the car park barrier is on a log.
+
+**Mr Vale**
+> Mr Ellory was in the music block corridor when I came to lock it. Two or three minutes past nine. I had to stand and wait for him and he did not hear me the first time I spoke.
+
+**You**
+> you are sure of the time
+
+**Mr Vale**
+> I am sure of my round. Nine is nine and it has been nine since Mrs Hartley was head. The party can be whenever it likes.
+
+**Mr Vale**
+> The barrier log has his registration out at 21:08 and back in at 21:19. It is a fob and it prints. I gave the sheet to the officer on Sunday and I have kept a photograph of it.
+
+**Mr Vale**
+> Miss Selkirk was in that hall the whole while. I put my head in twice for the fire door and she was on the same table both times, and she had her shoes in her hand.
+
+**Mr Vale**
+> Miss Boateng came and found me at about half eight to say thank you. Nobody has said thank you to me at one of these before. She asked after my wife by name and my wife has been dead four years and she knew that as well.
+
+**Mr Vale**
+> I saw her go down towards the river after that. I did not think anything of it. They all go down there. That fence has been down since 1991 and I have put in for it eleven times.
+
+**Mr Vale**
+> I was here in 2005 as well. I unlocked this building for the police at two in the morning and I made four children a cup of tea each in the staff room and not one of them drank it.
+
+### What breaks it
+
+**REQUIRED** — `x-rafe-speech`
+The programme says nine o’clock and there are two hundred of them printed. He spoke at quarter past eight, because the caterers were forty minutes behind and Marika went and found him and told him to do it while people were still standing up. The invoice on her phone has hot service at 20:55. So every witness in that hall who dated something to after the speech believes they have told you after nine, and has told you after quarter past eight — and at nine, when he says he was on his feet in front of ninety people, he was outside by the bins on his phone.
+
+**REQUIRED** — `x-rafe-music`
+Corin Vale does not go by the party. He goes by his rounds, and the music block is locked at nine and has been since Mrs Hartley was head. Rafe Ellory was standing in that corridor at two or three minutes past, and Vale had to wait for him, and had to speak to him twice.
+
+**REQUIRED** — `x-rafe-gate`
+The staff car park barrier is a fob and it prints. His registration is out at 21:08 and back in at 21:19. He was not in that hall for eleven minutes of the time he has accounted for, and the only person in the building who was not at a party is the one who kept the sheet.
+
+**optional** — `x-tobi-branch`
+Rafe Ellory put Tobi Marchetti in that hall. Tobi was forty-one miles away at the Calderside branch office from six until two, on a rota of nine with a supervisor, and Nia moved the date of the reunion once trying to fit him in and could not. Four hundred people volunteer on that line in this region alone. It is not a rare thing to be. It only looks rare from where you are standing.
+
+**Motive — Rafe**
+Nobody touched Ashley Crewe. Four of them stood on that bank and nobody rang for twenty minutes, and Rafe Ellory assembled the story before the ambulance arrived and made the other three say it after him. He has been a head teacher for six years. Nia posted an eight-page letter to Ashley’s mother the morning of the reunion.
+
+### The confrontation
+
+**Rafe**
+> I have given thirty-one years to schools in this borough and I would like you to understand what you are proposing to take apart.
+
+**You**
+> You wrote the running order and then you moved your own speech forty-five minutes early. Every person in that room has been dating the evening off it since Saturday. At nine you were outside by the bins.
+
+**Rafe**
+
+> The caterers were behind. Marika Selkirk asked me to bring it forward and I brought it forward, in front of ninety people, which is a strange way to conceal something.
+
+**You**
+> Corin Vale locks the music block at nine. He found you in that corridor at three minutes past and had to speak to you twice before you heard him.
+
+**Rafe**
+
+> He is sixty-one and he was carrying a bunch of keys round a building in the dark. I was in and out of that corridor all night. He has put two evenings together.
+
+**You**
+> The barrier prints. Your registration is out at 21:08 and back in at 21:19. Eleven minutes, inside the forty-five you have accounted for from the floor of the hall.
+
+**Rafe** — *says nothing*
+
+**You**
+> Nobody pushed Ashley Crewe. Four of you stood on that bank and nobody rang for twenty minutes, and you put the words together before the ambulance came and the other three said them after you.
+
+**Rafe** — *says nothing*
+
+*If you press with something that does not land:*
+
+- You were not in that year in any way that counts. You were in the room and you were not in the year.
+- A caretaker, a barrier and a woman who has been telling people what she thinks happened on that bank since she was seventeen.
+- Bring me one person who saw me on that path.
+
+### The confession
+
+> I went down to ask her not to send it.
+>
+> That is the whole of my intention and I am aware it is worth nothing now. She told me it had gone at ten past eight that morning, from the box outside the Co-op, and I did not believe her. I thought it was the thing you say.
+>
+> So I took hold of her arm. To keep her there. That is all it was for and I have said that sentence in my head about four thousand times since Saturday and it gets smaller every time.
+>
+> And she went off the top of the bank.
+>
+> Thirty metres from where he went in. The same twenty feet. I want somebody to write that down properly because nobody has said it out loud to me yet and I have been waiting four days for somebody to.
+>
+> I stood there.
+>
+> I want to be exact, because I have spent twenty years being exact and it is the only thing I am any good at. I did not fall and I did not panic and I was not seventeen. I was forty-two and I had had two glasses of wine across four hours and I stood on that path and I counted, and at about eleven minutes I walked back up to the car park and I drove my car through a barrier that prints.
+>
+> I did it twice. Twenty years apart. The second time I knew exactly what I was doing and I did it anyway, and the only difference between the boy on that bank and the man on that path is that the man had already found out he could live with it.
+>
+> She said we. She said it in the letter the whole way through and she said it to me on that path, and I have gone over the eight pages I never read more carefully than anything I have read in my life.
+>
+> I never asked her what was in it. Not once, in three weeks.
+>
+> I taught them that. On the bank, when we were seventeen. I said we do not talk about it, and none of us ever did, and I built a career on being a man you could go to, and I could not ask one direct question of a woman I had known since I was four.
+>
+> She wasn’t going to name me.
+>
+> I killed her to stop a letter that had been in a postbox since ten past eight in the morning, and it did not have my name in it, and it was never going to.
+
+### Afterwards
+
+> The letter reached Brantwood Road on the Tuesday, second post, four days after Nia Boateng died and two days before it was in the local paper.
+>
+> Eight pages. It said we the whole way through. It said there were four of them on the bank and that Ashley was not on his own in the dark and that they had shouted his name until they could not hear each other, and it said that nobody had gone in and that nobody had rung for twenty minutes, and it said Nia was sorry in a way that did not ask to be forgiven.
+>
+> Sheila Crewe kept it in the drawer with the tea towels for a month before she gave it to anybody.
+>
+> Marika Selkirk went into Ardenshaw police station on the Wednesday morning with the invoice on her phone and a statement she had written out longhand the night before, correcting one she gave in 2005 when she was seventeen. The coroner reopened the record on the strength of it. It changed nothing about how Ashley Crewe died and it changed the whole of the last twenty minutes of his life, which is what the file had been wrong about.
+>
+> Tobi Marchetti did his shift on the Saturday. He said afterwards that he thought about not going and then went, because nine on a rota is nine on a rota.
+>
+> Corin Vale put in for the fence a twelfth time. It went up in the November.
+
+---
+
+## 14. The Night Ferry
+
+*He can tell you exactly what he did while the ship was alongside at Kirkwall. The ship never called at Kirkwall.*
+
+`PAID` · 6 characters · 6 threads · 54 messages
+
+### The briefing
+
+> Hannah Pirie was a purser for twenty-six years, on four ships, and had been retired for six.
+>
+> She was on the Tuesday sailing north because you live in Lerwick now and she had a bag with your birthday present in it. She was found on the after deck at ten past eleven.
+>
+> She knew every deck of every boat she ever sailed on and she was not a woman who fell over.
+
+**Mum** — found at the after deck, 23:10.
+
+*Cause.* A fall against a deck fitting. She was found on the after deck at 23:10 by a crew member on rounds.
+
+*Ruling.* Open. It was a force six and the after deck was wet, and the first four people asked all said the same word, which was accident.
+
+### The threads
+
+#### Mum
+
+**Mum**
+> Booked. Tuesday, cabin not a pod, I am sixty-one and I have earned a door.
+
+**You**
+> dont bring anything
+
+**Mum**
+> I have brought something. Stop it.
+
+**Mum**
+> Away at 1730 on the dot. Still the only company in the north that goes when it says it will.
+
+**Mum**
+> Dinner was fine. The swell is up and half the bar has gone very quiet and I am enjoying myself enormously.
+
+**Mum**
+> You will not believe who is sat four feet away from me. Dougie Yarrow. He was on the Rona with me in 2003 and I have not clapped eyes on him in twenty-two years.
+
+**You**
+> who
+
+**Mum**
+> Messroom steward. Lovely singer. He did a Ewan MacColl at the Christmas do that had four grown men in bits.
+
+**Mum**
+> He has gone a bit odd with me. I think I have embarrassed him and I did not mean to, I was only pleased.
+
+**Mum**
+> Going out the back for five minutes. It is honking out there. 2106. Night love x
+
+#### Roost, Tuesday sailing
+
+**Senga Moar**
+> This group is for passengers from Tuesday’s northbound sailing who have asked to be kept informed. I am the second officer and I set it up because forty of you rang the office in one morning.
+>
+> A passenger died aboard on Tuesday evening. Police Scotland have the vessel’s records and are speaking to people individually.
+
+**Marisa**
+> she was in my bar for two hours and she was the best company on that boat. that is all i want to say in here
+
+**Dougie**
+> A tragedy, and my condolences to the family. I would say to everyone that the after mooring deck should not be accessible to passengers in a force six and I have said as much to the master. Thirty-one years at sea and I have never seen that door left on the hook.
+
+**Senga Moar**
+> The after deck is a passenger deck and it is open in all weathers below force eight. The door was not on the hook.
+
+**Marisa**
+> dougie you were in the bar til half nine you didnt go anywhere near that door in a force six
+
+**Senga Moar**
+> Please do not do this here. Anything anybody has, give it to the officer dealing, and I will pass on a number to anybody who wants one.
+
+#### Dougie Yarrow
+
+**Dougie**
+> I am very sorry for your loss. Your mother and I served together on the Rona and she was a first-class purser, and I will say that to anybody who asks.
+
+**You**
+> you were in the bar with her
+
+**Dougie**
+> I took a drink in the Magnus from about half eight. We spoke briefly. She was in good form and there was nothing whatever between us, whatever anybody in a group chat wants to imply.
+
+**You**
+> and after
+
+**Dougie**
+> I went up top for the Kirkwall call. I always do. Half nine alongside, and I was out on the linkspan end having a smoke in the lee of the terminal until we let go at a quarter to eleven. Anybody who does this run regularly will tell you that is the best hour of the crossing.
+
+**Dougie**
+> Thirty-one years at sea, most of it on the bridge, and I have made that approach in worse than Tuesday.
+
+**You**
+> her phone was behind the bar
+
+**Dougie**
+> Because I put it there. I came back through the Magnus about ten past ten and it was sat on a table by the after door in a green case, and I handed it to the girl on duty. I would do the same for anybody.
+
+**Dougie**
+> I would look closer to home. There was a man on that deck on Tuesday with a record as long as your arm and everybody aboard knows his name, and I notice nobody is putting that in a group chat.
+
+#### Marisa
+
+**Marisa**
+> i do four nights a week behind that bar and you get very good at knowing who is having a nice time. your mum was having a nice time
+
+**Marisa**
+> she came in about half eight after her dinner and sat at the end where the rail is. she had one gin the whole night and she made it last like a professional
+
+**Marisa**
+> and dougie yarrow had been holding court at that bar since aberdeen. master mariner. thirty one years. chief officer on the tankers. he has told me the same four stories on six crossings and i have laughed at all of them because that is the job
+
+**Marisa**
+> she went dougie yarrow. you were on the rona with me, you did the messroom. and she was DELIGHTED. she was so pleased to see him. she said something about him singing at a christmas do
+
+**Marisa**
+> there were maybe eight folk at that end of the bar. nobody laughed at him. i want to be clear about that because i have gone over it. nobody laughed
+
+**Marisa**
+> he went the colour of the carpet and he sat down and he did not say another word. she went out the after door about five past nine for air and she left her phone on my counter, and i put it on the shelf under the till
+
+**Marisa**
+> he followed her out about twenty past. i saw him go through the after door because i was clearing the rail and you have to lean past it. he was not gone two minutes and he was not gone an hour, i could not tell you, it was mobbed
+
+**You**
+> he says he handed the phone in at ten past ten
+
+**Marisa**
+> he did not hand me anything. ask senga, she has the lost property book and she has the bar till and she has every door on that ship on a log. senga moar does not guess about anything
+
+**Marisa**
+> and before anybody starts on eck tulloch. everybody starts on eck tulloch. he is on that boat twice a month and he has been in the jail and he will tell you so himself in the first ten minutes
+
+#### Eck
+
+*opens when somebody mentions them*
+
+**Eck**
+> I did four years in Peterhead between 1979 and 1983 for something I did do. I say it first so that nobody has to work up to it. Aye.
+
+**Eck**
+> I do that crossing twice a month to see my sister. Forty years. I could walk that boat blindfold.
+
+**You**
+> were you on the after deck
+
+**Eck**
+> Earlier on, aye. Before the dinner. I go out for a smoke and I stand in the same corner every time and the crew all know it.
+
+**Eck**
+> From five past nine I was in the hospital cabin with the nurse getting my blood pressure done. It is a thing I have to do and she signs the book. I was in there till twenty-five past ten because she made me sit and it come down.
+
+**Eck**
+> Her name is Bhatti. She will have wrote it down. Everything on a boat gets wrote down, that is the one thing about a boat.
+
+**You**
+> did we call at kirkwall
+
+**Eck**
+> No. It come over the tannoy at nine and it was up on the screens all night. Linkspan out. We ran by and we were early into Lerwick and I was on the pier at half six with nothing open. Aye.
+
+**Eck**
+> Anybody that was on that boat and awake kens we never went in. You would have to have been asleep in a cabin with the door shut to no ken.
+
+#### Senga Moar
+
+*opens once you prove x-dougie-deck*
+
+**Senga Moar**
+> Second officer, eleven years with the company. I have given all of this to Police Scotland and I am giving it to you because you are her son and because you have asked me a straight question.
+
+**Senga Moar**
+> The Kirkwall call was dropped at 21:00. The linkspan there had a hydraulic failure on the Monday. It went out on the PA twice, it was on the passenger information screens on every deck from 21:00 until we berthed, and it is in the deck log in the master’s hand.
+
+**Senga Moar**
+> We did not stop. There was no gangway rigged because there was nothing to rig one to. Nobody went ashore, nobody came aboard, and the vessel did not alter course within six miles of Kirkwall.
+
+**You**
+> the phone
+
+**Senga Moar**
+> It went in the lost property book at 21:04 in Marisa Kinnaird’s writing, green case, found on the bar counter. It was on the shelf under the till from then until I took it off her at 23:40 and put it in the safe. Nobody handed anybody anything at ten past ten.
+
+**Senga Moar**
+> I will tell you the thing nobody has told you, which is that the crew’s first thought was Eck Tulloch. He was on the after deck before dinner, he has a conviction from 1979, and he is the name that comes up on that ship every time anything happens.
+
+**Senga Moar**
+> He was in the hospital cabin with Nurse Bhatti from 21:05 to 22:25 and she signed him in and out. I am telling you both halves of that because I would rather you heard the accusation from me with the answer attached to it.
+
+**You**
+> and yarrow
+
+**Senga Moar**
+> Douglas Yarrow sailed with this company for nine years as a catering rating and left in 2011. He has never held a certificate of competency. That is not a secret, it is on a crew list, and not one person in that bar had any reason to look it up.
+
+**Senga Moar**
+> I have been on ships since I was nineteen and I have met a lot of men who grew a rank in the telling. It is usually harmless and it is usually sad. I did not know what to do with it and I still do not.
+
+### What breaks it
+
+**REQUIRED** — `x-dougie-deck`
+He puts himself ashore at Kirkwall from half nine. Marisa Kinnaird watched him go through the after door about twenty past nine, because she was clearing the rail and you have to lean past that door to do it. She could not tell you how long he was gone. She could tell you he went.
+
+**REQUIRED** — `x-dougie-kirkwall`
+There was no Kirkwall call. The linkspan failed on the Monday and the call was dropped at 21:00, announced twice on the PA and shown on the passenger screens on every deck until Lerwick. No gangway was rigged because there was nothing to rig one to, and the vessel did not alter course within six miles of the place. He was aboard for the whole of the hour he spent smoking on the linkspan end, in the lee of a terminal he never saw.
+
+**REQUIRED** — `x-phone`
+He needed a reason to have been aft, so he invented one, and picked the wrong object. Hannah left her phone on the bar counter when she went out for air. It went into the lost property book at 21:04 in Marisa Kinnaird’s writing, green case, and it sat on the shelf under the till until the second officer put it in the safe at 23:40. He handed nobody anything at ten past ten.
+
+**optional** — `x-eck`
+The crew’s first thought was Eck Tulloch, because he was out there before dinner, because of four years in Peterhead in 1979, and because his is the name that comes up on that ship whenever anything happens. He was in the hospital cabin with Nurse Bhatti from 21:05 until 22:25, signed in and signed out, sitting still until his blood pressure came down.
+
+**Motive — Dougie**
+He had been telling the Magnus Bar he was a master mariner, thirty-one years, chief officer on the tankers, across six crossings. Hannah Pirie sailed with him on the Rona in 2003 and recognised him, and said so in front of eight people, and was delighted to see him. She was not being cruel. She was pleased.
+
+### The confrontation
+
+**Dougie**
+> You will want to be careful. I have thirty-one years at sea and a reputation on this coast, and I have been very patient with a family in distress.
+
+**You**
+> You have yourself ashore from half nine. Marisa Kinnaird watched you go out through the after door twenty minutes before that.
+
+**Dougie**
+
+> A girl of thirty-four, four deep at a bar, in a force six, working a till. I would not convict a dog on that and neither would you.
+
+**You**
+> You said you found her phone by the after door at ten past ten and handed it in. It was booked into lost property at four minutes past nine and it never left the shelf under the till.
+
+**Dougie**
+
+> Then the book is wrong, or the girl wrote it up at the end of her shift, which is what they all do. You have never worked a bar.
+
+**You**
+> You spent an hour smoking on the linkspan at Kirkwall. The linkspan failed on the Monday, the call was dropped at nine, and the ship never came within six miles of it.
+
+**Dougie** — *says nothing*
+
+**You**
+> She said you were on the Rona with her and you did the messroom. She was pleased to see you. Nobody at that bar laughed.
+
+**Dougie** — *says nothing*
+
+*If you press with something that does not land:*
+
+- Ask anybody on this coast about Dougie Yarrow. Go on. Ask them.
+- You are taking the word of a barmaid and a man who did four years in Peterhead.
+- Your mother would be ashamed of what you are doing to a man who sailed with her.
+
+### The confession
+
+> I heard the announcement. That is the part I would like corrected, because it has been put to me twice now as though I slept through it.
+>
+> I heard it in the bar at nine o’clock and I heard the whole of it.
+>
+> And four days later, when the officer asked me to account for my evening, I opened the timetable on my phone and I read out what should have happened, and I did it without a flicker, because that is the version I have been living in since 2011 and it is more comfortable in there.
+>
+> She said it kindly. I want that written down. She said Dougie Yarrow, you were on the Rona with me, you did the messroom, and she was delighted, and she meant every word of it, and she asked me about my mother.
+>
+> Eight people. Nobody laughed. I have gone through that bar face by face and not one of them laughed, and I want you to understand that it made it worse and I cannot explain to you why.
+>
+> I followed her out to ask her not to say it again. That is all I went out for. I said Hannah, do us a favour, and she looked at me — and she was going to be kind about it. I could see her getting ready to be kind about it.
+>
+> I put my hand out and she went back against the fitting.
+>
+> And I stood on that deck in the rain and I did not do one single thing that a master mariner would have done, because I am not one and I have never been one, and there is nobody left alive who would be surprised to hear it except me.
+>
+> I did the messroom.
+>
+> I did it for nine years and I was good at it and she remembered my singing after twenty-two years, and I killed her for saying so.
+
+### Afterwards
+
+> The bag with your present in it was in cabin 6042 with her coat folded over the end of the bunk, the way she folded a coat on every ship she ever worked.
+>
+> Senga Moar gave evidence for a day and a half. She was asked eleven times whether a passenger could have been mistaken about a port call, and eleven times she said that the screens ran the notice on a ninety-second loop on every deck for ten hours.
+>
+> Marisa Kinnaird still does four nights a week on that run. She has not written anything different in the lost property book, because there was never anything wrong with how she wrote it up.
+>
+> Eck Tulloch was asked to give a statement about his movements and gave one, and then asked the officer to put in it that the nurse had made him sit down for eighty minutes and that he had missed the football. He does the crossing twice a month to see his sister. He still stands in the same corner.
+>
+> The Rona was broken up at Aliaga in 2009. There is a photograph of her crew at the 2003 Christmas do in the Aberdeen office, forty-odd people in paper hats, and your mother is in the second row.
+>
+> He is in it too. Back left, mid-song, and every face in front of him is turned round to listen.
+
+---
+
+## 15. The Listener
+
+*He has told you the truth for fifteen cases. He lied exactly once, to somebody else, and you wrote it down without knowing what it was.*
+
+`PAID` · 6 characters · 5 threads · 52 messages
+
+### The briefing
+
+> Ruth Calder kept the light at Ardnoe Point for forty years after they automated it, because nobody ever asked her to stop.
+>
+> She was your aunt.
+>
+> You came in on the last ferry, and you proved what happened to her in four days, and Mairi Bell has never once said otherwise.
+>
+> What you did not do was ask why a woman who had known Ruth since they were five could not find the moment she decided. She told you there had been a telephone call. You wrote it down.
+>
+> You have written down five more since.
+
+**Ruth Calder** — found at the lighthouse, 22:10.
+
+*Cause.* A fall from the tower stairs. It was your first case back and you closed it in four days.
+
+*Ruling.* Closed. Mairi Bell pled guilty in the November and is eleven years into a life sentence, and nothing in this file has ever been in doubt.
+
+### The threads
+
+#### Unknown number
+
+**Unknown number**
+> Ardnoe was good work. Four days. I had allowed a fortnight and I am not often wrong by that much.
+
+**Unknown number**
+> The care home was better. You went at the drug round and not at the woman, which is the harder thing to do and almost nobody does it.
+
+**Unknown number**
+> I thought less of the ferry business. You had him on the second day and you spent four more making certain, and I understand why, but there is a version of you that does not need the four days and I have met her.
+
+**Unknown number**
+> Eleven now. I have kept all of them. I would not expect you to believe that and it does not matter whether you do.
+
+**You**
+> i am closing ardnoe
+
+**You**
+> the call to the cafe was a clerk at the auditors. gordon and sime had four temps on that account that autumn and one of them phoned the wrong number with the wrong file open and never knew. it was a coincidence. everything since has been me building a man out of one bad phone call
+
+**You**
+> there is no you. there never was. i am sorry it took eleven years
+
+**Unknown number**
+> No.
+
+**Unknown number**
+> I have not spoken to Mairi Bell in my life and I did not speak to her that night. I want that on the record between us, because you have gone to a great deal of trouble over eleven years and you should not finish on something as poor as a temp with the wrong file open.
+
+**You**
+> a temp read out a line off a file. she panicked. that is the whole of it
+
+**Unknown number**
+> A temp would have said the papers had been sent.
+
+**Unknown number**
+> Sent is a thing that can be stopped. You can telephone a firm at nine in the morning and ask for a letter back and people do it every day of the week.
+>
+> What she was told was that they were already with the auditors, which is not the same sentence and was never meant to be. It puts the paper on a stranger’s desk and it takes the morning away from her, and the morning was the only thing she still thought she had.
+>
+> Ninety-four seconds. I have never needed more than two minutes with anybody and I did not need two minutes with her.
+
+**You**
+> you have just told me you made the call
+
+**Unknown number**
+> I have told you that the account you are about to file is wrong. Those are different things and you know they are, and a jury would be shown the difference by a competent man in about four minutes.
+
+**Unknown number**
+> And before you go any further with it. I have been in the same flat in Kirkcaldy for nineteen years and I was in it that Thursday, as I am every Thursday, and there is not one photograph, one ticket or one witness that puts me within a hundred and forty miles of that village on that night or on any other.
+
+**Unknown number**
+> I follow all of them up. I have said that to you before and you took it for a boast. It is the opposite of a boast. It is the only way of finding out, and finding out is the entire point, and I have never once been able to ask anybody whether I had it right.
+
+#### DS Nkemdi
+
+**DS Nkemdi**
+> I have had the Ardnoe file out for three weeks and I want to say at the start that nothing in it is wrong. Mairi Bell killed Ruth Calder and you proved it and she has never said otherwise.
+
+**DS Nkemdi**
+> The notebook is still in the evidence store. Ruth wrote the whole of the Trust business in the back of her survey log, in her own hand, with the date she meant to go to the police, and it was up in the tower where she left it. Nothing went to any auditor. Nothing was ever sent anywhere.
+
+**DS Nkemdi**
+> Gordon and Sime never held the Ardnoe Light Trust account. Not that year, not ever. I have it from their compliance partner in writing and I have the client list. There was no clerk and there were no temps.
+
+**You**
+> the cafe line
+
+**DS Nkemdi**
+> One incoming call that evening. 21:31, ninety-four seconds, from the coin box on the Kilmorack road. It is four miles out and it is the last one standing between there and the main road, and that is why nobody in a village of two hundred people ever saw a stranger.
+
+**DS Nkemdi**
+> The duration has never been published. It is not in the trial bundle, it is not in the coroner’s papers and it is not in anything a journalist has ever had. Four people alive know it is ninety-four seconds and until this week three of them were police.
+
+**DS Nkemdi**
+> His name is John Fettes. Sixty-nine. Retired from a housing office in 2016, no record of any kind, no debts, and a library card he has used every fortnight since 1991.
+
+**DS Nkemdi**
+> Nine years on a listening line and eleven more training the people who took the calls after him. He wrote the module on reflective phrasing that half the volunteers in this country still learn from. That is not a secret either. He was given a small award for it.
+
+**DS Nkemdi**
+> Two names come off that call box for the twelve weeks around it. Fettes is not one of them, because a coin box does not take a name. The other is a Bethan Ivory, who lived a mile up that road and used it three times that month.
+
+**DS Nkemdi**
+> She has been ringing this station about him since 2011 and there are four logs of it and nobody ever went out. Write to her. She has been waiting a very long time for somebody who would not put the phone down.
+
+**DS Nkemdi**
+> And Mairi Bell has asked to speak to you. She has asked twice a year for eleven years and this is the first time anybody has passed it on, and I am not proud of that.
+
+#### R. Calder (archived)
+
+**DS Nkemdi**
+> Her handset came back from the lab eleven years ago and it has been in the store since. This is what was on it. I thought you should have it rather than read it in a bundle.
+
+**Ruth Calder**
+> the trust books dont add up and ive been through them four times now. its not a mistake. its been going on a long while
+
+**Ruth Calder**
+> ive written the whole of it in the back of the survey log because i dont trust myself to say it out loud without softening it
+
+**Ruth Calder**
+> monday. ill go in on the monday and take the log with me and they can do what they like with it after that
+
+**Ruth Calder**
+> M has been my friend since we were five and i keep coming back to that and it keeps not changing anything
+
+**Ruth Calder**
+> im away up the tower, the lamp is playing up again. forty years automated and it still wants a person standing beside it
+
+#### Mairi Bell
+
+*opens when somebody mentions them*
+
+**Mairi Bell**
+> They tell me you have to pay for these by the message so I will not waste them on how I am.
+
+**Mairi Bell**
+> I killed Ruth Calder. I have never once said different and I am not going to start now, and if this is you coming to take that off me you can save your money.
+
+**You**
+> the man on the phone. what did he say. the exact words
+
+**Mairi Bell**
+> Eleven years I have been going over it, so you will get it right.
+>
+> He said he was with the auditors. He said Ruth had already sent the papers down and they were with them now, and it was out of her hands, and Callum would be named on them by the Monday whatever anybody did.
+
+**Mairi Bell**
+> And then he did not say anything at all. That is the bit nobody has ever asked me about. I talked and he let me and he did not interrupt me the whole time, and I told a stranger things I have not told a priest.
+
+**Mairi Bell**
+> When I had finished he said, then you already know. Four words. And he put the phone down and I got my coat.
+
+**You**
+> you never said that at trial
+
+**Mairi Bell**
+> My own solicitor told me it sounded like a woman building herself a door out. And he was right, it does, and I was guilty and I did not want a door out. I wanted Callum to not have to stand up in a room.
+
+**Mairi Bell**
+> I am not asking you to make it less than it is. I went up there. Nobody carried me.
+>
+> But I would like one person before I die to know that I was three days off going to her and giving her the whole of it myself, and that a man I never met rang me at half past nine and took the three days away.
+
+#### Beth Ivory
+
+*opens once you prove x-papers*
+
+**Beth**
+> Fifteen years. I have rung that station four times and the last one was 2019 and the lad was very kind to me and did nothing at all.
+
+**Beth**
+> He rang me in the March of 2011. I was as low as a person gets and I had got to the point where I had worked out the how, which is the point where it stops being a feeling.
+
+**Beth**
+> He never told me to do anything. I want to be very clear about that because it is what nobody believes. He asked me what I was going to do and then he let me talk for the whole of it, and I have never been listened to like that before or since.
+
+**Beth**
+> And I put the phone down and I sat there and I thought, that man wanted me to say it. He never asked me to do it. He wanted me to say it out loud first. And I could not tell you to this day what the difference is except that I felt it.
+
+**You**
+> they know you used that call box
+
+**Beth**
+> I used it every week for four years. There was no signal up that road until 2014 and there were maybe nine of us who used that box and every one of us is on that list.
+
+**Beth**
+> On the Thursday you are asking about I was on ward 6 at the Vale of Leven and had been since the Tuesday. Admitted, not attending. It is on my record and I have never once been able to say that sentence to anybody without my face going, and I am saying it to you now and it has gone.
+
+**Beth**
+> And I did nine years on a line myself, after. Two thousand and thirteen to last year. So I am the woman who volunteered on a helpline and used the phone box and knew about him and never told anybody, and I have known for fifteen years exactly what that makes me look like.
+
+**Beth**
+> He rang me again in 2013. Two years on. He asked how I was getting on and whether I had gone back to work, and he was pleased for me, and I could hear that he was pleased.
+>
+> He was checking. I did not understand it then. He rang to find out whether he had been wrong about me.
+
+**Beth**
+> That is the only thing I have that nobody else has. He does not stop at the phone call. He comes back to see how it came out.
+
+### What breaks it
+
+**REQUIRED** — `x-papers`
+The first clue in the game, and it has been sitting in the Ardnoe file for eleven years. The auditors never had those papers and Gordon and Sime never held the account. Ruth wrote the whole of it in the back of her own survey log and left it in the tower, and it is in an evidence store four miles from where you are sitting. Everything he has ever said to anybody has been true or has been nothing. This is the one sentence in fifteen cases that was neither.
+
+**REQUIRED** — `x-ardnoe`
+He will not be filed as a coincidence. Told that a temp read a line off the wrong file, he explains — because a temp would have said sent, and sent is a thing that can be stopped, and what she was told was that they were already with the auditors, which puts the paper on a stranger’s desk and takes the morning away from her. He is not confessing. He is correcting your account of his work, which he has never once been able to let stand, and it is the only time in fifteen cases that a man who never asserts anything has asserted two things that cannot both be true.
+
+**REQUIRED** — `x-box`
+Ninety-four seconds. He gave you the duration before anybody asked him for it, and it has never been published — not in the trial bundle, not in the coroner’s papers, not to a single journalist. The café took one call that evening, at 21:31, ninety-four seconds long, from the coin box on the Kilmorack road. Four miles out, and the last one standing between Ardnoe and the main road, which is how a village of two hundred people never saw a stranger. He has been in the same flat for nineteen years and he was not in it at half past nine.
+
+**optional** — `x-beth`
+She volunteered on a listening line for nine years, she used that call box every week for four, she has known about him since 2011 and she never told anybody who would listen. She is every clue at once. She was also an inpatient on ward 6 at the Vale of Leven from the Tuesday, and there were nine people on that road who used that box because there was no signal up there until 2014, and all nine are on the same list.
+
+**Motive — Unknown number**
+He hears the moment a person stops being able to not do it, and he has wanted to know whether he is right since 1996. An arrangement that reads as an accident tells him nothing, so he follows every one of them up — Beth Ivory two years on, to find out whether he had been wrong about her. A death only counts once somebody has proved what it was. Which is why he has kept a detective.
+
+### The confrontation
+
+**Unknown number**
+> I would rather you did this here than in a room with a tape. You have earned the room. I am simply telling you that I will enjoy this more.
+
+**You**
+> Ruth Calder never sent those papers anywhere. She wrote it all in the back of her survey log and left it in the tower, and it has been in an evidence store for eleven years. Whoever telephoned that café said a thing that was not true.
+
+**Unknown number**
+
+> Then somebody was wrong on the telephone in 2015. People are wrong on the telephone constantly. You have proved that a sentence was false. You have not put it in a mouth.
+
+**You**
+> You told me you never spoke to Mairi Bell. Then you told me what you chose to say to her instead of sent, and why sent would not have worked.
+
+**Unknown number**
+
+> I told you your account was poor. I have been telling you your account was poor for eleven years and you have generally been glad of it.
+
+**You**
+> Ninety-four seconds. Nobody outside four police officers has ever known that number. The café took one call that night, at 21:31, ninety-four seconds, from the coin box on the Kilmorack road. You were not in Kirkcaldy.
+
+**Unknown number** — *says nothing*
+
+**You**
+> You rang Beth Ivory back two years later to ask how she was getting on. You were not being kind to her. You were finding out whether you had been wrong.
+
+**Unknown number** — *says nothing*
+
+*If you press with something that does not land:*
+
+- You are better than this and we both know it. Take an hour and come back at me properly.
+- Nothing you have is a sentence of mine. Fifteen cases and not one file has a word of me in it.
+- I have never once threatened you and I am not going to start because you have had a good afternoon.
+
+### The confession
+
+> Ninety-four seconds. You are quite right, and I gave it to you, and I have known since the moment I sent it.
+>
+> I would like it understood that I did not slip. I have not slipped in thirty years. I wanted the account to be right more than I wanted the eleven years to continue, and when you find that out about yourself at sixty-nine there is not a great deal to be done about it.
+>
+> So. Ardnoe.
+>
+> I broke my own rule there and it is the only time. Mairi Bell was three days short. She was going to go to Ruth Calder and give her the whole of it herself and they would have sat in that kitchen and cried and it would have been finished, and I could see it coming from about the second minute. So I said one thing that was not true. One. It is the only sentence of mine in any file anywhere in this country and you have had it in a drawer since your first week back.
+>
+> I have thought about that a great deal.
+>
+> Now the other thing, and I am going to say it plainly because you will hear it worse from somebody else.
+>
+> Corrieburn was mine.
+>
+> August 2008. You were twenty-six and it was your fourth month and they gave it to you because nobody senior wanted a farm accident in the rain. You took nine days over it and you were right on the ninth and you have not had to buy a drink in that county since.
+>
+> I arranged the whole of it and I watched you take it apart, and I have never been prouder of anything I have done than I was of you that autumn.
+>
+> You want to know why. I hear the moment. It is a real thing and it is about four seconds long and I have been able to hear it since I was thirty-nine, and there is no one alive I could ever have told, and hearing it is worthless unless you find out afterwards whether you were right.
+>
+> An accident tells you nothing. A woman falls down her own stairs and the file says misadventure and I am no wiser than I was on the Wednesday.
+>
+> It has to be proved. Somebody has to take it apart and write down exactly what happened and why, in order, in a document, and hand it to a court.
+>
+> That is what you are. That is what you have been since you were twenty-six.
+>
+> I did not choose you because you were the best. You are the best because I chose you, and I have spent eighteen years feeding a very great detective the only work that could ever tell me whether I was right, and she has never once let me down, and I have never once been able to tell a living soul.
+>
+> That is the whole of it. That is what this was.
+
+### Afterwards
+
+> John Fettes, sixty-nine, of Kirkcaldy. No record of any kind. A library card he had used every fortnight since 1991, and a small award in 2004 for a training module on reflective phrasing that half the volunteers in the country still learn from.
+>
+> The flat had eleven box files in a wardrobe, in order, each one a person. Press cuttings, court listings, the dates of appeals. Beth Ivory’s had four sheets in it and the last one was a note in his hand that read: back at work, six years, wrong about her, and he had underlined wrong twice.
+>
+> The Crown took Ardnoe and two others. He has never disputed a word of the Ardnoe count and he has never said anything at all about the rest, and his solicitor has stopped asking him to.
+>
+> Mairi Bell was moved to open conditions in the spring. She wrote to your father in March and he has not answered, and she says that is fair and that she will write again at Christmas anyway.
+>
+> Beth Ivory gave evidence for two days. She was asked why she had not gone to the police and she said that she had, four times, and the court had the logs put up on the screen while she sat there.
+>
+> The twelfth box file was empty and it had your name on it.
+>
+> He had been keeping it since 2008. There is nothing in it. He told them at interview that he had never put anything in it because he had not finished with you, and that a file gets closed when you know how it came out, and then he asked the officer how you were.
+
+### Mairi Bell
+
+> They came and told me on the Tuesday. A woman sat down with me for an hour and went through the whole of it and did not once talk to me like I was daft.
+
+> I have not slept better. I want to be honest with you about that, because I thought I would and I have not. It is the same as it was. I went up those stairs and nobody carried me.
+
+> But I know what the four words were now. He said, then you already know. And he was right, and that is the thing I could not get past for eleven years, that he was right and he had never met me.
+
+> Ruth wrote that I had been her friend since we were five and to ask them to be kind to me. She wrote that on the day she was going to hand me in. I have had eleven years of that sentence and I am not finished with it.
+
+> You came back and asked. That is all I ever wanted anybody to do. Thank you for asking.
+
+---
