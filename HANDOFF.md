@@ -258,15 +258,21 @@ chevron **with the construction guides visible on it**. Verified by opening it,
 **7. `docs/ARCHITECTURE.md` does not exist.** Task 18 Step 4. The README carries
 an architecture section, so this is a nice-to-have rather than a blocker.
 
-**8. "the Keeper" collides with a real character in Pack 9.** `the-cut.ts` has an
-innocent character described as *"Eleven years a volunteer lock keeper at
-Tyrley"*, and Pack 9 is also one of the arc packs where the villain now names
-himself the Keeper. Both phrases sit in the same case. A player is likely to read
-the lock keeper as a clue, and it never resolves — which breaks the arc's own
-red-herring rule that a suspect must be innocent *for a reason you can prove*.
-Pre-existing text; the alias landed on top of it. Either rename Tyrley's role
-("lock-wheeler", "volunteer on the flight") or accept it deliberately and give
-the player a line that dismisses it.
+**8. "the Keeper" collided with a real character in Pack 9 — FIXED 2026-08-12.**
+`the-cut.ts` had an innocent man described as *"Eleven years a volunteer lock
+keeper at Tyrley"*, in one of the arc packs where the villain names himself the
+Keeper. A player would read him as a clue that never resolves, which breaks the
+arc's rule that a red herring must be innocent *for a reason you can prove*. He
+now goes *"Eleven years lock-wheeling at Tyrley"* — the real canal word for it.
+
+Kept here because it is the failure mode to watch for: a global alias pass can
+collide with ordinary vocabulary already in the prose. Grep new aliases against
+all fifteen packs before applying them.
+
+**9. Pack 15's deflection contradicted the alias — FIXED 2026-08-12.** He said
+*"not one file has a word of me in it"* while naming himself in every call. It
+now reads *"not one file has a name in it that a court can serve papers on,"*
+which is what he actually means.
 
 ---
 

@@ -180,14 +180,14 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'mairi',
           sentAt: 1985,
-          body: 'For anyone who has not heard. Ruth was found at the foot of the tower stairs this morning. She is gone.',
+          body: 'For anyone who has not heard yet. Ruth was found this morning at the foot of the tower stairs. She is gone, and I am sorry to be putting it in a group.',
         },
         {
           id: 'g2',
           threadId: 't-group',
           senderId: 'mairi',
           sentAt: 1987,
-          body: 'The café is open today for anyone who does not want to be in their own house. No charge. Just come.',
+          body: 'Café is open today. No charge. Come if you would rather not sit in the house on your own.',
         },
         {
           id: 'g3',
@@ -201,7 +201,7 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'esme',
           sentAt: 2001,
-          body: 'I am so sorry. I only met her three times and she still gave me a key to the tower so I could count seals from the gallery.',
+          body: 'I am so sorry. I met her three times and she gave me a key to the tower so I could count from the gallery.',
         },
         {
           id: 'g5',
@@ -222,7 +222,7 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'mairi',
           sentAt: 2016,
-          body: 'And she was right to. That path in that wind would have had you over too. Do not start on yourself.',
+          body: 'She was right to. That path in that wind would have had you over as well. Do not start on yourself.',
         },
         {
           id: 'g8',
@@ -236,7 +236,7 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'esme',
           sentAt: 2029,
-          body: 'They have to. It is procedure with a sudden death, not an accusation. They asked me too.',
+          body: 'They have to. Sudden death, it is just procedure. They asked me as well.',
         },
         {
           id: 'g10',
@@ -325,7 +325,7 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'esme',
           sentAt: 2110,
-          body: 'Whoever is handling the Trust, her survey notebook is still up in the tower where she left it. It is not mine to take. Someone should tell the family.',
+          body: 'Whoever is dealing with the Trust. Her survey notebook is still up the tower where she left it. Not mine to take. Someone should tell the family.',
           claims: [
             {
               id: 'c-papers-kept',
@@ -361,7 +361,7 @@ export const theLighthouseRaw = {
           threadId: 't-group',
           senderId: 'mairi',
           sentAt: 2131,
-          body: 'She was tired and she was sixty one and the lamp had been failing for a month. Let her be tired.',
+          body: 'She was tired. She was sixty one and that lamp had been failing since July. Leave it.',
         },
       ],
     },
@@ -378,7 +378,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2140,
-          body: 'You should not have found out in a group chat. That was my doing and I am sorry for it.',
+          body: 'You should not have found out in a group chat. That was me and I am sorry.',
         },
         {
           id: 'm2',
@@ -399,7 +399,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2161,
-          body: 'I keep the books because nobody else would do it for nothing. And yes she rang me about a column that did not add. I told her I would bring the folder up at the weekend.',
+          body: 'I keep the books because nobody else would do it for nothing.\n\nAnd yes she rang me about a column that did not add up. I said I would bring the folder up at the weekend.',
         },
         {
           id: 'm5',
@@ -424,7 +424,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2164,
-          body: 'From half eight until I locked up at eleven. In the café, the whole evening, like every evening of my life.',
+          body: 'From half eight until I locked up at eleven. In the café. Same as every other night.',
         },
         {
           id: 'm7',
@@ -438,7 +438,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2178,
-          body: 'Callum was with me. He was in the café the whole night, from nine until we shut. So there is two of us saying it, if it is a witness you are after.',
+          body: 'Callum was with me. In the café from nine until we shut.\n\nSo that is two of us saying it, if a witness is what you are after.',
           claims: [
             {
               id: 'c-callum-cafe',
@@ -470,7 +470,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2201,
-          body: 'You came in that night yourself, do you remember. Quarter past nine, before you went to hers. You had the tea and you did not touch it.',
+          body: 'You came in that night yourself. Do you remember. Quarter past nine, before you went up to hers. You had the tea and you never touched it.',
           claims: [
             {
               id: 'c-you-cafe',
@@ -495,7 +495,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2214,
-          body: 'I cashed up at twenty to eleven, same as always, and the float was eleven pound down and I sat and counted it three times like it mattered.',
+          body: 'I cashed up at twenty to eleven, same as always. Float was eleven pound down and I counted it three times.',
           claims: [
             {
               id: 'c-mairi-cashing',
@@ -538,7 +538,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi',
           senderId: 'mairi',
           sentAt: 2258,
-          body: 'Come to the café tomorrow. I will feed you and you will let me, because that is what I have instead of anything useful to say.',
+          body: 'Come to the café tomorrow. I will feed you and you will let me.',
         },
       ],
     },
@@ -555,14 +555,14 @@ export const theLighthouseRaw = {
           threadId: 't-esme',
           senderId: 'esme',
           sentAt: 2400,
-          body: 'I hope this is not an intrusion. You said in the group that she told you not to come up. I wanted you to know she said the same to me that week.',
+          body: 'Sorry to message you directly. You said in the group she told you not to come up. She said the same to me that week.',
         },
         {
           id: 'e2',
           threadId: 't-esme',
           senderId: 'esme',
           sentAt: 2402,
-          body: 'She was very firm about that path in weather. It was not a thing she was casual about, which is why the ruling bothers me.',
+          body: 'She was very firm about that path in weather. Which is why the ruling bothers me.',
         },
         {
           id: 'e3',
@@ -576,7 +576,7 @@ export const theLighthouseRaw = {
           threadId: 't-esme',
           senderId: 'esme',
           sentAt: 2420,
-          body: 'I keep a survey log. Times, positions, conditions, every night. It is habit and it is also the only reason I can tell you any of this precisely.',
+          body: 'I keep a survey log. Times, positions, conditions, every night.\n\nIt is habit. It is also why I can give you this to the minute.',
         },
         {
           id: 'e5',
@@ -601,7 +601,7 @@ export const theLighthouseRaw = {
           threadId: 't-esme',
           senderId: 'esme',
           sentAt: 2426,
-          body: 'Then the wind dropped for about half an hour, which it does before it backs, and I went out onto the cliff path to get a last listen for the pups.',
+          body: 'Then the wind dropped for about half an hour. It does that before it backs. I went out on the cliff path for a last listen for the pups.',
           claims: [
             {
               id: 'c-esme-path',
@@ -619,7 +619,7 @@ export const theLighthouseRaw = {
           threadId: 't-esme',
           senderId: 'esme',
           sentAt: 2430,
-          body: 'Her lamp was lit up the tower the whole time I was out. I logged it at 21:40 and again at 22:00 because the beam is my timing mark.',
+          body: 'Her lamp was lit the whole time I was out. I logged it 21:40 and again 22:00. The beam is my timing mark.',
           claims: [
             {
               id: 'c-ruth-lamp',

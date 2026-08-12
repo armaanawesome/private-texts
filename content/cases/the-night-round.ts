@@ -77,7 +77,7 @@ export const theNightRoundRaw = {
           threadId: 't-ivy',
           senderId: 'ivy',
           sentAt: 1196,
-          body: 'I keep a ledger of everything. It is the only thing left that is mine to keep.',
+          body: 'I keep a ledger of everything. It annoys them.',
         },
         {
           id: 'i4',
@@ -189,7 +189,7 @@ export const theNightRoundRaw = {
           threadId: 't-marchbank',
           senderId: 'fen',
           sentAt: 2444,
-          body: 'I left at twenty to ten. I signed out at twenty to ten. I was home by quarter past and in bed by half ten like every other night of my life.',
+          body: 'I left at twenty to ten. I signed out at twenty to ten. Home by quarter past, in bed by half ten. Same as always.',
           claims: [
             {
               id: 'c-fen-home',
@@ -473,7 +473,7 @@ export const theNightRoundRaw = {
           threadId: 't-teddy',
           senderId: 'teddy',
           sentAt: 2668,
-          body: 'She did not see me. People do not see me. It is the one advantage of the whole business.',
+          body: 'She did not see me. People do not see me. It has its uses.',
         },
         {
           id: 't10',

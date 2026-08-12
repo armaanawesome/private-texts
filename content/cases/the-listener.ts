@@ -681,7 +681,10 @@ export const theListenerRaw = {
     ],
     deflections: [
       'You are better than this and we both know it. Take an hour and come back at me properly.',
-      'Nothing you have is a sentence of mine. Fifteen cases and not one file has a word of me in it.',
+      // He gives the alias in every call now, so "not one file has a word of me
+      // in it" argues against itself. What he actually means is that none of it
+      // is servable.
+      'Nothing you have is a sentence of mine. Fifteen cases, and not one file has a name in it that a court can serve papers on.',
       'I have never once threatened you and I am not going to start because you have had a good afternoon.',
     ],
     confession:

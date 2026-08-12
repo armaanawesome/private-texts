@@ -457,7 +457,11 @@ export const theCutRaw = {
           threadId: 't-gwyn',
           senderId: 'gwyn',
           sentAt: 3000,
-          body: 'Eleven years a volunteer lock keeper at Tyrley and I have never once wanted the paperwork until this week.',
+          // "lock keeper" until Pack 15's alias landed. Pack 9 is an arc pack, so
+          // an innocent man described as a keeper reads as a clue and never
+          // resolves — which breaks the red-herring rule. Lock-wheeler is the
+          // real canal word for it anyway.
+          body: 'Eleven years lock-wheeling at Tyrley and I have never once wanted the paperwork until this week.',
         },
         {
           id: 'g2',

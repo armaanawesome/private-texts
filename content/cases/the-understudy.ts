@@ -1,5 +1,5 @@
 /**
- * Case 2 — "The Understudy". Paid.
+ * Case 2 — "The Understudy". Free (packs 1–3 are the free tier).
  *
  * Pack 2 of the campaign, and deliberately **standalone**: no Listener, no arc
  * clue, no coda. Per docs/arc-design.md the silence is load-bearing — if every
@@ -442,7 +442,7 @@ export const theUnderstudyRaw = {
           threadId: 't-nell',
           senderId: 'nell',
           sentAt: 2216,
-          body: 'and then I was on stage from twenty to nine in front of four hundred people, which is the only alibi anybody in this company will ever have',
+          body: 'and then I was on stage from twenty to nine in front of four hundred people',
           claims: [
             {
               id: 'c-nell-stage',
@@ -528,7 +528,7 @@ export const theUnderstudyRaw = {
           threadId: 't-nell',
           senderId: 'nell',
           sentAt: 2247,
-          body: 'because I went on in her frock last night and it fit, and I have been sick about it since. she was kind to me and she was horrible to Bea and both of those were true at once',
+          body: 'because I went on in her frock last night and it fit, and I have been sick about it since. she was kind to me and she was horrible to Bea. I do not know what to do with that',
         },
       ],
     },
@@ -599,7 +599,7 @@ export const theUnderstudyRaw = {
           threadId: 't-bea',
           senderId: 'bea',
           sentAt: 2426,
-          body: 'She was. Eleven thousand this year and nineteen the year before that, and I paid all of it, and I would have gone on paying it, because the alternative was Joel Petrie reading about me in a newspaper.',
+          body: 'She was. Eleven thousand this year, nineteen the year before. I paid all of it and I would have gone on paying it. The alternative was Joel Petrie reading about me in a newspaper.',
         },
         {
           id: 'b6',
@@ -627,7 +627,7 @@ export const theUnderstudyRaw = {
           threadId: 't-bea',
           senderId: 'bea',
           sentAt: 2451,
-          body: 'Yes. Done meaning she was going to say it, on a press night, with seventeen of them in. Done is not the word you use when you are letting somebody off.',
+          body: 'Yes. Done meaning she was going to say it. On a press night. With seventeen of them in.',
         },
         {
           id: 'b10',

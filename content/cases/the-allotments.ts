@@ -493,7 +493,7 @@ export const theAllotmentsRaw = {
           threadId: 't-joyce',
           senderId: 'joyce',
           sentAt: 3040,
-          body: 'So whoever picked it up picked it up in that shed row, standing where he was standing. It is not evidence about Nev Ashworth. It is evidence about proximity.',
+          body: 'So whoever picked it up picked it up in that shed row, stood where he was stood. Forget Nev. It tells you who was close enough to reach it.',
         },
         {
           id: 'j7',
