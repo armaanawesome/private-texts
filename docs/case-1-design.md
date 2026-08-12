@@ -30,7 +30,7 @@ two different witnesses.
 | # | id | Claim A | Claim B | Why it breaks |
 |---|---|---|---|---|
 | 1 | `x-callum-alibi` | Mairi: *Callum was in the café* | Callum: *I was at the slipway* | A mother gave her son an alibi he never asked for |
-| 2 | `x-mairi-path` | Mairi: *I was in the café all evening* | Esme: *I passed her on the cliff path* | She was not where she put herself |
+| 2 | `x-mairi-path` | Mairi: *I was in the café all evening* | Fiona: *I passed her on the cliff path* | She was not where she put herself |
 | 3 | `x-mairi-door` | Mairi: *I was in the café all evening* | Callum: *I saw her at the lighthouse door* | She was at the door at the minute Ruth fell |
 
 Contradictions 1 and 2 are findable from the four threads that are open from the

@@ -53,7 +53,7 @@ describe('The Long Course', () => {
     expect(script.solution.killerId).not.toBe('warren');
   });
 
-  it('opens Imo only after Dilys notices the kit', () => {
+  it('opens Em only after Carol notices the kit', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

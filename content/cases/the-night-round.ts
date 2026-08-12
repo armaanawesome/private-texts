@@ -3,7 +3,7 @@
  *
  * Pack 3, and the **first arc connection**. Per docs/arc-design.md the reveal
  * happens only in the confrontation, after the case is already solved: the
- * caller knew Ivy’s prognosis, which was in no record Fen could reach.
+ * caller knew Ivy’s prognosis, which was in no record Ali could reach.
  *
  * Shape of the lie, per docs/pack-ledger.md: **routine**. A round signed for and
  * never walked, which is why nobody looked in on Ivy for ten hours. Axis is
@@ -25,10 +25,10 @@ export const theNightRoundRaw = {
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'ivy', name: 'Ivy', avatarColor: '#8A7B5C' },
-    { id: 'fen', name: 'Fen', avatarColor: '#C4483C' },
+    { id: 'fen', name: 'Ali', avatarColor: '#C4483C' },
     { id: 'margo', name: 'Margo', avatarColor: '#4E8CF0' },
     { id: 'teddy', name: 'Teddy', avatarColor: '#6E5AA8' },
-    { id: 'saoirse', name: 'Saoirse', avatarColor: '#E4B363' },
+    { id: 'saoirse', name: 'Claire', avatarColor: '#E4B363' },
   ],
   places: [
     { id: 'marchbank', name: 'Marchbank House' },
@@ -37,7 +37,7 @@ export const theNightRoundRaw = {
     { id: 'dayroom', name: 'the day room', parentId: 'marchbank' },
     { id: 'desk', name: 'the night desk', parentId: 'marchbank' },
     { id: 'carpark', name: 'the car park', parentId: 'marchbank' },
-    { id: 'fenhouse', name: 'Fen’s house' },
+    { id: 'fenhouse', name: 'Ali’s house' },
   ],
   objects: [],
 
@@ -84,7 +84,7 @@ export const theNightRoundRaw = {
           threadId: 't-ivy',
           senderId: 'ivy',
           sentAt: 1244,
-          body: 'Fenella is coming at seven. She has that voice on the telephone that means she wants me to sign something.',
+          body: 'Alison is coming at seven. She has that voice on the telephone that means she wants me to sign something.',
         },
         {
           id: 'i5',
@@ -198,7 +198,7 @@ export const theNightRoundRaw = {
               predicate: { kind: 'at_place', placeId: 'fenhouse' },
               window: { start: 1335, end: 1440 },
               sourceMessageId: 'g6',
-              label: 'Fen: at home, 22:15–24:00',
+              label: 'Ali: at home, 22:15–24:00',
             },
           ],
         },
@@ -220,7 +220,7 @@ export const theNightRoundRaw = {
               },
               window: { start: 1350, end: 1440 },
               sourceMessageId: 'g7',
-              label: 'Fen: asleep at home, 22:30–24:00',
+              label: 'Ali: asleep at home, 22:30–24:00',
             },
           ],
         },
@@ -327,7 +327,7 @@ export const theNightRoundRaw = {
               },
               window: { start: 1405, end: 1425 },
               sourceMessageId: 'm6',
-              label: 'Fen: driving away from Marchbank, 23:25–23:45 (per Margo)',
+              label: 'Ali: driving away from Marchbank, 23:25–23:45 (per Margo)',
             },
           ],
         },
@@ -464,7 +464,7 @@ export const theNightRoundRaw = {
               predicate: { kind: 'at_place', placeId: 'corridor' },
               window: { start: 1410, end: 1420 },
               sourceMessageId: 't8',
-              label: 'Fen: on the first floor corridor, 23:30–23:40 (per Teddy)',
+              label: 'Ali: on the first floor corridor, 23:30–23:40 (per Teddy)',
             },
           ],
         },
@@ -488,7 +488,7 @@ export const theNightRoundRaw = {
     // ------------------------------------------------- t-saoirse (gated)
     {
       id: 't-saoirse',
-      title: 'Saoirse Nolan',
+      title: 'Claire Nolan',
       participantIds: ['you', 'saoirse'],
       requiresContradictionIds: ['x-fen-corridor', 'x-fen-asleep'],
       messages: [
@@ -511,7 +511,7 @@ export const theNightRoundRaw = {
           threadId: 't-saoirse',
           senderId: 'saoirse',
           sentAt: 2810,
-          body: 'Fenella Rennick’s visitor fob opened the car park door outward at 23:47. There is no reading for it before that going in, because the inward door was propped for the laundry all evening, which is a separate conversation I am having with somebody else.',
+          body: 'Alison Reid’s visitor fob opened the car park door outward at 23:47. There is no reading for it before that going in, because the inward door was propped for the laundry all evening, which is a separate conversation I am having with somebody else.',
           claims: [
             {
               id: 'c-fen-carpark',
@@ -520,7 +520,7 @@ export const theNightRoundRaw = {
               predicate: { kind: 'at_place', placeId: 'carpark' },
               window: { start: 1427, end: 1437 },
               sourceMessageId: 's3',
-              label: 'Fen: in the car park, 23:47–23:57 (fob record)',
+              label: 'Ali: in the car park, 23:47–23:57 (fob record)',
             },
           ],
         },
@@ -536,7 +536,7 @@ export const theNightRoundRaw = {
           threadId: 't-saoirse',
           senderId: 'saoirse',
           sentAt: 2830,
-          body: 'Three months unpaid. Fenella holds power of attorney and has done since 2021. I had written to her twice and the second letter said that if it went to four months I was required to make a safeguarding referral about the finances.',
+          body: 'Three months unpaid. Alison holds power of attorney and has done since 2021. I had written to her twice and the second letter said that if it went to four months I was required to make a safeguarding referral about the finances.',
         },
         {
           id: 's6',
@@ -627,7 +627,7 @@ export const theNightRoundRaw = {
         id: 'r-why',
         evidence: { kind: 'motive', id: 'm-attorney' },
         press:
-          'Three months unpaid, and Saoirse’s letter said four months meant a safeguarding referral. That letter reached you on the Monday. Your mother died on the Tuesday.',
+          'Three months unpaid, and Claire’s letter said four months meant a safeguarding referral. That letter reached you on the Monday. Your mother died on the Tuesday.',
         rebuttal: '',
       },
     ],
@@ -637,7 +637,7 @@ export const theNightRoundRaw = {
       'Bring me something that does not depend on somebody’s memory.',
     ],
     confession:
-      'She was awake when I went back up. She always was. She said do not put the light on, and then she said I know what you have been doing, Fenella, and she said it kindly, which was the worst of it.\n\nI held the pillow and I counted and she did not fight me for very long. I am not going to describe it better than that. I have had eleven weeks to find a way of saying it that makes it smaller and there is not one.\n\nAnd I want to say the other thing, because you will find it eventually and I would rather it came from me.\n\nA man telephoned me on the Monday night. He said he was from the continuing care team. He knew what the letter said. He knew about the referral, which nobody outside that office knew, and then he told me that my mother had been given eight to fourteen months in September and that she had asked them not to tell the family.\n\nI did not know that. She never told me. He knew it and I did not, and he said it the way you would tell somebody the time.\n\nThen he said: so the money has to last longer than she does, and the letter comes first. And I said what am I supposed to do. And he did not answer for a while. He let me sit in it.\n\nAnd then he said, well. You have thought about it, or you would not have asked me.\n\nHe never told me to do anything. I have gone over it and over it. He never once told me to do anything.',
+      'She was awake when I went back up. She always was. She said do not put the light on, and then she said I know what you have been doing, Alison, and she said it kindly, which was the worst of it.\n\nI held the pillow and I counted and she did not fight me for very long. I am not going to describe it better than that. I have had eleven weeks to find a way of saying it that makes it smaller and there is not one.\n\nAnd I want to say the other thing, because you will find it eventually and I would rather it came from me.\n\nA man who called himself the Keeper telephoned me on the Monday night. He said he was from the continuing care team. He knew what the letter said. He knew about the referral, which nobody outside that office knew, and then he told me that my mother had been given eight to fourteen months in September and that she had asked them not to tell the family.\n\nI did not know that. She never told me. He knew it and I did not, and he said it the way you would tell somebody the time.\n\nThen he said: so the money has to last longer than she does, and the letter comes first. And I said what am I supposed to do. And he did not answer for a while. He let me sit in it.\n\nAnd then he said, well. You have thought about it, or you would not have asked me.\n\nHe never told me to do anything. I have gone over it and over it. He never once told me to do anything.',
   },
 
   coda: {
@@ -655,6 +655,6 @@ export const theNightRoundRaw = {
     requiredContradictionIds: ['x-fen-corridor', 'x-fen-asleep', 'x-fen-carpark'],
     requiredMotiveIds: ['m-attorney'],
     epilogue:
-      'The account was looked at in the end. Forty one thousand pounds over three years, and a standing order to a storage unit in Kilmarnock that nobody has ever been able to explain.\n\nMargo Adeyemi was suspended for eleven days over the night book and then quietly reinstated, because Marchbank could not staff the corridor without her and because twenty nine families wrote in. She still does eleven and two. She walks them now.\n\nTeddy Balfour gave his statement in a single sitting, with times, and the officer taking it said afterwards that it was the cleanest account he had ever been given by anybody, of any age.\n\nIvy’s ledger was in the drawer. Three years of it. The last entry was the Tuesday, and it says: Fenella, 7pm, wants me to sign. Did not sign.',
+      'The account was looked at in the end. Forty one thousand pounds over three years, and a standing order to a storage unit in Kilmarnock that nobody has ever been able to explain.\n\nMargo Adeyemi was suspended for eleven days over the night book and then quietly reinstated, because Marchbank could not staff the corridor without her and because twenty nine families wrote in. She still does eleven and two. She walks them now.\n\nTeddy Balfour gave his statement in a single sitting, with times, and the officer taking it said afterwards that it was the cleanest account he had ever been given by anybody, of any age.\n\nIvy’s ledger was in the drawer. Three years of it. The last entry was the Tuesday, and it says: Alison, 7pm, wants me to sign. Did not sign.',
   },
 };

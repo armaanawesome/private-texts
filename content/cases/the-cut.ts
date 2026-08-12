@@ -26,17 +26,17 @@ export const theCutRaw = {
   requiredEntitlementId: CASE_PACK_ENTITLEMENT,
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
-    { id: 'verity', name: 'Verity', avatarColor: '#8A7B5C' },
+    { id: 'verity', name: 'Julie', avatarColor: '#8A7B5C' },
     { id: 'nate', name: 'Nate', avatarColor: '#C4483C' },
-    { id: 'bo', name: 'Bo', avatarColor: '#4E8CF0' },
-    { id: 'gwyn', name: 'Gwyn', avatarColor: '#E4B363' },
+    { id: 'bo', name: 'Sam', avatarColor: '#4E8CF0' },
+    { id: 'gwyn', name: 'Alan', avatarColor: '#E4B363' },
     { id: 'tam', name: 'Tam', avatarColor: '#6E5AA8' },
   ],
   places: [
     { id: 'cut', name: 'the cut' },
     { id: 'norbury', name: 'Norbury', parentId: 'cut' },
     { id: 'norburywharf', name: 'the wharf at Norbury', parentId: 'norbury' },
-    { id: 'veritysboat', name: 'Verity’s boat', parentId: 'norbury' },
+    { id: 'veritysboat', name: 'Julie’s boat', parentId: 'norbury' },
     { id: 'pub', name: 'the Junction', parentId: 'norbury' },
     { id: 'tyrley', name: 'Tyrley', parentId: 'cut' },
     { id: 'tyrleylocks', name: 'Tyrley locks', parentId: 'tyrley' },
@@ -52,14 +52,14 @@ export const theCutRaw = {
     ruling:
       'Recorded as accidental. She was sixty-four, it was dark, and there had been a bottle of wine on the table.',
     opening:
-      'Verity Cusk had lived aboard for nineteen years and knew every liveaboard between Autherley and Nantwich by their boat before their name.\n\nShe was found in the water alongside her own stern on a Friday night in October, with the stove still going and two glasses on the table.\n\nYou gave up your boat and moved ashore four years ago and she texted you every week about it anyway.',
+      'Julie Cusk had lived aboard for nineteen years and knew every liveaboard between Autherley and Nantwich by their boat before their name.\n\nShe was found in the water alongside her own stern on a Friday night in October, with the stove still going and two glasses on the table.\n\nYou gave up your boat and moved ashore four years ago and she texted you every week about it anyway.',
   },
 
   threads: [
     // -------------------------------------------------------------- t-verity
     {
       id: 't-verity',
-      title: 'Verity',
+      title: 'Julie',
       participantIds: ['you', 'verity'],
       requiresContradictionIds: [],
       messages: [
@@ -124,7 +124,7 @@ export const theCutRaw = {
           threadId: 't-verity',
           senderId: 'verity',
           sentAt: 302,
-          body: 'I told him myself on Tuesday. I am not having him hear it from Bo at the water point. I owed him that and I have never owed him anything else.',
+          body: 'I told him myself on Tuesday. I am not having him hear it from Sam at the water point. I owed him that and I have never owed him anything else.',
         },
         {
           id: 'v10',
@@ -147,7 +147,7 @@ export const theCutRaw = {
               predicate: { kind: 'at_place', placeId: 'veritysboat' },
               window: { start: 1200, end: 1290 },
               sourceMessageId: 'v11',
-              label: 'Verity: on her boat, 20:00–21:30',
+              label: 'Julie: on her boat, 20:00–21:30',
             },
           ],
         },
@@ -166,7 +166,7 @@ export const theCutRaw = {
           threadId: 't-cut',
           senderId: 'gwyn',
           sentAt: 2400,
-          body: 'For anybody who has not heard it from someone. Verity went in off her own stern on Friday night and Bo found her at eleven. The police came Saturday morning and they are calling it accidental.',
+          body: 'For anybody who has not heard it from someone. Julie went in off her own stern on Friday night and Sam found her at eleven. The police came Saturday morning and they are calling it accidental.',
         },
         {
           id: 'k2',
@@ -259,7 +259,7 @@ export const theCutRaw = {
           threadId: 't-cut',
           senderId: 'gwyn',
           sentAt: 2470,
-          body: 'Talk to Bo. Bo was on the towpath the whole of that evening walking the dog and Bo does not miss anything, which the rest of you know because it is why you do not moor next to Bo.',
+          body: 'Talk to Sam. Sam was on the towpath the whole of that evening walking the dog and Sam does not miss anything, which the rest of you know because it is why you do not moor next to Sam.',
         },
       ],
     },
@@ -308,7 +308,7 @@ export const theCutRaw = {
           threadId: 't-tam',
           senderId: 'tam',
           sentAt: 2628,
-          body: 'He did. In front of the whole cut, forty minutes after Gwyn told him nobody had asked him anything.',
+          body: 'He did. In front of the whole cut, forty minutes after Alan told him nobody had asked him anything.',
         },
         {
           id: 'm5',
@@ -329,7 +329,7 @@ export const theCutRaw = {
           threadId: 't-tam',
           senderId: 'tam',
           sentAt: 2656,
-          body: 'Go and see Bo. Bo walks that towpath at the same time every night and has done for three years, and Bo notices what has moved.',
+          body: 'Go and see Sam. Sam walks that towpath at the same time every night and has done for three years, and Sam notices what has moved.',
         },
       ],
     },
@@ -337,7 +337,7 @@ export const theCutRaw = {
     // ------------------------------------------------------ t-bo (discovery)
     {
       id: 't-bo',
-      title: 'Bo',
+      title: 'Sam',
       participantIds: ['you', 'bo'],
       requiresContradictionIds: [],
       requiresReadMessageIds: ['m7'],
@@ -363,7 +363,7 @@ export const theCutRaw = {
               predicate: { kind: 'at_place', placeId: 'towpath' },
               window: { start: 1200, end: 1300 },
               sourceMessageId: 'b2',
-              label: 'Bo: on the towpath, 20:00–21:40',
+              label: 'Sam: on the towpath, 20:00–21:40',
             },
           ],
         },
@@ -388,7 +388,7 @@ export const theCutRaw = {
               predicate: { kind: 'at_place', placeId: 'norbury' },
               window: { start: 1230, end: 1250 },
               sourceMessageId: 'b4',
-              label: 'Nate: at Norbury, 20:30–20:50 (per Bo)',
+              label: 'Nate: at Norbury, 20:30–20:50 (per Sam)',
             },
           ],
         },
@@ -424,7 +424,7 @@ export const theCutRaw = {
               },
               window: { start: 1220, end: 1260 },
               sourceMessageId: 'b7',
-              label: 'Nate: on the towpath on a bicycle, 20:20–21:00 (per Bo)',
+              label: 'Nate: on the towpath on a bicycle, 20:20–21:00 (per Sam)',
             },
           ],
         },
@@ -440,7 +440,7 @@ export const theCutRaw = {
           threadId: 't-bo',
           senderId: 'bo',
           sentAt: 2880,
-          body: 'Ask Gwyn about the key. The sanitary station takes a CRT key and the newer ones log. Gwyn has been on at the trust about that data for a year for the vandalism.',
+          body: 'Ask Alan about the key. The sanitary station takes a CRT key and the newer ones log. Alan has been on at the trust about that data for a year for the vandalism.',
         },
       ],
     },
@@ -448,7 +448,7 @@ export const theCutRaw = {
     // ------------------------------------------------------- t-gwyn (gated)
     {
       id: 't-gwyn',
-      title: 'Gwyn Pryce',
+      title: 'Alan Pryce',
       participantIds: ['you', 'gwyn'],
       requiresContradictionIds: ['x-nate-norbury', 'x-nate-bike'],
       messages: [
@@ -473,7 +473,7 @@ export const theCutRaw = {
               predicate: { kind: 'at_place', placeId: 'tyrleylocks' },
               window: { start: 1140, end: 1230 },
               sourceMessageId: 'g2',
-              label: 'Gwyn: at Tyrley locks, 19:00–20:30',
+              label: 'Alan: at Tyrley locks, 19:00–20:30',
             },
           ],
         },
@@ -521,7 +521,7 @@ export const theCutRaw = {
           threadId: 't-gwyn',
           senderId: 'gwyn',
           sentAt: 3054,
-          body: 'Verity was in the Junction from six until seven with Bo and me and she had one glass and she was happier than I have seen her in fifteen years.',
+          body: 'Julie was in the Junction from six until seven with Sam and me and she had one glass and she was happier than I have seen her in fifteen years.',
           claims: [
             {
               id: 'c-verity-pub',
@@ -530,7 +530,7 @@ export const theCutRaw = {
               predicate: { kind: 'at_place', placeId: 'pub' },
               window: { start: 1080, end: 1140 },
               sourceMessageId: 'g7',
-              label: 'Verity: in the Junction, 18:00–19:00 (per Gwyn)',
+              label: 'Julie: in the Junction, 18:00–19:00 (per Alan)',
             },
           ],
         },
@@ -539,7 +539,7 @@ export const theCutRaw = {
           threadId: 't-gwyn',
           senderId: 'gwyn',
           sentAt: 3066,
-          body: 'She told the whole snug about the letter. Read some of it out. Effie was coming Saturday at two and Verity had bought a cake from the farm shop and left it on the side.',
+          body: 'She told the whole snug about the letter. Read some of it out. Effie was coming Saturday at two and Julie had bought a cake from the farm shop and left it on the side.',
         },
         {
           id: 'g9',
@@ -557,7 +557,7 @@ export const theCutRaw = {
       id: 'm-effie',
       characterId: 'nate',
       summary:
-        'Verity reported him to social services in 2009 and his daughter went to her aunt. Effie is twenty-four now, a nurse in Chester, and she was coming to Norbury on the Saturday to thank Verity out loud in front of the moorings that watched it happen.',
+        'Julie reported him to social services in 2009 and his daughter went to her aunt. Effie is twenty-four now, a nurse in Chester, and she was coming to Norbury on the Saturday to thank Julie out loud in front of the moorings that watched it happen.',
       establishedByMessageIds: ['v7', 'g8'],
     },
   ],
@@ -568,7 +568,7 @@ export const theCutRaw = {
       claimIdA: 'c-nate-tyrley',
       claimIdB: 'c-nate-norbury',
       revelation:
-        'He put himself six miles and five locks away all evening, and forty boats will confirm where his roof was. At half eight Bo Ferreira said alright Nate to him on the offside path at Norbury, in the orange jacket, and got no answer, and thought nothing of it because he never answers.',
+        'He put himself six miles and five locks away all evening, and forty boats will confirm where his roof was. At half eight Sam Ferreira said alright Nate to him on the offside path at Norbury, in the orange jacket, and got no answer, and thought nothing of it because he never answers.',
     },
     {
       id: 'x-nate-bike',
@@ -601,9 +601,9 @@ export const theCutRaw = {
         id: 'c-norbury',
         evidence: { kind: 'contradiction', id: 'x-nate-norbury' },
         press:
-          'You were at Tyrley all night. Bo said alright Nate to you on the offside path at Norbury at half eight and you did not answer.',
+          'You were at Tyrley all night. Sam said alright Nate to you on the offside path at Norbury at half eight and you did not answer.',
         rebuttal:
-          'Bo has been here six years and thinks that makes them from here. It was dark and there is one orange jacket on this canal, is there.',
+          'Sam has been here six years and thinks that makes them from here. It was dark and there is one orange jacket on this canal, is there.',
       },
       {
         id: 'c-bike',
@@ -624,7 +624,7 @@ export const theCutRaw = {
         id: 'c-why',
         evidence: { kind: 'motive', id: 'm-effie' },
         press:
-          'Effie was coming on the Saturday at two. To say thank you to Verity, out loud, on those moorings, in front of everybody who watched it happen.',
+          'Effie was coming on the Saturday at two. To say thank you to Julie, out loud, on those moorings, in front of everybody who watched it happen.',
         rebuttal: '',
       },
     ],
@@ -634,7 +634,7 @@ export const theCutRaw = {
       'Bring me a thing with my name on it.',
     ],
     confession:
-      'I could have stood fifteen years of them thinking I was a bad father. I had got good at it. You get up and you do your locks and you nod at people who do not nod back and after a while it is just weather.\n\nWhat I could not do was Saturday.\n\nMy daughter, twenty-four, a nurse, stood on those moorings in front of Gwyn and Bo and the whole of them, saying out loud that the best thing that ever happened to her was being taken off me. And every one of them nodding. And me on a boat six miles up with my curtains shut, and everybody knowing exactly where I was and why.\n\nShe was on the stern deck when I came round the back. She was pleased to see me. That is the bit. She said Nate, come in, and she had two glasses out because she had been expecting somebody all evening and it was not me.\n\nAnd there is one more thing.\n\nA man rang me on the Wednesday. Said he was from the family court service doing a records review. He knew about 2009. He knew Effie was a nurse in Chester and he knew about the Saturday, which I had told nobody, because who would I tell.\n\nHe asked me how I felt about it and I talked for a long time and he did not say very much at all.\n\nAnd on the Sunday he rang again. Just to ask how it had gone.\n\nThat is what he said. How did it go, Nate. Like a man asking after an interview.',
+      'I could have stood fifteen years of them thinking I was a bad father. I had got good at it. You get up and you do your locks and you nod at people who do not nod back and after a while it is just weather.\n\nWhat I could not do was Saturday.\n\nMy daughter, twenty-four, a nurse, stood on those moorings in front of Alan and Sam and the whole of them, saying out loud that the best thing that ever happened to her was being taken off me. And every one of them nodding. And me on a boat six miles up with my curtains shut, and everybody knowing exactly where I was and why.\n\nShe was on the stern deck when I came round the back. She was pleased to see me. That is the bit. She said Nate, come in, and she had two glasses out because she had been expecting somebody all evening and it was not me.\n\nAnd there is one more thing.\n\nA man who called himself the Keeper rang me on the Wednesday. Said he was from the family court service doing a records review. He knew about 2009. He knew Effie was a nurse in Chester and he knew about the Saturday, which I had told nobody, because who would I tell.\n\nHe asked me how I felt about it and I talked for a long time and he did not say very much at all.\n\nAnd on the Sunday he rang again. Just to ask how it had gone.\n\nThat is what he said. How did it go, Nate. Like a man asking after an interview.',
   },
 
   coda: {
@@ -652,6 +652,6 @@ export const theCutRaw = {
     requiredContradictionIds: ['x-nate-norbury', 'x-nate-bike', 'x-nate-wharf'],
     requiredMotiveIds: ['m-effie'],
     epilogue:
-      'The Canal and River Trust supplied eleven months of key data in a single spreadsheet and apologised for the delay.\n\nEffie Ogilvy came to Norbury on the Saturday because nobody had her number to stop her. Gwyn Pryce met her at the top of the lane and told her in the car park, and then sat with her in the Junction for four hours.\n\nShe read the letter out at the funeral. All four pages. She said afterwards that she had written it to be read to Verity and could not think of a reason to change a word of it now.\n\nBo Ferreira still walks Moss from eight until twenty to ten. The route goes past Verity’s old mooring, and Bo has not changed it, because Moss is thirteen and has his route.',
+      'The Canal and River Trust supplied eleven months of key data in a single spreadsheet and apologised for the delay.\n\nEffie Ogilvy came to Norbury on the Saturday because nobody had her number to stop her. Alan Pryce met her at the top of the lane and told her in the car park, and then sat with her in the Junction for four hours.\n\nShe read the letter out at the funeral. All four pages. She said afterwards that she had written it to be read to Julie and could not think of a reason to change a word of it now.\n\nBo Ferreira still walks Moss from eight until twenty to ten. The route goes past Julie’s old mooring, and Sam has not changed it, because Moss is thirteen and has his route.',
   },
 };

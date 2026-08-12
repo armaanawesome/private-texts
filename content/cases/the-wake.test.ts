@@ -31,7 +31,7 @@ describe('The Wake', () => {
       (c) => c.predicate.kind === 'at_place' && c.predicate.placeId === 'frontroom',
     );
     expect(frontRoom.length).toBeGreaterThan(1);
-    // And Nuala’s copy of the lie must NOT be breakable — she really was there.
+    // And Maureen’s copy of the lie must NOT be breakable — she really was there.
     const nuala = frontRoom.filter((c) => c.subject === 'nuala');
     expect(nuala).toHaveLength(1);
     for (const other of [...byId.values()].filter((c) => c.subject === 'nuala')) {
@@ -73,7 +73,7 @@ describe('The Wake', () => {
     }
   });
 
-  it('opens Cass only after Bridie points at her', () => {
+  it('opens Cass only after Eileen points at her', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

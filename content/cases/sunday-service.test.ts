@@ -69,7 +69,7 @@ describe('Sunday Service', () => {
     expect(script.solution.killerId).not.toBe('petra');
   });
 
-  it('opens Jack only after Petra points at him', () => {
+  it('opens Jack only after Denise points at him', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

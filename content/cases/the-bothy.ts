@@ -17,7 +17,7 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * handed tea, apologising for the hour. Everyone remembers it. Nobody remembers
  * the first one, because the first one did not ask to be remembered.
  *
- * Red herring is seeded from clue 2 (he had private access): Pris cleaned
+ * Red herring is seeded from clue 2 (he had private access): Sandra cleaned
  * Struan’s house for nine years and knows everything about him, and is innocent
  * for a reason the player can prove.
  */
@@ -30,9 +30,9 @@ export const theBothyRaw = {
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'struan', name: 'Struan', avatarColor: '#8A7B5C' },
-    { id: 'keir', name: 'Keir', avatarColor: '#C4483C' },
-    { id: 'morven', name: 'Morven', avatarColor: '#4E8CF0' },
-    { id: 'pris', name: 'Pris', avatarColor: '#E4B363' },
+    { id: 'keir', name: 'Iain', avatarColor: '#C4483C' },
+    { id: 'morven', name: 'Anne', avatarColor: '#4E8CF0' },
+    { id: 'pris', name: 'Sandra', avatarColor: '#E4B363' },
     { id: 'hamish', name: 'Hamish', avatarColor: '#6E5AA8' },
   ],
   places: [
@@ -81,7 +81,7 @@ export const theBothyRaw = {
           threadId: 't-struan',
           senderId: 'struan',
           sentAt: 326,
-          body: 'Keir is coming this weekend. First time in about four years he has said yes to anything I have organised',
+          body: 'Iain is coming this weekend. First time in about four years he has said yes to anything I have organised',
         },
         {
           id: 's4',
@@ -137,7 +137,7 @@ export const theBothyRaw = {
           threadId: 't-struan',
           senderId: 'struan',
           sentAt: 1030,
-          body: 'In first, fire on, absolutely horizontal snow outside. Morven here. Nobody else yet and it is going to be a long night for whoever is still on that path',
+          body: 'In first, fire on, absolutely horizontal snow outside. Anne here. Nobody else yet and it is going to be a long night for whoever is still on that path',
           claims: [
             {
               id: 'c-struan-mainroom',
@@ -192,7 +192,7 @@ export const theBothyRaw = {
               },
               window: { start: 1200, end: 1320 },
               sourceMessageId: 'p3',
-              label: 'Keir: signed the book on arriving at 21:40',
+              label: 'Iain: signed the book on arriving at 21:40',
             },
           ],
         },
@@ -210,7 +210,7 @@ export const theBothyRaw = {
               predicate: { kind: 'at_place', placeId: 'hill' },
               window: { start: 1120, end: 1300 },
               sourceMessageId: 'p4',
-              label: 'Keir: on the hill path, 18:40–21:40',
+              label: 'Iain: on the hill path, 18:40–21:40',
             },
           ],
         },
@@ -228,7 +228,7 @@ export const theBothyRaw = {
               predicate: { kind: 'at_place', placeId: 'mainroom' },
               window: { start: 1080, end: 1320 },
               sourceMessageId: 'p5',
-              label: 'Morven: in the main room, 18:00–22:00',
+              label: 'Anne: in the main room, 18:00–22:00',
             },
           ],
         },
@@ -246,7 +246,7 @@ export const theBothyRaw = {
               predicate: { kind: 'at_place', placeId: 'backroom' },
               window: { start: 1150, end: 1180 },
               sourceMessageId: 'p6',
-              label: 'Pris: in the back room, 19:10–19:40 (per Keir)',
+              label: 'Sandra: in the back room, 19:10–19:40 (per Iain)',
             },
           ],
         },
@@ -255,7 +255,7 @@ export const theBothyRaw = {
           threadId: 't-group',
           senderId: 'hamish',
           sentAt: 2460,
-          body: 'Mrs Nkemelu walked in with me and she is a member of this club and she has been on that hill longer than you have, Keir.',
+          body: 'Mrs Nkemelu walked in with me and she is a member of this club and she has been on that hill longer than you have, Iain.',
         },
         {
           id: 'p8',
@@ -270,7 +270,7 @@ export const theBothyRaw = {
     // -------------------------------------------------------------- t-morven
     {
       id: 't-morven',
-      title: 'Morven',
+      title: 'Anne',
       participantIds: ['you', 'morven'],
       requiresContradictionIds: [],
       messages: [
@@ -293,14 +293,14 @@ export const theBothyRaw = {
           threadId: 't-morven',
           senderId: 'morven',
           sentAt: 2616,
-          body: 'Struan first, me second about six. Hamish and Pris together, and Keir last, coming in stamping and swearing and everyone made a fuss of him because he looked wrecked',
+          body: 'Struan first, me second about six. Hamish and Sandra together, and Iain last, coming in stamping and swearing and everyone made a fuss of him because he looked wrecked',
         },
         {
           id: 'm4',
           threadId: 't-morven',
           senderId: 'you',
           sentAt: 2622,
-          body: 'was that the first time you saw keir that night',
+          body: 'was that the first time you saw iain that night',
         },
         {
           id: 'm5',
@@ -323,7 +323,7 @@ export const theBothyRaw = {
               predicate: { kind: 'at_place', placeId: 'mainroom' },
               window: { start: 1130, end: 1150 },
               sourceMessageId: 'm6',
-              label: 'Keir: in the main room, 18:50–19:10 (per Morven)',
+              label: 'Iain: in the main room, 18:50–19:10 (per Anne)',
             },
           ],
         },
@@ -346,14 +346,14 @@ export const theBothyRaw = {
           threadId: 't-morven',
           senderId: 'morven',
           sentAt: 2680,
-          body: 'because at eight in the morning with him dead in the next room I said what everybody said, which is that Keir came in last at twenty to ten. and he did. that is the whole problem. he did come in at twenty to ten',
+          body: 'because at eight in the morning with him dead in the next room I said what everybody said, which is that Iain came in last at twenty to ten. and he did. that is the whole problem. he did come in at twenty to ten',
         },
         {
           id: 'm10',
           threadId: 't-morven',
           senderId: 'morven',
           sentAt: 2690,
-          body: 'Pris was in the porch the whole of that hour sorting a pack out. talk to her. she has been trying to get somebody to listen since Sunday and everybody has decided she is the cleaner',
+          body: 'Sandra was in the porch the whole of that hour sorting a pack out. talk to her. she has been trying to get somebody to listen since Sunday and everybody has decided she is the cleaner',
           claims: [
             {
               id: 'c-pris-porch',
@@ -362,7 +362,7 @@ export const theBothyRaw = {
               predicate: { kind: 'at_place', placeId: 'porch' },
               window: { start: 1140, end: 1200 },
               sourceMessageId: 'm10',
-              label: 'Pris: in the porch, 19:00–20:00 (per Morven)',
+              label: 'Sandra: in the porch, 19:00–20:00 (per Anne)',
             },
           ],
         },
@@ -372,7 +372,7 @@ export const theBothyRaw = {
     // -------------------------------------------------- t-pris (discovery)
     {
       id: 't-pris',
-      title: 'Pris',
+      title: 'Sandra',
       participantIds: ['you', 'pris'],
       requiresContradictionIds: [],
       requiresReadMessageIds: ['m10'],
@@ -396,14 +396,14 @@ export const theBothyRaw = {
           threadId: 't-pris',
           senderId: 'you',
           sentAt: 2812,
-          body: 'keir put you in the back room',
+          body: 'iain put you in the back room',
         },
         {
           id: 'r4',
           threadId: 't-pris',
           senderId: 'pris',
           sentAt: 2824,
-          body: 'He did. I was in the porch with my pack open across the whole floor from seven until eight, and Morven watched me do it, and Hamish stepped over me twice.',
+          body: 'He did. I was in the porch with my pack open across the whole floor from seven until eight, and Anne watched me do it, and Hamish stepped over me twice.',
         },
         {
           id: 'r5',
@@ -459,7 +459,7 @@ export const theBothyRaw = {
           threadId: 't-hamish',
           senderId: 'hamish',
           sentAt: 3012,
-          body: 'There were five names in it at eight o’clock. Struan, Morven, myself, Mrs Nkemelu, and K. Lamont. His was the last of the five and it was already dry.',
+          body: 'There were five names in it at eight o’clock. Struan, Anne, myself, Mrs Nkemelu, and K. Lamont. His was the last of the five and it was already dry.',
           claims: [
             {
               id: 'c-keir-book-early',
@@ -472,7 +472,7 @@ export const theBothyRaw = {
               },
               window: { start: 1200, end: 1320 },
               sourceMessageId: 'h3',
-              label: 'Keir: had already signed the book by 20:00 (per Hamish)',
+              label: 'Iain: had already signed the book by 20:00 (per Hamish)',
             },
           ],
         },
@@ -504,7 +504,7 @@ export const theBothyRaw = {
               predicate: { kind: 'at_place', placeId: 'backroom' },
               window: { start: 1155, end: 1170 },
               sourceMessageId: 'h6',
-              label: 'Keir: in the back room, 19:15–19:30 (per Hamish)',
+              label: 'Iain: in the back room, 19:15–19:30 (per Hamish)',
             },
           ],
         },
@@ -541,7 +541,7 @@ export const theBothyRaw = {
           threadId: 't-hamish',
           senderId: 'hamish',
           sentAt: 3086,
-          body: 'Struan told me in the summer that he had taken something off Keir Lamont that was not his to take, and that he was going to give it back, and that he was frightened of doing it. I thought he meant a debt.',
+          body: 'Struan told me in the summer that he had taken something off Iain Lamont that was not his to take, and that he was going to give it back, and that he was frightened of doing it. I thought he meant a debt.',
         },
       ],
     },
@@ -552,7 +552,7 @@ export const theBothyRaw = {
       id: 'm-raven',
       characterId: 'keir',
       summary:
-        'Keir soloed the Raven’s Line in 2016 and told one person. Struan claimed it in 2018 and built seven years and a book on it, and had decided to give it back in front of witnesses that weekend.',
+        'Iain soloed the Raven’s Line in 2016 and told one person. Struan claimed it in 2018 and built seven years and a book on it, and had decided to give it back in front of witnesses that weekend.',
       establishedByMessageIds: ['s7', 'r6'],
     },
   ],
@@ -563,7 +563,7 @@ export const theBothyRaw = {
       claimIdA: 'c-keir-hill',
       claimIdB: 'c-keir-mainroom',
       revelation:
-        'He put himself on the path from twenty to seven until twenty to ten. At about ten to seven somebody walked through the main room with their torch off and did not speak, and Morven assumed it was Struan coming back from the peat store. Struan was already through the back. She knew the jacket and thought nothing of it for three days.',
+        'He put himself on the path from twenty to seven until twenty to ten. At about ten to seven somebody walked through the main room with their torch off and did not speak, and Anne assumed it was Struan coming back from the peat store. Struan was already through the back. She knew the jacket and thought nothing of it for three days.',
     },
     {
       id: 'x-keir-book',
@@ -584,7 +584,7 @@ export const theBothyRaw = {
       claimIdA: 'c-pris-backroom',
       claimIdB: 'c-pris-porch',
       revelation:
-        'He put the woman who cleans Struan’s house in and out of the back room all evening. She was in the porch from seven until eight with her pack open across the whole floor, Morven watched her do it and Hamish stepped over her twice. She has been trying to get somebody to listen since Sunday and everybody decided she was the cleaner.',
+        'He put the woman who cleans Struan’s house in and out of the back room all evening. She was in the porch from seven until eight with her pack open across the whole floor, Anne watched her do it and Hamish stepped over her twice. She has been trying to get somebody to listen since Sunday and everybody decided she was the cleaner.',
     },
   ],
 
@@ -596,7 +596,7 @@ export const theBothyRaw = {
         id: 'b-mainroom',
         evidence: { kind: 'contradiction', id: 'x-keir-mainroom' },
         press:
-          'You had yourself on the path for three hours. At ten to seven somebody crossed that main room with their torch off and went through the back, and Morven knew the jacket.',
+          'You had yourself on the path for three hours. At ten to seven somebody crossed that main room with their torch off and went through the back, and Anne knew the jacket.',
         rebuttal:
           'A dark room and a blue jacket. Half the hill wears that jacket. She has had eleven days and a lot of people telling her it matters.',
       },
@@ -628,7 +628,7 @@ export const theBothyRaw = {
       'Come back with a thing that is not somebody remembering a coat.',
     ],
     confession:
-      'He was going to give it back. That is the part nobody is going to be able to hold in their head, so I will say it plainly.\n\nI went up early. I came over the shoulder and dropped in before six because I have done that path forty times and it does not take three hours if you know it. I wanted an hour with him before the others came.\n\nAnd he sat on that floor and he said it. He said Keir, it is yours, I am giving it back on Sunday in front of them all, I have written it in the book already.\n\nAnd I have never in my life felt anything like what I felt then, and it was not gratitude.\n\nSeven years. Seven years of standing at the back of rooms while he told the story of my night. Seven years of deciding every single morning not to say it. And he was going to undo it in one Sunday afternoon and be a good man about it, and everyone would say what an extraordinary thing to do, and it would be his again. Even the giving back would be his.\n\nI did not bring anything with me. There is a hearth in that room and he was already on the floor.\n\nThen I walked back out into it for two and a half hours in the dark, and I came in at twenty to ten and let four people make a fuss of me, and I signed my name under my own name.',
+      'He was going to give it back. That is the part nobody is going to be able to hold in their head, so I will say it plainly.\n\nI went up early. I came over the shoulder and dropped in before six because I have done that path forty times and it does not take three hours if you know it. I wanted an hour with him before the others came.\n\nAnd he sat on that floor and he said it. He said Iain, it is yours, I am giving it back on Sunday in front of them all, I have written it in the book already.\n\nAnd I have never in my life felt anything like what I felt then, and it was not gratitude.\n\nSeven years. Seven years of standing at the back of rooms while he told the story of my night. Seven years of deciding every single morning not to say it. And he was going to undo it in one Sunday afternoon and be a good man about it, and everyone would say what an extraordinary thing to do, and it would be his again. Even the giving back would be his.\n\nI did not bring anything with me. There is a hearth in that room and he was already on the floor.\n\nThen I walked back out into it for two and a half hours in the dark, and I came in at twenty to ten and let four people make a fuss of me, and I signed my name under my own name.',
   },
 
   solution: {

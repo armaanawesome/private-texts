@@ -15,7 +15,7 @@
  * one doing the harm, and the killer had been paying for it for two years.
  *
  * Times are minutes since the case epoch (day 1, 00:00). Curtain up 19:00 =
- * 1140. Coral dies in the interval, between 20:10 and 20:40.
+ * 1140. Diane dies in the interval, between 20:10 and 20:40.
  */
 export const theUnderstudyRaw = {
   id: 'the-understudy',
@@ -26,7 +26,7 @@ export const theUnderstudyRaw = {
   // first arc connection rather than on a full stop.
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
-    { id: 'coral', name: 'Coral', avatarColor: '#8A7B5C' },
+    { id: 'coral', name: 'Diane', avatarColor: '#8A7B5C' },
     { id: 'bea', name: 'Beatrice', avatarColor: '#C4483C' },
     { id: 'dev', name: 'Dev', avatarColor: '#4E8CF0' },
     { id: 'nell', name: 'Nell', avatarColor: '#6E5AA8' },
@@ -36,7 +36,7 @@ export const theUnderstudyRaw = {
     { id: 'stage', name: 'the stage', parentId: 'theatre' },
     { id: 'auditorium', name: 'the auditorium', parentId: 'theatre' },
     { id: 'corridor', name: 'the dressing room corridor', parentId: 'theatre' },
-    { id: 'dressing1', name: 'Coral’s dressing room', parentId: 'corridor' },
+    { id: 'dressing1', name: 'Diane’s dressing room', parentId: 'corridor' },
     { id: 'stagedoor', name: 'the stage door', parentId: 'theatre' },
     { id: 'station', name: 'the railway station' },
   ],
@@ -56,7 +56,7 @@ export const theUnderstudyRaw = {
     causeOfDeath: 'An overdose of her own prescription.',
     ruling: 'Recorded as self-administered. The door was locked from the inside.',
     opening:
-      'Coral Vane had been carrying the tour since Sheffield, and everybody said so, usually while she was in the room.\n\nOn press night she came off at the interval, went to her dressing room, and did not come back. The door was locked. The company went on without her, and the understudy got the notice she had been waiting eleven months for.',
+      'Diane Vane had been carrying the tour since Sheffield, and everybody said so, usually while she was in the room.\n\nOn press night she came off at the interval, went to her dressing room, and did not come back. The door was locked. The company went on without her, and the understudy got the notice she had been waiting eleven months for.',
     recoveredObjectIds: ['key1'],
   },
 
@@ -64,7 +64,7 @@ export const theUnderstudyRaw = {
     // ------------------------------------------------------------- t-coral
     {
       id: 't-coral',
-      title: 'Coral',
+      title: 'Diane',
       participantIds: ['you', 'coral'],
       requiresContradictionIds: [],
       messages: [
@@ -101,7 +101,7 @@ export const theUnderstudyRaw = {
           threadId: 't-coral',
           senderId: 'you',
           sentAt: 1116,
-          body: 'coral how much have you taken off her',
+          body: 'diane how much have you taken off her',
         },
         {
           id: 'cl6',
@@ -138,7 +138,7 @@ export const theUnderstudyRaw = {
               predicate: { kind: 'at_place', placeId: 'stage' },
               window: { start: 1140, end: 1205 },
               sourceMessageId: 'cl9',
-              label: 'Coral: on stage, 19:00–20:05',
+              label: 'Diane: on stage, 19:00–20:05',
             },
           ],
         },
@@ -147,7 +147,7 @@ export const theUnderstudyRaw = {
           threadId: 't-coral',
           senderId: 'you',
           sentAt: 1400,
-          body: 'coral',
+          body: 'diane',
         },
       ],
     },
@@ -164,7 +164,7 @@ export const theUnderstudyRaw = {
           threadId: 't-company',
           senderId: 'bea',
           sentAt: 1985,
-          body: 'Company. Coral died last night in her dressing room. The police have been and gone and they are satisfied it was her own medication.',
+          body: 'Company. Diane died last night in her dressing room. The police have been and gone and they are satisfied it was her own medication.',
         },
         {
           id: 'q2',
@@ -365,7 +365,7 @@ export const theUnderstudyRaw = {
           threadId: 't-dev',
           senderId: 'dev',
           sentAt: 2140,
-          body: 'Coral went down at ten past and that was the last of her. I called the second half and she did not come and I thought she was being Coral about the notices',
+          body: 'Diane went down at ten past and that was the last of her. I called the second half and she did not come and I thought she was being Diane about the notices',
           claims: [
             {
               id: 'c-coral-dressing',
@@ -374,7 +374,7 @@ export const theUnderstudyRaw = {
               predicate: { kind: 'at_place', placeId: 'dressing1' },
               window: { start: 1210, end: 1240 },
               sourceMessageId: 'd8',
-              label: 'Coral: in her dressing room, 20:10–20:40',
+              label: 'Diane: in her dressing room, 20:10–20:40',
             },
           ],
         },
@@ -613,7 +613,7 @@ export const theUnderstudyRaw = {
           threadId: 't-bea',
           senderId: 'bea',
           sentAt: 2433,
-          body: 'I have never once said it was not me. I said it was the road. Coral was in the passenger seat and she knew it was not the road.',
+          body: 'I have never once said it was not me. I said it was the road. Diane was in the passenger seat and she knew it was not the road.',
         },
         {
           id: 'b8',
@@ -645,7 +645,7 @@ export const theUnderstudyRaw = {
       id: 'm-sheffield',
       characterId: 'bea',
       summary:
-        'Coral had been taking money from her for two years over the Sheffield crash, and had decided to say it out loud on press night.',
+        'Diane had been taking money from her for two years over the Sheffield crash, and had decided to say it out loud on press night.',
       establishedByMessageIds: ['cl7', 'b6'],
     },
   ],

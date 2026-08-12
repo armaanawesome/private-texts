@@ -13,13 +13,13 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * Story Lens, by finding the asset in the failure: an open mic act does the
  * identical five minutes every week. Same shirt, same order, same laugh in the
  * same place. Sixteen years of never changing anything is the saddest fact
- * about Gil Prosser, and it is the only reason the alibi works at all.
+ * about Dave Prosser, and it is the only reason the alibi works at all.
  *
  * The other variation: the killing is trivial and the lie is virtuoso. He did
  * not plan it. He had twenty minutes, a camera he edits every week, and a room
  * full of people who were not looking at him.
  *
- * Red herring is seeded from clue 3 — he has been at it for decades. Ferdy
+ * Red herring is seeded from clue 3 — he has been at it for decades. Kevin
  * Boyce is sixty-one, has worked the same rooms since 1994, knows everybody,
  * talks to everybody, and carries a Nokia. He fits everything the player has
  * built, and he is compering on the real footage for the whole window.
@@ -32,10 +32,10 @@ export const openMicRaw = {
   requiredEntitlementId: CASE_PACK_ENTITLEMENT,
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
-    { id: 'marnie', name: 'Marnie', avatarColor: '#8A7B5C' },
-    { id: 'gil', name: 'Gil', avatarColor: '#C4483C' },
+    { id: 'marnie', name: 'Debbie', avatarColor: '#8A7B5C' },
+    { id: 'gil', name: 'Dave', avatarColor: '#C4483C' },
     { id: 'roz', name: 'Roz', avatarColor: '#4E8CF0' },
-    { id: 'ferdy', name: 'Ferdy', avatarColor: '#E4B363' },
+    { id: 'ferdy', name: 'Kevin', avatarColor: '#E4B363' },
     { id: 'kit', name: 'Kit', avatarColor: '#6E5AA8' },
   ],
   places: [
@@ -69,7 +69,7 @@ export const openMicRaw = {
     // -------------------------------------------------------------- t-marnie
     {
       id: 't-marnie',
-      title: 'Marnie',
+      title: 'Debbie',
       participantIds: ['you', 'marnie'],
       requiresContradictionIds: [],
       messages: [
@@ -150,7 +150,7 @@ export const openMicRaw = {
               predicate: { kind: 'at_place', placeId: 'stage' },
               window: { start: 1290, end: 1310 },
               sourceMessageId: 'n10',
-              label: 'Marnie: on stage, 21:30–21:50 (running order)',
+              label: 'Debbie: on stage, 21:30–21:50 (running order)',
             },
           ],
         },
@@ -169,7 +169,7 @@ export const openMicRaw = {
           threadId: 't-club',
           senderId: 'roz',
           sentAt: 2400,
-          body: 'Marnie died in the alley on Tuesday night. Police came Wednesday, took statements off nine of us, and are calling it a fall. The Hatch is shut this week.',
+          body: 'Debbie died in the alley on Tuesday night. Police came Wednesday, took statements off nine of us, and are calling it a fall. The Hatch is shut this week.',
         },
         {
           id: 'h2',
@@ -192,7 +192,7 @@ export const openMicRaw = {
               predicate: { kind: 'at_place', placeId: 'stage' },
               window: { start: 1290, end: 1310 },
               sourceMessageId: 'h3',
-              label: 'Gil: on stage, 21:30–21:50',
+              label: 'Dave: on stage, 21:30–21:50',
             },
           ],
         },
@@ -201,7 +201,7 @@ export const openMicRaw = {
           threadId: 't-club',
           senderId: 'gil',
           sentAt: 2428,
-          body: 'And it is filmed, obviously. I have cut it and put it on the drive. Twenty two minutes, unbroken, me at half nine doing the trains bit with Marnie stood at the bar behind me',
+          body: 'And it is filmed, obviously. I have cut it and put it on the drive. Twenty two minutes, unbroken, me at half nine doing the trains bit with Debbie stood at the bar behind me',
           claims: [
             {
               id: 'c-marnie-bar',
@@ -210,7 +210,7 @@ export const openMicRaw = {
               predicate: { kind: 'at_place', placeId: 'bar' },
               window: { start: 1290, end: 1310 },
               sourceMessageId: 'h4',
-              label: 'Marnie: at the bar, 21:30–21:50 (per Gil’s clip)',
+              label: 'Debbie: at the bar, 21:30–21:50 (per Dave’s clip)',
             },
           ],
         },
@@ -219,7 +219,7 @@ export const openMicRaw = {
           threadId: 't-club',
           senderId: 'roz',
           sentAt: 2436,
-          body: 'Nobody asked you for a clip, Gil.',
+          body: 'Nobody asked you for a clip, Dave.',
         },
         {
           id: 'h6',
@@ -233,7 +233,7 @@ export const openMicRaw = {
           threadId: 't-club',
           senderId: 'gil',
           sentAt: 2450,
-          body: 'And if we are doing where everyone was, Ferdy was out the back for a good twenty minutes in the middle of that show and I do not think anybody has said so',
+          body: 'And if we are doing where everyone was, Kevin was out the back for a good twenty minutes in the middle of that show and I do not think anybody has said so',
           claims: [
             {
               id: 'c-ferdy-alley',
@@ -242,7 +242,7 @@ export const openMicRaw = {
               predicate: { kind: 'at_place', placeId: 'alley' },
               window: { start: 1290, end: 1310 },
               sourceMessageId: 'h7',
-              label: 'Ferdy: in the alley, 21:30–21:50 (per Gil)',
+              label: 'Kevin: in the alley, 21:30–21:50 (per Dave)',
             },
           ],
         },
@@ -282,7 +282,7 @@ export const openMicRaw = {
           threadId: 't-kit',
           senderId: 'kit',
           sentAt: 2606,
-          body: 'Tuesday. Ferdy compering. Then Priya, Gil, Marnie, break, four more. Marnie was on at 21:30. Not 21:55, not five to ten. 21:30, and she came off at ten to.',
+          body: 'Tuesday. Kevin compering. Then Priya, Dave, Debbie, break, four more. Debbie was on at 21:30. Not 21:55, not five to ten. 21:30, and she came off at ten to.',
         },
         {
           id: 'k3',
@@ -303,7 +303,7 @@ export const openMicRaw = {
           threadId: 't-kit',
           senderId: 'kit',
           sentAt: 2634,
-          body: 'And Gil was on before her. He came off at 21:28 and he did not come back in until the break.',
+          body: 'And Dave was on before her. He came off at 21:28 and he did not come back in until the break.',
         },
         {
           id: 'k6',
@@ -324,7 +324,7 @@ export const openMicRaw = {
           threadId: 't-kit',
           senderId: 'kit',
           sentAt: 2664,
-          body: 'Talk to Ferdy. He was on the mic the whole of the middle section and he sees that room better than the camera does, because the camera only points one way.',
+          body: 'Talk to Kevin. He was on the mic the whole of the middle section and he sees that room better than the camera does, because the camera only points one way.',
         },
       ],
     },
@@ -332,7 +332,7 @@ export const openMicRaw = {
     // ---------------------------------------------- t-ferdy (discovery)
     {
       id: 't-ferdy',
-      title: 'Ferdy',
+      title: 'Kevin',
       participantIds: ['you', 'ferdy'],
       requiresContradictionIds: [],
       requiresReadMessageIds: ['k8'],
@@ -372,7 +372,7 @@ export const openMicRaw = {
               predicate: { kind: 'at_place', placeId: 'stage' },
               window: { start: 1285, end: 1315 },
               sourceMessageId: 'f4',
-              label: 'Ferdy: on stage compering, 21:25–21:55',
+              label: 'Kevin: on stage compering, 21:25–21:55',
             },
           ],
         },
@@ -388,7 +388,7 @@ export const openMicRaw = {
           threadId: 't-ferdy',
           senderId: 'ferdy',
           sentAt: 2850,
-          body: 'Gil went out the fire door at about twenty-five to ten and he was not back for the break. I brought Marnie on and I could see the door was on the latch behind her the whole seven minutes.',
+          body: 'Dave went out the fire door at about twenty-five to ten and he was not back for the break. I brought Debbie on and I could see the door was on the latch behind her the whole seven minutes.',
           claims: [
             {
               id: 'c-gil-alley',
@@ -397,7 +397,7 @@ export const openMicRaw = {
               predicate: { kind: 'at_place', placeId: 'alley' },
               window: { start: 1295, end: 1305 },
               sourceMessageId: 'f6',
-              label: 'Gil: in the alley, 21:35–21:45 (per Ferdy)',
+              label: 'Dave: in the alley, 21:35–21:45 (per Kevin)',
             },
           ],
         },
@@ -451,7 +451,7 @@ export const openMicRaw = {
           threadId: 't-roz',
           senderId: 'roz',
           sentAt: 3016,
-          body: 'Gil edits the channel. He takes the card at the end, cuts it up over the week, puts the clips on the drive. That is the arrangement and it has never once been a problem.',
+          body: 'Dave edits the channel. He takes the card at the end, cuts it up over the week, puts the clips on the drive. That is the arrangement and it has never once been a problem.',
           claims: [
             {
               id: 'c-card-gil',
@@ -460,7 +460,7 @@ export const openMicRaw = {
               predicate: { kind: 'has_object', objectId: 'card' },
               window: { start: 1260, end: 1350 },
               sourceMessageId: 'r3',
-              label: 'Gil: had the camera card, 21:00–22:30',
+              label: 'Dave: had the camera card, 21:00–22:30',
             },
           ],
         },
@@ -469,7 +469,7 @@ export const openMicRaw = {
           threadId: 't-roz',
           senderId: 'roz',
           sentAt: 3024,
-          body: 'Except Tuesday I took it out at nine and dumped the first half onto my laptop in the box, because the tour people wanted Marnie’s set by the Wednesday and I was not waiting on Gil for it.',
+          body: 'Except Tuesday I took it out at nine and dumped the first half onto my laptop in the box, because the tour people wanted Debbie’s set by the Wednesday and I was not waiting on Dave for it.',
           claims: [
             {
               id: 'c-card-roz',
@@ -505,14 +505,14 @@ export const openMicRaw = {
           threadId: 't-roz',
           senderId: 'you',
           sentAt: 3038,
-          body: 'and marnie',
+          body: 'and debbie',
         },
         {
           id: 'r7',
           threadId: 't-roz',
           senderId: 'roz',
           sentAt: 3050,
-          body: 'Told me about the tour on the Monday and asked me not to say anything until she had told Gil. She was worried about him. Actually worried, the way you are about somebody you like.',
+          body: 'Told me about the tour on the Monday and asked me not to say anything until she had told Dave. She was worried about him. Actually worried, the way you are about somebody you like.',
         },
         {
           id: 'r8',
@@ -541,28 +541,28 @@ export const openMicRaw = {
       claimIdA: 'c-gil-stage',
       claimIdB: 'c-gil-alley',
       revelation:
-        'He put himself on the stage, and said so first, before anybody asked him. Ferdy Boyce was holding the microphone and watched him go out of the fire door at twenty-five to ten, and could see it was still on the latch behind Marnie for the whole seven minutes she was on.',
+        'He put himself on the stage, and said so first, before anybody asked him. Kevin Boyce was holding the microphone and watched him go out of the fire door at twenty-five to ten, and could see it was still on the latch behind Debbie for the whole seven minutes she was on.',
     },
     {
       id: 'x-marnie-bar',
       claimIdA: 'c-marnie-bar',
       claimIdB: 'c-marnie-stage',
       revelation:
-        'His clip has Marnie stood at the bar behind him. She was on the stage at that minute with her microphone up, and Kit was listening to her breathe. The clip is real and Gil is really in it. It is from the Tuesday before, which is the only week Priya did the swan.',
+        'His clip has Debbie stood at the bar behind him. She was on the stage at that minute with her microphone up, and Kit was listening to her breathe. The clip is real and Dave is really in it. It is from the Tuesday before, which is the only week Priya did the swan.',
     },
     {
       id: 'x-card',
       claimIdA: 'c-card-gil',
       claimIdB: 'c-card-roz',
       revelation:
-        'One camera, one card, one night, since 2016, because Roz will not spend money on it. She took it out at nine to get Marnie’s set to the tour people and had it in her laptop until twenty past. There is a copy of that night he has never seen.',
+        'One camera, one card, one night, since 2016, because Roz will not spend money on it. She took it out at nine to get Debbie’s set to the tour people and had it in her laptop until twenty past. There is a copy of that night he has never seen.',
     },
     {
       id: 'x-ferdy-stage',
       claimIdA: 'c-ferdy-alley',
       claimIdB: 'c-ferdy-stage',
       revelation:
-        'He put a sixty-one year old compere in the alley for twenty minutes, in a group chat, eight minutes after being told nobody had asked him anything. Ferdy was on the microphone in front of forty people, on the same recording Gil wanted everybody to watch.',
+        'He put a sixty-one year old compere in the alley for twenty minutes, in a group chat, eight minutes after being told nobody had asked him anything. Kevin was on the microphone in front of forty people, on the same recording Dave wanted everybody to watch.',
     },
   ],
 
@@ -574,15 +574,15 @@ export const openMicRaw = {
         id: 'o-alley',
         evidence: { kind: 'contradiction', id: 'x-gil-alley' },
         press:
-          'You were on the stage, you said, before anybody asked. Ferdy had the microphone and watched you go out of the fire door at twenty-five to ten.',
+          'You were on the stage, you said, before anybody asked. Kevin had the microphone and watched you go out of the fire door at twenty-five to ten.',
         rebuttal:
-          'Ferdy is sixty-one and has been doing this since before I was born and he compered eleven acts that night. He could not tell you what colour the walls are.',
+          'Kevin is sixty-one and has been doing this since before I was born and he compered eleven acts that night. He could not tell you what colour the walls are.',
       },
       {
         id: 'o-bar',
         evidence: { kind: 'contradiction', id: 'x-marnie-bar' },
         press:
-          'Your clip has Marnie at the bar behind you. She was on stage with her mic up and Kit had her in the cans. And you call back to Priya’s swan, and Priya dropped the swan.',
+          'Your clip has Debbie at the bar behind you. She was on stage with her mic up and Kit had her in the cans. And you call back to Priya’s swan, and Priya dropped the swan.',
         rebuttal:
           'So I misremembered a running order. I have done four hundred of these rooms. They are all the same room.',
       },
@@ -590,7 +590,7 @@ export const openMicRaw = {
         id: 'o-card',
         evidence: { kind: 'contradiction', id: 'x-card' },
         press:
-          'One camera, one card. Roz pulled it at nine to get Marnie’s set to the tour people, and it was in her laptop until twenty past. There is a copy of that night you have never seen.',
+          'One camera, one card. Roz pulled it at nine to get Debbie’s set to the tour people, and it was in her laptop until twenty past. There is a copy of that night you have never seen.',
         rebuttal: '',
       },
       {
@@ -607,7 +607,7 @@ export const openMicRaw = {
       'Bring me something that is not somebody remembering a Tuesday.',
     ],
     confession:
-      'She said it really nicely. That is what I cannot get anybody to understand. She had worked out how to say it so that it would not land on me as anything, and she had been working on it for nine days, which is longer than she spent on most of her material.\n\nAnd I said congratulations and I meant it for about four seconds.\n\nThen she said the thing she thought was the kind bit. She said Gil, you should come and do a couple of the smaller ones, I will get you on.\n\nI will get you on.\n\nWe started the same month. The same list, in the same room, in October 2009, and she was going to get me on.\n\nI put my hand out. That is all it was. There is a kerb and it slopes and she went down once.\n\nAnd then I had twenty minutes and a camera I have cut every week for six years, and I sat in that green room and I knew exactly what to do, because I have got the same five minutes on eleven different Tuesdays and they are identical. Same shirt. Same order. Same laugh in the same place.\n\nSixteen years of never once changing anything, and the one time it was ever any use to me it was to do that.',
+      'She said it really nicely. That is what I cannot get anybody to understand. She had worked out how to say it so that it would not land on me as anything, and she had been working on it for nine days, which is longer than she spent on most of her material.\n\nAnd I said congratulations and I meant it for about four seconds.\n\nThen she said the thing she thought was the kind bit. She said Dave, you should come and do a couple of the smaller ones, I will get you on.\n\nI will get you on.\n\nWe started the same month. The same list, in the same room, in October 2009, and she was going to get me on.\n\nI put my hand out. That is all it was. There is a kerb and it slopes and she went down once.\n\nAnd then I had twenty minutes and a camera I have cut every week for six years, and I sat in that green room and I knew exactly what to do, because I have got the same five minutes on eleven different Tuesdays and they are identical. Same shirt. Same order. Same laugh in the same place.\n\nSixteen years of never once changing anything, and the one time it was ever any use to me it was to do that.',
   },
 
   solution: {

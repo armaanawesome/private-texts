@@ -123,7 +123,7 @@ export function describeCaseContract(script: CaseScript) {
      * `leaves every thread reachable on a winning run` hands the player every
      * contradiction at once and so cannot see ordering: a thread gated on a
      * proof that only that thread supplies still passes it. Two shipped packs
-     * were doing exactly that, found at Pack 14 — Sunday Service gated Inés on a
+     * were doing exactly that, found at Pack 14 — Sunday Service gated Grace on a
      * contradiction whose claims are both inside her thread, and The Bothy gated
      * Hamish on half a proof of his own. Both were unopenable, and it would have
      * surfaced as a player staring at a locked conversation with nothing left to

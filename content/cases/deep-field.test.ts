@@ -25,7 +25,7 @@ describe('Deep Field', () => {
    * The shape of this case, per docs/pack-ledger.md: which clock.
    *
    * `c-mal-log` exists to be REJECTED. A player pins the platform log against
-   * the witness who saw Orla go through the porch, expecting the log to break
+   * the witness who saw Laura go through the porch, expecting the log to break
    * his alibi, and the engine answers "These describe different times."
    *
    * That rejection IS the deduction. The log is UTC, the station runs UTC+3, so
@@ -42,9 +42,9 @@ describe('Deep Field', () => {
   });
 
   it('rejects the log against the victim on subject, before time is even reached', () => {
-    // Worth pinning: a player who pairs the log with Orla learns nothing about
+    // Worth pinning: a player who pairs the log with Laura learns nothing about
     // the clock, because "different people" fires first. The case has to point
-    // them at a claim about Mal, and Pilar’s messages do.
+    // them at a claim about Mal, and Maria’s messages do.
     const v = checkContradiction(script, claim('c-mal-log'), claim('c-orla-coldporch'));
     expect(v.ok).toBe(false);
     expect(v.reason).toMatch(/different people/i);
@@ -66,7 +66,7 @@ describe('Deep Field', () => {
 
   /**
    * The first red herring seeded from a clue the player already holds: after
-   * Ardnoe and Marchbank they know the Listener never writes. Rune only ever
+   * Ardnoe and Marchbank they know the Listener never writes. Erik only ever
    * sends voice notes. He has to be provably innocent, and the reason has to be
    * humane rather than a trick.
    */
@@ -81,7 +81,7 @@ describe('Deep Field', () => {
       .filter((m) => m.senderId === 'rune');
     expect(runeSpeaks.length).toBeGreaterThan(0);
     for (const m of runeSpeaks) {
-      expect(m.body, 'Rune never types — every message is a voice note').toMatch(/^\[voice note/);
+      expect(m.body, 'Erik never types — every message is a voice note').toMatch(/^\[voice note/);
     }
   });
 

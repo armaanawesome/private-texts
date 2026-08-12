@@ -246,6 +246,42 @@ keystore already existed on EAS). It has not yet been installed on a real
 handset, so Android remains the least-exercised platform. The `development`
 (Debug + Metro) path on Android is still untried.
 
+**5. LICENSE is still Expo's.** `LICENSE` reads *"Copyright (c) 2015-present 650
+Industries, Inc. (aka Expo)"* — boilerplate from `create-expo-app`, never
+replaced. Shipping a judged repo under someone else's copyright is the kind of
+thing a judge notices. It needs a name, which is a decision rather than a fix.
+
+**6. The app icon is the Expo scaffold.** `assets/icon.png` is still the blue
+chevron **with the construction guides visible on it**. Verified by opening it,
+2026-08-12. It is the first thing on a store listing and in a demo video.
+
+**7. `docs/ARCHITECTURE.md` does not exist.** Task 18 Step 4. The README carries
+an architecture section, so this is a nice-to-have rather than a blocker.
+
+**8. "the Keeper" collides with a real character in Pack 9.** `the-cut.ts` has an
+innocent character described as *"Eleven years a volunteer lock keeper at
+Tyrley"*, and Pack 9 is also one of the arc packs where the villain now names
+himself the Keeper. Both phrases sit in the same case. A player is likely to read
+the lock keeper as a clue, and it never resolves — which breaks the arc's own
+red-herring rule that a suspect must be innocent *for a reason you can prove*.
+Pre-existing text; the alias landed on top of it. Either rename Tyrley's role
+("lock-wheeler", "volunteer on the flight") or accept it deliberately and give
+the player a line that dismisses it.
+
+---
+
+## 7a. Storybook — generated, not hand-maintained
+
+`docs/storybook.md` and `docs/storybook.html` are the whole game as one readable
+document, for reading passes and review notes. They are **written by
+`content/cases/storybook.gen.test.ts` on every test run**.
+
+Do not hand-edit them. An earlier session did, while the file was still a
+throwaway artefact, and a later regeneration erased the edits — the edits had to
+be recovered from a diff and ported into `content/cases/*.ts` by hand. Running
+the generator inside the suite is the fix: the document cannot drift, and the
+only way to change it is to change the source.
+
 ---
 
 ## 8. Design work — needs a fresh session

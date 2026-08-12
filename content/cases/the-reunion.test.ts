@@ -94,7 +94,7 @@ describe('The Reunion', () => {
     expect(script.solution.killerId).not.toBe('tobi');
   });
 
-  it('opens Tobi only after Rafe points at him', () => {
+  it('opens Tobi only after Mark points at him', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],
@@ -110,7 +110,7 @@ describe('The Reunion', () => {
 
   /**
    * Mr Vale carries two of the three proofs, so the proof that opens him has to
-   * come from elsewhere — Rafe's own account against Marika's. The general
+   * come from elsewhere — Mark's own account against Michelle's. The general
    * deadlock check now lives in the shared contract.
    */
   it('opens Mr Vale on the one proof he does not supply', () => {
@@ -145,14 +145,14 @@ describe('The Reunion', () => {
     const his = script.threads.flatMap((t) =>
       t.messages.filter((m) => m.senderId === 'rafe').map((m) => m.body),
     );
-    expect(his.length, 'Rafe barely speaks').toBeGreaterThan(8);
+    expect(his.length, 'Mark barely speaks').toBeGreaterThan(8);
     for (const body of his) {
-      expect(contraction.test(body), `Rafe contracts a word: ${body}`).toBe(false);
+      expect(contraction.test(body), `Mark contracts a word: ${body}`).toBe(false);
     }
 
     const c = script.confrontation!;
     for (const line of [c.opening, ...c.deflections, ...c.beats.map((b) => b.rebuttal)]) {
-      expect(contraction.test(line), `Rafe contracts a word: ${line}`).toBe(false);
+      expect(contraction.test(line), `Mark contracts a word: ${line}`).toBe(false);
     }
 
     const lines = c.confession.split('\n').filter((l) => l.trim() !== '');

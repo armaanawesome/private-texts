@@ -23,16 +23,16 @@ describe('The Cut', () => {
 
   /**
    * The shape of this case: movement. The boat's alibi is TRUE and must stay
-   * true — Gwyn confirms it in a court, and the case is not that anybody lied
+   * true — Alan confirms it in a court, and the case is not that anybody lied
    * about the boat. The lie is that he was with it.
    */
   it('never contradicts the boat itself', () => {
-    // Gwyn's claim puts her at the locks, watching. Nothing about the boat's
+    // Alan's claim puts her at the locks, watching. Nothing about the boat's
     // position is ever broken, because nothing about it is false.
     const gwyn = claim('c-gwyn-locks');
     for (const other of byId.values()) {
       if (other.id === gwyn.id) continue;
-      expect(checkContradiction(script, gwyn, other).ok, `${other.id} broke Gwyn`).toBe(false);
+      expect(checkContradiction(script, gwyn, other).ok, `${other.id} broke Alan`).toBe(false);
     }
   });
 
@@ -60,7 +60,7 @@ describe('The Cut', () => {
     expect(script.solution.killerId).not.toBe('tam');
   });
 
-  it('opens Bo only after somebody points at Bo', () => {
+  it('opens Sam only after somebody points at Sam', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

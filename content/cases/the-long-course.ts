@@ -14,7 +14,7 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * Story Lens: the sport’s own uniformity is the alibi. Nobody had to hide.
  *
  * Race day timeline. Head race starts 11:00 (minute 660), 22 minutes on the
- * water. Hester is found at 12:10.
+ * water. Pauline is found at 12:10.
  */
 export const theLongCourseRaw = {
   id: 'the-long-course',
@@ -24,11 +24,11 @@ export const theLongCourseRaw = {
   requiredEntitlementId: CASE_PACK_ENTITLEMENT,
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
-    { id: 'hester', name: 'Hester', avatarColor: '#8A7B5C' },
-    { id: 'saul', name: 'Saul', avatarColor: '#C4483C' },
-    { id: 'imo', name: 'Imo', avatarColor: '#6E5AA8' },
+    { id: 'hester', name: 'Pauline', avatarColor: '#8A7B5C' },
+    { id: 'saul', name: 'Graham', avatarColor: '#C4483C' },
+    { id: 'imo', name: 'Em', avatarColor: '#6E5AA8' },
     { id: 'warren', name: 'Warren', avatarColor: '#4E8CF0' },
-    { id: 'dilys', name: 'Dilys', avatarColor: '#E4B363' },
+    { id: 'dilys', name: 'Carol', avatarColor: '#E4B363' },
   ],
   places: [
     { id: 'club', name: 'the club' },
@@ -47,14 +47,14 @@ export const theLongCourseRaw = {
     ruling:
       'Open. Nobody has been arrested, because forty-one members were on the towpath and the senior eight were on the water.',
     opening:
-      'Hester Vaine had been president of Ravensholt Rowing Club for nineteen years and had signed every set of minutes in the cupboard by hand.\n\nShe was found in the boathouse at ten past twelve on the morning of the autumn head, with the doors open and the racks half empty.\n\nThe senior eight were on the water from eleven until twenty past. Every one of them has the same alibi and every one of them is wearing it.',
+      'Pauline Vaine had been president of Ravensholt Rowing Club for nineteen years and had signed every set of minutes in the cupboard by hand.\n\nShe was found in the boathouse at ten past twelve on the morning of the autumn head, with the doors open and the racks half empty.\n\nThe senior eight were on the water from eleven until twenty past. Every one of them has the same alibi and every one of them is wearing it.',
   },
 
   threads: [
     // -------------------------------------------------------------- t-hester
     {
       id: 't-hester',
-      title: 'Hester',
+      title: 'Pauline',
       participantIds: ['you', 'hester'],
       requiresContradictionIds: [],
       messages: [
@@ -119,14 +119,14 @@ export const theLongCourseRaw = {
           threadId: 't-hester',
           senderId: 'hester',
           sentAt: 168,
-          body: 'Give it to the coroner’s office on the Monday. And tell Saul on the Saturday, before I do, because a man is entitled to hear it from a person and not from a letter.',
+          body: 'Give it to the coroner’s office on the Monday. And tell Graham on the Saturday, before I do, because a man is entitled to hear it from a person and not from a letter.',
         },
         {
           id: 'x10',
           threadId: 't-hester',
           senderId: 'you',
           sentAt: 176,
-          body: 'hester do not do that on your own in an empty boathouse',
+          body: 'pauline do not do that on your own in an empty boathouse',
         },
         {
           id: 'x11',
@@ -142,7 +142,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'bar' },
               window: { start: 600, end: 640 },
               sourceMessageId: 'x11',
-              label: 'Hester: in the clubhouse bar, 10:00–10:40',
+              label: 'Pauline: in the clubhouse bar, 10:00–10:40',
             },
           ],
         },
@@ -161,7 +161,7 @@ export const theLongCourseRaw = {
           threadId: 't-club',
           senderId: 'dilys',
           sentAt: 1500,
-          body: 'Members will by now have heard that Hester was found in the boathouse yesterday afternoon. I am asked to say that the police will want to speak to everybody who was on site and that the club will be closed until further notice. I am sorry to put it so plainly, I do not know a better way.',
+          body: 'Members will by now have heard that Pauline was found in the boathouse yesterday afternoon. I am asked to say that the police will want to speak to everybody who was on site and that the club will be closed until further notice. I am sorry to put it so plainly, I do not know a better way.',
         },
         {
           id: 'c2',
@@ -184,7 +184,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'river' },
               window: { start: 660, end: 682 },
               sourceMessageId: 'c3',
-              label: 'Saul: on the river in the eight, 11:00–11:22',
+              label: 'Graham: on the river in the eight, 11:00–11:22',
             },
           ],
         },
@@ -200,7 +200,7 @@ export const theLongCourseRaw = {
           threadId: 't-club',
           senderId: 'saul',
           sentAt: 1538,
-          body: 'Then that is that sorted. Warren has eight of us on video for the entire window and Dilys has the towpath',
+          body: 'Then that is that sorted. Warren has eight of us on video for the entire window and Carol has the towpath',
         },
         {
           id: 'c6',
@@ -216,7 +216,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'bank' },
               window: { start: 640, end: 700 },
               sourceMessageId: 'c6',
-              label: 'Dilys: on the towpath, 10:40–11:40',
+              label: 'Carol: on the towpath, 10:40–11:40',
             },
           ],
         },
@@ -225,7 +225,7 @@ export const theLongCourseRaw = {
           threadId: 't-club',
           senderId: 'saul',
           sentAt: 1562,
-          body: 'And where was Warren for the middle of it. Because he had a row with Hester at the trestles at half nine that half the club heard',
+          body: 'And where was Warren for the middle of it. Because he had a row with Pauline at the trestles at half nine that half the club heard',
           claims: [
             {
               id: 'c-warren-boathouse',
@@ -234,7 +234,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'boathouse' },
               window: { start: 662, end: 678 },
               sourceMessageId: 'c7',
-              label: 'Warren: in the boathouse, 11:02–11:18 (per Saul)',
+              label: 'Warren: in the boathouse, 11:02–11:18 (per Graham)',
             },
           ],
         },
@@ -243,7 +243,7 @@ export const theLongCourseRaw = {
           threadId: 't-club',
           senderId: 'warren',
           sentAt: 1568,
-          body: 'we rowed about a junior trial. that is what we were rowing about. say the rest of it out loud saul',
+          body: 'we rowed about a junior trial. that is what we were rowing about. say the rest of it out loud graham',
         },
         {
           id: 'c9',
@@ -258,7 +258,7 @@ export const theLongCourseRaw = {
     // --------------------------------------------------------------- t-dilys
     {
       id: 't-dilys',
-      title: 'Dilys Prentice',
+      title: 'Carol Prentice',
       participantIds: ['you', 'dilys'],
       requiresContradictionIds: [],
       messages: [
@@ -267,7 +267,7 @@ export const theLongCourseRaw = {
           threadId: 't-dilys',
           senderId: 'dilys',
           sentAt: 1700,
-          body: 'You rowed here, did you not. Two seat, and Hester said you had the worst hands she ever bandaged and the best head she ever wasted.',
+          body: 'You rowed here, did you not. Two seat, and Pauline said you had the worst hands she ever bandaged and the best head she ever wasted.',
         },
         {
           id: 'd2',
@@ -297,7 +297,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'bank' },
               window: { start: 655, end: 690 },
               sourceMessageId: 'd4',
-              label: 'Warren: on the towpath, 10:55–11:30 (per Dilys)',
+              label: 'Warren: on the towpath, 10:55–11:30 (per Carol)',
             },
           ],
         },
@@ -306,7 +306,7 @@ export const theLongCourseRaw = {
           threadId: 't-dilys',
           senderId: 'dilys',
           sentAt: 1744,
-          body: 'And Hester went into the boathouse a little before eleven with her bag, and she did not come out while I was looking, and I was looking at those doors for an hour without once thinking about them.',
+          body: 'And Pauline went into the boathouse a little before eleven with her bag, and she did not come out while I was looking, and I was looking at those doors for an hour without once thinking about them.',
           claims: [
             {
               id: 'c-hester-boathouse',
@@ -315,7 +315,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'boathouse' },
               window: { start: 650, end: 682 },
               sourceMessageId: 'd5',
-              label: 'Hester: in the boathouse, 10:50–11:22 (per Dilys)',
+              label: 'Pauline: in the boathouse, 10:50–11:22 (per Carol)',
             },
           ],
         },
@@ -331,7 +331,7 @@ export const theLongCourseRaw = {
           threadId: 't-dilys',
           senderId: 'dilys',
           sentAt: 1766,
-          body: 'Saul Brightwell, at about three minutes past, in his kit. I remember it because I thought he had gone back for a spanner and I thought no more about it than that, and I have thought about nothing else since.',
+          body: 'Graham Brightwell, at about three minutes past, in his kit. I remember it because I thought he had gone back for a spanner and I thought no more about it than that, and I have thought about nothing else since.',
           claims: [
             {
               id: 'c-saul-boathouse',
@@ -340,7 +340,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'boathouse' },
               window: { start: 663, end: 668 },
               sourceMessageId: 'd7',
-              label: 'Saul: in the boathouse, 11:03–11:08 (per Dilys)',
+              label: 'Graham: in the boathouse, 11:03–11:08 (per Carol)',
             },
           ],
         },
@@ -363,7 +363,7 @@ export const theLongCourseRaw = {
           threadId: 't-dilys',
           senderId: 'dilys',
           sentAt: 1804,
-          body: 'Ask Imogen Kerr. She is a junior and she was in the changing room in senior kit at half past ten, and juniors do not wear senior kit, and she went very red when I said good morning to her.',
+          body: 'Ask Emma Kerr. She is a junior and she was in the changing room in senior kit at half past ten, and juniors do not wear senior kit, and she went very red when I said good morning to her.',
         },
       ],
     },
@@ -371,7 +371,7 @@ export const theLongCourseRaw = {
     // -------------------------------------------------- t-imo (discovery)
     {
       id: 't-imo',
-      title: 'Imo',
+      title: 'Em',
       participantIds: ['you', 'imo'],
       requiresContradictionIds: [],
       requiresReadMessageIds: ['d10'],
@@ -397,7 +397,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'river' },
               window: { start: 660, end: 682 },
               sourceMessageId: 'g2',
-              label: 'Imo: on the river in the eight, 11:00–11:22',
+              label: 'Em: on the river in the eight, 11:00–11:22',
             },
           ],
         },
@@ -413,14 +413,14 @@ export const theLongCourseRaw = {
           threadId: 't-imo',
           senderId: 'imo',
           sentAt: 1924,
-          body: 'saul. at twenty past ten by the trestles. said his back had gone in the warm up and there was no time to scratch the crew and would i just sit in and not make a thing of it',
+          body: 'graham. at twenty past ten by the trestles. said his back had gone in the warm up and there was no time to scratch the crew and would i just sit in and not make a thing of it',
         },
         {
           id: 'g5',
           threadId: 't-imo',
           senderId: 'imo',
           sentAt: 1928,
-          body: 'he gave me his suit and his hat. i said what about the entry and he said dilys does the entries and dilys is seventy nine',
+          body: 'he gave me his suit and his hat. i said what about the entry and he said carol does the entries and carol is seventy nine',
         },
         {
           id: 'g6',
@@ -441,7 +441,7 @@ export const theLongCourseRaw = {
           threadId: 't-imo',
           senderId: 'imo',
           sentAt: 1956,
-          body: 'and then hester was dead and saul put in the group chat that eight of us were on the water and i realised nobody was going to count us',
+          body: 'and then pauline was dead and graham put in the group chat that eight of us were on the water and i realised nobody was going to count us',
         },
         {
           id: 'g9',
@@ -457,7 +457,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'bank' },
               window: { start: 655, end: 685 },
               sourceMessageId: 'g9',
-              label: 'Imo: on the towpath with the spares, 10:55–11:25 (per Saul)',
+              label: 'Em: on the towpath with the spares, 10:55–11:25 (per Graham)',
             },
           ],
         },
@@ -504,7 +504,7 @@ export const theLongCourseRaw = {
           threadId: 't-warren',
           senderId: 'warren',
           sentAt: 2126,
-          body: 'eleven oh eight. i swing off the water for about four seconds and there is a bloke on the slipway in a senior suit with the hat off. its saul. hair, build, the tape on his left wrist he has worn since april',
+          body: 'eleven oh eight. i swing off the water for about four seconds and there is a bloke on the slipway in a senior suit with the hat off. its graham. hair, build, the tape on his left wrist he has worn since april',
           claims: [
             {
               id: 'c-saul-slipway',
@@ -513,7 +513,7 @@ export const theLongCourseRaw = {
               predicate: { kind: 'at_place', placeId: 'slipway' },
               window: { start: 668, end: 674 },
               sourceMessageId: 'w4',
-              label: 'Saul: on the slipway, 11:08–11:14 (on video)',
+              label: 'Graham: on the slipway, 11:08–11:14 (on video)',
             },
           ],
         },
@@ -529,14 +529,14 @@ export const theLongCourseRaw = {
           threadId: 't-warren',
           senderId: 'you',
           sentAt: 2138,
-          body: 'why did you row with hester',
+          body: 'why did you row with pauline',
         },
         {
           id: 'w7',
           threadId: 't-warren',
           senderId: 'warren',
           sentAt: 2152,
-          body: 'because i wanted imo in the senior boat for the spring and hester said not while saul is captain of it. i thought she meant imo wasnt ready. she meant something else and she couldnt say it yet',
+          body: 'because i wanted em in the senior boat for the spring and pauline said not while graham is captain of it. i thought she meant em wasnt ready. she meant something else and she couldnt say it yet',
         },
         {
           id: 'w8',
@@ -561,7 +561,7 @@ export const theLongCourseRaw = {
       id: 'm-nance',
       characterId: 'saul',
       summary:
-        'The original launch book has S. Brightwell in the duty column for the Saturday Robbie Nance drowned in 2009, not the dead coach the inquest was given. Hester had both books on her table and was taking them to the coroner on the Monday.',
+        'The original launch book has S. Brightwell in the duty column for the Saturday Robbie Nance drowned in 2009, not the dead coach the inquest was given. Pauline had both books on her table and was taking them to the coroner on the Monday.',
       establishedByMessageIds: ['x7', 'w9'],
     },
   ],
@@ -572,14 +572,14 @@ export const theLongCourseRaw = {
       claimIdA: 'c-saul-river',
       claimIdB: 'c-saul-boathouse',
       revelation:
-        'He put himself on the water from eleven until twenty past, with seven witnesses in the same boat. Dilys Prentice stood at the top of the slipway for an hour and watched him walk into that boathouse in kit at three minutes past, and thought he had gone back for a spanner.',
+        'He put himself on the water from eleven until twenty past, with seven witnesses in the same boat. Carol Prentice stood at the top of the slipway for an hour and watched him walk into that boathouse in kit at three minutes past, and thought he had gone back for a spanner.',
     },
     {
       id: 'x-imo-seat',
       claimIdA: 'c-imo-bank',
       claimIdB: 'c-imo-river',
       revelation:
-        'He told the club Imogen Kerr was on the towpath with the spares. She was in five seat, in his suit and his hat, because he asked her at twenty past ten by the trestles and she has wanted that seat since she was eleven. Eight people went out in that boat and eight came back. Nobody ever counts which eight.',
+        'He told the club Emma Kerr was on the towpath with the spares. She was in five seat, in his suit and his hat, because he asked her at twenty past ten by the trestles and she has wanted that seat since she was eleven. Eight people went out in that boat and eight came back. Nobody ever counts which eight.',
     },
     {
       id: 'x-saul-slipway',
@@ -593,7 +593,7 @@ export const theLongCourseRaw = {
       claimIdA: 'c-warren-boathouse',
       claimIdB: 'c-warren-bank',
       revelation:
-        'Saul put Warren in the boathouse in front of the whole club, in forty seconds, on the strength of a row about a junior trial. Warren did not move off that towpath for half an hour and Dilys watched him not move, and the video he was making is the thing that finishes it.',
+        'Graham put Warren in the boathouse in front of the whole club, in forty seconds, on the strength of a row about a junior trial. Warren did not move off that towpath for half an hour and Carol watched him not move, and the video he was making is the thing that finishes it.',
     },
   ],
 
@@ -605,7 +605,7 @@ export const theLongCourseRaw = {
         id: 'l-boathouse',
         evidence: { kind: 'contradiction', id: 'x-saul-boathouse' },
         press:
-          'You had yourself on the water from eleven. Dilys watched you walk into that boathouse in kit at three minutes past and thought you had gone back for a spanner.',
+          'You had yourself on the water from eleven. Carol watched you walk into that boathouse in kit at three minutes past and thought you had gone back for a spanner.',
         rebuttal:
           'She is seventy nine and every one of us is dressed identically. She has said that herself, to a police officer, in those words.',
       },
@@ -613,7 +613,7 @@ export const theLongCourseRaw = {
         id: 'l-seat',
         evidence: { kind: 'contradiction', id: 'x-imo-seat' },
         press:
-          'You told the club Imo was on the bank with the spares. She was in five seat in your suit, because you asked her at the trestles and she has wanted that boat since she was eleven.',
+          'You told the club Em was on the bank with the spares. She was in five seat in your suit, because you asked her at the trestles and she has wanted that boat since she was eleven.',
         rebuttal:
           'A junior who sat in a senior crew without an entry and has spent three days working out how not to be thrown out for it. Of course she has a story now.',
       },
@@ -628,7 +628,7 @@ export const theLongCourseRaw = {
         id: 'l-why',
         evidence: { kind: 'motive', id: 'm-nance' },
         press:
-          'And the launch book that came out of Dorothy Nance’s house has your name in the duty column for that Saturday. Not Ken Wardle. Hester had both books on her table and she was going to the coroner on the Monday.',
+          'And the launch book that came out of Dorothy Nance’s house has your name in the duty column for that Saturday. Not Ken Wardle. Pauline had both books on her table and she was going to the coroner on the Monday.',
         rebuttal: '',
       },
     ],
@@ -638,7 +638,7 @@ export const theLongCourseRaw = {
       'Come back when you have something that is not somebody’s eyesight.',
     ],
     confession:
-      'The river was up two feet and I sent them out anyway, because we had a trial the following weekend and I was twenty four and I thought a fortnight of not training was the worst thing that could happen to anybody.\n\nRobbie asked me not to go out. On the raft, in front of two other boys. He said the water looks fast and I said the water always looks fast, and he went, because I told him to.\n\nKen Wardle put his name in that column three days later. I did not ask him to. He did it, and he told me he had done it, and I said nothing, and that is my entire defence and it is worth nothing.\n\nShe came into the boathouse to tell me first. She said a man is entitled to hear it from a person. Nineteen years and she still thought that was how you did things.\n\nAnd there is one more thing and I will say it because you will hear it eventually.\n\nA man rang me on the Thursday. He said he was from the coroner’s office, doing a review, and could I confirm some details from 2009. And then he talked about that morning like he had been stood on the bank for it.\n\nHe knew Robbie asked not to go. That was never in the inquest. It was never in the paper. Two boys heard it and neither of them ever said it out loud, I have checked, I checked that year and I have checked since.\n\nHe said it to me like a man reminding me of something we had both been at.\n\nAnd then he asked me what Hester was going to do on Monday. And I told him. I sat in my kitchen and I told a voice on a telephone exactly what she was going to do and exactly when, and he never once told me anything.',
+      'The river was up two feet and I sent them out anyway, because we had a trial the following weekend and I was twenty four and I thought a fortnight of not training was the worst thing that could happen to anybody.\n\nRobbie asked me not to go out. On the raft, in front of two other boys. He said the water looks fast and I said the water always looks fast, and he went, because I told him to.\n\nKen Wardle put his name in that column three days later. I did not ask him to. He did it, and he told me he had done it, and I said nothing, and that is my entire defence and it is worth nothing.\n\nShe came into the boathouse to tell me first. She said a man is entitled to hear it from a person. Nineteen years and she still thought that was how you did things.\n\nAnd there is one more thing and I will say it because you will hear it eventually.\n\nA man who called himself the Keeper rang me on the Thursday. He said he was from the coroner’s office, doing a review, and could I confirm some details from 2009. And then he talked about that morning like he had been stood on the bank for it.\n\nHe knew Robbie asked not to go. That was never in the inquest. It was never in the paper. Two boys heard it and neither of them ever said it out loud, I have checked, I checked that year and I have checked since.\n\nHe said it to me like a man reminding me of something we had both been at.\n\nAnd then he asked me what Pauline was going to do on Monday. And I told him. I sat in my kitchen and I told a voice on a telephone exactly what she was going to do and exactly when, and he never once told me anything.',
   },
 
   coda: {
@@ -646,7 +646,7 @@ export const theLongCourseRaw = {
     messages: [
       'Ravensholt. Eight in a boat and nobody counting. That is a good one and I did not see it coming, which does not often happen now.',
       'You were kind to the girl. I noticed that. It cost you two days and I would not have spent them.',
-      'Ask yourself how a man reviewing a 2009 inquest knew what was said on a raft by a fifteen year old. Two boys heard it. Neither of them has ever repeated it.',
+      'Ask yourself how the Keeper, reviewing a 2009 inquest, knew what was said on a raft by a fifteen year old. Two boys heard it. Neither of them has ever repeated it.',
       'You are getting closer to the wrong question. Keep going anyway.',
     ],
   },
@@ -656,6 +656,6 @@ export const theLongCourseRaw = {
     requiredContradictionIds: ['x-saul-boathouse', 'x-imo-seat', 'x-saul-slipway'],
     requiredMotiveIds: ['m-nance'],
     epilogue:
-      'The 2009 inquest was reopened in the spring on the strength of a launch book that had spent sixteen years in a box in Dorothy Nance’s spare room.\n\nImogen Kerr was not thrown out. Dilys Prentice went to the committee with a written statement, ran out of it entirely, and finished by saying that the club had asked a nineteen year old to choose between a boat and a man, and that the club could hardly complain about which she chose. Imo rowed five seat for the seniors in the spring, with an entry.\n\nWarren Ako gave the police thirty one unbroken minutes of river and four seconds of slipway.\n\nHester Vaine’s bag was under the trestles the whole time. Both books were still in it. She had put a paper clip on the page and written, in pencil, in the margin: tell Saul first.',
+      'The 2009 inquest was reopened in the spring on the strength of a launch book that had spent sixteen years in a box in Dorothy Nance’s spare room.\n\nImogen Kerr was not thrown out. Carol Prentice went to the committee with a written statement, ran out of it entirely, and finished by saying that the club had asked a nineteen year old to choose between a boat and a man, and that the club could hardly complain about which she chose. Em rowed five seat for the seniors in the spring, with an entry.\n\nWarren Ako gave the police thirty one unbroken minutes of river and four seconds of slipway.\n\nHester Vaine’s bag was under the trestles the whole time. Both books were still in it. She had put a paper clip on the page and written, in pencil, in the margin: tell Graham first.',
   },
 };

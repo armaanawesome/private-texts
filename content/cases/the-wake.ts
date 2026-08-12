@@ -33,8 +33,8 @@ export const theWakeRaw = {
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'tony', name: 'Tony', avatarColor: '#8A7B5C' },
     { id: 'donal', name: 'Donal', avatarColor: '#C4483C' },
-    { id: 'nuala', name: 'Nuala', avatarColor: '#4E8CF0' },
-    { id: 'bridie', name: 'Bridie', avatarColor: '#E4B363' },
+    { id: 'nuala', name: 'Maureen', avatarColor: '#4E8CF0' },
+    { id: 'bridie', name: 'Eileen', avatarColor: '#E4B363' },
     { id: 'cass', name: 'Cass', avatarColor: '#6E5AA8' },
   ],
   places: [
@@ -238,7 +238,7 @@ export const theWakeRaw = {
               predicate: { kind: 'at_place', placeId: 'frontroom' },
               window: { start: 61440, end: 61470 },
               sourceMessageId: 'f6',
-              label: 'Nuala: in the front room, 16:00–16:30',
+              label: 'Maureen: in the front room, 16:00–16:30',
             },
           ],
         },
@@ -308,7 +308,7 @@ export const theWakeRaw = {
     // -------------------------------------------------------------- t-bridie
     {
       id: 't-bridie',
-      title: 'Bridie',
+      title: 'Eileen',
       participantIds: ['you', 'bridie'],
       requiresContradictionIds: [],
       messages: [
@@ -340,7 +340,7 @@ export const theWakeRaw = {
               predicate: { kind: 'at_place', placeId: 'kitchen' },
               window: { start: 61445, end: 61455 },
               sourceMessageId: 'r3',
-              label: 'Bridie: in the kitchen, 16:05–16:15',
+              label: 'Eileen: in the kitchen, 16:05–16:15',
             },
           ],
         },
@@ -362,7 +362,7 @@ export const theWakeRaw = {
               },
               window: { start: 61445, end: 61465 },
               sourceMessageId: 'r4',
-              label: 'Donal: on his phone in the side return, 16:05–16:25 (per Bridie)',
+              label: 'Donal: on his phone in the side return, 16:05–16:25 (per Eileen)',
             },
           ],
         },
@@ -385,7 +385,7 @@ export const theWakeRaw = {
           threadId: 't-bridie',
           senderId: 'bridie',
           sentAt: 62650,
-          body: 'Cassie took four hundred pounds out of my handbag on Wednesday. Nuala caught her at it and I caught the pair of them at it, and we agreed the three of us that the day we buried her grandfather was not the day.',
+          body: 'Cassie took four hundred pounds out of my handbag on Wednesday. Maureen caught her at it and I caught the pair of them at it, and we agreed the three of us that the day we buried her grandfather was not the day.',
         },
         {
           id: 'r8',
@@ -408,7 +408,7 @@ export const theWakeRaw = {
               predicate: { kind: 'at_place', placeId: 'sidereturn' },
               window: { start: 61440, end: 61470 },
               sourceMessageId: 'r9',
-              label: 'Cass: in the side return, 16:00–16:30 (per Bridie)',
+              label: 'Cass: in the side return, 16:00–16:30 (per Eileen)',
             },
           ],
         },
@@ -524,7 +524,7 @@ export const theWakeRaw = {
     // ------------------------------------------------------ t-nuala (gated)
     {
       id: 't-nuala',
-      title: 'Nuala',
+      title: 'Maureen',
       participantIds: ['you', 'nuala'],
       requiresContradictionIds: ['x-donal-garden', 'x-donal-glasses'],
       messages: [
@@ -644,7 +644,7 @@ export const theWakeRaw = {
       claimIdA: 'c-donal-toast',
       claimIdB: 'c-donal-outside',
       revelation:
-        'He said he was handing the glasses round the whole way through. Bridie Mulvey went to her own kitchen at ten past four looking for glasses, because nobody had handed one to anybody, and from that window she watched him standing in the side return with his back to the house.',
+        'He said he was handing the glasses round the whole way through. Eileen Mulvey went to her own kitchen at ten past four looking for glasses, because nobody had handed one to anybody, and from that window she watched him standing in the side return with his back to the house.',
     },
     {
       id: 'x-donal-scripts',
@@ -678,14 +678,14 @@ export const theWakeRaw = {
         id: 'w-glasses',
         evidence: { kind: 'contradiction', id: 'x-donal-glasses' },
         press:
-          'You said you were handing round the glasses the whole way through. Bridie went to the kitchen at ten past looking for glasses, because nobody had handed one to anybody, and she watched you from the window.',
+          'You said you were handing round the glasses the whole way through. Eileen went to the kitchen at ten past looking for glasses, because nobody had handed one to anybody, and she watched you from the window.',
         rebuttal: 'She is eighty one and she buried a husband that morning.',
       },
       {
         id: 'w-scripts',
         evidence: { kind: 'contradiction', id: 'x-donal-scripts' },
         press:
-          'And you told them you never collected Gerald’s prescriptions. Nuala did them for a month, and she can tell you exactly why she could not.',
+          'And you told them you never collected Gerald’s prescriptions. Maureen did them for a month, and she can tell you exactly why she could not.',
         rebuttal: '',
       },
       {
@@ -702,7 +702,7 @@ export const theWakeRaw = {
       'Bring me a thing. Not a feeling somebody had at a funeral.',
     ],
     confession:
-      'He came out to the return to tell me. Not to threaten me. That was the thing about Tony, he could not do a threat, he came out to tell me what he was going to do on the Friday so that I would not hear it from a guard.\n\nHe was being decent about it. He had the bag under his arm and he was being decent about it.\n\nAnd I said come inside a minute, and he went in ahead of me, and the step into that garden room has been a bad step since 1994.\n\nI want to say the other part because you will not believe the first part without it.\n\nI did not build any of it. The front room. All of us together. I did not say one word to make that happen. They did it themselves, in about four seconds, in the hall, because Cassie was crying and Bridie said we were all in the front room and Nuala said yes we were, and they looked at each other and it was done.\n\nAnd I stood there and I let it close over me like water.\n\nThat is what I did. I stole a thing that was meant for a child.',
+      'He came out to the return to tell me. Not to threaten me. That was the thing about Tony, he could not do a threat, he came out to tell me what he was going to do on the Friday so that I would not hear it from a guard.\n\nHe was being decent about it. He had the bag under his arm and he was being decent about it.\n\nAnd I said come inside a minute, and he went in ahead of me, and the step into that garden room has been a bad step since 1994.\n\nI want to say the other part because you will not believe the first part without it.\n\nI did not build any of it. The front room. All of us together. I did not say one word to make that happen. They did it themselves, in about four seconds, in the hall, because Cassie was crying and Eileen said we were all in the front room and Maureen said yes we were, and they looked at each other and it was done.\n\nAnd I stood there and I let it close over me like water.\n\nThat is what I did. I stole a thing that was meant for a child.',
   },
 
   solution: {
@@ -710,6 +710,6 @@ export const theWakeRaw = {
     requiredContradictionIds: ['x-donal-garden', 'x-donal-glasses', 'x-donal-scripts'],
     requiredMotiveIds: ['m-morphine'],
     epilogue:
-      'Gerald Mulvey was exhumed in the February. The report used the word consistent four times and would not go further than that, and it did not have to, because by then there was the chemist’s log and there was Nuala.\n\nShe gave her statement over two days and did not once ask what it would do to her. When they asked her why she had said the front room, she said: because my mother said it first.\n\nBridie Mulvey did not attend the trial. She sent a letter to be read, of one line, asking that the court be told her granddaughter had been in the side return the whole time and had nothing to do with any of it.\n\nCass paid the four hundred pounds back in instalments to a woman who never once asked for it.',
+      'Gerald Mulvey was exhumed in the February. The report used the word consistent four times and would not go further than that, and it did not have to, because by then there was the chemist’s log and there was Maureen.\n\nShe gave her statement over two days and did not once ask what it would do to her. When they asked her why she had said the front room, she said: because my mother said it first.\n\nBridie Mulvey did not attend the trial. She sent a letter to be read, of one line, asking that the court be told her granddaughter had been in the side return the whole time and had nothing to do with any of it.\n\nCass paid the four hundred pounds back in instalments to a woman who never once asked for it.',
   },
 };

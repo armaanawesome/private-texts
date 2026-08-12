@@ -226,7 +226,7 @@ would be out of her hands and Callum's name would be in them permanently.
 
 **A lie, and you can prove it.** Ruth never sent anything. She wrote it in the
 back of the survey notebook, in her own hand, and the notebook was still at the
-scene — the epilogue already establishes this, and Esme mentions the notebook in
+scene — the epilogue already establishes this, and Fiona mentions the notebook in
 the group thread on day two.
 
 **The signature, in Mairi's words:** he never once mentioned hurting Ruth. She

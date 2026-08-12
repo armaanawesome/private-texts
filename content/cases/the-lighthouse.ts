@@ -19,7 +19,7 @@ export const theLighthouseRaw = {
     { id: 'ruth', name: 'Ruth', avatarColor: '#8A7B5C' },
     { id: 'mairi', name: 'Mairi', avatarColor: '#C4483C' },
     { id: 'callum', name: 'Callum', avatarColor: '#4E8CF0' },
-    { id: 'esme', name: 'Esme', avatarColor: '#6E5AA8' },
+    { id: 'esme', name: 'Fiona', avatarColor: '#6E5AA8' },
   ],
   places: [
     { id: 'point', name: 'Ardnoe Point' },
@@ -529,7 +529,7 @@ export const theLighthouseRaw = {
               predicate: { kind: 'at_place', placeId: 'cottage' },
               window: { start: 1380, end: 1440 },
               sourceMessageId: 'm15',
-              label: 'Esme: at the cottage, 23:00–24:00 (per Mairi)',
+              label: 'Fiona: at the cottage, 23:00–24:00 (per Mairi)',
             },
           ],
         },
@@ -546,7 +546,7 @@ export const theLighthouseRaw = {
     // ---------------------------------------------------------------- t-esme
     {
       id: 't-esme',
-      title: 'Esme Trian',
+      title: 'Fiona Trian',
       participantIds: ['you', 'esme'],
       requiresContradictionIds: [],
       messages: [
@@ -592,7 +592,7 @@ export const theLighthouseRaw = {
               predicate: { kind: 'at_place', placeId: 'cottage' },
               window: { start: 1140, end: 1290 },
               sourceMessageId: 'e5',
-              label: 'Esme: at the cottage, 19:00–21:30',
+              label: 'Fiona: at the cottage, 19:00–21:30',
             },
           ],
         },
@@ -610,7 +610,7 @@ export const theLighthouseRaw = {
               predicate: { kind: 'at_place', placeId: 'path' },
               window: { start: 1300, end: 1330 },
               sourceMessageId: 'e6',
-              label: 'Esme: on the cliff path, 21:40–22:10',
+              label: 'Fiona: on the cliff path, 21:40–22:10',
             },
           ],
         },
@@ -628,7 +628,7 @@ export const theLighthouseRaw = {
               predicate: { kind: 'at_place', placeId: 'lighthouse' },
               window: { start: 1300, end: 1320 },
               sourceMessageId: 'e7',
-              label: 'Ruth: up the tower, 21:40–22:00 (per Esme)',
+              label: 'Ruth: up the tower, 21:40–22:00 (per Fiona)',
             },
           ],
         },
@@ -660,7 +660,7 @@ export const theLighthouseRaw = {
               predicate: { kind: 'at_place', placeId: 'path' },
               window: { start: 1305, end: 1320 },
               sourceMessageId: 'e10',
-              label: 'Mairi: on the cliff path, 21:45–22:00 (per Esme)',
+              label: 'Mairi: on the cliff path, 21:45–22:00 (per Fiona)',
             },
           ],
         },
@@ -868,7 +868,7 @@ export const theLighthouseRaw = {
           threadId: 't-mairi-again',
           senderId: 'mairi',
           sentAt: 3252,
-          body: 'And there is a thing I have not said to anyone, because it sounds like I am building myself an excuse. A man telephoned the café that night. Half nine, near enough.',
+          body: 'And there is a thing I have not said to anyone, because it sounds like I am building myself an excuse. A man who called himself the Keeper telephoned the café that night. Half nine, near enough.',
         },
         {
           id: 'n10',
@@ -940,7 +940,7 @@ export const theLighthouseRaw = {
       claimIdA: 'c-papers-sent',
       claimIdB: 'c-papers-kept',
       revelation:
-        'The auditors never had those papers. Ruth wrote the whole of it in the back of her survey notebook, and the notebook was still up in the tower where she left it. So the man who telephoned the café at half nine was not from the Trust, he had no business knowing about the Trust at all, and what he told Mairi Bell was not a mistake. He knew what a woman with one night left would do with it.',
+        'The auditors never had those papers. Ruth wrote the whole of it in the back of her survey notebook, and the notebook was still up in the tower where she left it. So the man who called himself the Keeper, who telephoned the café at half nine, was not from the Trust, he had no business knowing about the Trust at all, and what he told Mairi Bell was not a mistake. He knew what a woman with one night left would do with it.',
     },
     {
       id: 'x-mairi-door',
@@ -970,7 +970,7 @@ export const theLighthouseRaw = {
       {
         id: 'b-path',
         evidence: { kind: 'contradiction', id: 'x-mairi-path' },
-        press: 'You put yourself behind that counter from half eight until eleven. Esme Trian passed you on the cliff path at 21:47 and wrote the time down.',
+        press: 'You put yourself behind that counter from half eight until eleven. Fiona Trian passed you on the cliff path at 21:47 and wrote the time down.',
         rebuttal:
           'So I walked. People walk. It was the first still half hour in a week and I wanted the air.',
       },

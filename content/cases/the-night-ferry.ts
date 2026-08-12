@@ -43,7 +43,7 @@ export const theNightFerryRaw = {
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'hannah', name: 'Mum', avatarColor: '#C97C5D' },
     { id: 'dougie', name: 'Dougie', avatarColor: '#2E5E6E' },
-    { id: 'marisa', name: 'Marisa', avatarColor: '#D2635E' },
+    { id: 'marisa', name: 'Sheila', avatarColor: '#D2635E' },
     { id: 'eck', name: 'Eck', avatarColor: '#8A7B5C' },
     { id: 'senga', name: 'Senga Moar', avatarColor: '#6E5AA8' },
   ],
@@ -244,7 +244,7 @@ export const theNightFerryRaw = {
               predicate: { kind: 'at_place', placeId: 'bar' },
               window: { start: 1230, end: 1265 },
               sourceMessageId: 'd3',
-              label: 'Dougie: in the Magnus Bar, 20:30–21:05 (per Marisa)',
+              label: 'Dougie: in the Magnus Bar, 20:30–21:05 (per Sheila)',
             },
           ],
         },
@@ -318,7 +318,7 @@ export const theNightFerryRaw = {
     // -------------------------------------------------------------- t-marisa
     {
       id: 't-marisa',
-      title: 'Marisa',
+      title: 'Sheila',
       participantIds: ['you', 'marisa'],
       requiresContradictionIds: [],
       messages: [
@@ -343,7 +343,7 @@ export const theNightFerryRaw = {
               predicate: { kind: 'at_place', placeId: 'bar' },
               window: { start: 1230, end: 1260 },
               sourceMessageId: 'm2',
-              label: 'Hannah: in the Magnus Bar, 20:30–21:00 (per Marisa)',
+              label: 'Hannah: in the Magnus Bar, 20:30–21:00 (per Sheila)',
             },
           ],
         },
@@ -382,7 +382,7 @@ export const theNightFerryRaw = {
               predicate: { kind: 'at_place', placeId: 'afterdeck' },
               window: { start: 1265, end: 1330 },
               sourceMessageId: 'm6',
-              label: 'Hannah: on the after deck, 21:05–22:10 (per Marisa)',
+              label: 'Hannah: on the after deck, 21:05–22:10 (per Sheila)',
             },
           ],
         },
@@ -400,7 +400,7 @@ export const theNightFerryRaw = {
               predicate: { kind: 'at_place', placeId: 'afterdeck' },
               window: { start: 1295, end: 1320 },
               sourceMessageId: 'm7',
-              label: 'Dougie: on the after deck, 21:35–22:00 (per Marisa)',
+              label: 'Dougie: on the after deck, 21:35–22:00 (per Sheila)',
             },
           ],
         },
@@ -564,7 +564,7 @@ export const theNightFerryRaw = {
           threadId: 't-senga',
           senderId: 'senga',
           sentAt: 3242,
-          body: 'It went in the lost property book at 21:04 in Marisa Kinnaird’s writing, green case, found on the bar counter. It was on the shelf under the till from then until I took it off her at 23:40 and put it in the safe. Nobody handed anybody anything at ten past ten.',
+          body: 'It went in the lost property book at 21:04 in Sheila Kinnaird’s writing, green case, found on the bar counter. It was on the shelf under the till from then until I took it off her at 23:40 and put it in the safe. Nobody handed anybody anything at ten past ten.',
           claims: [
             {
               id: 'c-phone-marisa',
@@ -573,7 +573,7 @@ export const theNightFerryRaw = {
               predicate: { kind: 'has_object', objectId: 'phone' },
               window: { start: 1264, end: 1380 },
               sourceMessageId: 's5',
-              label: 'Marisa: had Hannah’s phone, 21:04–23:00 (lost property book)',
+              label: 'Sheila: had Hannah’s phone, 21:04–23:00 (lost property book)',
             },
             {
               id: 'c-marisa-bar',
@@ -582,7 +582,7 @@ export const theNightFerryRaw = {
               predicate: { kind: 'at_place', placeId: 'bar' },
               window: { start: 1200, end: 1380 },
               sourceMessageId: 's5',
-              label: 'Marisa: behind the Magnus Bar, 20:00–23:00 (per Senga)',
+              label: 'Sheila: behind the Magnus Bar, 20:00–23:00 (per Senga)',
             },
           ],
         },
@@ -652,7 +652,7 @@ export const theNightFerryRaw = {
       claimIdA: 'c-dougie-kirkwall',
       claimIdB: 'c-dougie-afterdeck',
       revelation:
-        'He puts himself ashore at Kirkwall from half nine. Marisa Kinnaird watched him go through the after door about twenty past nine, because she was clearing the rail and you have to lean past that door to do it. She could not tell you how long he was gone. She could tell you he went.',
+        'He puts himself ashore at Kirkwall from half nine. Sheila Kinnaird watched him go through the after door about twenty past nine, because she was clearing the rail and you have to lean past that door to do it. She could not tell you how long he was gone. She could tell you he went.',
     },
     {
       id: 'x-dougie-kirkwall',
@@ -666,7 +666,7 @@ export const theNightFerryRaw = {
       claimIdA: 'c-phone-dougie',
       claimIdB: 'c-phone-marisa',
       revelation:
-        'He needed a reason to have been aft, so he invented one, and picked the wrong object. Hannah left her phone on the bar counter when she went out for air. It went into the lost property book at 21:04 in Marisa Kinnaird’s writing, green case, and it sat on the shelf under the till until the second officer put it in the safe at 23:40. He handed nobody anything at ten past ten.',
+        'He needed a reason to have been aft, so he invented one, and picked the wrong object. Hannah left her phone on the bar counter when she went out for air. It went into the lost property book at 21:04 in Sheila Kinnaird’s writing, green case, and it sat on the shelf under the till until the second officer put it in the safe at 23:40. He handed nobody anything at ten past ten.',
     },
     {
       id: 'x-eck',
@@ -685,7 +685,7 @@ export const theNightFerryRaw = {
         id: 'a-deck',
         evidence: { kind: 'contradiction', id: 'x-dougie-deck' },
         press:
-          'You have yourself ashore from half nine. Marisa Kinnaird watched you go out through the after door twenty minutes before that.',
+          'You have yourself ashore from half nine. Sheila Kinnaird watched you go out through the after door twenty minutes before that.',
         rebuttal:
           'A girl of thirty-four, four deep at a bar, in a force six, working a till. I would not convict a dog on that and neither would you.',
       },

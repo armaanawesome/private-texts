@@ -11,11 +11,11 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * against a witness expecting it to fire, and the engine answers "These describe
  * different times." That rejection is the clue. The log is in UTC and the
  * station runs UTC+3, so the entry everybody treated as his alibi covers three
- * hours after Orla was already dead.
+ * hours after Laura was already dead.
  *
- * Red herring is Rune, and he is the first one seeded from a clue the player
+ * Red herring is Erik, and he is the first one seeded from a clue the player
  * already has: he never writes, only voice notes. After Ardnoe and Marchbank
- * that should land badly. He cannot read well, Pilar has quietly accommodated it
+ * that should land badly. He cannot read well, Maria has quietly accommodated it
  * for nine years, and his innocence is provable.
  *
  * Times are station time (UTC+3), minutes since the case epoch.
@@ -28,10 +28,10 @@ export const deepFieldRaw = {
   requiredEntitlementId: CASE_PACK_ENTITLEMENT,
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
-    { id: 'orla', name: 'Orla', avatarColor: '#8A7B5C' },
+    { id: 'orla', name: 'Laura', avatarColor: '#8A7B5C' },
     { id: 'mal', name: 'Mal', avatarColor: '#C4483C' },
-    { id: 'rune', name: 'Rune', avatarColor: '#4E8CF0' },
-    { id: 'pilar', name: 'Pilar', avatarColor: '#E4B363' },
+    { id: 'rune', name: 'Erik', avatarColor: '#4E8CF0' },
+    { id: 'pilar', name: 'Maria', avatarColor: '#E4B363' },
     { id: 'theo', name: 'Theo', avatarColor: '#6E5AA8' },
   ],
   places: [
@@ -60,7 +60,7 @@ export const deepFieldRaw = {
     // ---------------------------------------------------------------- t-orla
     {
       id: 't-orla',
-      title: 'Orla',
+      title: 'Laura',
       participantIds: ['you', 'orla'],
       requiresContradictionIds: [],
       messages: [
@@ -99,7 +99,7 @@ export const deepFieldRaw = {
               predicate: { kind: 'at_place', placeId: 'surgery' },
               window: { start: 1260, end: 1300 },
               sourceMessageId: 'o4',
-              label: 'Orla: in the surgery, 21:00–21:40',
+              label: 'Laura: in the surgery, 21:00–21:40',
             },
           ],
         },
@@ -167,7 +167,7 @@ export const deepFieldRaw = {
           threadId: 't-station',
           senderId: 'pilar',
           sentAt: 2000,
-          body: 'Cambridge. Orla Byrne died last night. Found in the cold porch at 02:10 station time by Rune. Attempted resuscitation for forty minutes. I am recording it as misadventure and I will send the full report on the morning sked.',
+          body: 'Cambridge. Laura Byrne died last night. Found in the cold porch at 02:10 station time by Erik. Attempted resuscitation for forty minutes. I am recording it as misadventure and I will send the full report on the morning sked.',
         },
         {
           id: 'w2',
@@ -238,7 +238,7 @@ export const deepFieldRaw = {
           threadId: 't-station',
           senderId: 'mal',
           sentAt: 2058,
-          body: 'And while we are doing this, Rune was out at the mast half the evening and nobody has asked him a single question, and I would like to know why that is.',
+          body: 'And while we are doing this, Erik was out at the mast half the evening and nobody has asked him a single question, and I would like to know why that is.',
           claims: [
             {
               id: 'c-rune-outside',
@@ -251,7 +251,7 @@ export const deepFieldRaw = {
               },
               window: { start: 1320, end: 1340 },
               sourceMessageId: 'w8',
-              label: 'Rune: out at the met mast, 22:00–22:20 (per Mal)',
+              label: 'Erik: out at the met mast, 22:00–22:20 (per Mal)',
             },
           ],
         },
@@ -302,7 +302,7 @@ export const deepFieldRaw = {
           threadId: 't-theo',
           senderId: 'you',
           sentAt: 2114,
-          body: 'when did you last see orla',
+          body: 'when did you last see laura',
         },
         {
           id: 'h4',
@@ -318,7 +318,7 @@ export const deepFieldRaw = {
               predicate: { kind: 'at_place', placeId: 'coldporch' },
               window: { start: 1315, end: 1330 },
               sourceMessageId: 'h4',
-              label: 'Orla: in the cold porch, 21:55–22:10 (per Theo)',
+              label: 'Laura: in the cold porch, 21:55–22:10 (per Theo)',
             },
           ],
         },
@@ -334,14 +334,14 @@ export const deepFieldRaw = {
           threadId: 't-theo',
           senderId: 'you',
           sentAt: 2136,
-          body: 'he says rune was outside',
+          body: 'he says erik was outside',
         },
         {
           id: 'h7',
           threadId: 't-theo',
           senderId: 'theo',
           sentAt: 2146,
-          body: 'Rune was on the radio to the Shackleton for the whole of it. I was stood next to him for ten minutes of it and the ship logs their end. that is not a thing you can be vague about',
+          body: 'Erik was on the radio to the Shackleton for the whole of it. I was stood next to him for ten minutes of it and the ship logs their end. that is not a thing you can be vague about',
           claims: [
             {
               id: 'c-rune-radio',
@@ -354,7 +354,7 @@ export const deepFieldRaw = {
               },
               window: { start: 1310, end: 1350 },
               sourceMessageId: 'h7',
-              label: 'Rune: on the radio to the ship, 21:50–22:30 (per Theo)',
+              label: 'Erik: on the radio to the ship, 21:50–22:30 (per Theo)',
             },
           ],
         },
@@ -363,7 +363,7 @@ export const deepFieldRaw = {
           threadId: 't-theo',
           senderId: 'theo',
           sentAt: 2154,
-          body: 'talk to Rune. he will not type at you, he sends the voice ones. do not make anything of that, everybody here knows why and nobody here mentions it',
+          body: 'talk to Erik. he will not type at you, he sends the voice ones. do not make anything of that, everybody here knows why and nobody here mentions it',
         },
       ],
     },
@@ -371,7 +371,7 @@ export const deepFieldRaw = {
     // -------------------------------------------------- t-rune (discovery)
     {
       id: 't-rune',
-      title: 'Rune',
+      title: 'Erik',
       participantIds: ['you', 'rune'],
       requiresContradictionIds: [],
       requiresReadMessageIds: ['h8'],
@@ -388,7 +388,7 @@ export const deepFieldRaw = {
           threadId: 't-rune',
           senderId: 'rune',
           sentAt: 2206,
-          body: '[voice note, 0:19] I do these because I do not read well and I have never got on with the typing. Pilar has known nine years. It is not a secret, it is only tiring.',
+          body: '[voice note, 0:19] I do these because I do not read well and I have never got on with the typing. Maria has known nine years. It is not a secret, it is only tiring.',
         },
         {
           id: 'n3',
@@ -416,7 +416,7 @@ export const deepFieldRaw = {
           threadId: 't-rune',
           senderId: 'rune',
           sentAt: 2244,
-          body: '[voice note, 0:28] Ask Pilar about the platform log. Ask her which clock it keeps. I have said it to her twice and she has gone quiet at me twice, and I am a mechanic, so what would I know.',
+          body: '[voice note, 0:28] Ask Maria about the platform log. Ask her which clock it keeps. I have said it to her twice and she has gone quiet at me twice, and I am a mechanic, so what would I know.',
         },
       ],
     },
@@ -424,7 +424,7 @@ export const deepFieldRaw = {
     // ------------------------------------------------------ t-pilar (gated)
     {
       id: 't-pilar',
-      title: 'Pilar Otxoa',
+      title: 'Maria Otxoa',
       participantIds: ['you', 'pilar'],
       requiresContradictionIds: ['x-mal-block', 'x-mal-porch'],
       messages: [
@@ -440,7 +440,7 @@ export const deepFieldRaw = {
           threadId: 't-pilar',
           senderId: 'pilar',
           sentAt: 2406,
-          body: 'Rune is right about the log and I have been slow because I did not want him to be. The platform log writes in UTC. It has written in UTC since the instrument went in, because the instrument belongs to a consortium in Boulder and Boulder does not care what time it is here.',
+          body: 'Erik is right about the log and I have been slow because I did not want him to be. The platform log writes in UTC. It has written in UTC since the instrument went in, because the instrument belongs to a consortium in Boulder and Boulder does not care what time it is here.',
         },
         {
           id: 'p3',
@@ -479,7 +479,7 @@ export const deepFieldRaw = {
           threadId: 't-pilar',
           senderId: 'pilar',
           sentAt: 2430,
-          body: 'Card access. His card opened the surgery at 22:35 and again at 22:44. Orla was already in that porch by then. He had no clinical reason to be in that room at any hour and he has never had one in nineteen seasons.',
+          body: 'Card access. His card opened the surgery at 22:35 and again at 22:44. Laura was already in that porch by then. He had no clinical reason to be in that room at any hour and he has never had one in nineteen seasons.',
           claims: [
             {
               id: 'c-mal-surgery',
@@ -520,7 +520,7 @@ export const deepFieldRaw = {
               predicate: { kind: 'at_place', placeId: 'block' },
               window: { start: 1290, end: 1440 },
               sourceMessageId: 'p9',
-              label: 'Pilar: in the accommodation block, 21:30–24:00',
+              label: 'Maria: in the accommodation block, 21:30–24:00',
             },
           ],
         },
@@ -590,7 +590,7 @@ export const deepFieldRaw = {
       id: 'm-medevac',
       characterId: 'mal',
       summary:
-        'Orla had found atrial fibrillation on his annual screen. Protocol is medical evacuation on the first flight, and at sixty one and nineteen seasons there would not have been a twentieth.',
+        'Laura had found atrial fibrillation on his annual screen. Protocol is medical evacuation on the first flight, and at sixty one and nineteen seasons there would not have been a twentieth.',
       establishedByMessageIds: ['o4', 'p8'],
     },
   ],
@@ -615,14 +615,14 @@ export const deepFieldRaw = {
       claimIdA: 'c-mal-telescope',
       claimIdB: 'c-mal-surgery',
       revelation:
-        'His card opened the surgery at 22:35 and again at 22:44, while he says he was still on the platform and while Orla was already in that porch. Her screen file is not on the system and the paper copy is not in the drawer, and in nineteen seasons he has never had a clinical reason to be in that room.',
+        'His card opened the surgery at 22:35 and again at 22:44, while he says he was still on the platform and while Laura was already in that porch. Her screen file is not on the system and the paper copy is not in the drawer, and in nineteen seasons he has never had a clinical reason to be in that room.',
     },
     {
       id: 'x-rune-mast',
       claimIdA: 'c-rune-outside',
       claimIdB: 'c-rune-radio',
       revelation:
-        'Rune was on the set to the Shackleton for forty minutes about a fuel transfer that will not happen until December, and the ship logs their end of every call. Mal put him at the met mast because the met mast is the only place on that station nobody can see, and because a man who answers in voice notes is the easiest man on the ice to make strange.',
+        'Erik was on the set to the Shackleton for forty minutes about a fuel transfer that will not happen until December, and the ship logs their end of every call. Mal put him at the met mast because the met mast is the only place on that station nobody can see, and because a man who answers in voice notes is the easiest man on the ice to make strange.',
     },
   ],
 

@@ -81,7 +81,7 @@ describe('The Night Ferry', () => {
     expect(script.solution.killerId).not.toBe('eck');
   });
 
-  it('opens Eck only after Marisa says his name', () => {
+  it('opens Eck only after Sheila says his name', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

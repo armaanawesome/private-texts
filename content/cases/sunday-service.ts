@@ -10,7 +10,7 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * has, and it is only ink. Jack Tenby is eighty-four and reroofed that church in
  * 1974, and he is the only thing in the county that outranks it.
  *
- * Story Lens: the motive is not money. Cordelia Hale’s name, her house and every
+ * Story Lens: the motive is not money. Pam Hale’s name, her house and every
  * room she has ever been welcome in rest on four lines somebody else wrote in
  * 1974, and she has known since she was thirty.
  *
@@ -27,10 +27,10 @@ export const sundayServiceRaw = {
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'avril', name: 'Avril', avatarColor: '#8A7B5C' },
-    { id: 'cordy', name: 'Cordy', avatarColor: '#C4483C' },
-    { id: 'ines', name: 'Inés', avatarColor: '#4E8CF0' },
+    { id: 'cordy', name: 'Pam', avatarColor: '#C4483C' },
+    { id: 'ines', name: 'Grace', avatarColor: '#4E8CF0' },
     { id: 'jack', name: 'Jack', avatarColor: '#E4B363' },
-    { id: 'petra', name: 'Petra', avatarColor: '#6E5AA8' },
+    { id: 'petra', name: 'Denise', avatarColor: '#6E5AA8' },
   ],
   places: [
     { id: 'church', name: 'St Ninian’s' },
@@ -38,7 +38,7 @@ export const sundayServiceRaw = {
     { id: 'vestry', name: 'the vestry', parentId: 'church' },
     { id: 'tower', name: 'the tower', parentId: 'church' },
     { id: 'carpark', name: 'the church car park', parentId: 'church' },
-    { id: 'cordyhome', name: 'Cordy’s house' },
+    { id: 'cordyhome', name: 'Pam’s house' },
   ],
   objects: [],
 
@@ -93,14 +93,14 @@ export const sundayServiceRaw = {
           threadId: 't-avril',
           senderId: 'you',
           sentAt: 240,
-          body: 'hale as in cordelia hale',
+          body: 'hale as in pam hale',
         },
         {
           id: 'a6',
           threadId: 't-avril',
           senderId: 'avril',
           sentAt: 254,
-          body: 'Her mother and the father she has on every document she owns. Cordelia was born in the November.',
+          body: 'Her mother and the father she has on every document she owns. Pam was born in the November.',
         },
         {
           id: 'a7',
@@ -186,7 +186,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'cordyhome' },
               window: { start: 1140, end: 1260 },
               sourceMessageId: 'p3',
-              label: 'Cordy: at home, 19:00–21:00',
+              label: 'Pam: at home, 19:00–21:00',
             },
           ],
         },
@@ -202,7 +202,7 @@ export const sundayServiceRaw = {
           threadId: 't-parish',
           senderId: 'cordy',
           sentAt: 2440,
-          body: 'You were in the nave for most of that evening, Petra. You must have walked past that door six times.',
+          body: 'You were in the nave for most of that evening, Denise. You must have walked past that door six times.',
           claims: [
             {
               id: 'c-petra-nave',
@@ -211,7 +211,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'nave' },
               window: { start: 1170, end: 1250 },
               sourceMessageId: 'p5',
-              label: 'Petra: in the nave, 19:30–20:50 (per Cordy)',
+              label: 'Denise: in the nave, 19:30–20:50 (per Pam)',
             },
           ],
         },
@@ -227,7 +227,7 @@ export const sundayServiceRaw = {
           threadId: 't-parish',
           senderId: 'ines',
           sentAt: 2458,
-          body: 'Nobody is doing this here. Cordy, please.',
+          body: 'Nobody is doing this here. Pam, please.',
         },
       ],
     },
@@ -235,7 +235,7 @@ export const sundayServiceRaw = {
     // --------------------------------------------------------------- t-petra
     {
       id: 't-petra',
-      title: 'Petra',
+      title: 'Denise',
       participantIds: ['you', 'petra'],
       requiresContradictionIds: [],
       messages: [
@@ -346,7 +346,7 @@ export const sundayServiceRaw = {
           threadId: 't-jack',
           senderId: 'you',
           sentAt: 2844,
-          body: 'you let petra out of the tower',
+          body: 'you let denise out of the tower',
         },
         {
           id: 'j7',
@@ -362,7 +362,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'tower' },
               window: { start: 1140, end: 1210 },
               sourceMessageId: 'j7',
-              label: 'Petra: shut in the tower, 19:00–20:10 (per Jack)',
+              label: 'Denise: shut in the tower, 19:00–20:10 (per Jack)',
             },
           ],
         },
@@ -378,7 +378,7 @@ export const sundayServiceRaw = {
           threadId: 't-jack',
           senderId: 'jack',
           sentAt: 2874,
-          body: 'Cordelia Hale went into that vestry at about twenty to eight. I was in the nave doing the latch on the tower door and she went past me and she did not see me, because nobody sees a man on his knees with a screwdriver.',
+          body: 'Pam Hale went into that vestry at about twenty to eight. I was in the nave doing the latch on the tower door and she went past me and she did not see me, because nobody sees a man on his knees with a screwdriver.',
           claims: [
             {
               id: 'c-cordy-vestry',
@@ -387,7 +387,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'vestry' },
               window: { start: 1180, end: 1200 },
               sourceMessageId: 'j9',
-              label: 'Cordy: in the vestry, 19:40–20:00 (per Jack)',
+              label: 'Pam: in the vestry, 19:40–20:00 (per Jack)',
             },
           ],
         },
@@ -415,7 +415,7 @@ export const sundayServiceRaw = {
     // -------------------------------------------------------- t-ines (gated)
     {
       id: 't-ines',
-      title: 'Inés Barragán',
+      title: 'Grace Fowler',
       participantIds: ['you', 'ines'],
       // Deadlock, found at Pack 14. This also gated on `x-cordy-register`, whose
       // two claims are both inside this thread — so opening it required a proof
@@ -442,7 +442,7 @@ export const sundayServiceRaw = {
           threadId: 't-ines',
           senderId: 'ines',
           sentAt: 3016,
-          body: 'Cordy took the 1974 volume out on the eleventh of March, signed for it, and had it for four days. She is on the PCC and she was doing the flower rota history and I did not think about it for one second.',
+          body: 'Pam took the 1974 volume out on the eleventh of March, signed for it, and had it for four days. She is on the PCC and she was doing the flower rota history and I did not think about it for one second.',
           claims: [
             {
               id: 'c-cordy-signed-out',
@@ -455,7 +455,7 @@ export const sundayServiceRaw = {
               },
               window: { start: 288600, end: 288720 },
               sourceMessageId: 'i3',
-              label: 'Cordy: signed the 1974 register out, 11 March',
+              label: 'Pam: signed the 1974 register out, 11 March',
             },
           ],
         },
@@ -477,7 +477,7 @@ export const sundayServiceRaw = {
               },
               window: { start: 288540, end: 288780 },
               sourceMessageId: 'i4',
-              label: 'Cordy: never handled the registers (her account)',
+              label: 'Pam: never handled the registers (her account)',
             },
           ],
         },
@@ -502,7 +502,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'carpark' },
               window: { start: 1220, end: 1230 },
               sourceMessageId: 'i6',
-              label: 'Cordy: in the car park, 20:20–20:30 (per Inés)',
+              label: 'Pam: in the car park, 20:20–20:30 (per Grace)',
             },
           ],
         },
@@ -520,7 +520,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'carpark' },
               window: { start: 1210, end: 1240 },
               sourceMessageId: 'i7',
-              label: 'Inés: in the car park, 20:10–20:40',
+              label: 'Grace: in the car park, 20:10–20:40',
             },
           ],
         },
@@ -538,7 +538,7 @@ export const sundayServiceRaw = {
               predicate: { kind: 'at_place', placeId: 'vestry' },
               window: { start: 1140, end: 1260 },
               sourceMessageId: 'i8',
-              label: 'Avril: in the vestry, 19:00–21:00 (per Inés)',
+              label: 'Avril: in the vestry, 19:00–21:00 (per Grace)',
             },
           ],
         },
@@ -547,7 +547,7 @@ export const sundayServiceRaw = {
           threadId: 't-ines',
           senderId: 'ines',
           sentAt: 3080,
-          body: 'Cordelia Hale has arranged the flowers in that church for forty years. She has a plaque with her mother’s name on it in the south aisle. I have watched her walk past it twice a week for two years.',
+          body: 'Pam Hale has arranged the flowers in that church for forty years. She has a plaque with her mother’s name on it in the south aisle. I have watched her walk past it twice a week for two years.',
         },
       ],
     },
@@ -583,14 +583,14 @@ export const sundayServiceRaw = {
       claimIdA: 'c-cordy-home',
       claimIdB: 'c-cordy-carpark',
       revelation:
-        'At twenty past eight her car was under the yew where she always leaves it, and Inés saw it and was pleased, because she thought it meant somebody was sitting with Avril.',
+        'At twenty past eight her car was under the yew where she always leaves it, and Grace saw it and was pleased, because she thought it meant somebody was sitting with Avril.',
     },
     {
       id: 'x-petra-tower',
       claimIdA: 'c-petra-nave',
       claimIdB: 'c-petra-tower',
       revelation:
-        'Cordy put the organist in the nave walking past that door six times. Petra was shut in the tower from seven with the door closed because the sound comes back at you otherwise, and the latch has been broken since March. Jack let her out at ten past eight and laughed at her for four minutes first.',
+        'Pam put the organist in the nave walking past that door six times. Denise was shut in the tower from seven with the door closed because the sound comes back at you otherwise, and the latch has been broken since March. Jack let her out at ten past eight and laughed at her for four minutes first.',
     },
   ],
 
@@ -618,7 +618,7 @@ export const sundayServiceRaw = {
         id: 'v-carpark',
         evidence: { kind: 'contradiction', id: 'x-cordy-carpark' },
         press:
-          'Your car was under the yew at twenty past eight. Inés saw it and was glad, because she thought it meant Avril was not on her own.',
+          'Your car was under the yew at twenty past eight. Grace saw it and was glad, because she thought it meant Avril was not on her own.',
         rebuttal: '',
       },
       {
@@ -635,7 +635,7 @@ export const sundayServiceRaw = {
       'Bring me something that is not an old man on his knees.',
     ],
     confession:
-      'I found out when I was thirty. My mother told me in a kitchen in Bicester with the immersion heater on, and then she died eleven weeks later and left me holding it.\n\nThere was no wedding. There was a man in Coventry who did not want me, and a curate here who owed my grandmother something, and four lines written into a book in 1976 in a hand nobody was ever going to check.\n\nAnd I have arranged the flowers in that church for forty years, and I have read the lesson at Christmas, and there is a plaque in the south aisle with my mother’s name on it, and every single bit of that stands on those four lines.\n\nAvril came to tell me herself. That is the part I want said. She did not go to the diocese first, she came to my kitchen on the Sunday and sat down and said Cordy, I have found something and I am going to have to send it, and I wanted you to hear it from a friend.\n\nAnd I said thank you. I did say thank you.\n\nThen on the Tuesday I went down to ask her to hold the batch back. Just the batch. Just until after the anniversary, I said, and she said Cordelia, I cannot, and she turned round to the scanner.\n\nShe was seventy-one and I put my hand on her shoulder and I do not know what I meant by it. I have said that to myself four hundred times and it is still the only true sentence I have got.',
+      'I found out when I was thirty. My mother told me in a kitchen in Bicester with the immersion heater on, and then she died eleven weeks later and left me holding it.\n\nThere was no wedding. There was a man in Coventry who did not want me, and a curate here who owed my grandmother something, and four lines written into a book in 1976 in a hand nobody was ever going to check.\n\nAnd I have arranged the flowers in that church for forty years, and I have read the lesson at Christmas, and there is a plaque in the south aisle with my mother’s name on it, and every single bit of that stands on those four lines.\n\nAvril came to tell me herself. That is the part I want said. She did not go to the diocese first, she came to my kitchen on the Sunday and sat down and said Pam, I have found something and I am going to have to send it, and I wanted you to hear it from a friend.\n\nAnd I said thank you. I did say thank you.\n\nThen on the Tuesday I went down to ask her to hold the batch back. Just the batch. Just until after the anniversary, I said, and she said Pam, I cannot, and she turned round to the scanner.\n\nShe was seventy-one and I put my hand on her shoulder and I do not know what I meant by it. I have said that to myself four hundred times and it is still the only true sentence I have got.',
   },
 
   solution: {

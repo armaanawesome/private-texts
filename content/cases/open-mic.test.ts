@@ -51,7 +51,7 @@ describe('Open Mic', () => {
   });
 
   /**
-   * Red herring seeded from clue 3 — decades on the circuit. Ferdy is
+   * Red herring seeded from clue 3 — decades on the circuit. Kevin is
    * sixty-one, has worked every town since 1994, knows everybody, and carries a
    * Nokia, which after Pack 4 should make the player's stomach drop. He is
    * cleared by the very recording the killer offered up.
@@ -63,7 +63,7 @@ describe('Open Mic', () => {
     expect(script.solution.killerId).not.toBe('ferdy');
   });
 
-  it('opens Ferdy only after Kit points at him', () => {
+  it('opens Kevin only after Kit points at him', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

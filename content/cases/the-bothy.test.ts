@@ -54,7 +54,7 @@ describe('The Bothy', () => {
   });
 
   /**
-   * Red herring seeded from clue 2 — he had private access. Pris cleaned
+   * Red herring seeded from clue 2 — he had private access. Sandra cleaned
    * Struan’s house for nine years and knows everything about him, which is
    * exactly what makes her look guilty and is not a motive.
    */
@@ -65,7 +65,7 @@ describe('The Bothy', () => {
     expect(script.solution.killerId).not.toBe('pris');
   });
 
-  it('opens Pris only after Morven points at her', () => {
+  it('opens Sandra only after Anne points at her', () => {
     const cold = visibleThreads(script, {
       confirmedContradictionIds: [],
       readMessageIds: [],

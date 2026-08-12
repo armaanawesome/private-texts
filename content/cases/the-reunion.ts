@@ -22,7 +22,7 @@ import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
  * The time lie is its own thing, distinct from Pack 4 (three clocks), Pack 7
  * (order of arrival) and Pack 10 (a wrong timestamp): **he did not falsify a
  * clock, he became one.** Nobody at a reunion looks at a watch. Everyone dates
- * the evening by the speech. Rafe Ellory wrote the running order, moved his own
+ * the evening by the speech. Mark Ellory wrote the running order, moved his own
  * speech forty-five minutes early, and every witness in that hall is now placing
  * the whole night inside a sequence he authored.
  *
@@ -43,8 +43,8 @@ export const theReunionRaw = {
   characters: [
     { id: 'you', name: 'You', avatarColor: '#2F6F4E' },
     { id: 'nia', name: 'Nia', avatarColor: '#C97C5D' },
-    { id: 'rafe', name: 'Rafe', avatarColor: '#3E4E88' },
-    { id: 'marika', name: 'Marika', avatarColor: '#B8443F' },
+    { id: 'rafe', name: 'Mark', avatarColor: '#3E4E88' },
+    { id: 'marika', name: 'Michelle', avatarColor: '#B8443F' },
     { id: 'tobi', name: 'Tobi', avatarColor: '#4E8CF0' },
     { id: 'corin', name: 'Mr Vale', avatarColor: '#7A6A55' },
   ],
@@ -195,7 +195,7 @@ export const theReunionRaw = {
               predicate: { kind: 'at_place', placeId: 'hall' },
               window: { start: 1140, end: 1240 },
               sourceMessageId: 'g4',
-              label: 'Nia: in the main hall, 19:00–20:40 (per Marika)',
+              label: 'Nia: in the main hall, 19:00–20:40 (per Michelle)',
             },
           ],
         },
@@ -211,7 +211,7 @@ export const theReunionRaw = {
           threadId: 't-year',
           senderId: 'marika',
           sentAt: 2460,
-          body: 'rafe there is a woman dead on the same bank as ashley and you are talking about a running order',
+          body: 'mark there is a woman dead on the same bank as ashley and you are talking about a running order',
         },
         {
           id: 'g7',
@@ -226,7 +226,7 @@ export const theReunionRaw = {
     // -------------------------------------------------------------- t-marika
     {
       id: 't-marika',
-      title: 'Marika',
+      title: 'Michelle',
       participantIds: ['you', 'marika'],
       requiresContradictionIds: [],
       messages: [
@@ -244,7 +244,7 @@ export const theReunionRaw = {
               predicate: { kind: 'with_person', personId: 'nia' },
               window: { start: 1245, end: 1290 },
               sourceMessageId: 'k1',
-              label: 'Marika: with Nia, 20:45–21:30',
+              label: 'Michelle: with Nia, 20:45–21:30',
             },
             {
               id: 'c-nia-with-marika',
@@ -253,7 +253,7 @@ export const theReunionRaw = {
               predicate: { kind: 'with_person', personId: 'marika' },
               window: { start: 1245, end: 1285 },
               sourceMessageId: 'k1',
-              label: 'Nia: with Marika, 20:45–21:25',
+              label: 'Nia: with Michelle, 20:45–21:25',
             },
           ],
         },
@@ -285,7 +285,7 @@ export const theReunionRaw = {
               predicate: { kind: 'at_place', placeId: 'hall' },
               window: { start: 1245, end: 1300 },
               sourceMessageId: 'k4',
-              label: 'Marika: in the main hall, 20:45–21:40 (per Mr Vale)',
+              label: 'Michelle: in the main hall, 20:45–21:40 (per Mr Vale)',
             },
           ],
         },
@@ -321,7 +321,7 @@ export const theReunionRaw = {
               },
               window: { start: 1255, end: 1275 },
               sourceMessageId: 'k7',
-              label: 'Rafe: outside by the bins on his phone, 20:55–21:15 (per Marika)',
+              label: 'Mark: outside by the bins on his phone, 20:55–21:15 (per Michelle)',
             },
           ],
         },
@@ -337,7 +337,7 @@ export const theReunionRaw = {
           threadId: 't-marika',
           senderId: 'marika',
           sentAt: 2690,
-          body: 'and rafe put the story together on the bank before the ambulance got there. we said we rang straight away. he said the words first and the three of us said them after him and i have said them to a police officer, a coroner and my own mother',
+          body: 'and mark put the story together on the bank before the ambulance got there. we said we rang straight away. he said the words first and the three of us said them after him and i have said them to a police officer, a coroner and my own mother',
         },
         {
           id: 'k10',
@@ -352,7 +352,7 @@ export const theReunionRaw = {
     // ---------------------------------------------------------------- t-rafe
     {
       id: 't-rafe',
-      title: 'Rafe Ellory',
+      title: 'Mark Ellory',
       participantIds: ['you', 'rafe'],
       requiresContradictionIds: [],
       messages: [
@@ -377,7 +377,7 @@ export const theReunionRaw = {
               predicate: { kind: 'at_place', placeId: 'hall' },
               window: { start: 1245, end: 1290 },
               sourceMessageId: 'r2',
-              label: 'Rafe: in the main hall, 20:45–21:30',
+              label: 'Mark: in the main hall, 20:45–21:30',
             },
           ],
         },
@@ -406,7 +406,7 @@ export const theReunionRaw = {
               },
               window: { start: 1260, end: 1280 },
               sourceMessageId: 'r4',
-              label: 'Rafe: giving the speech, 21:00–21:20',
+              label: 'Mark: giving the speech, 21:00–21:20',
             },
           ],
         },
@@ -415,7 +415,7 @@ export const theReunionRaw = {
           threadId: 't-rafe',
           senderId: 'rafe',
           sentAt: 2846,
-          body: 'Marika was beside me for most of the evening and I was beside Nia for a stretch of it. It was a room of ninety people who have not seen each other since they were seventeen. Nobody was on their own for a moment.',
+          body: 'Michelle was beside me for most of the evening and I was beside Nia for a stretch of it. It was a room of ninety people who have not seen each other since they were seventeen. Nobody was on their own for a moment.',
           claims: [
             {
               id: 'c-marika-with-rafe',
@@ -424,7 +424,7 @@ export const theReunionRaw = {
               predicate: { kind: 'with_person', personId: 'rafe' },
               window: { start: 1250, end: 1280 },
               sourceMessageId: 'r5',
-              label: 'Marika: with Rafe, 20:50–21:20 (per Rafe)',
+              label: 'Michelle: with Mark, 20:50–21:20 (per Mark)',
             },
             {
               id: 'c-nia-with-rafe',
@@ -433,7 +433,7 @@ export const theReunionRaw = {
               predicate: { kind: 'with_person', personId: 'rafe' },
               window: { start: 1255, end: 1275 },
               sourceMessageId: 'r5',
-              label: 'Nia: with Rafe, 20:55–21:15 (per Rafe)',
+              label: 'Nia: with Mark, 20:55–21:15 (per Mark)',
             },
           ],
         },
@@ -458,7 +458,7 @@ export const theReunionRaw = {
               predicate: { kind: 'at_place', placeId: 'hall' },
               window: { start: 1245, end: 1290 },
               sourceMessageId: 'r7',
-              label: 'Tobi: in the main hall, 20:45–21:30 (per Rafe)',
+              label: 'Tobi: in the main hall, 20:45–21:30 (per Mark)',
             },
           ],
         },
@@ -517,7 +517,7 @@ export const theReunionRaw = {
           threadId: 't-tobi',
           senderId: 'you',
           sentAt: 3018,
-          body: 'rafe says you were in the hall',
+          body: 'mark says you were in the hall',
         },
         {
           id: 't4',
@@ -559,7 +559,7 @@ export const theReunionRaw = {
           threadId: 't-tobi',
           senderId: 'tobi',
           sentAt: 3090,
-          body: 'Go and see Corin Vale. He has had the keys to that building since 1989 and he was locking up on Saturday, and he is the only person in this whole thing who was not at a party.',
+          body: 'Go and see Colin Vale. He has had the keys to that building since 1989 and he was locking up on Saturday, and he is the only person in this whole thing who was not at a party.',
         },
       ],
     },
@@ -599,7 +599,7 @@ export const theReunionRaw = {
               predicate: { kind: 'at_place', placeId: 'musicblock' },
               window: { start: 1258, end: 1266 },
               sourceMessageId: 'c3',
-              label: 'Rafe: in the music block, 20:58–21:06 (per Mr Vale)',
+              label: 'Mark: in the music block, 20:58–21:06 (per Mr Vale)',
             },
           ],
         },
@@ -631,7 +631,7 @@ export const theReunionRaw = {
               predicate: { kind: 'at_place', placeId: 'carpark' },
               window: { start: 1268, end: 1280 },
               sourceMessageId: 'c6',
-              label: 'Rafe: in the staff car park, 21:08–21:20 (barrier log)',
+              label: 'Mark: in the staff car park, 21:08–21:20 (barrier log)',
             },
           ],
         },
@@ -683,7 +683,7 @@ export const theReunionRaw = {
       id: 'm-riverbank',
       characterId: 'rafe',
       summary:
-        'Nobody touched Ashley Crewe. Four of them stood on that bank and nobody rang for twenty minutes, and Rafe Ellory assembled the story before the ambulance arrived and made the other three say it after him. He has been a head teacher for six years. Nia posted an eight-page letter to Ashley’s mother the morning of the reunion.',
+        'Nobody touched Ashley Crewe. Four of them stood on that bank and nobody rang for twenty minutes, and Mark Ellory assembled the story before the ambulance arrived and made the other three say it after him. He has been a head teacher for six years. Nia posted an eight-page letter to Ashley’s mother the morning of the reunion.',
       establishedByMessageIds: ['n7', 'k9'],
     },
   ],
@@ -694,14 +694,14 @@ export const theReunionRaw = {
       claimIdA: 'c-rafe-speech',
       claimIdB: 'c-rafe-outside',
       revelation:
-        'The programme says nine o’clock and there are two hundred of them printed. He spoke at quarter past eight, because the caterers were forty minutes behind and Marika went and found him and told him to do it while people were still standing up. The invoice on her phone has hot service at 20:55. So every witness in that hall who dated something to after the speech believes they have told you after nine, and has told you after quarter past eight — and at nine, when he says he was on his feet in front of ninety people, he was outside by the bins on his phone.',
+        'The programme says nine o’clock and there are two hundred of them printed. He spoke at quarter past eight, because the caterers were forty minutes behind and Michelle went and found him and told him to do it while people were still standing up. The invoice on her phone has hot service at 20:55. So every witness in that hall who dated something to after the speech believes they have told you after nine, and has told you after quarter past eight — and at nine, when he says he was on his feet in front of ninety people, he was outside by the bins on his phone.',
     },
     {
       id: 'x-rafe-music',
       claimIdA: 'c-rafe-hall',
       claimIdB: 'c-rafe-music',
       revelation:
-        'Corin Vale does not go by the party. He goes by his rounds, and the music block is locked at nine and has been since Mrs Hartley was head. Rafe Ellory was standing in that corridor at two or three minutes past, and Vale had to wait for him, and had to speak to him twice.',
+        'Colin Vale does not go by the party. He goes by his rounds, and the music block is locked at nine and has been since Mrs Hartley was head. Mark Ellory was standing in that corridor at two or three minutes past, and Vale had to wait for him, and had to speak to him twice.',
     },
     {
       id: 'x-rafe-gate',
@@ -715,7 +715,7 @@ export const theReunionRaw = {
       claimIdA: 'c-tobi-hall',
       claimIdB: 'c-tobi-branch',
       revelation:
-        'Rafe Ellory put Tobi Marchetti in that hall. Tobi was forty-one miles away at the Calderside branch office from six until two, on a rota of nine with a supervisor, and Nia moved the date of the reunion once trying to fit him in and could not. Four hundred people volunteer on that line in this region alone. It is not a rare thing to be. It only looks rare from where you are standing.',
+        'Mark Ellory put Tobi Marchetti in that hall. Tobi was forty-one miles away at the Calderside branch office from six until two, on a rota of nine with a supervisor, and Nia moved the date of the reunion once trying to fit him in and could not. Four hundred people volunteer on that line in this region alone. It is not a rare thing to be. It only looks rare from where you are standing.',
     },
   ],
 
@@ -729,13 +729,13 @@ export const theReunionRaw = {
         press:
           'You wrote the running order and then you moved your own speech forty-five minutes early. Every person in that room has been dating the evening off it since Saturday. At nine you were outside by the bins.',
         rebuttal:
-          'The caterers were behind. Marika Selkirk asked me to bring it forward and I brought it forward, in front of ninety people, which is a strange way to conceal something.',
+          'The caterers were behind. Michelle Selkirk asked me to bring it forward and I brought it forward, in front of ninety people, which is a strange way to conceal something.',
       },
       {
         id: 'a-music',
         evidence: { kind: 'contradiction', id: 'x-rafe-music' },
         press:
-          'Corin Vale locks the music block at nine. He found you in that corridor at three minutes past and had to speak to you twice before you heard him.',
+          'Colin Vale locks the music block at nine. He found you in that corridor at three minutes past and had to speak to you twice before you heard him.',
         rebuttal:
           'He is sixty-one and he was carrying a bunch of keys round a building in the dark. I was in and out of that corridor all night. He has put two evenings together.',
       },
