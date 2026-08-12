@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, Stack, Redirect } from 'expo-router';
 import { useReducedMotion } from 'react-native-reanimated';
 import { MessageList, PLAYER_ID } from '@/ui/MessageList';
@@ -12,10 +12,27 @@ export default function ThreadScreen() {
   const script = useCaseStore((s) => s.script);
   const pinnedClaimIds = useCaseStore((s) => s.pinnedClaimIds);
   const togglePin = useCaseStore((s) => s.togglePin);
+  const openThread = useCaseStore((s) => s.openThread);
+  const readCount = useCaseStore((s) => s.readMessageIds.length);
   const [sheetFor, setSheetFor] = useState<string | null>(null);
 
   const title = script?.threads.find((t) => t.id === threadId)?.title ?? '';
   const titleOptions = useMemo(() => ({ title }), [title]);
+
+  /**
+   * Records the resume position, and persists it as the conversation plays.
+   *
+   * Reads were previously only written when the player pinned a claim, so
+   * reading a whole thread and then backgrounding the app lost the lot. Keying
+   * on the read count means one small write per revealed message, which is what
+   * makes "continue on with the last text" survive the app being killed.
+   */
+  const caseId = script?.id;
+  useEffect(() => {
+    if (!caseId) return;
+    openThread(threadId);
+    void saveProgress(caseId);
+  }, [caseId, threadId, readCount, openThread]);
 
   if (!script) return <Redirect href="/" />;
   const thread = script.threads.find((t) => t.id === threadId);

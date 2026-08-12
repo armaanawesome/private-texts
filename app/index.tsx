@@ -1,33 +1,86 @@
+import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useFocusEffect } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { CasePoster } from '@/ui/CasePoster';
-import { CASES } from '@content/cases';
+import { ContinueCard } from '@/ui/ContinueCard';
+import { CASES, getCase } from '@content/cases';
 import { useEntitlements } from '@/entitlements/useEntitlements';
+import { readResume } from '@/state/persistence';
+import { offerResume, type ResumeOffer } from '@/state/resume';
 import type { CaseScript } from '@/engine';
+
+const isUnlocked = (script: CaseScript, entitlementIds: readonly string[]): boolean =>
+  script.requiredEntitlementId === undefined || entitlementIds.includes(script.requiredEntitlementId);
+
+interface Resume {
+  offer: ResumeOffer;
+  script: CaseScript;
+  /** Captured with the read, so "12 minutes ago" cannot drift mid-render. */
+  now: number;
+}
 
 export default function CaseSelectScreen() {
   const { entitlementIds } = useEntitlements();
+  const [resume, setResume] = useState<Resume | null>(null);
+
+  /**
+   * On focus, not on mount: the player arrives back here every time they leave
+   * a case, and the card has to show where they got to, not where they were
+   * when the app started.
+   */
+  useFocusEffect(
+    useCallback(() => {
+      let alive = true;
+      void (async () => {
+        const stored = await readResume();
+        if (!alive) return;
+        const script = stored ? getCase(stored.last.caseId) : undefined;
+        const offer = offerResume({
+          last: stored?.last ?? null,
+          save: stored?.save ?? null,
+          script,
+          unlocked: script !== undefined && isUnlocked(script, entitlementIds),
+        });
+        setResume(offer && script ? { offer, script, now: Date.now() } : null);
+      })();
+      return () => {
+        alive = false;
+      };
+    }, [entitlementIds]),
+  );
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       <View style={styles.masthead}>
         <Text style={styles.title}>Private Texts</Text>
-        <Text style={styles.sub}>
-          Someone is dead. All you have is their messages. Find the statement that cannot be true.
-        </Text>
+        {/* The pitch is for someone who has not played. A returning player has
+            already bought it, and leaving it here would push Continue down the
+            screen to make room for an argument they have accepted. */}
+        {resume ? null : (
+          <Text style={styles.sub}>
+            Someone is dead. All you have is their messages. Find the statement that cannot be true.
+          </Text>
+        )}
       </View>
 
-      <View style={styles.grid}>
-        {CASES.map((c) => (
-          <CaseTile
-            key={c.id}
-            script={c}
-            locked={
-              c.requiredEntitlementId !== undefined && !entitlementIds.includes(c.requiredEntitlementId)
-            }
-          />
-        ))}
+      {resume ? (
+        <ContinueCard offer={resume.offer} script={resume.script} now={resume.now} />
+      ) : null}
+
+      <View style={styles.section}>
+        {/* Only earns its place once there are two zones to tell apart. */}
+        {resume ? (
+          <View style={styles.sectionHead}>
+            <Text style={styles.sectionLabel}>All cases</Text>
+          </View>
+        ) : null}
+
+        <View style={styles.grid}>
+          {CASES.map((c) => (
+            <CaseTile key={c.id} script={c} locked={!isUnlocked(c, entitlementIds)} />
+          ))}
+        </View>
       </View>
 
       {/* Dev-only. A "Test Store harness" link on the first screen is workshop
@@ -81,6 +134,14 @@ const styles = StyleSheet.create({
   masthead: { gap: theme.space.sm },
   title: { ...theme.type.title, color: theme.color.text, fontSize: 32, lineHeight: 38 },
   sub: { ...theme.type.body, color: theme.color.textDim },
+
+  section: { gap: theme.space.md },
+  sectionHead: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: theme.color.rule,
+    paddingTop: theme.space.md,
+  },
+  sectionLabel: { ...theme.type.meta, color: theme.color.textDim, letterSpacing: 0.4 },
 
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.md },
   /**

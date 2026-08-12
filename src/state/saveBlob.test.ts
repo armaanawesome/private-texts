@@ -37,6 +37,33 @@ describe('save blob', () => {
     expect(b.readMessageIds).toEqual([]);
   });
 
+  /**
+   * Saves written before resume shipped have neither resume field. They must
+   * load as ordinary saves with nothing to return to — if the new fields were
+   * required, `loadProgress` would delete every existing playthrough on upgrade
+   * as though it were corrupt.
+   */
+  it('loads a save written before resume existed', () => {
+    const blob = saveBlobSchema.parse({
+      readMessageIds: ['r1'],
+      confirmedContradictionIds: [],
+    });
+    expect(blob.readMessageIds).toEqual(['r1']);
+    expect(blob.lastThreadId).toBeNull();
+    expect(blob.lastMessageId).toBeNull();
+  });
+
+  it('keeps the resume position when there is one', () => {
+    const blob = saveBlobSchema.parse({
+      readMessageIds: ['r1'],
+      confirmedContradictionIds: [],
+      lastThreadId: 't-nadia',
+      lastMessageId: 'r1',
+    });
+    expect(blob.lastThreadId).toBe('t-nadia');
+    expect(blob.lastMessageId).toBe('r1');
+  });
+
   it('rejects a blob that is not an object at all', () => {
     expect(() => saveBlobSchema.parse(null)).toThrow();
     expect(() => saveBlobSchema.parse('save')).toThrow();

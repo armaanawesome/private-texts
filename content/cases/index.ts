@@ -1,4 +1,5 @@
 import { loadCase, type CaseScript } from '@/engine';
+import { tutorialRaw } from './tutorial';
 import { theLighthouseRaw } from './the-lighthouse';
 import { theUnderstudyRaw } from './the-understudy';
 import { theNightRoundRaw } from './the-night-round';
@@ -23,6 +24,9 @@ import { theListenerRaw } from './the-listener';
  * validating here instead of lazily.
  */
 export const CASES: readonly CaseScript[] = [
+  // First, so it heads the case-select grid. It is not one of the fifteen —
+  // ledger.test.ts holds it out of the pack rules by id.
+  loadCase(tutorialRaw),
   loadCase(theLighthouseRaw),
   loadCase(theUnderstudyRaw),
   loadCase(theNightRoundRaw),

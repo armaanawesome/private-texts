@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { BriefingScreen } from '@/ui/BriefingScreen';
 import { clockOf } from '@/ui/timeScale';
@@ -18,12 +18,36 @@ const PLAYER_ID = 'you';
  * to convince you that you are holding somebody's phone.
  */
 export default function ThreadsScreen() {
+  const { resume } = useLocalSearchParams<{ caseId: string; resume?: string }>();
+  const router = useRouter();
   const script = useCaseStore((s) => s.script);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
+  const hydrated = useCaseStore((s) => s.hydrated);
   const [briefed, setBriefed] = useState(false);
 
+  /**
+   * Continue hands the conversation off through here rather than linking
+   * straight to `/thread/...`, because the thread screen reads its script from
+   * the store and this case's layout is what loads it — a direct link would
+   * arrive with an empty store and bounce the player back to the home screen.
+   *
+   * Going through the inbox also leaves the right stack behind: back from the
+   * conversation lands on the case, not on the case list.
+   */
+  useEffect(() => {
+    if (!resume || !hydrated || !script) return;
+    // Cleared first so returning from the thread — or a tab switch that
+    // remounts this screen — cannot fire the same hand-off a second time.
+    router.setParams({ resume: '' });
+    if (script.threads.some((t) => t.id === resume)) router.push(`/thread/${resume}`);
+  }, [resume, hydrated, script, router]);
+
   if (!script) return null;
+  // Wait for the save to be read back. Without this, a case the player is
+  // halfway through renders for a frame with nothing marked read, which the
+  // briefing gate below reads as a fresh case and flashes the briefing.
+  if (!hydrated) return null;
 
   // The briefing stands in front of the inbox on a fresh case only. Once a
   // single message has been read the player has started, and re-showing the

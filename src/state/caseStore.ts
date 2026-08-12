@@ -28,8 +28,25 @@ interface CaseState {
    */
   lastComparedClaimIds: string[];
 
+  /**
+   * Where the player was, so Continue can reopen the conversation rather than
+   * the case index. Persisted; see saveBlob.ts.
+   */
+  lastThreadId: string | null;
+  lastMessageId: string | null;
+  /**
+   * Whether the saved progress for this case has been read back yet.
+   *
+   * The inbox waits on this. Without it, a resumed case renders for a frame
+   * with `readMessageIds` still empty, which the briefing gate reads as "fresh
+   * case" — so returning to a case you are halfway through flashes its briefing
+   * screen at you before the save lands.
+   */
+  hydrated: boolean;
+
   loadScript: (script: CaseScript) => void;
   markRead: (messageId: string) => void;
+  openThread: (threadId: string) => void;
   togglePin: (claimId: string) => void;
   submitPins: () => void;
   clearPins: () => void;
@@ -58,6 +75,9 @@ const empty = () => ({
   lastVerdict: null,
   lastConfirmedId: null,
   lastComparedClaimIds: [] as string[],
+  lastThreadId: null,
+  lastMessageId: null,
+  hydrated: false,
 });
 
 export const useCaseStore = create<CaseState>((set, get) => ({
@@ -65,12 +85,27 @@ export const useCaseStore = create<CaseState>((set, get) => ({
 
   loadScript: (script) => set({ ...empty(), script }),
 
+  /**
+   * The early return also keeps `lastMessageId` honest. Reopening a finished
+   * thread re-marks every message in it, so without the guard the resume
+   * pointer would walk backwards over messages the player read days ago and
+   * come to rest on whichever one happened to be last in the loop.
+   */
   markRead: (messageId) =>
     set((s) =>
       s.readMessageIds.includes(messageId)
         ? s
-        : { readMessageIds: [...s.readMessageIds, messageId] },
+        : { readMessageIds: [...s.readMessageIds, messageId], lastMessageId: messageId },
     ),
+
+  /**
+   * Records the conversation itself, which `markRead` cannot: a thread the
+   * player has already finished produces no new reads, and it is still the
+   * thread they were last in. Returns the same state when nothing changed, so
+   * the screen can call this on every render without causing one.
+   */
+  openThread: (threadId) =>
+    set((s) => (s.lastThreadId === threadId ? s : { lastThreadId: threadId })),
 
   togglePin: (claimId) =>
     set((s) => {

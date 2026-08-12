@@ -1,0 +1,193 @@
+import { z } from 'zod';
+import { visibleThreads, type CaseScript } from '@/engine';
+import type { SaveBlob } from './saveBlob';
+
+/**
+ * Resume: deciding whether to offer Continue, and what it should open.
+ *
+ * Pure and dependency-free on purpose. Every rule below is a way the offer can
+ * be *wrong* — a sealed case, a deleted case, a thread the player cannot reach
+ * yet — and each one is cheap to get right here and expensive to debug on a
+ * device. persistence.ts does the AsyncStorage I/O and hands the raw records to
+ * `offerResume`; the screen renders whatever comes back.
+ */
+
+/**
+ * The global "last played" pointer.
+ *
+ * Deliberately NOT under the `save:` prefix. Progress sync walks the save keys
+ * and treats each suffix as a case id, so a `save:last` pointer would be read
+ * as a case called "last" and pushed to the server as a garbage row — exactly
+ * the failure saveKeys.ts guards against. Keeping it in its own namespace means
+ * `isSaveKey` rejects it for free.
+ */
+export const RESUME_KEY = 'resume:last';
+
+/**
+ * Which case was last open, and when.
+ *
+ * `caseId` has no `.catch`: a pointer that cannot name a case is not a
+ * recoverable pointer, it is meaningless, and the whole record should be thrown
+ * out so the home screen falls back to the plain grid. `updatedAt` recovers to
+ * 0 because a pointer with a broken clock still knows which case to open — it
+ * just cannot say how long ago, and "a while ago" beats losing the save.
+ */
+export const lastPlayedSchema = z.object({
+  caseId: z.string().min(1),
+  updatedAt: z.number().int().nonnegative().catch(() => 0),
+});
+
+export type LastPlayed = z.infer<typeof lastPlayedSchema>;
+
+/** Everything the Continue affordance needs, or null when there is nothing to offer. */
+export interface ResumeOffer {
+  readonly caseId: string;
+  /** The conversation to reopen. Null means "open the case index instead". */
+  readonly threadId: string | null;
+  /** Unread messages waiting in that conversation. The reason to tap. */
+  readonly unreadInThread: number;
+  /**
+   * The last message the player actually read, if it is still in the thread
+   * being reopened. Null when the save has no pointer or the message was cut
+   * from the case, in which case the card has nothing to quote back.
+   */
+  readonly lastMessageId: string | null;
+  readonly provedCount: number;
+  readonly totalCount: number;
+  readonly updatedAt: number;
+}
+
+/**
+ * Has this case actually been played?
+ *
+ * Opening a case stamps the pointer, so the pointer alone is not evidence the
+ * player started. Offering to "continue" a case they glanced at and backed out
+ * of is a lie, and worse, it buries the case they were really playing.
+ */
+export function hasStarted(save: SaveBlob): boolean {
+  return save.readMessageIds.length > 0 || save.confirmedContradictionIds.length > 0;
+}
+
+/**
+ * The saved thread, but only if it is still a real, reachable conversation.
+ *
+ * Two ways a stored id goes stale, both of which produce a black hole if
+ * followed: the case was edited between builds and the thread no longer exists,
+ * or the thread is gated behind a contradiction this save has not proved.
+ * Gating normally only loosens as the player progresses, so the second case
+ * means the *script* changed under an old save. Either way the answer is to
+ * drop the player at the case index rather than at nothing.
+ */
+export function resumableThreadId(script: CaseScript, save: SaveBlob): string | null {
+  const { lastThreadId } = save;
+  if (lastThreadId === null) return null;
+
+  const reachable = visibleThreads(script, {
+    confirmedContradictionIds: save.confirmedContradictionIds,
+    readMessageIds: save.readMessageIds,
+  });
+  return reachable.some((t) => t.id === lastThreadId) ? lastThreadId : null;
+}
+
+/** Unread messages in one thread, given what the save says has been read. */
+function unreadIn(script: CaseScript, threadId: string | null, readMessageIds: readonly string[]): number {
+  if (threadId === null) return 0;
+  const thread = script.threads.find((t) => t.id === threadId);
+  if (!thread) return 0;
+  const read = new Set(readMessageIds);
+  return thread.messages.filter((m) => !read.has(m.id)).length;
+}
+
+/**
+ * The saved message id, but only if it is still in the thread being reopened.
+ *
+ * A message id that belongs to some other thread would have the card quote a
+ * line from a conversation it is not offering to open.
+ */
+function messageInThread(
+  script: CaseScript,
+  threadId: string | null,
+  messageId: string | null,
+): string | null {
+  if (threadId === null || messageId === null) return null;
+  const thread = script.threads.find((t) => t.id === threadId);
+  if (!thread) return null;
+  return thread.messages.some((m) => m.id === messageId) ? messageId : null;
+}
+
+/**
+ * Contradictions proved, counting only ones this build still defines.
+ *
+ * An edited case can leave a confirmed id behind that no longer matches any
+ * contradiction. Counting it would render "4 of 3 proved", which reads as a bug
+ * in the deduction engine rather than a stale save.
+ */
+function provedIn(script: CaseScript, confirmedContradictionIds: readonly string[]): number {
+  const real = new Set(script.contradictions.map((c) => c.id));
+  return confirmedContradictionIds.filter((id) => real.has(id)).length;
+}
+
+/**
+ * Should Continue appear, and what should it open?
+ *
+ * `script` is undefined when the pointer names a case this build no longer
+ * ships; `unlocked` is false when the case is behind an entitlement the player
+ * no longer holds. Both must return null rather than a disabled affordance — a
+ * Continue button that refuses to continue is worse than no button.
+ */
+export function offerResume(params: {
+  readonly last: LastPlayed | null;
+  readonly save: SaveBlob | null;
+  readonly script: CaseScript | undefined;
+  readonly unlocked: boolean;
+}): ResumeOffer | null {
+  const { last, save, script, unlocked } = params;
+  if (!last || !save || !script || !unlocked) return null;
+  if (script.id !== last.caseId) return null;
+  if (!hasStarted(save)) return null;
+
+  const threadId = resumableThreadId(script, save);
+  return {
+    caseId: last.caseId,
+    threadId,
+    unreadInThread: unreadIn(script, threadId, save.readMessageIds),
+    lastMessageId: messageInThread(script, threadId, save.lastMessageId),
+    provedCount: provedIn(script, save.confirmedContradictionIds),
+    totalCount: script.contradictions.length,
+    updatedAt: last.updatedAt,
+  };
+}
+
+const MINUTE = 60_000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const WEEK = 7 * DAY;
+
+/**
+ * How long ago, in the game's own voice.
+ *
+ * Rounds down throughout, so nothing ever claims more time has passed than
+ * actually has. A negative gap — device clock moved backwards, or a save synced
+ * from a device running ahead — reads as "just now" rather than a nonsense
+ * "in 3 hours"; the player does not care why, they care that it was recent.
+ */
+export function describeElapsed(nowMs: number, thenMs: number): string {
+  const gap = nowMs - thenMs;
+  if (!Number.isFinite(gap) || gap < MINUTE) return 'just now';
+
+  if (gap < HOUR) {
+    const n = Math.floor(gap / MINUTE);
+    return n === 1 ? '1 minute ago' : `${n} minutes ago`;
+  }
+  if (gap < DAY) {
+    const n = Math.floor(gap / HOUR);
+    return n === 1 ? '1 hour ago' : `${n} hours ago`;
+  }
+  if (gap < 2 * DAY) return 'yesterday';
+  if (gap < WEEK) return `${Math.floor(gap / DAY)} days ago`;
+
+  const weeks = Math.floor(gap / WEEK);
+  if (weeks === 1) return 'last week';
+  // Past a month the exact number stops meaning anything to a player.
+  return weeks >= 4 ? 'a while ago' : `${weeks} weeks ago`;
+}

@@ -27,3 +27,16 @@ export function isSaveKey(key: string): boolean {
 export function saveKeysIn(keys: readonly string[]): string[] {
   return keys.filter(isSaveKey);
 }
+
+/**
+ * The case id inside a save key, or null if the key is not a save.
+ *
+ * The inverse of `saveKey`, and progress sync needs it: to work out which cases
+ * this device has, it reads every AsyncStorage key and has to turn the ones
+ * that are ours back into case ids. AsyncStorage is one flat namespace shared
+ * with Supabase's own session entry, so a sync that assumed every key was a
+ * save would try to upload `supabase.auth.token` as a case on every launch.
+ */
+export function caseIdFromSaveKey(key: string): string | null {
+  return isSaveKey(key) ? key.slice(SAVE_KEY_PREFIX.length) : null;
+}

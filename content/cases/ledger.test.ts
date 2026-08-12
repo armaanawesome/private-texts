@@ -1,7 +1,22 @@
 import { describe, it, expect } from 'vitest';
 import { CASES } from './index';
+import { tutorialRaw } from './tutorial';
 import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
-import type { CaseScript } from '@/engine';
+import { loadCase, type CaseScript } from '@/engine';
+
+/**
+ * The teaching case, which is not one of the fifteen.
+ *
+ * It is loaded from source rather than looked up in CASES on purpose, so every
+ * assertion about it below is real whether or not it has been registered in
+ * `index.ts` yet. `PACKS` is then CASES minus the tutorial — the fifteen the
+ * ledger is actually a contract over.
+ *
+ * The exclusion is by exact id and nothing else, so a sixteenth pack, or a typo
+ * in a pack id, still has to appear in DIMENSIONS. Nothing here got weaker.
+ */
+const TUTORIAL: CaseScript = loadCase(tutorialRaw);
+const PACKS: readonly CaseScript[] = CASES.filter((c) => c.id !== TUTORIAL.id);
 
 /**
  * docs/pack-ledger.md, made executable where it can be.
@@ -73,7 +88,9 @@ describe('pack ledger', () => {
    * surface when a player had done everything else right.
    */
   it('never proves a case on an axis the engine cannot fire', () => {
-    for (const script of CASES) {
+    // The tutorial is included here deliberately: it is the one case whose whole
+    // job is to teach what the engine will and will not fire on.
+    for (const script of [...PACKS, TUTORIAL]) {
       expect(
         requiredPredicateKinds(script),
         `${script.id} requires a with_person proof`,
@@ -81,16 +98,28 @@ describe('pack ledger', () => {
     }
   });
 
-  it('gives every case at least two required proofs on different claims', () => {
-    for (const script of CASES) {
+  it('gives every pack at least two required proofs on different claims', () => {
+    for (const script of PACKS) {
       expect(script.solution.requiredContradictionIds.length, script.id).toBeGreaterThanOrEqual(2);
     }
+  });
+
+  /**
+   * And the tutorial is the deliberate exception to that.
+   *
+   * One proof, because it is teaching the move rather than testing it. Asserted
+   * rather than merely skipped, so nobody "fixes" the tutorial up to two later
+   * and quietly turns the five-minute on-ramp into a fourth case.
+   */
+  it('holds the tutorial to exactly one proof, outside the pack rules', () => {
+    expect(TUTORIAL.solution.requiredContradictionIds).toHaveLength(1);
+    expect(TUTORIAL.requiredEntitlementId, 'the tutorial must be free').toBeUndefined();
   });
 
   /** Rule 1: no two packs share a shape of lie. */
   it('gives every pack a dimension no other pack has', () => {
     const seen = new Map<string, string>();
-    for (const script of CASES) {
+    for (const script of PACKS) {
       const dimension = DIMENSIONS[script.id];
       expect(dimension, `${script.id} has no declared dimension in the ledger`).toBeDefined();
       const already = seen.get(dimension!);
@@ -108,7 +137,7 @@ describe('pack ledger', () => {
    */
   it('keeps the first three packs free and gates everything after', () => {
     const free = new Set(['the-lighthouse', 'the-understudy', 'the-night-round']);
-    for (const script of CASES) {
+    for (const script of PACKS) {
       if (free.has(script.id)) {
         expect(script.requiredEntitlementId, `${script.id} should be free`).toBeUndefined();
       } else {
@@ -118,16 +147,26 @@ describe('pack ledger', () => {
       }
     }
     expect([...free].every((id) => CASES.some((c) => c.id === id))).toBe(true);
+
+    // The tutorial sits outside the three-free rule and must never be gated —
+    // a paywalled tutorial is a paywall in front of learning how to play.
+    expect(TUTORIAL.requiredEntitlementId).toBeUndefined();
   });
 
   /**
    * The ledger declares fifteen packs. This fails the day a sixteenth is written
    * without one, and passes while packs are still unwritten.
+   *
+   * The tutorial is held out of the count rather than given a dimension of its
+   * own. It has no shape of lie to be unique about — it exists to teach the
+   * board — and adding it here would push the ledger to sixteen and quietly
+   * retire the check that a real sixteenth pack has to declare itself.
    */
   it('declares a dimension for every pack that exists and every one still to come', () => {
     expect(Object.keys(DIMENSIONS)).toHaveLength(15);
-    for (const script of CASES) {
+    for (const script of PACKS) {
       expect(Object.keys(DIMENSIONS)).toContain(script.id);
     }
+    expect(Object.keys(DIMENSIONS)).not.toContain(TUTORIAL.id);
   });
 });

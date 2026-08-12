@@ -4,7 +4,7 @@ import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { getCase } from '@content/cases';
 import { visibleThreads } from '@/engine';
 import { useCaseStore } from '@/state/caseStore';
-import { loadProgress } from '@/state/persistence';
+import { loadProgress, markLastPlayed } from '@/state/persistence';
 
 export default function CaseLayout() {
   const { caseId } = useLocalSearchParams<{ caseId: string }>();
@@ -18,6 +18,10 @@ export default function CaseLayout() {
     if (!script || loadedId === script.id) return;
     loadScript(script);
     void loadProgress(script.id);
+    // Opening a case is what makes it the one Continue offers, even if the
+    // player reads nothing — otherwise Continue keeps pointing at whatever they
+    // played before this.
+    void markLastPlayed(script.id);
   }, [script, loadedId, loadScript]);
 
   if (!script) return <Redirect href="/" />;

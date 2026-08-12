@@ -25,6 +25,18 @@ export const saveBlobSchema = z.object({
    */
   readMessageIds: z.array(z.string()).catch(() => []),
   confirmedContradictionIds: z.array(z.string()).catch(() => []),
+
+  /**
+   * Where the player actually was, so Continue can return them to the
+   * conversation rather than dropping them on the case index.
+   *
+   * Both recover to null rather than failing, because every save written before
+   * resume shipped is missing them. An old save is not a corrupt save — if
+   * these threw, `loadProgress` would delete a perfectly good playthrough as
+   * unreadable. Missing simply means "no conversation to return to".
+   */
+  lastThreadId: z.string().nullable().catch(() => null),
+  lastMessageId: z.string().nullable().catch(() => null),
 });
 
 export type SaveBlob = z.infer<typeof saveBlobSchema>;
@@ -33,22 +45,12 @@ export type SaveBlob = z.infer<typeof saveBlobSchema>;
 export const emptySave = (): SaveBlob => ({
   readMessageIds: [],
   confirmedContradictionIds: [],
+  lastThreadId: null,
+  lastMessageId: null,
 });
 
-const PREFIX = 'save:';
-
-export const saveKey = (caseId: string): string => `${PREFIX}${caseId}`;
-
-/**
- * The case id inside a save key, or null if the key is not a save.
- *
- * AsyncStorage is one flat namespace shared with Supabase's own session key and
- * anything a future feature stores, so sync cannot assume every key it finds is
- * a case. Reading `supabase.auth.token` as a case id would send a garbage row
- * to the server on every launch.
+/*
+ * The key space deliberately does NOT live here. saveKeys.ts owns it, and this
+ * module owns the shape. Keeping a second `save:` prefix next to the schema is
+ * how the two definitions drift apart.
  */
-export function caseIdFromSaveKey(key: string): string | null {
-  if (!key.startsWith(PREFIX)) return null;
-  const caseId = key.slice(PREFIX.length);
-  return caseId === '' ? null : caseId;
-}
