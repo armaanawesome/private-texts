@@ -395,12 +395,249 @@ const FR: Catalogue = {
   'paywall.notNow': 'Plus tard',
 };
 
+/**
+ * German uses "du" throughout, not "Sie". Games in German are informal almost
+ * without exception, and a murder mystery that addresses the player formally
+ * sounds like a bank.
+ */
+const DE: Catalogue = {
+  'common.cancel': 'Abbrechen',
+  'common.done': 'Fertig',
+  'common.back': 'Zurück',
+  'common.retry': 'Erneut versuchen',
+  'common.working': 'Wird ausgeführt…',
+  'common.you': 'Ich',
+  'common.restorePurchases': 'Käufe wiederherstellen',
+
+  'home.pitch':
+    'Jemand ist tot. Alles, was du hast, sind die Nachrichten. Finde die Aussage, die nicht wahr sein kann.',
+  'home.cases.title': 'Alle Fälle',
+  'home.tile.sealed': 'Versiegelt',
+  'home.tile.toProve': '{count} zu beweisen',
+  'home.tile.lockedLabel': '{title}, versiegelt. {count} Widersprüche. Freischalten.',
+  'home.tile.lockedLabelOne': '{title}, versiegelt. 1 Widerspruch. Freischalten.',
+  'home.tile.openLabel': '{title}. {count} Widersprüche zu beweisen. Öffnen.',
+  'home.tile.openLabelOne': '{title}. 1 Widerspruch zu beweisen. Öffnen.',
+
+  'home.continue.title': 'Fortsetzen',
+  'home.continue.unreadOne': '1 ungelesen',
+  'home.continue.unreadMany': '{count} ungelesen',
+  'home.continue.label': '{title} fortsetzen.',
+  'home.continue.backTo': 'Zurück zu {thread}.',
+  'home.continue.proved': '{proved} von {total} bewiesen. Zuletzt gespielt {elapsed}.',
+
+  'case.tab.threads': 'Nachrichten',
+  'case.tab.board': 'Tafel',
+  'case.tab.accuse': 'Anklagen',
+
+  'settings.title': 'Einstellungen',
+  'settings.sound.section': 'Ton',
+  'settings.sound.label': 'Soundeffekte',
+  'settings.sound.detail':
+    'Kurze Signale, wenn eine Nachricht eintrifft und wenn ein Widerspruch bricht.',
+  'settings.volume.label': 'Lautstärke',
+  'settings.feel.section': 'Haptik',
+  'settings.haptics.label': 'Vibration',
+  'settings.haptics.detail':
+    'Spürbare Impulse, wenn du eine Aussage anheftest oder einen Fakt bestätigst.',
+  'settings.motion.label': 'Bewegung reduzieren',
+  'settings.motion.detail':
+    'Nachrichten erscheinen sofort und dekorative Töne bleiben stumm.',
+  'settings.language.section': 'Sprache',
+  'settings.language.label': 'Sprache',
+  'settings.language.hint': 'Öffnet die Liste der Sprachen',
+  'settings.language.footnote':
+    'Fälle werden separat übersetzt. Jeder noch nicht übersetzte Fall bleibt auf Englisch.',
+  'settings.purchases.section': 'Käufe',
+  'settings.restore.detail': 'Das Fallpaket schon gekauft? Hol es dir auf dieses Gerät zurück.',
+  'settings.progress.section': 'Fortschritt',
+  'settings.reset.label': 'Gesamten Fortschritt löschen',
+  'settings.reset.detail': 'Löscht jeden gespeicherten Fall. Käufe bleiben erhalten.',
+  'settings.reset.confirm': 'Gesamten Fortschritt löschen?',
+  'settings.reset.confirmBody':
+    'Jeder Fall gilt wieder als ungelesen, und jeder bewiesene Widerspruch ist vergessen. Käufe sind nicht betroffen. Das lässt sich nicht rückgängig machen.',
+  'settings.reset.keep': 'Behalten',
+  'settings.reset.erase': 'Löschen',
+  'settings.reset.erasedNone': 'Es gab keinen gespeicherten Fortschritt zum Löschen.',
+  'settings.reset.erasedOne': '1 gespeicherter Fall gelöscht.',
+  'settings.reset.erasedMany': '{count} gespeicherte Fälle gelöscht.',
+  'settings.reset.failed': 'Fortschritt konnte nicht gelöscht werden. Versuch es erneut.',
+  'settings.about.section': 'Über',
+  'settings.about.version': 'Version',
+  'settings.about.privacy': 'Was diese App speichert',
+  'settings.about.licences': 'Open-Source-Lizenzen',
+
+  'settings.privacy.progress': 'Dein Fortschritt in jedem Fall wird auf diesem Gerät gespeichert.',
+  'settings.privacy.purchases':
+    'Käufe werden vom App Store oder von Google Play über RevenueCat abgewickelt. Diese App sieht deine Zahlungsdaten nie.',
+  'settings.privacy.noTracking':
+    'In dieser Version gibt es keine Werbung und keine Analyse- oder Tracking-SDKs.',
+  'settings.privacy.deletion': 'Die App zu löschen löscht deinen Fortschritt mit.',
+
+  'language.title': 'Sprache',
+  'language.footnote':
+    'Das übersetzt die App. Fälle werden separat übersetzt, und jeder noch nicht übersetzte Fall bleibt auf Englisch.',
+
+  'signIn.title': 'Anmelden',
+  'signIn.heading': 'Nimm deine Ermittlungsnotizen mit',
+  'signIn.why': 'Ein Konto überträgt deinen Fortschritt auf ein anderes Telefon.',
+  'signIn.createAccount': 'Konto erstellen',
+  'signIn.email': 'E-Mail',
+  'signIn.password': 'Passwort',
+  'signIn.alreadyRegistered':
+    'Für diese E-Mail gibt es bereits ein Konto. Melde dich stattdessen an.',
+  'signIn.confirmEmail': 'Sieh in {email} nach dem Bestätigungslink und melde dich dann an.',
+  'signIn.storesNote':
+    'Ein Konto speichert deine E-Mail-Adresse und welche Nachrichten du gelesen hast. Sonst nichts.',
+  'signIn.leave': 'Auf diesem Telefon weiterspielen',
+  'signIn.leaveLabel': 'Auf diesem Telefon weiterspielen, ohne Konto',
+  'signIn.off.title': 'Konten sind deaktiviert',
+  'signIn.signedIn.title': 'Angemeldet',
+  'signIn.account': 'Dein Konto',
+  'signIn.sync': 'Jetzt synchronisieren',
+  'signIn.syncing': 'Wird synchronisiert…',
+  'signIn.backToCases': 'Zurück zu den Fällen',
+  'signIn.signOut': 'Abmelden',
+  'signIn.signOutNote':
+    'Beim Abmelden bleibt jeder gespeicherte Fall auf diesem Telefon. Nichts wird gelöscht.',
+
+  'paywall.title': 'Mehr Fälle',
+  'paywall.body':
+    'Ein weiterer Tod, ein weiteres Telefon, eine weitere Geschichte, die nicht standhält. Schalte das Fallpaket frei, um weiterzumachen.',
+  'paywall.bullet.case': 'Ein zweiter Fall in voller Länge',
+  'paywall.bullet.suspects': 'Neue Verdächtige, neue Widersprüche',
+  'paywall.bullet.permanent': 'Dauerhaft deins — kein Abo',
+  'paywall.empty': 'Der Store hat gerade nichts anzubieten. Versuch es gleich noch einmal.',
+  'paywall.unreachable': 'Der Store war nicht erreichbar.',
+  'paywall.failed': 'Der Kauf ist nicht durchgegangen. Dir wurde nichts berechnet.',
+  'paywall.unlock': 'Freischalten · {price}',
+  'paywall.unlockLabel': 'Das Fallpaket für {price} freischalten',
+  'paywall.notNow': 'Später',
+};
+
+const PT_BR: Catalogue = {
+  'common.cancel': 'Cancelar',
+  'common.done': 'Concluído',
+  'common.back': 'Voltar',
+  'common.retry': 'Tentar de novo',
+  'common.working': 'Processando…',
+  'common.you': 'Eu',
+  'common.restorePurchases': 'Restaurar compras',
+
+  'home.pitch':
+    'Alguém morreu. Tudo o que você tem são as mensagens. Encontre a afirmação que não pode ser verdade.',
+  'home.cases.title': 'Todos os casos',
+  'home.tile.sealed': 'Lacrado',
+  'home.tile.toProve': '{count} a provar',
+  'home.tile.lockedLabel': '{title}, lacrado. {count} contradições. Desbloquear.',
+  'home.tile.lockedLabelOne': '{title}, lacrado. 1 contradição. Desbloquear.',
+  'home.tile.openLabel': '{title}. {count} contradições a provar. Abrir.',
+  'home.tile.openLabelOne': '{title}. 1 contradição a provar. Abrir.',
+
+  'home.continue.title': 'Continuar',
+  'home.continue.unreadOne': '1 não lida',
+  'home.continue.unreadMany': '{count} não lidas',
+  'home.continue.label': 'Continuar {title}.',
+  'home.continue.backTo': 'Voltar para {thread}.',
+  'home.continue.proved': '{proved} de {total} provadas. Jogado por último {elapsed}.',
+
+  'case.tab.threads': 'Mensagens',
+  'case.tab.board': 'Quadro',
+  'case.tab.accuse': 'Acusar',
+
+  'settings.title': 'Ajustes',
+  'settings.sound.section': 'Som',
+  'settings.sound.label': 'Efeitos sonoros',
+  'settings.sound.detail':
+    'Sinais curtos quando uma mensagem chega e quando uma contradição se quebra.',
+  'settings.volume.label': 'Volume',
+  'settings.feel.section': 'Resposta tátil',
+  'settings.haptics.label': 'Vibração',
+  'settings.haptics.detail':
+    'Toques que você sente ao fixar uma declaração ou confirmar um fato.',
+  'settings.motion.label': 'Reduzir animações',
+  'settings.motion.detail':
+    'As mensagens aparecem na hora e os sons decorativos ficam em silêncio.',
+  'settings.language.section': 'Idioma',
+  'settings.language.label': 'Idioma',
+  'settings.language.hint': 'Abre a lista de idiomas',
+  'settings.language.footnote':
+    'Os casos são traduzidos separadamente. Qualquer caso ainda não traduzido permanece em inglês.',
+  'settings.purchases.section': 'Compras',
+  'settings.restore.detail': 'Já comprou o pacote de casos? Recupere-o neste aparelho.',
+  'settings.progress.section': 'Progresso',
+  'settings.reset.label': 'Apagar todo o progresso',
+  'settings.reset.detail': 'Apaga todos os casos salvos. As compras são mantidas.',
+  'settings.reset.confirm': 'Apagar todo o progresso?',
+  'settings.reset.confirmBody':
+    'Cada caso volta a ficar não lido, e cada contradição que você provou é esquecida. As compras não são afetadas. Isso não pode ser desfeito.',
+  'settings.reset.keep': 'Manter',
+  'settings.reset.erase': 'Apagar',
+  'settings.reset.erasedNone': 'Não havia progresso salvo para apagar.',
+  'settings.reset.erasedOne': '1 caso salvo apagado.',
+  'settings.reset.erasedMany': '{count} casos salvos apagados.',
+  'settings.reset.failed': 'Não foi possível apagar o progresso. Tente de novo.',
+  'settings.about.section': 'Sobre',
+  'settings.about.version': 'Versão',
+  'settings.about.privacy': 'O que este app guarda',
+  'settings.about.licences': 'Licenças de código aberto',
+
+  'settings.privacy.progress': 'Seu progresso em cada caso fica guardado neste aparelho.',
+  'settings.privacy.purchases':
+    'As compras são feitas pela App Store ou Google Play através da RevenueCat. Este app nunca vê seus dados de pagamento.',
+  'settings.privacy.noTracking':
+    'Nesta versão não há anúncios nem SDKs de análise ou rastreamento.',
+  'settings.privacy.deletion': 'Apagar o app apaga seu progresso junto.',
+
+  'language.title': 'Idioma',
+  'language.footnote':
+    'Isto traduz o aplicativo. Os casos são traduzidos separadamente, e qualquer caso ainda não traduzido permanece em inglês.',
+
+  'signIn.title': 'Entrar',
+  'signIn.heading': 'Leve suas anotações com você',
+  'signIn.why': 'Uma conta leva seu progresso para outro celular.',
+  'signIn.createAccount': 'Criar conta',
+  'signIn.email': 'E-mail',
+  'signIn.password': 'Senha',
+  'signIn.alreadyRegistered': 'Esse e-mail já tem uma conta. Entre em vez de criar.',
+  'signIn.confirmEmail': 'Procure o link de confirmação em {email} e depois entre.',
+  'signIn.storesNote': 'Uma conta guarda seu e-mail e quais mensagens você leu. Nada mais.',
+  'signIn.leave': 'Continuar neste celular',
+  'signIn.leaveLabel': 'Continuar neste celular, sem conta',
+  'signIn.off.title': 'As contas estão desativadas',
+  'signIn.signedIn.title': 'Conectado',
+  'signIn.account': 'Sua conta',
+  'signIn.sync': 'Sincronizar agora',
+  'signIn.syncing': 'Sincronizando…',
+  'signIn.backToCases': 'Voltar aos casos',
+  'signIn.signOut': 'Sair',
+  'signIn.signOutNote': 'Sair mantém todos os casos salvos neste celular. Nada é apagado.',
+
+  'paywall.title': 'Mais casos',
+  'paywall.body':
+    'Outra morte, outro celular, outra história que não se sustenta. Desbloqueie o pacote de casos para continuar.',
+  'paywall.bullet.case': 'Um segundo caso completo',
+  'paywall.bullet.suspects': 'Novos suspeitos, novas contradições',
+  'paywall.bullet.permanent': 'Seu para sempre — não é assinatura',
+  'paywall.empty': 'A loja não tem nada para vender agora. Tente daqui a pouco.',
+  'paywall.unreachable': 'Não foi possível acessar a loja.',
+  'paywall.failed': 'A compra não foi concluída. Você não foi cobrado.',
+  'paywall.unlock': 'Desbloquear · {price}',
+  'paywall.unlockLabel': 'Desbloquear o pacote de casos por {price}',
+  'paywall.notNow': 'Agora não',
+};
+
 export const CATALOGUES: Readonly<Record<LocaleTag, Catalogue>> = {
   en: EN,
   es: ES,
   fr: FR,
-  de: {},
-  'pt-BR': {},
+  de: DE,
+  'pt-BR': PT_BR,
+  // Japanese is deliberately last and deliberately empty. It needs a translator
+  // who can make the register decisions — politeness level, which loanwords stay
+  // katakana — that this catalogue cannot fake. It also keeps one genuinely
+  // untranslated locale in the build, which is the only thing that proves the
+  // English fallback still works.
   ja: {},
 };
 

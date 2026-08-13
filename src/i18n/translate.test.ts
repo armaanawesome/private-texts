@@ -49,17 +49,18 @@ describe('lookup', () => {
   });
 
   /**
-   * The whole point of partial catalogues. German ships no strings yet, so
+   * The whole point of partial catalogues. Japanese ships no strings yet, so
    * every key must come back readable rather than blank or as a key.
    *
-   * This used to check French. French is now translated, which is exactly why
-   * the assertion had to move rather than be deleted: the fallback path is only
-   * proven by a locale that is genuinely empty, and there will be one until
-   * every locale ships.
+   * This has now pointed at French, then German, then Japanese as each was
+   * translated. It moves rather than being deleted because the fallback path is
+   * only proven by a locale that is genuinely empty. When the last locale ships,
+   * this must switch to a synthetic tag rather than being dropped — the day
+   * nothing is left to fall back from is the day the fallback silently rots.
    */
   it('falls back to English for a locale with nothing translated', () => {
     for (const key of Object.keys(EN) as StringKey[]) {
-      expect(lookup('de', key)).toBe(EN[key]);
+      expect(lookup('ja', key)).toBe(EN[key]);
     }
   });
 
@@ -124,15 +125,16 @@ describe('translator', () => {
 describe('coverage', () => {
   it('is complete for English and empty for an untranslated locale', () => {
     expect(coverage('en')).toBe(1);
-    expect(coverage('de')).toBe(0);
+    expect(coverage('ja')).toBe(0);
   });
 
   /**
-   * If either drops, a key was added to English without a counterpart. That is
-   * allowed — it falls back — so this is a reminder, not a gate.
+   * If any of these drops, a key was added to English without a counterpart.
+   * That is allowed — it falls back — so this is a reminder, not a gate.
    */
-  it('reports Spanish and French as fully translated', () => {
-    expect(coverage('es')).toBe(1);
-    expect(coverage('fr')).toBe(1);
+  it('reports every shipped translation as complete', () => {
+    for (const tag of ['es', 'fr', 'de', 'pt-BR'] as const) {
+      expect(coverage(tag), `${tag} has fallen behind English`).toBe(1);
+    }
   });
 });
