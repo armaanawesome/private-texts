@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
 import { theme } from './theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import { CasePoster } from './CasePoster';
 import { describeElapsed, type ResumeOffer } from '@/state/resume';
 import type { CaseScript } from '@/engine';
@@ -31,6 +32,7 @@ interface Props {
  */
 export function ContinueCard({ offer, script, now }: Props) {
   const reduceMotion = useReducedMotion();
+  const t = useTranslator();
 
   const thread = offer.threadId ? script.threads.find((t) => t.id === offer.threadId) : undefined;
   const heading = thread?.title ?? script.title;
@@ -39,18 +41,38 @@ export function ContinueCard({ offer, script, now }: Props) {
     ? thread?.messages.find((m) => m.id === offer.lastMessageId)
     : undefined;
   const sender = last ? script.characters.find((c) => c.id === last.senderId) : undefined;
-  const speaker = last?.senderId === PLAYER_ID ? 'You' : sender?.name;
+  // Only the player's own seat is translated. Every other name is a character
+  // in the case, and those are the other agent's to translate, in content/cases.
+  const speaker = last?.senderId === PLAYER_ID ? t('common.you') : sender?.name;
   const preview = last ? `${speaker ? `${speaker}: ` : ''}${last.body}` : script.blurb;
 
   const elapsed = describeElapsed(now, offer.updatedAt);
   // The case name is already the heading when there is no conversation to name.
   const meta = thread ? `${script.title} · ${elapsed}` : elapsed;
 
+  /**
+   * Built from whole sentences, not from stitched fragments. Each key carries
+   * its own full stop so a translator can move the count inside the sentence
+   * where the grammar needs it, rather than being handed a noun to append to.
+   */
+  const unread =
+    offer.unreadInThread === 0
+      ? ''
+      : `${
+          offer.unreadInThread === 1
+            ? t('home.continue.unreadOne')
+            : t('home.continue.unreadMany', { count: offer.unreadInThread })
+        }. `;
+
   const label =
-    `Continue ${script.title}. ` +
-    (thread ? `Back to ${thread.title}. ` : '') +
-    (offer.unreadInThread > 0 ? `${offer.unreadInThread} unread. ` : '') +
-    `${offer.provedCount} of ${offer.totalCount} proved. Last played ${elapsed}.`;
+    `${t('home.continue.label', { title: script.title })} ` +
+    (thread ? `${t('home.continue.backTo', { thread: thread.title })} ` : '') +
+    unread +
+    t('home.continue.proved', {
+      proved: offer.provedCount,
+      total: offer.totalCount,
+      elapsed,
+    });
 
   return (
     <Animated.View entering={reduceMotion ? undefined : FadeIn.duration(theme.motion.base)}>
@@ -117,7 +139,7 @@ export function ContinueCard({ offer, script, now }: Props) {
             pointerEvents="none"
             importantForAccessibility="no-hide-descendants"
           >
-            <Text style={styles.ctaText}>Continue</Text>
+            <Text style={styles.ctaText}>{t('home.continue.title')}</Text>
           </View>
         </Pressable>
       </Link>

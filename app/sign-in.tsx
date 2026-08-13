@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { theme } from '@/ui/theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import {
   useAuth,
   validateCredentials,
@@ -36,6 +37,7 @@ import {
  */
 export default function SignInScreen() {
   const router = useRouter();
+  const t = useTranslator();
   const { status, signIn, signUp, signOut } = useAuth();
 
   const [mode, setMode] = useState<'signIn' | 'signUp'>('signIn');
@@ -98,26 +100,26 @@ export default function SignInScreen() {
         // Supabase reports this as a success with no identities, so without
         // this branch the player waits for a mail that was never sent.
         setMode('signIn');
-        setFormError('That email already has an account. Sign in instead.');
+        setFormError(t('signIn.alreadyRegistered'));
       } else if (attempt.outcome === 'confirmEmail') {
-        setNotice(`Check ${email.trim()} for a confirmation link, then sign in.`);
+        setNotice(t('signIn.confirmEmail', { email: email.trim() }));
       } else {
         setNotice(describeSyncResult(await syncProgress()));
       }
     }
 
     setBusy(false);
-  }, [busy, email, password, mode, signIn, signUp]);
+  }, [busy, email, password, mode, signIn, signUp, t]);
 
   const leaveButton = (
     <Pressable
       onPress={leave}
       accessibilityRole="button"
-      accessibilityLabel="Keep playing on this phone, without an account"
+      accessibilityLabel={t('signIn.leaveLabel')}
       hitSlop={theme.hit.slop}
       style={({ pressed }) => [styles.guest, pressed && styles.pressed]}
     >
-      <Text style={styles.guestText}>Keep playing on this phone</Text>
+      <Text style={styles.guestText}>{t('signIn.leave')}</Text>
     </Pressable>
   );
 
@@ -143,7 +145,7 @@ export default function SignInScreen() {
 
         {status.kind === 'unavailable' ? (
           <>
-            <Text style={styles.title}>Accounts are switched off</Text>
+            <Text style={styles.title}>{t('signIn.off.title')}</Text>
             <View style={styles.problemBlock}>
               <Text style={styles.problemText}>{status.reason}</Text>
             </View>
@@ -155,8 +157,8 @@ export default function SignInScreen() {
 
         {status.kind === 'signedIn' ? (
           <>
-            <Text style={styles.title}>Signed in</Text>
-            <Text style={styles.reason}>{status.user.email ?? 'Your account'}</Text>
+            <Text style={styles.title}>{t('signIn.signedIn.title')}</Text>
+            <Text style={styles.reason}>{status.user.email ?? t('signIn.account')}</Text>
 
             {notice ? (
               <View style={styles.noticeBlock} accessibilityLiveRegion="polite">
@@ -171,7 +173,7 @@ export default function SignInScreen() {
               accessibilityState={{ disabled: busy }}
               style={({ pressed }) => [styles.cta, busy && styles.ctaBusy, pressed && styles.pressed]}
             >
-              <Text style={styles.ctaText}>{busy ? 'Syncing…' : 'Sync now'}</Text>
+              <Text style={styles.ctaText}>{busy ? t('signIn.syncing') : t('signIn.sync')}</Text>
             </Pressable>
 
             <Pressable
@@ -180,7 +182,7 @@ export default function SignInScreen() {
               hitSlop={theme.hit.slop}
               style={({ pressed }) => [styles.guest, pressed && styles.pressed]}
             >
-              <Text style={styles.guestText}>Back to the cases</Text>
+              <Text style={styles.guestText}>{t('signIn.backToCases')}</Text>
             </Pressable>
 
             <Pressable
@@ -193,23 +195,19 @@ export default function SignInScreen() {
               hitSlop={theme.hit.slop}
               style={styles.quiet}
             >
-              <Text style={styles.quietText}>Sign out</Text>
+              <Text style={styles.quietText}>{t('signIn.signOut')}</Text>
             </Pressable>
 
-            <Text style={styles.microcopy}>
-              Signing out leaves every case save on this phone. Nothing is deleted.
-            </Text>
+            <Text style={styles.microcopy}>{t('signIn.signOutNote')}</Text>
           </>
         ) : null}
 
         {status.kind === 'signedOut' ? (
           <>
-            <Text style={styles.title}>Take your case notes with you</Text>
+            <Text style={styles.title}>{t('signIn.heading')}</Text>
             {/* One reason, stated once. Anything more reads as a pitch for
                 something the player does not need in order to play. */}
-            <Text style={styles.reason}>
-              An account carries your progress to another phone.
-            </Text>
+            <Text style={styles.reason}>{t('signIn.why')}</Text>
 
             <View style={styles.toggle} accessibilityRole="tablist">
               {(['signIn', 'signUp'] as const).map((option) => {
@@ -231,7 +229,7 @@ export default function SignInScreen() {
                     ]}
                   >
                     <Text style={[styles.toggleText, selected && styles.toggleTextOn]}>
-                      {option === 'signIn' ? 'Sign in' : 'Create account'}
+                      {option === 'signIn' ? t('signIn.title') : t('signIn.createAccount')}
                     </Text>
                   </Pressable>
                 );
@@ -239,7 +237,7 @@ export default function SignInScreen() {
             </View>
 
             <Field
-              label="Email"
+              label={t('signIn.email')}
               inputRef={emailRef}
               value={email}
               onChangeText={(next) => {
@@ -259,7 +257,7 @@ export default function SignInScreen() {
             />
 
             <Field
-              label="Password"
+              label={t('signIn.password')}
               inputRef={passwordRef}
               value={password}
               onChangeText={(next) => {
@@ -302,15 +300,17 @@ export default function SignInScreen() {
               style={({ pressed }) => [styles.cta, busy && styles.ctaBusy, pressed && styles.pressed]}
             >
               <Text style={styles.ctaText}>
-                {busy ? 'Working…' : mode === 'signIn' ? 'Sign in' : 'Create account'}
+                {busy
+                  ? t('common.working')
+                  : mode === 'signIn'
+                    ? t('signIn.title')
+                    : t('signIn.createAccount')}
               </Text>
             </Pressable>
 
             {leaveButton}
 
-            <Text style={styles.microcopy}>
-              An account stores your email address and which messages you have read. Nothing else.
-            </Text>
+            <Text style={styles.microcopy}>{t('signIn.storesNote')}</Text>
           </>
         ) : null}
       </ScrollView>

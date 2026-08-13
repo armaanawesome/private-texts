@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable, ActivityIndicator, ScrollView } from
 import { useRouter } from 'expo-router';
 import type { PurchasesPackage } from 'react-native-purchases';
 import { theme } from '@/ui/theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import {
   CASE_PACK_ENTITLEMENT,
@@ -27,6 +28,7 @@ type Phase =
  */
 export default function PaywallScreen() {
   const router = useRouter();
+  const t = useTranslator();
   const { entitlementIds, unavailableReason } = useEntitlements();
   const [phase, setPhase] = useState<Phase>({ kind: 'loading' });
   const [busy, setBusy] = useState(false);
@@ -44,20 +46,19 @@ export default function PaywallScreen() {
       const offering = await getCasePackOffering();
       const pkg = offering?.availablePackages[0];
       if (!pkg) {
-        setPhase({
-          kind: 'unavailable',
-          reason: 'The store has nothing to sell right now. Try again in a moment.',
-        });
+        setPhase({ kind: 'unavailable', reason: t('paywall.empty') });
         return;
       }
       setPhase({ kind: 'ready', pkg });
     } catch (e) {
+      // A store error message arrives from the platform already localised to the
+      // device, so it is passed through rather than replaced.
       setPhase({
         kind: 'unavailable',
-        reason: e instanceof Error ? e.message : 'Could not reach the store.',
+        reason: e instanceof Error ? e.message : t('paywall.unreachable'),
       });
     }
-  }, [unavailableReason]);
+  }, [unavailableReason, t]);
 
   useEffect(() => {
     void load();
@@ -88,9 +89,7 @@ export default function PaywallScreen() {
       setPhase({
         kind: 'failed',
         pkg,
-        reason:
-          (outcome.error as { message?: string })?.message ??
-          'The purchase did not go through. You have not been charged.',
+        reason: (outcome.error as { message?: string })?.message ?? t('paywall.failed'),
       });
     }
     // 'cancelled' is not an error. Say nothing and leave the paywall open.
@@ -112,23 +111,18 @@ export default function PaywallScreen() {
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       {/* No <Stack.Screen options={{...}} /> here — an inline literal re-renders
           the navigator forever. Options live in app/_layout.tsx. */}
-      <Text style={styles.title}>More cases</Text>
-      <Text style={styles.body}>
-        Another death, another phone, another story that does not hold up. Unlock the case pack to
-        keep going.
-      </Text>
+      <Text style={styles.title}>{t('paywall.title')}</Text>
+      <Text style={styles.body}>{t('paywall.body')}</Text>
 
       <View style={styles.list}>
-        {[
-          'A second full-length case',
-          'New suspects, new contradictions',
-          'Yours permanently — this is not a subscription',
-        ].map((line) => (
-          <View key={line} style={styles.bulletRow}>
-            <View style={styles.bulletMark} />
-            <Text style={styles.bullet}>{line}</Text>
-          </View>
-        ))}
+        {(['paywall.bullet.case', 'paywall.bullet.suspects', 'paywall.bullet.permanent'] as const).map(
+          (key) => (
+            <View key={key} style={styles.bulletRow}>
+              <View style={styles.bulletMark} />
+              <Text style={styles.bullet}>{t(key)}</Text>
+            </View>
+          ),
+        )}
       </View>
 
       {phase.kind === 'loading' ? (
@@ -143,7 +137,7 @@ export default function PaywallScreen() {
               worse than no button. */}
           {unavailableReason ? null : (
             <Pressable onPress={load} style={styles.retry} accessibilityRole="button">
-              <Text style={styles.retryText}>Try again</Text>
+              <Text style={styles.retryText}>{t('common.retry')}</Text>
             </Pressable>
           )}
         </View>
@@ -161,12 +155,12 @@ export default function PaywallScreen() {
           disabled={busy}
           accessibilityRole="button"
           accessibilityState={{ disabled: busy }}
-          accessibilityLabel={`Unlock the case pack for ${pkg.product.priceString}`}
+          accessibilityLabel={t('paywall.unlockLabel', { price: pkg.product.priceString })}
           style={({ pressed }) => [styles.cta, busy && styles.ctaBusy, pressed && styles.pressed]}
         >
           <Text style={styles.ctaText}>
             {/* Always the localised store price. Never a hardcoded one. */}
-            {busy ? 'Working…' : `Unlock · ${pkg.product.priceString}`}
+            {busy ? t('common.working') : t('paywall.unlock', { price: pkg.product.priceString })}
           </Text>
         </Pressable>
       ) : null}
@@ -178,12 +172,12 @@ export default function PaywallScreen() {
           accessibilityRole="button"
           hitSlop={theme.hit.slop}
         >
-          <Text style={styles.restore}>Restore purchases</Text>
+          <Text style={styles.restore}>{t('common.restorePurchases')}</Text>
         </Pressable>
       )}
 
       <Pressable onPress={() => router.back()} accessibilityRole="button" hitSlop={theme.hit.slop}>
-        <Text style={styles.notNow}>Not now</Text>
+        <Text style={styles.notNow}>{t('paywall.notNow')}</Text>
       </Pressable>
     </ScrollView>
   );

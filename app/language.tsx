@@ -1,18 +1,13 @@
+import { useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '@/ui/theme';
 import { SUPPORTED_LOCALES, type LocaleTag } from '@/i18n/locales';
+import { useTranslator } from '@/i18n/useTranslator';
 import { useSettingsStore } from '@/settings/settingsStore';
 import { feedback } from '@/settings/feedback';
 import { Section, Tick } from '@/settings/SettingsList';
-
-/**
- * Declared at module scope, NOT inline — see the comment in app/_layout.tsx.
- * An inline literal here is a fresh object every render and loops setOptions
- * until React throws "Maximum update depth exceeded".
- */
-const screenOptions = { title: 'Language' } as const;
 
 /**
  * The language list, pushed from the Language row in Settings rather than shown
@@ -55,9 +50,20 @@ function LocaleRow({
 export default function LanguageScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const t = useTranslator();
 
   const localeTag = useSettingsStore((s) => s.settings.localeTag);
   const update = useSettingsStore((s) => s.update);
+
+  /**
+   * Memoised, NOT inline — see the comment in app/_layout.tsx. An inline literal
+   * loops setOptions until React throws "Maximum update depth exceeded".
+   *
+   * This is also the one screen where the title changes under the player's
+   * finger: choosing a language re-renders with a new `t`, the header retitles
+   * itself in the language just chosen, and then the screen pops.
+   */
+  const screenOptions = useMemo(() => ({ title: t('language.title') }), [t]);
 
   const choose = (tag: LocaleTag) => {
     if (tag !== localeTag) update({ localeTag: tag });
@@ -75,10 +81,7 @@ export default function LanguageScreen() {
         style={styles.screen}
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 32 }]}
       >
-        <Section
-          title="Language"
-          footnote="Changing this translates the app. Case files are translated separately, and any case that has not been translated yet stays in English."
-        >
+        <Section title={t('language.title')} footnote={t('language.footnote')}>
           {SUPPORTED_LOCALES.map((locale) => (
             <LocaleRow
               key={locale.tag}

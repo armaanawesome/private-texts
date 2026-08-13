@@ -1,3 +1,5 @@
+import type { StringKey } from '@/i18n/strings';
+
 /**
  * The About block's content and formatting, with no dependency on expo-constants.
  *
@@ -34,14 +36,19 @@ export function versionLine(
  * no row. Every line here is a claim about shipped behaviour — check it against
  * the code before editing it.
  *
+ * Keys rather than prose, because this panel is translated like the rest of the
+ * screen. This file owns which points appear and in what order; the wording of
+ * each lives in `src/i18n/strings.ts` next to the other settings strings, so a
+ * translator meets the whole screen in one file.
+ *
  * NOTE for whoever lands account sync on this branch: the moment progress is
  * uploaded, a line about it belongs here, and this comment is why.
  */
-export const PRIVACY_POINTS: readonly string[] = [
-  'Your progress through each case is stored on this device.',
-  'Purchases are handled by the App Store or Google Play through RevenueCat. This app never sees your payment details.',
-  'There are no ads and no analytics or tracking SDKs in this build.',
-  'Deleting the app deletes your progress with it.',
+export const PRIVACY_POINTS: readonly StringKey[] = [
+  'settings.privacy.progress',
+  'settings.privacy.purchases',
+  'settings.privacy.noTracking',
+  'settings.privacy.deletion',
 ];
 
 export interface Licence {

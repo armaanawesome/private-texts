@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Link, useFocusEffect } from 'expo-router';
 import { theme } from '@/ui/theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import { CasePoster } from '@/ui/CasePoster';
 import { ContinueCard } from '@/ui/ContinueCard';
 import { CASES, getCase } from '@content/cases';
@@ -21,6 +22,7 @@ interface Resume {
 }
 
 export default function CaseSelectScreen() {
+  const t = useTranslator();
   const { entitlementIds } = useEntitlements();
   const [resume, setResume] = useState<Resume | null>(null);
 
@@ -57,11 +59,7 @@ export default function CaseSelectScreen() {
         {/* The pitch is for someone who has not played. A returning player has
             already bought it, and leaving it here would push Continue down the
             screen to make room for an argument they have accepted. */}
-        {resume ? null : (
-          <Text style={styles.sub}>
-            Someone is dead. All you have is their messages. Find the statement that cannot be true.
-          </Text>
-        )}
+        {resume ? null : <Text style={styles.sub}>{t('home.pitch')}</Text>}
       </View>
 
       {resume ? (
@@ -72,7 +70,7 @@ export default function CaseSelectScreen() {
         {/* Only earns its place once there are two zones to tell apart. */}
         {resume ? (
           <View style={styles.sectionHead}>
-            <Text style={styles.sectionLabel}>All cases</Text>
+            <Text style={styles.sectionLabel}>{t('home.cases.title')}</Text>
           </View>
         ) : null}
 
@@ -95,17 +93,24 @@ export default function CaseSelectScreen() {
 }
 
 function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
+  const t = useTranslator();
   const count = script.contradictions.length;
 
   return (
     <Link href={locked ? '/paywall' : `/case/${script.id}/threads`} asChild>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={
+        // The case title stays as authored — it is case content, not chrome.
+        accessibilityLabel={t(
           locked
-            ? `${script.title}, sealed. ${count} contradictions. Unlock.`
-            : `${script.title}. ${count} contradictions to prove. Open.`
-        }
+            ? count === 1
+              ? 'home.tile.lockedLabelOne'
+              : 'home.tile.lockedLabel'
+            : count === 1
+              ? 'home.tile.openLabelOne'
+              : 'home.tile.openLabel',
+          { title: script.title, count },
+        )}
         style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
       >
         <CasePoster script={script} locked={locked} />
@@ -120,7 +125,9 @@ function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
               <View key={i} style={[styles.mark, locked && styles.markLocked]} />
             ))}
           </View>
-          <Text style={styles.metaText}>{locked ? 'Sealed' : `${count} to prove`}</Text>
+          <Text style={styles.metaText}>
+            {locked ? t('home.tile.sealed') : t('home.tile.toProve', { count })}
+          </Text>
         </View>
       </Pressable>
     </Link>

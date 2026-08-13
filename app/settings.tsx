@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert, Platform } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 import { theme } from '@/ui/theme';
 import { SUPPORTED_LOCALES } from '@/i18n/locales';
+import { useTranslator } from '@/i18n/useTranslator';
 import { useSettingsStore } from '@/settings/settingsStore';
 import { clearAllProgress, hydrateSettings } from '@/settings/persistence';
 import { feedback } from '@/settings/feedback';
@@ -25,13 +26,6 @@ import { useEntitlements } from '@/entitlements/useEntitlements';
 import { useCaseStore } from '@/state/caseStore';
 
 /**
- * Declared at module scope, NOT inline — see the comment in app/_layout.tsx.
- * An inline literal here is a fresh object every render and loops setOptions
- * until React throws "Maximum update depth exceeded".
- */
-const screenOptions = { title: 'Settings' } as const;
-
-/**
  * Preferences, purchases, and the things a player needs when something has gone
  * wrong: restore a purchase they already made, and erase progress they want back.
  *
@@ -43,6 +37,17 @@ const screenOptions = { title: 'Settings' } as const;
 export default function SettingsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const t = useTranslator();
+
+  /**
+   * Memoised, NOT inline — see the comment in app/_layout.tsx. An inline literal
+   * is a fresh object every render and loops setOptions until React throws
+   * "Maximum update depth exceeded". It can no longer live at module scope now
+   * that the title is translated, so the stability has to come from here:
+   * `useTranslator` memoises `t` on the locale tag, which makes this object
+   * change identity exactly when the language does and never otherwise.
+   */
+  const screenOptions = useMemo(() => ({ title: t('settings.title') }), [t]);
 
   const settings = useSettingsStore((s) => s.settings);
   const update = useSettingsStore((s) => s.update);
@@ -89,12 +94,12 @@ export default function SettingsScreen() {
      * first one.
      */
     Alert.alert(
-      'Erase all progress?',
-      'Every case goes back to unread, and every contradiction you proved is forgotten. Purchases are not affected. This cannot be undone.',
+      t('settings.reset.confirm'),
+      t('settings.reset.confirmBody'),
       [
-        { text: 'Keep it', style: 'cancel' },
+        { text: t('settings.reset.keep'), style: 'cancel' },
         {
-          text: 'Erase',
+          text: t('settings.reset.erase'),
           style: 'destructive',
           onPress: () => {
             void (async () => {
@@ -105,14 +110,14 @@ export default function SettingsScreen() {
                 useCaseStore.getState().reset();
                 setErased(
                   count === 0
-                    ? 'There was no saved progress to erase.'
+                    ? t('settings.reset.erasedNone')
                     : count === 1
-                      ? 'Erased 1 saved case.'
-                      : `Erased ${count} saved cases.`,
+                      ? t('settings.reset.erasedOne')
+                      : t('settings.reset.erasedMany', { count }),
                 );
                 feedback.notify('success');
               } catch {
-                setErased('Could not erase progress. Try again.');
+                setErased(t('settings.reset.failed'));
                 feedback.notify('warning');
               }
             })();
@@ -120,7 +125,7 @@ export default function SettingsScreen() {
         },
       ],
     );
-  }, []);
+  }, [t]);
 
   const restoreLine = restoreStatusLine(restore);
   const build =
@@ -143,17 +148,17 @@ export default function SettingsScreen() {
           ))}
         </View>
 
-        <Section title="Sound">
+        <Section title={t('settings.sound.section')}>
           <ToggleRow
-            label="Sound effects"
-            detail="Short cues when a message lands and when a contradiction breaks."
+            label={t('settings.sound.label')}
+            detail={t('settings.sound.detail')}
             value={settings.soundEnabled}
             onValueChange={(soundEnabled) => {
               update({ soundEnabled });
               feedback.selection();
             }}
           />
-          <CustomRow label="Volume">
+          <CustomRow label={t('settings.volume.label')}>
             <VolumeRail
               volume={settings.soundVolume}
               disabled={!settings.soundEnabled}
@@ -168,10 +173,10 @@ export default function SettingsScreen() {
           </CustomRow>
         </Section>
 
-        <Section title="Feel">
+        <Section title={t('settings.feel.section')}>
           <ToggleRow
-            label="Haptics"
-            detail="Taps you can feel when you pin a statement or land a fact."
+            label={t('settings.haptics.label')}
+            detail={t('settings.haptics.detail')}
             value={settings.hapticsEnabled}
             onValueChange={(hapticsEnabled) => {
               // Fire before writing: turning it off should still confirm the tap
@@ -181,8 +186,8 @@ export default function SettingsScreen() {
             }}
           />
           <ToggleRow
-            label="Reduce motion"
-            detail="Messages appear instantly and decorative sounds stay quiet."
+            label={t('settings.motion.label')}
+            detail={t('settings.motion.detail')}
             value={settings.reduceMotion}
             onValueChange={(reduceMotion) => {
               update({ reduceMotion });
@@ -192,50 +197,51 @@ export default function SettingsScreen() {
         </Section>
 
         <Section
-          title="Language"
-          footnote="Case files are written in English and are not translated."
+          title={t('settings.language.section')}
+          footnote={t('settings.language.footnote')}
         >
           <DisclosureRow
-            label="Language"
+            label={t('settings.language.label')}
+            // The value is an endonym and stays in its own language, always.
             value={language}
-            accessibilityHint="Opens the list of languages"
+            accessibilityHint={t('settings.language.hint')}
             onPress={() => router.push('/language')}
           />
         </Section>
 
-        <Section title="Purchases" footnote={restoreLine ?? undefined}>
+        <Section title={t('settings.purchases.section')} footnote={restoreLine ?? undefined}>
           <ActionRow
-            label="Restore purchases"
-            detail="Already bought the case pack? Get it back on this device."
+            label={t('common.restorePurchases')}
+            detail={t('settings.restore.detail')}
             busy={restoreIsBusy(restore)}
             onPress={() => void onRestore()}
           />
         </Section>
 
-        <Section title="Progress" footnote={erased ?? undefined}>
+        <Section title={t('settings.progress.section')} footnote={erased ?? undefined}>
           <ActionRow
-            label="Reset all progress"
-            detail="Erases every case save. Purchases are kept."
+            label={t('settings.reset.label')}
+            detail={t('settings.reset.detail')}
             destructive
             onPress={onReset}
           />
         </Section>
 
-        <Section title="About">
+        <Section title={t('settings.about.section')}>
           <ExpandableRow
-            label="What this app stores"
+            label={t('settings.about.privacy')}
             expanded={openPanel === 'privacy'}
             onPress={() => setOpenPanel((p) => (p === 'privacy' ? null : 'privacy'))}
           >
             {PRIVACY_POINTS.map((point) => (
               <Text key={point} style={styles.prose}>
-                {point}
+                {t(point)}
               </Text>
             ))}
           </ExpandableRow>
 
           <ExpandableRow
-            label="Open-source licences"
+            label={t('settings.about.licences')}
             expanded={openPanel === 'licences'}
             onPress={() => setOpenPanel((p) => (p === 'licences' ? null : 'licences'))}
           >
@@ -247,7 +253,10 @@ export default function SettingsScreen() {
             ))}
           </ExpandableRow>
 
-          <ValueRow label="Version" value={versionLine(Constants.expoConfig?.version, build)} />
+          <ValueRow
+            label={t('settings.about.version')}
+            value={versionLine(Constants.expoConfig?.version, build)}
+          />
         </Section>
       </ScrollView>
     </>
