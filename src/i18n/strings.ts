@@ -277,10 +277,128 @@ const ES: Catalogue = {
  * English, which is the same path a partially translated locale takes for its
  * missing keys. One code path, not two.
  */
+const FR: Catalogue = {
+  'common.cancel': 'Annuler',
+  'common.done': 'Terminé',
+  'common.back': 'Retour',
+  'common.retry': 'Réessayer',
+  'common.working': 'En cours…',
+  // "Moi", not "Vous". This labels the player's own message bubble, and every
+  // messaging app in French names that seat from the sender's side.
+  'common.you': 'Moi',
+  'common.restorePurchases': 'Restaurer les achats',
+
+  'home.pitch':
+    'Quelqu’un est mort. Vous n’avez que ses messages. Trouvez la déclaration qui ne peut pas être vraie.',
+  'home.cases.title': 'Toutes les affaires',
+  'home.tile.sealed': 'Scellée',
+  'home.tile.toProve': '{count} à prouver',
+  'home.tile.lockedLabel': '{title}, scellée. {count} contradictions. Déverrouiller.',
+  'home.tile.lockedLabelOne': '{title}, scellée. 1 contradiction. Déverrouiller.',
+  'home.tile.openLabel': '{title}. {count} contradictions à prouver. Ouvrir.',
+  'home.tile.openLabelOne': '{title}. 1 contradiction à prouver. Ouvrir.',
+
+  'home.continue.title': 'Continuer',
+  'home.continue.unreadOne': '1 non lu',
+  'home.continue.unreadMany': '{count} non lus',
+  'home.continue.label': 'Continuer {title}.',
+  'home.continue.backTo': 'Retour à {thread}.',
+  'home.continue.proved': '{proved} sur {total} prouvées. Dernière session {elapsed}.',
+
+  'case.tab.threads': 'Messages',
+  'case.tab.board': 'Tableau',
+  'case.tab.accuse': 'Accuser',
+
+  'settings.title': 'Réglages',
+  'settings.sound.section': 'Son',
+  'settings.sound.label': 'Effets sonores',
+  'settings.sound.detail':
+    'De brefs signaux quand un message arrive et quand une contradiction cède.',
+  'settings.volume.label': 'Volume',
+  'settings.feel.section': 'Ressenti',
+  'settings.haptics.label': 'Retour haptique',
+  'settings.haptics.detail':
+    'Des vibrations quand vous épinglez une déclaration ou confirmez un fait.',
+  'settings.motion.label': 'Réduire les animations',
+  'settings.motion.detail':
+    'Les messages apparaissent instantanément et les sons décoratifs restent silencieux.',
+  'settings.language.section': 'Langue',
+  'settings.language.label': 'Langue',
+  'settings.language.hint': 'Ouvre la liste des langues',
+  'settings.language.footnote':
+    'Les affaires sont traduites séparément. Toute affaire qui n’a pas encore été traduite reste en anglais.',
+  'settings.purchases.section': 'Achats',
+  'settings.restore.detail':
+    'Vous avez déjà acheté le pack d’affaires ? Récupérez-le sur cet appareil.',
+  'settings.progress.section': 'Progression',
+  'settings.reset.label': 'Effacer toute la progression',
+  'settings.reset.detail': 'Efface toutes les sauvegardes. Les achats sont conservés.',
+  'settings.reset.confirm': 'Effacer toute la progression ?',
+  'settings.reset.confirmBody':
+    'Chaque affaire redevient non lue, et chaque contradiction que vous avez prouvée est oubliée. Les achats ne sont pas touchés. C’est irréversible.',
+  'settings.reset.keep': 'Garder',
+  'settings.reset.erase': 'Effacer',
+  'settings.reset.erasedNone': 'Il n’y avait aucune progression à effacer.',
+  'settings.reset.erasedOne': '1 affaire sauvegardée effacée.',
+  'settings.reset.erasedMany': '{count} affaires sauvegardées effacées.',
+  'settings.reset.failed': 'Impossible d’effacer la progression. Réessayez.',
+  'settings.about.section': 'À propos',
+  'settings.about.version': 'Version',
+  'settings.about.privacy': 'Ce que cette app conserve',
+  'settings.about.licences': 'Licences open source',
+
+  'settings.privacy.progress':
+    'Votre progression dans chaque affaire est conservée sur cet appareil.',
+  'settings.privacy.purchases':
+    'Les achats sont gérés par l’App Store ou Google Play via RevenueCat. Cette app ne voit jamais vos informations de paiement.',
+  'settings.privacy.noTracking':
+    'Cette version ne contient ni publicité, ni outil d’analyse ou de suivi.',
+  'settings.privacy.deletion': 'Supprimer l’app supprime votre progression avec elle.',
+
+  'language.title': 'Langue',
+  'language.footnote':
+    'Ceci traduit l’application. Les affaires sont traduites séparément, et toute affaire qui n’a pas encore été traduite reste en anglais.',
+
+  'signIn.title': 'Connexion',
+  'signIn.heading': 'Emportez vos notes d’enquête',
+  'signIn.why': 'Un compte transfère votre progression sur un autre téléphone.',
+  'signIn.createAccount': 'Créer un compte',
+  'signIn.email': 'E-mail',
+  'signIn.password': 'Mot de passe',
+  'signIn.alreadyRegistered': 'Cette adresse a déjà un compte. Connectez-vous.',
+  'signIn.confirmEmail': 'Consultez {email} pour le lien de confirmation, puis connectez-vous.',
+  'signIn.storesNote':
+    'Un compte conserve votre adresse e-mail et les messages que vous avez lus. Rien d’autre.',
+  'signIn.leave': 'Continuer sur ce téléphone',
+  'signIn.leaveLabel': 'Continuer sur ce téléphone, sans compte',
+  'signIn.off.title': 'Les comptes sont désactivés',
+  'signIn.signedIn.title': 'Connecté',
+  'signIn.account': 'Votre compte',
+  'signIn.sync': 'Synchroniser',
+  'signIn.syncing': 'Synchronisation…',
+  'signIn.backToCases': 'Retour aux affaires',
+  'signIn.signOut': 'Se déconnecter',
+  'signIn.signOutNote':
+    'La déconnexion laisse toutes les sauvegardes sur ce téléphone. Rien n’est supprimé.',
+
+  'paywall.title': 'Plus d’affaires',
+  'paywall.body':
+    'Une autre mort, un autre téléphone, une autre histoire qui ne tient pas. Déverrouillez le pack pour continuer.',
+  'paywall.bullet.case': 'Une deuxième affaire complète',
+  'paywall.bullet.suspects': 'De nouveaux suspects, de nouvelles contradictions',
+  'paywall.bullet.permanent': 'À vous définitivement — ce n’est pas un abonnement',
+  'paywall.empty': 'La boutique n’a rien à proposer pour le moment. Réessayez dans un instant.',
+  'paywall.unreachable': 'Impossible de joindre la boutique.',
+  'paywall.failed': 'L’achat n’a pas abouti. Vous n’avez pas été débité.',
+  'paywall.unlock': 'Déverrouiller · {price}',
+  'paywall.unlockLabel': 'Déverrouiller le pack d’affaires pour {price}',
+  'paywall.notNow': 'Plus tard',
+};
+
 export const CATALOGUES: Readonly<Record<LocaleTag, Catalogue>> = {
   en: EN,
   es: ES,
-  fr: {},
+  fr: FR,
   de: {},
   'pt-BR': {},
   ja: {},

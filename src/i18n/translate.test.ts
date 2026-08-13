@@ -49,12 +49,17 @@ describe('lookup', () => {
   });
 
   /**
-   * The whole point of partial catalogues. French ships no strings yet, so every
-   * key must come back readable rather than blank or as a key.
+   * The whole point of partial catalogues. German ships no strings yet, so
+   * every key must come back readable rather than blank or as a key.
+   *
+   * This used to check French. French is now translated, which is exactly why
+   * the assertion had to move rather than be deleted: the fallback path is only
+   * proven by a locale that is genuinely empty, and there will be one until
+   * every locale ships.
    */
   it('falls back to English for a locale with nothing translated', () => {
     for (const key of Object.keys(EN) as StringKey[]) {
-      expect(lookup('fr', key)).toBe(EN[key]);
+      expect(lookup('de', key)).toBe(EN[key]);
     }
   });
 
@@ -119,12 +124,15 @@ describe('translator', () => {
 describe('coverage', () => {
   it('is complete for English and empty for an untranslated locale', () => {
     expect(coverage('en')).toBe(1);
-    expect(coverage('fr')).toBe(0);
+    expect(coverage('de')).toBe(0);
   });
 
-  it('reports Spanish as fully translated', () => {
-    // If this drops, a key was added to English without a Spanish counterpart.
-    // That is allowed — it falls back — so this is a reminder, not a gate.
+  /**
+   * If either drops, a key was added to English without a counterpart. That is
+   * allowed — it falls back — so this is a reminder, not a gate.
+   */
+  it('reports Spanish and French as fully translated', () => {
     expect(coverage('es')).toBe(1);
+    expect(coverage('fr')).toBe(1);
   });
 });
