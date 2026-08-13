@@ -58,6 +58,10 @@ export const EN = {
   'home.continue.backTo': 'Back to {thread}.',
   'home.continue.proved': '{proved} of {total} proved. Last played {elapsed}.',
 
+  'case.tab.threads': 'Threads',
+  'case.tab.board': 'Board',
+  'case.tab.accuse': 'Accuse',
+
   'settings.title': 'Settings',
   'settings.sound.section': 'Sound',
   'settings.sound.label': 'Sound effects',
@@ -180,6 +184,10 @@ const ES: Catalogue = {
   'home.continue.label': 'Continuar {title}.',
   'home.continue.backTo': 'Volver a {thread}.',
   'home.continue.proved': '{proved} de {total} probadas. Última partida {elapsed}.',
+
+  'case.tab.threads': 'Mensajes',
+  'case.tab.board': 'Tablero',
+  'case.tab.accuse': 'Acusar',
 
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Sonido',

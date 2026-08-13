@@ -1,21 +1,33 @@
 import { useEffect } from 'react';
 import { useLocalSearchParams, Redirect } from 'expo-router';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { getCase } from '@content/cases';
 import { visibleThreads } from '@/engine';
 import { useCaseStore } from '@/state/caseStore';
 import { loadProgress } from '@/state/persistence';
+import { useTranslator } from '@/i18n/useTranslator';
+import { useLocalisedCase } from '@/i18n/useCase';
 
 export default function CaseLayout() {
   const { caseId } = useLocalSearchParams<{ caseId: string }>();
-  const script = getCase(caseId);
+  const t = useTranslator();
+  const script = useLocalisedCase(caseId);
   const loadScript = useCaseStore((s) => s.loadScript);
-  const loadedId = useCaseStore((s) => s.script?.id);
+  const relocaliseScript = useCaseStore((s) => s.relocaliseScript);
+  const loaded = useCaseStore((s) => s.script);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
 
   useEffect(() => {
-    if (!script || loadedId === script.id) return;
+    if (!script || loaded === script) return;
+
+    if (loaded?.id === script.id) {
+      // Same case, different language. Swap the prose and keep the session —
+      // loadScript would clear every message read and every contradiction
+      // proved, so changing language mid-case would erase the playthrough.
+      relocaliseScript(script);
+      return;
+    }
+
     loadScript(script);
     void loadProgress(script.id);
     // Deliberately does NOT stamp this case as "last played". Opening a case is
@@ -23,7 +35,7 @@ export default function CaseLayout() {
     // and backs out would otherwise move the pointer to a case with no save at
     // all, and lose the Continue offer for the case they were really in the
     // middle of. saveProgress moves the pointer, and only real progress saves.
-  }, [script, loadedId, loadScript]);
+  }, [script, loaded, loadScript, relocaliseScript]);
 
   if (!script) return <Redirect href="/" />;
 
@@ -43,16 +55,16 @@ export default function CaseLayout() {
     <NativeTabs>
       <NativeTabs.Trigger name="threads">
         <NativeTabs.Trigger.Icon sf="bubble.left.and.bubble.right" md="chat" />
-        <NativeTabs.Trigger.Label>Threads</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{t('case.tab.threads')}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Badge hidden={unread === 0}>{String(unread)}</NativeTabs.Trigger.Badge>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="board">
         <NativeTabs.Trigger.Icon sf="pin" md="push_pin" />
-        <NativeTabs.Trigger.Label>Board</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{t('case.tab.board')}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="accuse">
         <NativeTabs.Trigger.Icon sf="exclamationmark.bubble" md="gavel" />
-        <NativeTabs.Trigger.Label>Accuse</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{t('case.tab.accuse')}</NativeTabs.Trigger.Label>
         {/* A space can render as an empty pill on Android; a character is safe. */}
         <NativeTabs.Trigger.Badge hidden={!ready}>!</NativeTabs.Trigger.Badge>
       </NativeTabs.Trigger>

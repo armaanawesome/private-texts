@@ -5,7 +5,9 @@ import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { CasePoster } from '@/ui/CasePoster';
 import { ContinueCard } from '@/ui/ContinueCard';
-import { CASES, getCase } from '@content/cases';
+import { getLocalisedCase } from '@content/i18n';
+import { useLocalisedCases } from '@/i18n/useCase';
+import { useSettingsStore } from '@/settings/settingsStore';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import { readResume } from '@/state/persistence';
 import { offerResume, type ResumeOffer } from '@/state/resume';
@@ -23,6 +25,8 @@ interface Resume {
 
 export default function CaseSelectScreen() {
   const t = useTranslator();
+  const cases = useLocalisedCases();
+  const localeTag = useSettingsStore((s) => s.settings.localeTag);
   const { entitlementIds } = useEntitlements();
   const [resume, setResume] = useState<Resume | null>(null);
 
@@ -37,7 +41,7 @@ export default function CaseSelectScreen() {
       void (async () => {
         const stored = await readResume();
         if (!alive) return;
-        const script = stored ? getCase(stored.last.caseId) : undefined;
+        const script = stored ? getLocalisedCase(stored.last.caseId, localeTag) : undefined;
         const offer = offerResume({
           last: stored?.last ?? null,
           save: stored?.save ?? null,
@@ -49,7 +53,10 @@ export default function CaseSelectScreen() {
       return () => {
         alive = false;
       };
-    }, [entitlementIds]),
+      // localeTag is a dependency because the card shows the case title and the
+      // thread name: changing language must retitle the Continue card, not leave
+      // the previous language sitting on the first screen.
+    }, [entitlementIds, localeTag]),
   );
 
   return (
@@ -75,7 +82,7 @@ export default function CaseSelectScreen() {
         ) : null}
 
         <View style={styles.grid}>
-          {CASES.map((c) => (
+          {cases.map((c) => (
             <CaseTile key={c.id} script={c} locked={!isUnlocked(c, entitlementIds)} />
           ))}
         </View>

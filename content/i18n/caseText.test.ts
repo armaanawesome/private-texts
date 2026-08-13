@@ -56,6 +56,14 @@ function clock(minutes: number): string {
   return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 }
 
+/**
+ * How a window's end may be written. A window that runs to midnight reads
+ * better as "23:00–24:00" than "23:00–00:00", and four shipped packs write it
+ * that way, so both are right.
+ */
+const endForms = (minutes: number): string[] =>
+  minutes % 1440 === 0 ? [clock(minutes), '24:00'] : [clock(minutes)];
+
 const clockTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
 const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
 const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
@@ -314,10 +322,17 @@ for (const caseId of TRANSLATED_CASE_IDS) {
             for (const c of m.claims ?? []) {
               const times = clockTimes(c.label);
               if (times.length === 0) continue; // not every claim is about a clock
-              expect(times, `claim ${c.id} label disagrees with its window`).toEqual([
-                clock(c.window.start),
-                clock(c.window.end),
-              ]);
+
+              // One time names the start; two name the whole window. Anything
+              // else is a chip describing a moment the engine is not reasoning
+              // over, which the player has no way to tell from the outside.
+              const allowed = endForms(c.window.end).map((end) => [clock(c.window.start), end]);
+              const acceptable = [[clock(c.window.start)], ...allowed];
+              expect(
+                acceptable.some((form) => form.join('|') === times.join('|')),
+                `claim ${c.id} chip says ${times.join('–')} but the engine holds ` +
+                  `${clock(c.window.start)}–${clock(c.window.end)}`,
+              ).toBe(true);
             }
           }
         }

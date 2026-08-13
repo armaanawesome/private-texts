@@ -233,3 +233,71 @@ describe('useCaseStore', () => {
     expect(useCaseStore.getState().lastComparedClaimIds).toEqual([]);
   });
 });
+
+/**
+ * Changing language mid-case.
+ *
+ * `loadScript` clears progress, which is right for a different case and
+ * catastrophic for the same case arriving in another language. These tests are
+ * the guard on that: the failure they prevent is a player switching to Spanish
+ * on case eleven and losing the whole playthrough.
+ */
+describe('relocaliseScript', () => {
+  const TRANSLATED: CaseScript = { ...SCRIPT, title: 'C en español' };
+
+  beforeEach(() => {
+    useCaseStore.getState().reset();
+    useCaseStore.getState().loadScript(SCRIPT);
+  });
+
+  it('swaps the prose and keeps every bit of progress', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markRead('m2');
+    s.togglePin('c1');
+    s.togglePin('c2');
+    s.submitPins();
+
+    const before = useCaseStore.getState();
+    const readBefore = [...before.readMessageIds];
+    const confirmedBefore = [...before.confirmedContradictionIds];
+
+    useCaseStore.getState().relocaliseScript(TRANSLATED);
+
+    const after = useCaseStore.getState();
+    expect(after.script?.title, 'the prose did not swap').toBe('C en español');
+    expect(after.readMessageIds).toEqual(readBefore);
+    expect(after.confirmedContradictionIds).toEqual(confirmedBefore);
+    expect(after.hydrated).toBe(before.hydrated);
+  });
+
+  /**
+   * Guarded on the id rather than trusting the caller. Attaching one case's
+   * prose to another case's progress is a silent corruption — the player would
+   * see a different story over their own read state — rather than a crash.
+   */
+  it('refuses a script for a different case', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+
+    const other: CaseScript = { ...SCRIPT, id: 'other', title: 'Other' };
+    useCaseStore.getState().relocaliseScript(other);
+
+    expect(useCaseStore.getState().script?.id).toBe('c');
+    expect(useCaseStore.getState().readMessageIds).toEqual(['m1']);
+  });
+
+  it('does nothing when no case is loaded', () => {
+    useCaseStore.getState().reset();
+    useCaseStore.getState().relocaliseScript(TRANSLATED);
+    expect(useCaseStore.getState().script).toBeNull();
+  });
+
+  /** The contrast that makes the whole thing worth having. */
+  it('loadScript still clears, so the two are not interchangeable', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    useCaseStore.getState().loadScript(TRANSLATED);
+    expect(useCaseStore.getState().readMessageIds).toEqual([]);
+  });
+});

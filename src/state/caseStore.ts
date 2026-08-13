@@ -45,6 +45,7 @@ interface CaseState {
   hydrated: boolean;
 
   loadScript: (script: CaseScript) => void;
+  relocaliseScript: (script: CaseScript) => void;
   markRead: (messageId: string) => void;
   openThread: (threadId: string) => void;
   togglePin: (claimId: string) => void;
@@ -84,6 +85,24 @@ export const useCaseStore = create<CaseState>((set, get) => ({
   ...empty(),
 
   loadScript: (script) => set({ ...empty(), script }),
+
+  /**
+   * Swap the script's prose without touching a single thing the player has done.
+   *
+   * `loadScript` clears progress, which is right when a different case opens and
+   * catastrophic when the same case comes back in another language: changing the
+   * language mid-case would erase the session. A localised case is structurally
+   * identical to its English — same ids, same windows, same predicates, same
+   * order, enforced by the contract test in content/i18n — so every id already
+   * held in `readMessageIds`, `pinnedClaimIds` and `confirmedContradictionIds`
+   * still resolves against the new object.
+   *
+   * Guarded on the id rather than trusting the caller: relocalising to a
+   * *different* case would leave progress from one case attached to another, and
+   * that is a silent corruption rather than a visible crash.
+   */
+  relocaliseScript: (script) =>
+    set((s) => (s.script === null || s.script.id !== script.id ? {} : { script })),
 
   /**
    * The early return also keeps `lastMessageId` honest. Reopening a finished
