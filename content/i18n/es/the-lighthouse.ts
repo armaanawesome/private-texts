@@ -51,12 +51,25 @@ import type { CaseTranslation } from '../caseText';
  *    you a number. The player is lowercase and short and never types an opening
  *    `¿`, because they are typing on a phone in a room they grew up in.
  *
- * `the Keeper` is `el Farero`. It is not a personal name, it is what the caller
- * chose to call himself, and the English chose it to rhyme with the woman who
- * `kept the light` — so it has to carry meaning or the clue is just noise. In
- * Spanish that rhyme is exact: Ruth cuidó la luz, and the man on the telephone
- * calls himself el Farero. Capitalised, never with an article dropped, so it
- * reads as a title somebody picked rather than a job somebody has.
+ * `the Keeper` stays `el Keeper`, untranslated.
+ *
+ * This was `el Farero` first, and the argument for it was good: the English
+ * rhymes the alias against the woman who `kept the light`, and `Ruth cuidó la
+ * luz / el Farero` makes that rhyme exact. It was still wrong, for two reasons
+ * that only show up outside this case.
+ *
+ * `Farero` means lighthouse keeper specifically. He uses this name in six packs
+ * — a care home, a rowing club, a canal, a crisis line, and the finale — and in
+ * none of those is there a lighthouse. Worse, it kills the meaning the finale
+ * actually pays off: eleven box files in a wardrobe, one per person, and `I have
+ * kept all of them`. He is not the keeper of a light. He is the keeper of
+ * *records*, and Pack 1 only looks like it is about a lighthouse.
+ *
+ * The alias is also the one thing the player has to recognise across fifteen
+ * packs. Leaving it in English keeps it identical in every locale, so no later
+ * translator has to re-derive the choice and accidentally break the through
+ * line. `arcAlias.test.ts` now enforces that across every registered
+ * translation.
  */
 export const theLighthouseEs: CaseTranslation = {
   title: 'El faro',
@@ -195,7 +208,7 @@ export const theLighthouseEs: CaseTranslation = {
     n6: 'Me lo iba a quitar. No el dinero: el dinero podría habérselo quedado, yo habría vendido el café. Iba a poner su nombre ahí dentro.',
     n7: 'Cuarenta años conociéndola y no fue capaz de darme una sola mañana.',
     n8: 'Diga lo que diga mi hijo, estaba en la rampa a oscuras y el haz juega malas pasadas ahí fuera. Pregunta a quien quieras. Vuelve a preguntárselo mañana.',
-    n9: 'Y hay una cosa que no le he contado a nadie, porque suena a que me estoy fabricando una excusa. Un hombre que se hacía llamar el Farero llamó por teléfono al café esa noche. Las nueve y media, más o menos.',
+    n9: 'Y hay una cosa que no le he contado a nadie, porque suena a que me estoy fabricando una excusa. Un hombre que se hacía llamar el Keeper llamó por teléfono al café esa noche. Las nueve y media, más o menos.',
     n10: 'Dijo que era de los auditores. Dijo que Ruth ya les había mandado los papeles, que la cosa ya no estaba en su mano, y que el lunes el nombre de Callum figuraría en ellos hiciera lo que hiciera quien fuera.',
     n11: 'No le pregunté el nombre. No le pregunté cómo tenía el número del café. No me empujó a hacer nada, apenas dijo una palabra, y yo colgué y cogí mi abrigo. Haz con eso lo que quieras. Yo he dejado de intentarlo.',
   },
@@ -236,7 +249,7 @@ export const theLighthouseEs: CaseTranslation = {
     'x-mairi-path':
       'Ella se puso detrás del mostrador desde las ocho y media hasta las once. A las 21:47 una mujer con un cuaderno de campo y nada que ganar aquí se cruzó con ella en el camino del acantilado, en sentido contrario, con un abrigo por encima de la cabeza. El café no era una coartada. Era un sitio donde ponerse.',
     'x-papers-lie':
-      'Los auditores nunca tuvieron esos papeles. Ruth lo escribió todo al final de su cuaderno de registro, y el cuaderno seguía arriba en la torre, donde ella lo dejó. Así que el hombre que se hacía llamar el Farero, el que llamó al café a las nueve y media, no era del Patronato, no tenía por qué saber nada del Patronato, y lo que le dijo a Mairi Bell no fue una equivocación. Sabía lo que haría con eso una mujer a la que le quedaba una noche.',
+      'Los auditores nunca tuvieron esos papeles. Ruth lo escribió todo al final de su cuaderno de registro, y el cuaderno seguía arriba en la torre, donde ella lo dejó. Así que el hombre que se hacía llamar el Keeper, el que llamó al café a las nueve y media, no era del Patronato, no tenía por qué saber nada del Patronato, y lo que le dijo a Mairi Bell no fue una equivocación. Sabía lo que haría con eso una mujer a la que le quedaba una noche.',
     'x-mairi-door':
       'El camino todavía podía ser un paseo para despejarse. La puerta no. A las diez y diez estaba de pie al pie de la torre, iluminada por la lámpara de su propia amiga, en el minuto en que Ruth dejó de contestar, y una hora antes de volver a casa y lavar un abrigo que no había lavado de noche en su vida.',
   },
