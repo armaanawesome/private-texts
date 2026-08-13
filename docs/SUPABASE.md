@@ -102,21 +102,44 @@ alter table public.case_progress enable row level security;
 
 create policy "read own progress"
   on public.case_progress for select
-  using (auth.uid() = user_id);
+  to authenticated
+  using ((select auth.uid()) = user_id);
 
 create policy "insert own progress"
   on public.case_progress for insert
-  with check (auth.uid() = user_id);
+  to authenticated
+  with check ((select auth.uid()) = user_id);
 
 create policy "update own progress"
   on public.case_progress for update
-  using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+  to authenticated
+  using ((select auth.uid()) = user_id)
+  with check ((select auth.uid()) = user_id);
 
 create policy "delete own progress"
   on public.case_progress for delete
-  using (auth.uid() = user_id);
+  to authenticated
+  using ((select auth.uid()) = user_id);
 ```
+
+Two details in there are not stylistic, and both come from Supabase's own
+Postgres guidance:
+
+**`(select auth.uid())`, not bare `auth.uid()`.** Wrapped in a subselect,
+Postgres evaluates it once as an InitPlan and reuses the result. Bare, it is
+re-evaluated **for every row scanned**. On a table that grows with players ×
+cases that is the difference between one function call and thousands per query.
+
+**`to authenticated` on every policy.** Without a `TO` clause a policy is also
+evaluated for the `anon` role, which can never satisfy it — wasted work on every
+anonymous request. It also states the access model out loud. Note that `TO
+authenticated` *alone* would be authentication without authorisation: it checks
+the role, not the row. It is only safe here because it is paired with the
+ownership predicate in `using` / `with check`.
+
+Do not reach for `auth.role() = 'authenticated'` instead — Supabase has
+deprecated it, and it breaks silently if anonymous sign-ins are ever enabled,
+because anonymous users carry the `authenticated` Postgres role and would pass.
 
 Both `using` and `with check` are needed on update: `using` decides which rows
 you may target, `with check` decides what you may leave behind. With only
@@ -130,6 +153,36 @@ is whichever one the row turns out to need.
 does that. It is redundant on purpose — it costs nothing and it states at the
 call site that the query is per-user, so the intent survives someone later
 reading the query without knowing the policies exist.
+
+### Indexes
+
+None needed for the access path. Every query filters on `user_id`, and the
+composite primary key `(user_id, case_id)` has it as the leading column, so the
+PK index already serves both the RLS predicate and `sync.ts`'s
+`.eq('user_id', …)`. Adding a separate index on `user_id` would be a second copy
+of the same thing for Postgres to maintain on every write.
+
+### Verified against a live project — 2026-08-12
+
+Run end to end with two real accounts on one machine, which is the check a
+single account can never give you:
+
+| | |
+|---|---|
+| A writes its own row | `201` |
+| A reads it back | 1 row |
+| **B reads** | **`[]`** — B cannot see A's progress |
+| Anonymous reads | `[]` |
+| **B inserts a row with A's `user_id`** | **`403`, "new row violates row-level security policy"** |
+| A deletes its own row | `204` |
+
+The fifth line is the one worth keeping. It proves `with check` is doing its job:
+without it, B could have written a row and assigned it to A.
+
+Note the legacy `anon` JWT key was used. A `sb_publishable_…` key was rejected
+with "Invalid API key" against this project; the legacy keys keep working and
+`src/auth/config.ts` accepts either, so this is not blocking. Supabase deprecates
+legacy keys at the end of 2026, so it is worth revisiting before then.
 
 ## 5. Verifying it
 
