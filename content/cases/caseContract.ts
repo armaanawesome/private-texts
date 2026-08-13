@@ -22,6 +22,22 @@ import {
  * at the worst possible moment — mid-playthrough, or on the last screen, after
  * the player has done everything right.
  */
+/**
+ * Cases exempt from the "one thread found by reading" craft rule.
+ *
+ * Only the-lighthouse, and only because of when it was written. Pack 1 predates
+ * both this contract and the rule, and **no message anywhere in it names
+ * Fiona** — the one character whose thread could plausibly be discovered rather
+ * than simply open. Satisfying the rule would mean writing a name-drop into
+ * prose that a human has already played and that has since been translated into
+ * Spanish, which is a real risk taken for a rule about craft rather than
+ * correctness.
+ *
+ * Listed by exact id so no other pack inherits the exemption, and the rule
+ * asserts the exemption is still deserved rather than just skipping.
+ */
+const NO_DISCOVERY_THREAD = new Set(['the-lighthouse']);
+
 export function describeCaseContract(script: CaseScript) {
   const allClaims: Claim[] = script.threads.flatMap((t) =>
     t.messages.flatMap((m) => m.claims ?? []),
@@ -104,6 +120,18 @@ export function describeCaseContract(script: CaseScript) {
 
     it('opens at least one thread by discovery rather than by proof', () => {
       const byReading = script.threads.filter((t) => (t.requiresReadMessageIds ?? []).length > 0);
+
+      if (NO_DISCOVERY_THREAD.has(script.id)) {
+        // Self-cleaning: the day the exempt case gains a discovery thread, this
+        // fails and tells you to drop the exemption, rather than quietly
+        // granting it forever.
+        expect(
+          byReading.length,
+          `${script.id} now has a discovery thread — remove it from NO_DISCOVERY_THREAD`,
+        ).toBe(0);
+        return;
+      }
+
       expect(byReading.length, 'no thread is found by reading').toBeGreaterThan(0);
     });
 

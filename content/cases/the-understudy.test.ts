@@ -11,8 +11,12 @@ import {
 } from '@/engine';
 import { theUnderstudyRaw } from './the-understudy';
 import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
+import { describeCaseContract } from './caseContract';
 
 const script = loadCase(theUnderstudyRaw);
+
+/** Retrofitted — see the note in the-lighthouse.test.ts. */
+describeCaseContract(script);
 
 const allClaims: Claim[] = script.threads.flatMap((t) => t.messages.flatMap((m) => m.claims ?? []));
 const allMessageIds = script.threads.flatMap((t) => t.messages.map((m) => m.id));
@@ -105,7 +109,10 @@ describe('The Understudy', () => {
 
   it('gates Beatrice behind the key and the corridor', () => {
     expect(visibleThreads(script, at([])).map((t) => t.id)).not.toContain('t-bea');
-    expect(visibleThreads(script, at(['x-key', 'x-bea-corridor'])).map((t) => t.id)).toContain(
+    // One proof, not two. This asserted `['x-key', 'x-bea-corridor']` and so
+    // never noticed that the second could only be proved from inside the thread
+    // it was gating — it handed both in directly rather than playing forward.
+    expect(visibleThreads(script, at(['x-key'])).map((t) => t.id)).toContain(
       't-bea',
     );
   });

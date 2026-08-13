@@ -10,8 +10,18 @@ import {
   type EvidenceRef,
 } from '@/engine';
 import { theLighthouseRaw } from './the-lighthouse';
+import { describeCaseContract } from './caseContract';
 
 const script = loadCase(theLighthouseRaw);
+
+/**
+ * Retrofitted. The shared contract was extracted at Pack 3, and Packs 1 and 2
+ * were never brought under it — so for thirteen packs the two free cases the
+ * most players will ever see were the only two nobody was checking. It surfaced
+ * when the case-localisation tests ran the contract over every registered case
+ * and both failed, in English.
+ */
+describeCaseContract(script);
 
 const allClaims: Claim[] = script.threads.flatMap((t) => t.messages.flatMap((m) => m.claims ?? []));
 const allMessageIds = script.threads.flatMap((t) => t.messages.map((m) => m.id));

@@ -3,6 +3,9 @@ import { DEFAULT_LOCALE, type LocaleTag } from '@/i18n/locales';
 import { getCase } from '../cases/index';
 import { applyCaseText, caseTextCoverage, type CaseTranslation } from './caseText';
 import { tutorialEs } from './es/tutorial';
+import { theLighthouseEs } from './es/the-lighthouse';
+import { theUnderstudyEs } from './es/the-understudy';
+import { theNightRoundEs } from './es/the-night-round';
 
 export {
   applyCaseText,
@@ -28,7 +31,15 @@ export const CASE_TRANSLATIONS: Readonly<
   Record<LocaleTag, Readonly<Record<string, CaseTranslation>>>
 > = {
   en: {},
-  es: { tutorial: tutorialEs },
+  // The tutorial plus the three free packs — everything a player can reach
+  // without paying. A paid case in English behind a Spanish free tier is a
+  // deliberate boundary, not an oversight.
+  es: {
+    tutorial: tutorialEs,
+    'the-lighthouse': theLighthouseEs,
+    'the-understudy': theUnderstudyEs,
+    'the-night-round': theNightRoundEs,
+  },
   fr: {},
   de: {},
   'pt-BR': {},

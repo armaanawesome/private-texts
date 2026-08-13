@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { loadCase, type CaseScript } from '@/engine';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type LocaleTag } from '@/i18n/locales';
-import { getCase } from '../cases/index';
+import { CASES, getCase } from '../cases/index';
 import { describeCaseContract } from '../cases/caseContract';
 import {
   applyCaseText,
@@ -168,10 +168,28 @@ describe('case text: the mechanism', () => {
 
   it('returns the English case untouched when there is no translation', () => {
     // By reference: this is the path every untranslated case and every
-    // untranslated locale takes, which is nearly all of them.
+    // untranslated locale takes, which is nearly all of them. Identity is the
+    // assertion, not equality — the case screen decides whether to reload by
+    // comparing script identity, so a fresh object here would reload the case
+    // on every render.
     expect(applyCaseText(tutorial, undefined)).toBe(tutorial);
     expect(localiseCase(tutorial, 'fr')).toBe(tutorial);
-    expect(localiseCase(englishCase('the-lighthouse'), 'es')).toBe(englishCase('the-lighthouse'));
+
+    /*
+     * Derived, never hardcoded.
+     *
+     * This named `the-lighthouse` until it was translated into Spanish, and
+     * would then have failed — on the very day the by-reference path most needed
+     * proving. Picking an untranslated case at runtime means the assertion
+     * survives every future translation instead of being edited by whoever
+     * broke it.
+     */
+    const untranslated = CASES.find((c) => CASE_TRANSLATIONS.es[c.id] === undefined);
+    expect(
+      untranslated,
+      'every case is now translated into Spanish — point this at a locale that still has gaps',
+    ).toBeDefined();
+    expect(localiseCase(untranslated!, 'es')).toBe(untranslated);
   });
 
   it('falls back to English field by field, exactly as the UI catalogue does', () => {

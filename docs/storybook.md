@@ -752,7 +752,7 @@ She had been taking from the Ardnoe Light Trust for two years to cover Callum's 
 
 #### Beatrice Kyd
 
-*opens once you prove x-key and x-bea-corridor*
+*opens once you prove x-key*
 
 **Beatrice**
 > You have been busy. Two of my company have stopped meeting my eye and I do not think that is a coincidence.

@@ -538,7 +538,13 @@ export const theUnderstudyRaw = {
       id: 't-bea',
       title: 'Beatrice Kyd',
       participantIds: ['you', 'bea'],
-      requiresContradictionIds: ['x-key', 'x-bea-corridor'],
+      // Deadlock, found when the shared contract was finally applied to this
+      // pack. This also gated on `x-bea-corridor`, whose `c-bea-auditorium`
+      // half lives inside this very thread — so opening Beatrice required a
+      // proof only Beatrice could supply, and her thread could never open at
+      // all. `x-key` is built from t-company and t-nell, so it opens from
+      // outside, and `x-bea-corridor` then becomes provable once she has spoken.
+      requiresContradictionIds: ['x-key'],
       messages: [
         {
           id: 'b1',
