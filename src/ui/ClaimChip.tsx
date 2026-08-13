@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
   type SharedValue,
 } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
+import { feedback } from '@/settings/feedback';
 import { theme } from './theme';
 import type { Claim } from '@/engine';
 
@@ -48,7 +48,8 @@ export function ClaimChip({ claim, pinned, slot, onPress }: Props) {
   return (
     <Pressable
       onPress={() => {
-        void Haptics.selectionAsync();
+        feedback.selection();
+        feedback.cue('pin');
         onPress();
       }}
       hitSlop={theme.hit.slop}

@@ -1,7 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import Animated, { FadeIn, FadeInDown, useReducedMotion } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import { feedback } from '@/settings/feedback';
+import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import {
   press,
@@ -39,7 +40,7 @@ function firstSentence(s: string): string {
  * ending belongs to the player's case rather than to a script running out.
  */
 export function ConfrontationScreen({ script, progress, onClosed }: Props) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReduceMotion();
   const confrontation = script.confrontation;
   const scrollRef = useRef<ScrollView>(null);
 
@@ -83,13 +84,13 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
     const outcome = press(confrontation!, landed, item.ref);
 
     if (outcome.kind === 'repeat') {
-      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      feedback.notify('warning');
       say([{ key: `r-${Date.now()}`, who: 'them', text: 'You have said that already.' }]);
       return;
     }
 
     if (outcome.kind === 'deflected') {
-      void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      feedback.impact('light');
       say([
         { key: `p-${item.key}-${Date.now()}`, who: 'you', text: item.label },
         { key: `d-${Date.now()}`, who: 'them', text: outcome.line },
@@ -97,7 +98,10 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
       return;
     }
 
-    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    feedback.notify('success');
+    // The two moments the game is allowed to be heard: a fact landing, and her
+    // giving it up. Both are `signal` cues, so Reduce Motion does not silence them.
+    feedback.cue(outcome.complete ? 'confession' : 'contradiction');
     setLanded((l) => [...l, outcome.beat.id]);
     setUsed((u) => [...u, item.key]);
 

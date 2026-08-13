@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
-import Animated, { FadeIn, FadeInDown, useReducedMotion } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import { feedback } from '@/settings/feedback';
+import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { ConfrontationScreen } from './ConfrontationScreen';
 import { useCaseStore } from '@/state/caseStore';
 import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
 
 export function AccusationScreen() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReduceMotion();
   const script = useCaseStore((s) => s.script);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
@@ -42,7 +43,7 @@ export function AccusationScreen() {
           text: 'Accuse',
           style: 'destructive',
           onPress: () => {
-            void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+            feedback.notify('warning');
             setResult(evaluateAccusation(script!, person.id, progress));
           },
         },

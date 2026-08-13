@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollView, Pressable, View, Text, StyleSheet } from 'react-native';
-import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
+import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { ChatBubble, type BubbleGeometry } from './ChatBubble';
 import { TypingIndicator } from './TypingIndicator';
@@ -20,7 +21,7 @@ interface Props {
 }
 
 export function MessageList({ thread, characters, onPressClaims }: Props) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReduceMotion();
   const markRead = useCaseStore((s) => s.markRead);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
 

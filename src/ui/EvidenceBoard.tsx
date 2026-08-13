@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { useReducedMotion } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
+import { feedback } from '@/settings/feedback';
+import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { ClaimChip } from './ClaimChip';
 import { ClaimTimeline } from './ClaimTimeline';
@@ -11,7 +11,7 @@ import { saveProgress } from '@/state/persistence';
 import { availableClaims, type Claim, type CaseScript } from '@/engine';
 
 export function EvidenceBoard() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReduceMotion();
   const script = useCaseStore((s) => s.script);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const pinnedClaimIds = useCaseStore((s) => s.pinnedClaimIds);
@@ -50,7 +50,7 @@ export function EvidenceBoard() {
       <Pressable
         disabled={!canCompare}
         onPress={() => {
-          void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          feedback.notify('success');
           submitPins();
           // Persist after the verdict resolves: a proven contradiction unlocks
           // threads, and losing that to a force-quit would be brutal.

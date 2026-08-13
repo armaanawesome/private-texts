@@ -1,7 +1,7 @@
 import { Modal, View, Text, StyleSheet, Pressable } from 'react-native';
 import { BlurView } from 'expo-blur';
 import Animated, { FadeIn, FadeOut, ZoomIn } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
+import { feedback } from '@/settings/feedback';
 import { theme } from './theme';
 import { StaticBubble } from './ChatBubble';
 import type { Character, Claim, Message } from '@/engine';
@@ -70,7 +70,7 @@ export function ClaimMenu({
                 <Pressable
                   key={c.id}
                   onPress={() => {
-                    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                    feedback.notify('success');
                     onPick(c);
                   }}
                   accessibilityRole="button"

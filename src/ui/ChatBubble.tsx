@@ -1,7 +1,7 @@
 import { forwardRef, memo } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
+import { feedback } from '@/settings/feedback';
 import { theme } from './theme';
 import type { Character, Message } from '@/engine';
 
@@ -74,7 +74,7 @@ function ChatBubbleImpl({ message, sender, isOwn, geometry, onPressClaims, reduc
       {hasClaims ? (
         <Pressable
           onLongPress={(e) => {
-            void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            feedback.impact('medium');
             const { pageX, pageY, locationX, locationY } = e.nativeEvent;
             onPressClaims?.({
               x: pageX - locationX,

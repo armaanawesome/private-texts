@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
+import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { clockOf } from './timeScale';
 import type { CaseScript } from '@/engine';
@@ -19,7 +20,7 @@ interface Props {
  * rather than as more of the same.
  */
 export function BriefingScreen({ script, onStart }: Props) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReduceMotion();
   const b = script.briefing;
   if (!b) return null;
 

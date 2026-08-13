@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, Stack, Redirect } from 'expo-router';
-import { useReducedMotion } from 'react-native-reanimated';
+import { useReduceMotion } from '@/settings/useReduceMotion';
 import { MessageList, PLAYER_ID } from '@/ui/MessageList';
 import { ClaimMenu } from '@/ui/ClaimMenu';
 import { useCaseStore } from '@/state/caseStore';
@@ -8,7 +8,7 @@ import { saveProgress } from '@/state/persistence';
 
 export default function ThreadScreen() {
   const { threadId } = useLocalSearchParams<{ threadId: string }>();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReduceMotion();
   const script = useCaseStore((s) => s.script);
   const pinnedClaimIds = useCaseStore((s) => s.pinnedClaimIds);
   const togglePin = useCaseStore((s) => s.togglePin);
