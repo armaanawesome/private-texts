@@ -179,14 +179,24 @@ describe('El faro (es) — the times', () => {
 describe('El faro (es) — the arc clue', () => {
   /**
    * The first thing the Listener ever leaves behind, and it has to stay legible
-   * fourteen cases later. `the Keeper` is not a personal name — it is a title the
-   * caller picked, and he picked the dead woman's. So it is translated, and the
-   * word has to be the one that means the person who keeps a lighthouse.
+   * fourteen cases later.
+   *
+   * This test used to require `el Farero`, on the reasoning that the caller
+   * picked the dead woman's title and so the title should be translated. That
+   * was wrong twice over. `Farero` means the keeper of a *lighthouse*, and he
+   * gives this name in a care home, a rowing club, a canal and a crisis line;
+   * and it pre-empts what the finale actually pays off, which is eleven box
+   * files in a wardrobe, one per person, and `I have kept all of them`. Pack 1
+   * only looks like it is about a lighthouse.
+   *
+   * The word stays English in every locale now, enforced across all of them by
+   * `content/i18n/arcAlias.test.ts`. This assertion stays anyway, pinned to the
+   * two places a Spanish player meets it first.
    */
   it('keeps the Keeper a name a Spanish player can carry forward', () => {
-    expect(body('n9')).toContain('se hacía llamar el Farero');
+    expect(body('n9')).toContain('se hacía llamar el Keeper');
     const revelation = script.contradictions.find((x) => x.id === 'x-papers-lie')?.revelation ?? '';
-    expect(revelation).toContain('el Farero');
+    expect(revelation).toContain('el Keeper');
     // And the lie itself: the auditors never had the papers, so the call was not
     // a mistake. Without this sentence the contradiction proves nothing chilling.
     expect(revelation).toContain('Los auditores nunca tuvieron esos papeles');

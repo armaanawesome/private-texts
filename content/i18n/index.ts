@@ -6,6 +6,7 @@ import { tutorialEs } from './es/tutorial';
 import { theLighthouseEs } from './es/the-lighthouse';
 import { theUnderstudyEs } from './es/the-understudy';
 import { theNightRoundEs } from './es/the-night-round';
+import { tutorialDe } from './de/tutorial';
 
 export {
   applyCaseText,
@@ -41,7 +42,13 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-night-round': theNightRoundEs,
   },
   fr: {},
-  de: {},
+  // The tutorial only. German got no further before the session cut, and half a
+  // free tier is still worth shipping — the tutorial is the one case every
+  // player sees, and it teaches by refusing, which is the hardest thing to
+  // guess from an English string in a German UI.
+  de: {
+    tutorial: tutorialDe,
+  },
   'pt-BR': {},
   ja: {},
 };
