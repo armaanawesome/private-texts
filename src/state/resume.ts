@@ -164,30 +164,62 @@ const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
 
 /**
- * How long ago, in the game's own voice.
+ * How long ago, as a string key rather than a sentence.
  *
+ * This used to return English prose, which made the Continue card the most
+ * visible bug in the game once the UI was translated: the surrounding line came
+ * from the catalogue and the gap came from here, so a Spanish player read
+ * "3 de 4 probadas. Última partida 2 hours ago."
+ *
+ * Returning a key keeps the *rules* here — where they are tested, and where
+ * rounding down and refusing to report the future belong — while the words live
+ * with every other word in the game. It also means a language whose plurals do
+ * not split at one gets to say so in its own catalogue instead of being forced
+ * through English's singular/plural shape.
+ */
+export interface Elapsed {
+  readonly key: ElapsedKey;
+  /** Absent for the keys that take no number: just now, yesterday, last week. */
+  readonly params?: Readonly<{ count: number }>;
+}
+
+export type ElapsedKey =
+  | 'elapsed.justNow'
+  | 'elapsed.minuteOne'
+  | 'elapsed.minuteMany'
+  | 'elapsed.hourOne'
+  | 'elapsed.hourMany'
+  | 'elapsed.yesterday'
+  | 'elapsed.dayMany'
+  | 'elapsed.lastWeek'
+  | 'elapsed.weekMany'
+  | 'elapsed.aWhile';
+
+/**
  * Rounds down throughout, so nothing ever claims more time has passed than
  * actually has. A negative gap — device clock moved backwards, or a save synced
  * from a device running ahead — reads as "just now" rather than a nonsense
  * "in 3 hours"; the player does not care why, they care that it was recent.
  */
-export function describeElapsed(nowMs: number, thenMs: number): string {
+export function describeElapsed(nowMs: number, thenMs: number): Elapsed {
   const gap = nowMs - thenMs;
-  if (!Number.isFinite(gap) || gap < MINUTE) return 'just now';
+  if (!Number.isFinite(gap) || gap < MINUTE) return { key: 'elapsed.justNow' };
 
   if (gap < HOUR) {
-    const n = Math.floor(gap / MINUTE);
-    return n === 1 ? '1 minute ago' : `${n} minutes ago`;
+    const count = Math.floor(gap / MINUTE);
+    return count === 1
+      ? { key: 'elapsed.minuteOne' }
+      : { key: 'elapsed.minuteMany', params: { count } };
   }
   if (gap < DAY) {
-    const n = Math.floor(gap / HOUR);
-    return n === 1 ? '1 hour ago' : `${n} hours ago`;
+    const count = Math.floor(gap / HOUR);
+    return count === 1 ? { key: 'elapsed.hourOne' } : { key: 'elapsed.hourMany', params: { count } };
   }
-  if (gap < 2 * DAY) return 'yesterday';
-  if (gap < WEEK) return `${Math.floor(gap / DAY)} days ago`;
+  if (gap < 2 * DAY) return { key: 'elapsed.yesterday' };
+  if (gap < WEEK) return { key: 'elapsed.dayMany', params: { count: Math.floor(gap / DAY) } };
 
   const weeks = Math.floor(gap / WEEK);
-  if (weeks === 1) return 'last week';
+  if (weeks === 1) return { key: 'elapsed.lastWeek' };
   // Past a month the exact number stops meaning anything to a player.
-  return weeks >= 4 ? 'a while ago' : `${weeks} weeks ago`;
+  return weeks >= 4 ? { key: 'elapsed.aWhile' } : { key: 'elapsed.weekMany', params: { count: weeks } };
 }

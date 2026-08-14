@@ -46,7 +46,12 @@ export function ContinueCard({ offer, script, now }: Props) {
   const speaker = last?.senderId === PLAYER_ID ? t('common.you') : sender?.name;
   const preview = last ? `${speaker ? `${speaker}: ` : ''}${last.body}` : script.blurb;
 
-  const elapsed = describeElapsed(now, offer.updatedAt);
+  // describeElapsed returns a key, not a sentence, so the gap is translated by
+  // the same catalogue as the line it sits inside. It used to return English
+  // prose, which made this card read "3 de 4 probadas. Última partida 2 hours
+  // ago." — the surrounding sentence translated, the number not.
+  const since = describeElapsed(now, offer.updatedAt);
+  const elapsed = t(since.key, since.params);
   // The case name is already the heading when there is no conversation to name.
   const meta = thread ? `${script.title} · ${elapsed}` : elapsed;
 

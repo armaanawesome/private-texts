@@ -58,6 +58,26 @@ export const EN = {
   'home.continue.backTo': 'Back to {thread}.',
   'home.continue.proved': '{proved} of {total} proved. Last played {elapsed}.',
 
+  /*
+   * How long ago the player last put the phone down.
+   *
+   * Split into keys rather than built from a number and a unit, because
+   * assembling "{count} {unit} ago" in code assumes every language agrees on
+   * that order and on there being exactly two plural forms. These are whole
+   * phrases, so a translator can reorder them or collapse the singular into the
+   * plural without touching src/state.
+   */
+  'elapsed.justNow': 'just now',
+  'elapsed.minuteOne': '1 minute ago',
+  'elapsed.minuteMany': '{count} minutes ago',
+  'elapsed.hourOne': '1 hour ago',
+  'elapsed.hourMany': '{count} hours ago',
+  'elapsed.yesterday': 'yesterday',
+  'elapsed.dayMany': '{count} days ago',
+  'elapsed.lastWeek': 'last week',
+  'elapsed.weekMany': '{count} weeks ago',
+  'elapsed.aWhile': 'a while ago',
+
   'case.tab.threads': 'Threads',
   'case.tab.board': 'Board',
   'case.tab.accuse': 'Accuse',
@@ -185,6 +205,17 @@ const ES: Catalogue = {
   'home.continue.backTo': 'Volver a {thread}.',
   'home.continue.proved': '{proved} de {total} probadas. Última partida {elapsed}.',
 
+  'elapsed.justNow': 'ahora mismo',
+  'elapsed.minuteOne': 'hace 1 minuto',
+  'elapsed.minuteMany': 'hace {count} minutos',
+  'elapsed.hourOne': 'hace 1 hora',
+  'elapsed.hourMany': 'hace {count} horas',
+  'elapsed.yesterday': 'ayer',
+  'elapsed.dayMany': 'hace {count} días',
+  'elapsed.lastWeek': 'la semana pasada',
+  'elapsed.weekMany': 'hace {count} semanas',
+  'elapsed.aWhile': 'hace tiempo',
+
   'case.tab.threads': 'Mensajes',
   'case.tab.board': 'Tablero',
   'case.tab.accuse': 'Acusar',
@@ -304,6 +335,17 @@ const FR: Catalogue = {
   'home.continue.label': 'Continuer {title}.',
   'home.continue.backTo': 'Retour à {thread}.',
   'home.continue.proved': '{proved} sur {total} prouvées. Dernière session {elapsed}.',
+
+  'elapsed.justNow': "à l'instant",
+  'elapsed.minuteOne': 'il y a 1 minute',
+  'elapsed.minuteMany': 'il y a {count} minutes',
+  'elapsed.hourOne': 'il y a 1 heure',
+  'elapsed.hourMany': 'il y a {count} heures',
+  'elapsed.yesterday': 'hier',
+  'elapsed.dayMany': 'il y a {count} jours',
+  'elapsed.lastWeek': 'la semaine dernière',
+  'elapsed.weekMany': 'il y a {count} semaines',
+  'elapsed.aWhile': 'il y a un moment',
 
   'case.tab.threads': 'Messages',
   'case.tab.board': 'Tableau',
@@ -426,6 +468,17 @@ const DE: Catalogue = {
   'home.continue.backTo': 'Zurück zu {thread}.',
   'home.continue.proved': '{proved} von {total} bewiesen. Zuletzt gespielt {elapsed}.',
 
+  'elapsed.justNow': 'gerade eben',
+  'elapsed.minuteOne': 'vor 1 Minute',
+  'elapsed.minuteMany': 'vor {count} Minuten',
+  'elapsed.hourOne': 'vor 1 Stunde',
+  'elapsed.hourMany': 'vor {count} Stunden',
+  'elapsed.yesterday': 'gestern',
+  'elapsed.dayMany': 'vor {count} Tagen',
+  'elapsed.lastWeek': 'letzte Woche',
+  'elapsed.weekMany': 'vor {count} Wochen',
+  'elapsed.aWhile': 'vor längerer Zeit',
+
   'case.tab.threads': 'Nachrichten',
   'case.tab.board': 'Tafel',
   'case.tab.accuse': 'Anklagen',
@@ -540,6 +593,17 @@ const PT_BR: Catalogue = {
   'home.continue.label': 'Continuar {title}.',
   'home.continue.backTo': 'Voltar para {thread}.',
   'home.continue.proved': '{proved} de {total} provadas. Jogado por último {elapsed}.',
+
+  'elapsed.justNow': 'agora mesmo',
+  'elapsed.minuteOne': 'há 1 minuto',
+  'elapsed.minuteMany': 'há {count} minutos',
+  'elapsed.hourOne': 'há 1 hora',
+  'elapsed.hourMany': 'há {count} horas',
+  'elapsed.yesterday': 'ontem',
+  'elapsed.dayMany': 'há {count} dias',
+  'elapsed.lastWeek': 'semana passada',
+  'elapsed.weekMany': 'há {count} semanas',
+  'elapsed.aWhile': 'faz um tempo',
 
   'case.tab.threads': 'Mensagens',
   'case.tab.board': 'Quadro',

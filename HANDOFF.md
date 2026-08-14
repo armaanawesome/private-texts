@@ -64,9 +64,15 @@ accuse.
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `npm test` → **1130 passing across 57 files**, `npx tsc --noEmit`
-clean, coverage 94.3% statements / 91.1% branches on the measured directories.
-Verified by running the suite on 2026-08-14, not copied forward.
+**Tests:** `.\check.cmd` → **1402 passing across 63 files**, typecheck clean,
+coverage 94.3% statements / 91.1% branches on the measured directories. Verified
+by running the suite on 2026-08-14, not copied forward.
+
+**Run `.\check.cmd`, not `npx vitest` by hand.** It `cd`s to the project root
+first. Running vitest from the parent directory silently picks up unrelated
+projects — 118 test files instead of 63, most of them failing — and `npx tsc`
+there resolves to a **squatter package** called `tsc` rather than the compiler.
+Both failures look alarming and neither is real.
 
 **Take the test count in any handoff as a claim to re-check, not a fact.** This
 number has been wrong in this file twice — it said 86 when 15 packs existed, and
@@ -490,10 +496,27 @@ the arc is ever reworked.
   numbers, same alias, nothing blank. They cannot prove it reads well, and
   machine-plausible prose is exactly the failure they cannot see. `Sensación`
   vs `Tacto` in the Spanish settings screen was flagged and never resolved.
-- **~28 hardcoded English strings remain across 10 `src/ui` files.**
-  `describeElapsed`, `restoreStatusLine`, `describeSyncResult` and the auth
-  messages are all still English, so **the Continue card renders mixed-language
-  in Spanish.** That is the most visible of these and the one to fix first.
+- **The Continue card is fixed** (2026-08-14). `describeElapsed` returns a
+  string *key* now rather than English prose, so the gap is translated by the
+  same catalogue as the sentence around it. It used to render
+  *"3 de 4 probadas. Última partida 2 hours ago."*
+
+  Worth copying as a pattern: keeping the rules in `src/state` and the words in
+  the catalogue means a language whose plurals do not split at one can say so in
+  its own file, instead of being forced through English's singular/plural shape
+  by a `{count} {unit} ago` template assembled in code.
+
+  `ElapsedKey` is a hand-written union in `src/state` so the store need not
+  import the catalogue. That independence costs one thing — nothing stops the
+  union naming a key the catalogue lacks, which would show a raw
+  `elapsed.hourMany` to every player in every language — so `resume.test.ts`
+  checks both directions: every key resolves, and a `{count}` placeholder is
+  supplied exactly where the English text asks for one.
+
+- **~24 hardcoded English strings remain across `src/ui`.**
+  `restoreStatusLine`, `describeSyncResult` and the auth messages are still
+  English. None is as visible as the Continue card was, since they appear on
+  settings and sign-in rather than the home screen.
 
 ---
 

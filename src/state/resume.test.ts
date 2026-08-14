@@ -10,6 +10,9 @@ import {
 } from './resume';
 import { isSaveKey } from './saveKeys';
 import { emptySave } from './saveBlob';
+// The test may reach for the catalogue even though resume.ts deliberately does
+// not — checking that the two agree is the entire point of the last two cases.
+import { EN } from '@/i18n/strings';
 import type { CaseScript } from '@/engine';
 
 /**
@@ -217,30 +220,74 @@ describe('describeElapsed', () => {
   const at = (ms: number) => describeElapsed(ms, 0);
 
   it('reads anything under a minute as just now', () => {
-    expect(at(0)).toBe('just now');
-    expect(at(59_000)).toBe('just now');
+    expect(at(0)).toEqual({ key: 'elapsed.justNow' });
+    expect(at(59_000)).toEqual({ key: 'elapsed.justNow' });
   });
 
   it('counts minutes and hours, singular and plural', () => {
-    expect(at(60_000)).toBe('1 minute ago');
-    expect(at(12 * 60_000)).toBe('12 minutes ago');
-    expect(at(60 * 60_000)).toBe('1 hour ago');
-    expect(at(5 * 60 * 60_000)).toBe('5 hours ago');
+    expect(at(60_000)).toEqual({ key: 'elapsed.minuteOne' });
+    expect(at(12 * 60_000)).toEqual({ key: 'elapsed.minuteMany', params: { count: 12 } });
+    expect(at(60 * 60_000)).toEqual({ key: 'elapsed.hourOne' });
+    expect(at(5 * 60 * 60_000)).toEqual({ key: 'elapsed.hourMany', params: { count: 5 } });
   });
 
   it('names yesterday rather than counting hours past a day', () => {
-    expect(at(25 * 60 * 60_000)).toBe('yesterday');
+    expect(at(25 * 60 * 60_000)).toEqual({ key: 'elapsed.yesterday' });
   });
 
   it('counts days, then weeks, then gives up', () => {
-    expect(at(3 * 86_400_000)).toBe('3 days ago');
-    expect(at(8 * 86_400_000)).toBe('last week');
-    expect(at(20 * 86_400_000)).toBe('2 weeks ago');
-    expect(at(60 * 86_400_000)).toBe('a while ago');
+    expect(at(3 * 86_400_000)).toEqual({ key: 'elapsed.dayMany', params: { count: 3 } });
+    expect(at(8 * 86_400_000)).toEqual({ key: 'elapsed.lastWeek' });
+    expect(at(20 * 86_400_000)).toEqual({ key: 'elapsed.weekMany', params: { count: 2 } });
+    expect(at(60 * 86_400_000)).toEqual({ key: 'elapsed.aWhile' });
   });
 
   it('never reports the future', () => {
     // A device clock that moved backwards, or a save from a device running ahead.
-    expect(describeElapsed(0, 10 * 60_000)).toBe('just now');
+    expect(describeElapsed(0, 10 * 60_000)).toEqual({ key: 'elapsed.justNow' });
+  });
+
+  /**
+   * The half the type system does not cover.
+   *
+   * `ElapsedKey` is a hand-written union in src/state, deliberately, so the
+   * store does not import the catalogue. That buys independence and costs this:
+   * nothing stops the union naming a key the catalogue has never heard of, and
+   * the failure would be a Continue card showing a raw `elapsed.hourMany` to
+   * every player in every language.
+   */
+  it('names only keys the English catalogue actually defines', () => {
+    const gaps = [0, 60_000, 12 * 60_000, 60 * 60_000, 5 * 60 * 60_000, 25 * 60 * 60_000];
+    const spans = [3, 8, 20, 60].map((d) => d * 86_400_000);
+    for (const ms of [...gaps, ...spans]) {
+      const { key } = at(ms);
+      expect(EN[key], `the catalogue has no entry for ${key}`).toBeDefined();
+    }
+  });
+
+  /**
+   * Placeholder parity, which the generic catalogue test cannot see: it checks
+   * every locale against English, but not that the *caller* supplies what
+   * English asks for. A key carrying `{count}` and called with no params
+   * renders the brace to the player.
+   */
+  it('passes a count to exactly the keys whose text needs one', () => {
+    const cases: readonly [number, boolean][] = [
+      [0, false],
+      [60_000, false],
+      [12 * 60_000, true],
+      [60 * 60_000, false],
+      [5 * 60 * 60_000, true],
+      [25 * 60 * 60_000, false],
+      [3 * 86_400_000, true],
+      [8 * 86_400_000, false],
+      [20 * 86_400_000, true],
+      [60 * 86_400_000, false],
+    ];
+    for (const [ms, wantsCount] of cases) {
+      const { key, params } = at(ms);
+      expect(EN[key].includes('{count}'), `${key} placeholder`).toBe(wantsCount);
+      expect(params !== undefined, `${key} params`).toBe(wantsCount);
+    }
   });
 });
