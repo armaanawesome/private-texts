@@ -40,29 +40,44 @@ read a thread → long-press a message → put a statement on the record → pin
 on the board → COMPARE → contradiction confirmed → a locked thread unlocks →
 accuse.
 
+> **Everything below §2 that touches saves, accounts, settings or languages is
+> on the branch `feat/accounts-settings-i18n`, which is NOT merged to master.**
+> Merging it is the first decision of the next session. See §9.
+
 | Area | State |
 |---|---|
-| Deduction engine (`src/engine`) | ✅ pure TS, part of 595 tests below, 94% stmts |
-| State store (`src/state`) | ✅ |
+| Deduction engine (`src/engine`) | ✅ pure TS, 94% stmts |
+| State store (`src/state`) | ✅ + autosave, resume, save-merge |
 | Chat UI + craft pass | ✅ Mobbin-grounded |
 | Evidence board | ✅ functional, **no craft pass** |
 | Accusation screen | ✅ functional, **no craft pass** |
-| Routes | ✅ threads → board → accuse |
+| Routes | ✅ threads → board → accuse, + settings, language, sign-in |
 | Paywall | ✅ custom UI, **purchase unverified** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
-| Case 1 content | ✅ written — 6 threads, 76 messages, 3 contradictions, **unplayed by a human** |
+| 15 case packs + tutorial | ✅ written; **packs 2–15 never read end to end by a human** |
+| Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
+| Settings screen + audio model | ✅ code complete; **`assets/audio/` does not exist — no cue has a file** |
+| Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync — **RLS verified live** |
+| Languages | ⚠️ 4 UI catalogues complete; case text partial (see §7b) |
 | Standalone build | ✅ `preview` launches with no Metro (bundle verified inside the `.app`) |
 | OneSignal | ❌ not started |
-| Sound, video, assets | ❌ not started |
+| Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `npm test` → **595 passing across 34 files** (34 = engine + state +
-entitlements + UI helpers + all 15 case packs + the ledger and case
-contracts). The "86 tests" figure earlier in this file's history was from
-before the other 14 packs existed — corrected 2026-08-12, verified by
-actually running the suite rather than copied forward. `npx tsc --noEmit` →
-clean. Coverage on `src/engine/` + `src/state/` (the only directories
-`vitest.config.mts` measures): 93.8% statements, 90.2% branches.
+**Tests:** `npm test` → **1130 passing across 57 files**, `npx tsc --noEmit`
+clean, coverage 94.3% statements / 91.1% branches on the measured directories.
+Verified by running the suite on 2026-08-14, not copied forward.
+
+**Take the test count in any handoff as a claim to re-check, not a fact.** This
+number has been wrong in this file twice — it said 86 when 15 packs existed, and
+595 after that. It goes stale every session and nobody notices, because a number
+in a document does not fail.
+
+**A green suite is not a playthrough.** It is worth being precise about what the
+1130 actually prove: that no case is unsolvable, no thread is unreachable, no
+contradiction fires that the author did not declare, and no translation drops an
+id. They prove nothing whatever about whether a case is *enjoyable*, whether a
+screen looks right, or whether a purchase completes.
 
 ---
 
@@ -78,7 +93,8 @@ All of these are already set up. Nothing here needs recreating.
 | **RevenueCat** | academic email | Project *Shipaton Detective*. Test Store key registered as an EAS env var. |
 | **OneSignal** | — | App created, Android enabled. App id in EAS env. Not yet wired into the app. |
 | **Limrun** | — | Cloud iOS simulators in the browser. **This is how iOS gets tested with no Mac.** |
-| **Mobbin** | — | MCP connected. Design reference for the craft passes. |
+| **Mobbin** | — | MCP connected. Design reference for the craft passes. **Does not propagate to subagents** — see §6. |
+| **Supabase** | armaan1902@gmail.com | Accounts and cross-device progress. Schema + verified RLS in `docs/SUPABASE.md`. |
 
 **Secrets live in exactly two places** — never in the repo:
 - Local dev: `.env` (gitignored)
@@ -90,6 +106,17 @@ npx.cmd eas-cli@latest env:list --environment preview
 
 `EXPO_PUBLIC_*` values are **inlined into the client bundle and extractable**. A
 Test Store key is fine there; a production RevenueCat secret key never would be.
+
+**The same rule decides which Supabase key ships.** Only the anon/publishable key
+belongs in `EXPO_PUBLIC_SUPABASE_ANON_KEY`. A `service_role` key bypasses every
+RLS policy in §7b, so putting one in the client would hand any player with a text
+editor read and write access to every account's progress. This is not left to
+discipline: `src/auth/config.ts` refuses to start on a key matching
+`sb_secret_` or `"role":"service_role"`.
+
+Note the asymmetry — the anon key is *designed* to be public. It is safe only
+because RLS is doing the work. If RLS were ever dropped from a table, that key
+alone would open it.
 
 ---
 
@@ -193,19 +220,49 @@ before every task.** They have called this out when it lapsed. Honour it.
 | `revenuecat-paywall` | Decided custom UI over RevenueCatUI |
 | `expo-router` | Route structure; SDK 56+ forbids `@react-navigation/*` imports |
 | `ui-ux-pro-max` | **Its `--design-system` output was rejected** (returned a light-theme landing page and Orbitron). Its `--stack react-native` and `--domain ux` rules were kept and are good |
+| `impeccable` | Settings, language, sign-in screens |
+| `storytelling` / `anti-ai-writing` / `viral-hooks` | Per pack, per §9. Not optional |
+| `humanizer-zh` | Passed over the message text in packs 1–3 heavily, elsewhere on the stiffer lines |
+| `supabase` / `supabase-postgres-best-practices` | The RLS policies in §7b, including the InitPlan form |
 
-### Not yet run — do these next session
+### Still not run
 
-`impeccable`, `frontend-design`, `find-animation-opportunities`,
+`frontend-design`, `find-animation-opportunities`,
 `verification-before-completion`.
 
 ### MCP
 
-- **Mobbin** ✅ connected. `search_screens`, `search_flows`, `search_sections`.
-- **ruflo** ⚠️ installed (`.mcp.json`, gitignored) but **never connected**. This
-  desktop app does not load project `.mcp.json` — MCP is managed through the
-  app's own connector UI, *not* `~/.claude.json` and *not* `claude_desktop_config.json`.
-  Adding a server means using that UI.
+- **Mobbin** ✅ connected — but **connector auth does not propagate to
+  subagents.** A subagent told to "use Mobbin" reports it as not connected, and
+  will say so confidently. The working pattern is: the main session fetches the
+  references and passes them to the agent **as text in the brief**.
+
+  Worth stating plainly because this file got it wrong in both directions in one
+  session — first reported unavailable when it was connected under a
+  UUID-named server, then trusted the agents' "not connected" as a global fact.
+  Check it in the main session before believing either claim.
+- **ruflo** ✅ installed and used for the multi-agent translation work. The old
+  note here said "never connected"; that is out of date.
+
+### Subagents — what actually goes wrong
+
+Four agents were run in parallel for translation. The failure modes were not the
+ones anticipated:
+
+- **Session limits kill agents silently.** All four died twice. Only one
+  produced a failure notification; the other three simply stopped, and the
+  reminder still listed them as "still running". **Check for files on disk, not
+  status.** They resume from transcript with `SendMessage`, which is far cheaper
+  than respawning — a fresh agent re-derives everything.
+- **So brief them to write to disk early and report.** The German agent finished
+  a complete tutorial and was cut off before touching the next file; because it
+  had written and reported, that work shipped. An unwritten file in a dead
+  agent's context is worth nothing.
+- **Agents converge on plausible-but-conflicting answers** when the decision is a
+  judgement call. That is the alias story in §7b, and it is why the rule is now a
+  test rather than a paragraph in a brief.
+- **`git add -A` sweeps an agent's in-progress files** into your commit. It
+  happened. Scope commits to explicit paths while agents are running.
 
 ---
 
@@ -274,6 +331,34 @@ all fifteen packs before applying them.
 now reads *"not one file has a name in it that a court can serve papers on,"*
 which is what he actually means.
 
+**10. Three shipped deadlocks — ALL FIXED, and the reason they shipped matters
+more than the fix.** `sunday-service` (Grace), `the-bothy` (Hamish) and
+`the-understudy` (Bea) each gated a thread on a contradiction whose claims lived
+*inside that same thread*. Unopenable. A player would meet a locked conversation
+with nothing left anywhere to read, at which point the game is simply over with
+no explanation.
+
+Every one of them passed the whole suite, because the old check handed the
+player every contradiction at once and asked whether each thread was reachable —
+which cannot see ordering. `caseContract.ts` now plays forward from nothing to a
+fixpoint: open what is open, read it, confirm what you can prove, repeat. That
+catches self-supply *and* two-thread cycles.
+
+**The Bea one is the warning.** It was in a **free** case — pack 2, one of the
+first things any player touches — and it survived because the shared contract
+was extracted at Pack 3 and never retrofitted to packs 1–2. It was found by
+accident, months later, when registering a Spanish translation ran the contract
+over those packs for the first time. **When you add a check, run it over the
+existing content, not just the next thing you write.**
+
+**11. `NO_DISCOVERY_THREAD` in `caseContract.ts` exempts `the-lighthouse`** from
+the "at least one thread found by reading" rule. Pack 1 predates the rule and no
+message in it names Fiona, so satisfying it means writing a name-drop into prose
+a human has already played and that is now translated into Spanish. The
+exemption is by exact id, and the rule **asserts the exemption is still
+deserved** rather than skipping — the day Pack 1 gains a discovery thread, the
+test fails and tells you to delete the entry.
+
 ---
 
 ## 7a. Storybook — generated, not hand-maintained
@@ -287,6 +372,123 @@ throwaway artefact, and a later regeneration erased the edits — the edits had 
 be recovered from a diff and ported into `content/cases/*.ts` by hand. Running
 the generator inside the suite is the fix: the document cannot drift, and the
 only way to change it is to change the source.
+
+---
+
+## 7b. Saves, accounts and languages — added 2026-08-13/14
+
+All of this is new since this file was last accurate, and all of it is on
+`feat/accounts-settings-i18n`.
+
+### Saves and resume (`src/state`)
+
+`saveBlob.ts` defines one schema used by **both** the local save and the
+Supabase row, which is the whole reason a device switch works — there is no
+translation step between "on disk" and "in the cloud" to get out of sync.
+
+Two decisions that look like style and are not:
+
+- **`.catch(() => [])`, never `.catch([])`.** The value form shares a single
+  array instance across every failed parse, so two corrupt saves would alias
+  each other. There is a test that fails if someone simplifies it back.
+- **`lastThreadId` / `lastMessageId` are optional.** Saves written before resume
+  existed have no such fields, and making them required would classify every
+  one of them as corrupt and delete a player's progress on upgrade.
+
+`saveMerge.ts` decides what happens when the device and the server disagree —
+which is the normal case after playing offline, not an edge case.
+
+### Accounts (`src/auth`, `docs/SUPABASE.md`)
+
+Email sign-in, session persisted through `expo-secure-store`, progress synced to
+`public.case_progress`.
+
+**RLS was verified live on 2026-08-12, not assumed.** Two accounts were created,
+each wrote progress, and each was checked to be unable to read or write the
+other's row. Results table is in `docs/SUPABASE.md`. The policies use
+`(select auth.uid()) = user_id` rather than bare `auth.uid()` — the subquery
+form lets Postgres hoist it to an InitPlan and evaluate it once per statement
+instead of once per row — and the update policy carries **both** `using` and
+`with check`, because `using` alone allows a row to be edited into someone
+else's ownership.
+
+The table's PK is composite `(user_id, case_id)`. That is not a modelling
+preference; `onConflict` upserts require it.
+
+**Two test accounts still exist and should be deleted by the owner:**
+`rls-test-a-608514@example.com`, `rls-test-b-608514@example.com`. Their data row
+was removed; the auth users were not, because deleting a user is the owner's
+call. Nobody but the owner can do this.
+
+**Gotcha, cost an hour:** a `sb_publishable_...` key returned 401 from this
+project despite being well-formed. The legacy `anon` JWT works. Documented in
+`docs/SUPABASE.md`; do not "modernise" the key without testing an actual request.
+
+### Languages (`src/i18n`, `content/i18n`)
+
+Two separate systems, deliberately:
+
+| | UI strings | Case text |
+|---|---|---|
+| Where | `src/i18n/strings.ts` | `content/i18n/<locale>/<case>.ts` |
+| Shape | 88 flat dotted keys | prose keyed by the case's own ids |
+| Complete in | es, fr, de, pt-BR | see below |
+
+Flat dotted keys are not a style choice — they make parity testable with
+`Object.keys`, which is how a missing translation is caught rather than
+discovered by a player staring at a blank button.
+
+**Case text carries prose and nothing else.** No windows, no predicates, no
+times-as-data. Ids appear only as keys. This is what lets a player change
+language *mid-case* without the engine noticing: the structure is identical in
+every locale, so every claim id, saved contradiction and progress row stays
+valid. `caseStore.relocaliseScript` swaps the script while preserving progress —
+note it deliberately does **not** go through `loadScript`, which calls
+`set({ ...empty(), script })` and would wipe the playthrough.
+
+**Case text status:**
+
+| Locale | Cases |
+|---|---|
+| es | tutorial + packs 1–3 (the whole free tier) |
+| de | tutorial only |
+| fr, pt-BR | none yet |
+| ja | listed in the picker, nothing translated — falls back to English by design |
+
+### The one rule that outranks translator judgement
+
+**"the Keeper" stays in English in every locale.** It is the alias the arc
+villain gives himself across five packs, and the arc exists *only* by
+recognition — a player meets it in Pack 1 and is meant to feel the floor move in
+Pack 3.
+
+It broke within a day of translation starting. Two agents produced `el Farero`
+and `el Keeper` for the same man in the same language, which a Spanish player
+reads as two different people.
+
+`el Farero` was the better-argued option and still wrong: it means the keeper of
+a *lighthouse*, and he uses the name in a care home, a rowing club, a canal and
+a crisis line. It also pre-empts what the finale pays off — eleven box files in
+a wardrobe, one per person, *"I have kept all of them."* He keeps **records**.
+Pack 1 only looks like it is about a lighthouse.
+
+`content/i18n/arcAlias.test.ts` enforces this across every registered
+translation. It **counts mentions** rather than checking presence, because a
+translation that keeps the first and paraphrases the rest breaks recognition at
+exactly the moments the arc is being handed over. It also asserts the English
+still uses the word in more than one case, so the suite cannot pass vacuously if
+the arc is ever reworked.
+
+### What is not done here
+
+- **No native speaker has read any of it.** The tests prove same ids, same
+  numbers, same alias, nothing blank. They cannot prove it reads well, and
+  machine-plausible prose is exactly the failure they cannot see. `Sensación`
+  vs `Tacto` in the Spanish settings screen was flagged and never resolved.
+- **~28 hardcoded English strings remain across 10 `src/ui` files.**
+  `describeElapsed`, `restoreStatusLine`, `describeSyncResult` and the auth
+  messages are all still English, so **the Continue card renders mixed-language
+  in Spanish.** That is the most visible of these and the one to fix first.
 
 ---
 
@@ -340,7 +542,25 @@ remaining, and the Design Award is judged on craft alone.
 | 2026-09-25 | Demo video locked |
 | **2026-09-28** | **Submit.** Not the 30th. |
 
-**All 15 packs are written** (2026-08-12), each with its own test file. The
+### Next session, in order
+
+1. **Merge `feat/accounts-settings-i18n` to master.** It carries the tutorial,
+   autosave, resume, settings, audio model, accounts and all of i18n — the
+   majority of the last week's work — and it is unmerged. Everything else on
+   this list is smaller than the risk of leaving it there.
+2. **The mixed-language Continue card** (§7b). Most visible i18n bug.
+3. **LICENSE and app icon** (§7 items 5 and 6). Both are judge-visible, both are
+   still scaffold defaults, and the LICENSE needs a *decision* rather than a fix.
+4. Evidence board craft pass (§8) — the highest-value design work remaining.
+5. Then Tasks 15, 17–21.
+
+**Two ship-blockers with no code in them:** the LICENSE still reads *"Copyright
+(c) 2015-present 650 Industries, Inc. (aka Expo)"*, and `assets/icon.png` is
+still the Expo chevron with construction guides visible. Neither is hard. Both
+are the first thing a judge sees.
+
+**All 15 packs are written** (2026-08-12), plus a tutorial, each with its own
+test file. The
 uniqueness contract — shape of the lie, engine axis, red herring, arc beat — is
 `docs/pack-ledger.md`, and the parts of it that can be checked mechanically now
 are, in `content/cases/ledger.test.ts`. It was corrected in flight three times;
@@ -349,6 +569,13 @@ all three corrections are recorded in it.
 **Packs 1–3 are free**, per `docs/arc-design.md`: the free tier ends on Pack 3's
 first arc connection, so it closes on the floor moving rather than a full stop.
 Packs 2 and 3 shipped gated by mistake until Pack 15 and a test now pins it.
+
+**The tutorial ("The Bakehouse") is separate from the fifteen** and excluded from
+the ledger by exact id. It teaches by *refusing*: pick two claims about the same
+place and the engine says "Those two places are the same area"; pick two about
+different times and it says "These describe different times". The player learns
+what a contradiction is by being told what one isn't, which is the only way that
+doesn't require a tutorial voice explaining the rules.
 
 Case 1 has been played end to end by the owner. **Packs 2–15 have not**, and a
 passing test suite is not a playthrough. That is the largest remaining risk to
@@ -405,8 +632,11 @@ rather than assuming:
 | Issue | Fix |
 |---|---|
 | Node missing from the agent's tool shell | Prefix: `$env:Path = "C:\Program Files\nodejs;" + $env:Path` |
-| `npm`/`npx` blocked by execution policy in the user's terminal | Use **`npm.cmd`** / **`npx.cmd`**. Do not tell them to change execution policy — that is theirs to decide. |
+| `npm`/`npx` blocked by execution policy in the user's terminal | Use **`npm.cmd`** / **`npx.cmd`**. Do not tell them to change execution policy — that is theirs to decide, on their own machine. Hand them the command; do not run it for them. |
 | PowerShell 5.1 has no `&&` | Use `;` or separate lines |
+| **Double quotes in `git commit -m` break native arg parsing** | Happened three times. Write the message to a file and use **`git commit -F <file>`**. |
+| `Set-Content -Encoding utf8` writes a **BOM** | Which a JSON body parser rejects. Use `[System.IO.File]::WriteAllText($f, $json, (New-Object System.Text.UTF8Encoding($false)))`. |
+| `curl` JSON bodies get mangled by PowerShell quoting | Write the body to a file, pass `--data @file`. |
 | `npx tsc \| head` then `echo $?` | Reads *head's* exit code. Redirect to a file and capture properly. |
 | No Android SDK, no emulator, JDK 8 | Never `expo run:android` locally. Cloud builds only. |
 | ruflo wrote ~250 files into the repo | `.claude*/`, `.agents/`, `.swarm/`, `*.db` are gitignored. Keep it that way — judges read this repo. |
