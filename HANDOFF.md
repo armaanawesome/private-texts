@@ -452,7 +452,8 @@ note it deliberately does **not** go through `loadScript`, which calls
 |---|---|
 | es | tutorial + packs 1–3 (the whole free tier) |
 | de | tutorial only |
-| fr, pt-BR | none yet |
+| pt-BR | tutorial only |
+| fr | none yet |
 | ja | listed in the picker, nothing translated — falls back to English by design |
 
 ### The one rule that outranks translator judgement

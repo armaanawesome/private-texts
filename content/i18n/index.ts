@@ -7,6 +7,7 @@ import { theLighthouseEs } from './es/the-lighthouse';
 import { theUnderstudyEs } from './es/the-understudy';
 import { theNightRoundEs } from './es/the-night-round';
 import { tutorialDe } from './de/tutorial';
+import { tutorialPtBr } from './pt-BR/tutorial';
 
 export {
   applyCaseText,
@@ -49,7 +50,9 @@ export const CASE_TRANSLATIONS: Readonly<
   de: {
     tutorial: tutorialDe,
   },
-  'pt-BR': {},
+  'pt-BR': {
+    tutorial: tutorialPtBr,
+  },
   ja: {},
 };
 
