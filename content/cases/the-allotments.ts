@@ -574,7 +574,10 @@ export const theAllotmentsRaw = {
 
   confrontation: {
     opening:
-      'You are his daughter and you have come up here to do this on his site. I want you to know I think he would have hated that.',
+      // "He was your father", not "You are his daughter". This line used to be
+      // the third place the English told the player what they are — and it
+      // disagreed with the other two, which both said son.
+      'He was your father and you have come up here to do this on his site. I want you to know I think he would have hated that.',
     beats: [
       {
         id: 'a-shedrow',

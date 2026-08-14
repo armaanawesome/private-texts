@@ -525,7 +525,9 @@ export const theNightFerryRaw = {
           threadId: 't-senga',
           senderId: 'senga',
           sentAt: 3200,
-          body: 'Second officer, eleven years with the company. I have given all of this to Police Scotland and I am giving it to you because you are her son and because you have asked me a straight question.',
+          // "because she was your mother", not "because you are her son" — same
+          // relationship, named from the side of the person who has a gender.
+          body: 'Second officer, eleven years with the company. I have given all of this to Police Scotland and I am giving it to you because she was your mother and because you have asked me a straight question.',
         },
         {
           id: 's2',

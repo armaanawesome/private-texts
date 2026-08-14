@@ -12,6 +12,12 @@ import { theLighthousePtBr } from './pt-BR/the-lighthouse';
 import { theLighthouseDe } from './de/the-lighthouse';
 import { tutorialFr } from './fr/tutorial';
 import { theLighthouseFr } from './fr/the-lighthouse';
+import { theUnderstudyFr } from './fr/the-understudy';
+import { theNightRoundFr } from './fr/the-night-round';
+import { theUnderstudyDe } from './de/the-understudy';
+import { theNightRoundDe } from './de/the-night-round';
+import { theUnderstudyPtBr } from './pt-BR/the-understudy';
+import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
 export {
   applyCaseText,
@@ -49,14 +55,20 @@ export const CASE_TRANSLATIONS: Readonly<
   fr: {
     tutorial: tutorialFr,
     'the-lighthouse': theLighthouseFr,
+    'the-understudy': theUnderstudyFr,
+    'the-night-round': theNightRoundFr,
   },
   de: {
     tutorial: tutorialDe,
     'the-lighthouse': theLighthouseDe,
+    'the-understudy': theUnderstudyDe,
+    'the-night-round': theNightRoundDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
     'the-lighthouse': theLighthousePtBr,
+    'the-understudy': theUnderstudyPtBr,
+    'the-night-round': theNightRoundPtBr,
   },
   ja: {},
 };

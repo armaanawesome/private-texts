@@ -253,7 +253,13 @@ export const theNightRoundRaw = {
           threadId: 't-margo',
           senderId: 'margo',
           sentAt: 2500,
-          body: 'You are Ivy’s godson aren’t you. She showed me your photograph about four hundred times, I am not exaggerating!',
+          // Genders Ivy, not the player. "Ivy's godson" was the only line in
+          // fifteen packs that told you what the player is, and it forced every
+          // Romance translation to pick a gender for a person the rest of the
+          // game keeps carefully blank. Naming the relationship from her side
+          // carries exactly the same fact — she is dead, female and known — and
+          // costs nothing in English.
+          body: 'Ivy was your godmother wasn’t she. She showed me your photograph about four hundred times, I am not exaggerating!',
         },
         {
           id: 'm2',

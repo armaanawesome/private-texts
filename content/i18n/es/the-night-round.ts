@@ -94,7 +94,7 @@ export const theNightRoundEs: CaseTranslation = {
 
   messages: {
     // ------------------------------------------------------------------ t-ivy
-    i1: 'La sopa era la misma sopa, querido. Lo tengo apuntado. El jueves y el martes, la misma sopa, y a una de las dos la llaman caldo.',
+    i1: 'La sopa era la misma sopa, cariño. Lo tengo apuntado. El jueves y el martes, la misma sopa, y a una de las dos la llaman caldo.',
     i2: 'eres la única persona que conozco que lleva un cuaderno de sopas',
     i3: 'Llevo un cuaderno de todo. Les molesta.',
     i4: 'Alison viene a las siete. Ha puesto al teléfono esa voz suya que significa que quiere que firme algo.',
@@ -117,7 +117,7 @@ export const theNightRoundEs: CaseTranslation = {
     g9: 'Teddy ha estado preguntando por ti. A mí no me habla del tema, dice que soy personal. Está en la sala de estar desde las seis todas las mañanas por si quieres verle',
 
     // ---------------------------------------------------------------- t-margo
-    m1: 'Tú eres el ahijado de Ivy, ¿verdad? Me enseñó tu foto unas cuatrocientas veces, ¡y no exagero!',
+    m1: 'Ivy era tu madrina, ¿verdad? Me enseñó tu foto unas cuatrocientas veces, ¡y no exagero!',
     m2: 'quién entró a verla esa noche',
     m3: 'Yo. Hago la ronda de las once y la de las dos en ese pasillo, está en el libro de noche con mis iniciales. Las once y las dos, todas las noches, catorce años llevo haciéndolo',
     m4: 'Estaba dormida. Eso es lo que escribí. Dormida, tranquila, sin incidencias',
@@ -224,7 +224,7 @@ export const theNightRoundEs: CaseTranslation = {
   coda: {
     from: 'Número desconocido',
     messages: [
-      'Marchbank, entonces. Esta vez fuiste más rápido. Seis días.',
+      'Marchbank, entonces. Esta vez tardaste menos. Seis días.',
       'El viejo aparejador fue un golpe de suerte y no deberías felicitarte por él. Se lo iba a contar a alguien. A la cuidadora la manejaste bien, y me di cuenta.',
       'Querrás saber cómo tenía yo el número de septiembre. Quédate con esa. Es la pregunta interesante y todavía no la has hecho.',
       'Otro número la próxima vez. Como siempre.',

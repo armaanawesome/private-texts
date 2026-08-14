@@ -944,7 +944,7 @@ Diane had been taking money from her for two years over the Sheffield crash, and
 #### Margo
 
 **Margo**
-> You are Ivy’s godson aren’t you. She showed me your photograph about four hundred times, I am not exaggerating!
+> Ivy was your godmother wasn’t she. She showed me your photograph about four hundred times, I am not exaggerating!
 
 **You**
 > who checked on her that night
@@ -3135,7 +3135,7 @@ The council wanted a decision on four uncultivated plots by the end of the month
 ### The confrontation
 
 **Deb**
-> You are his daughter and you have come up here to do this on his site. I want you to know I think he would have hated that.
+> He was your father and you have come up here to do this on his site. I want you to know I think he would have hated that.
 
 **You**
 > You were on 14 from six until half seven. At half six Sami watched you go up the shed row with an empty can in each hand.
@@ -3941,7 +3941,7 @@ Nobody touched Ashley Crewe. Four of them stood on that bank and nobody rang for
 *opens once you prove x-dougie-deck*
 
 **Senga Moar**
-> Second officer, eleven years with the company. I have given all of this to Police Scotland and I am giving it to you because you are her son and because you have asked me a straight question.
+> Second officer, eleven years with the company. I have given all of this to Police Scotland and I am giving it to you because she was your mother and because you have asked me a straight question.
 
 **Senga Moar**
 > The Kirkwall call was dropped at 21:00. The linkspan there had a hydraulic failure on the Monday. It went out on the PA twice, it was on the passenger information screens on every deck from 21:00 until we berthed, and it is in the deck log in the master’s hand.
