@@ -451,10 +451,14 @@ note it deliberately does **not** go through `loadScript`, which calls
 | Locale | Cases |
 |---|---|
 | es | tutorial + packs 1–3 (the whole free tier) |
-| de | tutorial only |
-| pt-BR | tutorial only |
-| fr | none yet |
+| fr, de, pt-BR | tutorial + pack 1 |
 | ja | listed in the picker, nothing translated — falls back to English by design |
+
+Each translated pack carries its own test file asserting the load-bearing prose
+times against the message ids that state them. That is not duplication of the
+generic checks — `caseText.test.ts` can see that a number changed, but not that
+`ten past three` was reworded into a different minute, which is the single edit
+that leaves a case unsolvable and the whole suite green.
 
 ### The one rule that outranks translator judgement
 

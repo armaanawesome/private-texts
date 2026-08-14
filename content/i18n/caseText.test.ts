@@ -173,23 +173,39 @@ describe('case text: the mechanism', () => {
     // comparing script identity, so a fresh object here would reload the case
     // on every render.
     expect(applyCaseText(tutorial, undefined)).toBe(tutorial);
-    expect(localiseCase(tutorial, 'fr')).toBe(tutorial);
 
     /*
-     * Derived, never hardcoded.
+     * Derived, never hardcoded — for the locale as well as the case.
      *
      * This named `the-lighthouse` until it was translated into Spanish, and
-     * would then have failed — on the very day the by-reference path most needed
-     * proving. Picking an untranslated case at runtime means the assertion
-     * survives every future translation instead of being edited by whoever
-     * broke it.
+     * would then have failed on the very day the by-reference path most needed
+     * proving. The case half was fixed then; the locale half was not, and it
+     * broke the same way the moment French gained the tutorial — the line above
+     * used to read `localiseCase(tutorial, 'fr')`, asserting that French was
+     * empty, three lines under a comment explaining why hardcoding is wrong.
+     *
+     * So neither half names anything now. Every untranslated pair is checked
+     * rather than one chosen specimen, which also means this cannot quietly
+     * degrade to testing nothing as the gaps fill in — if there are no
+     * untranslated pairs left, the guard below fails and says so.
      */
-    const untranslated = CASES.find((c) => CASE_TRANSLATIONS.es[c.id] === undefined);
+    const pairs = SUPPORTED_LOCALES.flatMap((l) =>
+      CASES.filter((c) => CASE_TRANSLATIONS[l.tag]?.[c.id] === undefined).map((c) => ({
+        tag: l.tag,
+        script: c,
+      })),
+    ).filter((p) => p.tag !== DEFAULT_LOCALE);
+
     expect(
-      untranslated,
-      'every case is now translated into Spanish — point this at a locale that still has gaps',
-    ).toBeDefined();
-    expect(localiseCase(untranslated!, 'es')).toBe(untranslated);
+      pairs.length,
+      'every case is translated in every locale — this test has nothing left to prove and should be deleted',
+    ).toBeGreaterThan(0);
+
+    for (const { tag, script } of pairs) {
+      expect(localiseCase(script, tag), `${tag}/${script.id} should pass through by reference`).toBe(
+        script,
+      );
+    }
   });
 
   it('falls back to English field by field, exactly as the UI catalogue does', () => {

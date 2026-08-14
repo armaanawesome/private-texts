@@ -8,6 +8,10 @@ import { theUnderstudyEs } from './es/the-understudy';
 import { theNightRoundEs } from './es/the-night-round';
 import { tutorialDe } from './de/tutorial';
 import { tutorialPtBr } from './pt-BR/tutorial';
+import { theLighthousePtBr } from './pt-BR/the-lighthouse';
+import { theLighthouseDe } from './de/the-lighthouse';
+import { tutorialFr } from './fr/tutorial';
+import { theLighthouseFr } from './fr/the-lighthouse';
 
 export {
   applyCaseText,
@@ -42,16 +46,17 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-understudy': theUnderstudyEs,
     'the-night-round': theNightRoundEs,
   },
-  fr: {},
-  // The tutorial only. German got no further before the session cut, and half a
-  // free tier is still worth shipping — the tutorial is the one case every
-  // player sees, and it teaches by refusing, which is the hardest thing to
-  // guess from an English string in a German UI.
+  fr: {
+    tutorial: tutorialFr,
+    'the-lighthouse': theLighthouseFr,
+  },
   de: {
     tutorial: tutorialDe,
+    'the-lighthouse': theLighthouseDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
+    'the-lighthouse': theLighthousePtBr,
   },
   ja: {},
 };

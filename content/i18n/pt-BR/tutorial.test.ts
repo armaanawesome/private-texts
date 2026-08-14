@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { loadCase } from '@/engine';
 import { getCase } from '../../cases/index';
+import { describeCaseContract } from '../../cases/caseContract';
 import {
   applyCaseText,
   caseTextEntries,
@@ -38,7 +39,31 @@ const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ??
 const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
 const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 
+/** Accent- and punctuation-blind, so `Vardy’s` matches `vardys` in a message. */
+const fold = (text: string): string =>
+  text
+    .normalize('NFD')
+    .replace(/[^\p{L}\p{N}\s]/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+
+/** Prose the player reads, minus the bare entity names — those are the subject. */
+const proseOf = (s: typeof script): string => {
+  const kept: string[] = [];
+  for (const [path, value] of caseTextEntries(s)) {
+    if (/^(character|place|object)\./.test(path)) continue;
+    kept.push(value);
+  }
+  return fold(kept.join('\n'));
+};
+
 /* --------------------------------------------- the contract, checked up front */
+
+// And the case is still a case: every engine guarantee, on the translated script
+// rather than the English one. This is what caseText.test.ts runs the day the
+// orchestrator registers this pack.
+describeCaseContract(script);
 
 describe('Os Fornos (pt-BR) — the contract, before anybody registers it', () => {
   it('translates exactly the ids the English case has, and no others', () => {
@@ -316,6 +341,65 @@ describe('Os Fornos (pt-BR) — the names', () => {
     expect(body('r4')).toContain('no posto do contorno');
     expect(label('c-tom-yard')).toContain('no pátio dos fundos');
     expect(script.briefing?.opening).toContain('no pátio dos fundos');
+  });
+
+  /**
+   * The two naming rules from caseText.test.ts, run here rather than at
+   * registration. That generic test only covers translations the orchestrator has
+   * registered, so until then this pack would be taking both decisions without
+   * anybody checking the prose kept them.
+   */
+  it('says its own names for people and places somewhere in the prose', () => {
+    const translatedProse = proseOf(script);
+    const englishProse = proseOf(english);
+    const named = [
+      ...script.characters
+        .filter((c) => c.id !== 'you') // the player's seat is a pronoun, not a name
+        .map((c) => ({
+          id: `character.${c.id}`,
+          english: fold(english.characters.find((e) => e.id === c.id)?.name ?? ''),
+          rendered: fold(c.name),
+        })),
+      ...script.places.map((p) => ({
+        id: `place.${p.id}`,
+        english: fold(english.places.find((e) => e.id === p.id)?.name ?? ''),
+        rendered: fold(p.name),
+      })),
+    ];
+
+    for (const entity of named) {
+      if (entity.english === '' || !englishProse.includes(entity.english)) continue;
+      expect(
+        translatedProse.includes(entity.rendered),
+        `${entity.id} is called "${entity.rendered}" on screen but the prose never says it`,
+      ).toBe(true);
+    }
+  });
+
+  /**
+   * Ivy is found by reading, not by proving. If r8 stops naming her the thread
+   * arrives out of nowhere and the player reads it as a bug — and this is the one
+   * discovery gate in the game that a tutorial is teaching on.
+   */
+  it('names Ivy in the message that opens her thread', () => {
+    const nameOf = new Map(script.characters.map((c) => [c.id, fold(c.name)]));
+    const bodyOf = new Map(
+      script.threads.flatMap((t) => t.messages).map((m) => [m.id, fold(m.body)]),
+    );
+
+    for (const thread of script.threads) {
+      const gates = thread.requiresReadMessageIds ?? [];
+      if (gates.length === 0) continue;
+
+      const names = thread.participantIds
+        .filter((id) => id !== 'you')
+        .map((id) => nameOf.get(id) ?? '');
+      const named = gates.some((id) => {
+        const gate = bodyOf.get(id) ?? '';
+        return names.some((n) => n !== '' && gate.includes(n));
+      });
+      expect(named, `nothing names anyone in ${thread.id} before it opens`).toBe(true);
+    }
   });
 
   /**
