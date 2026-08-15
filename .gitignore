@@ -56,6 +56,10 @@ yarn-error.*
 .agents/
 .swarm/
 ruvector.db
+# Ruflo's AgentDB drops these two in the REPO ROOT rather than under .swarm/,
+# so the directory rules above miss them entirely.
+agentdb.rvf
+agentdb.rvf.lock
 *.db
 *.db-shm
 *.db-wal

@@ -19,6 +19,8 @@ import { theNightRoundDe } from './de/the-night-round';
 import { deepFieldDe } from './de/deep-field';
 import { deepFieldFr } from './fr/deep-field';
 import { deepFieldPtBr } from './pt-BR/deep-field';
+import { deepFieldEs } from './es/deep-field';
+import { theWakeDe } from './de/the-wake';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -51,17 +53,21 @@ export const CASE_TRANSLATIONS: Readonly<
    * falls back to English down the same path a partly translated one takes for
    * a missing field, so the boundary can sit anywhere without a special case.
    *
-   * The tutorial plus packs 1–3 is the meaningful line: it is everything a
-   * player reaches without paying. Spanish stops there. The other three have
-   * `deep-field` on top of it, which is the first paid pack, and they are ahead
-   * only because their agents got further before a session limit — not because
-   * anybody decided Spanish should lag.
+   * The tutorial plus packs 1–3 is the one meaningful line: it is everything a
+   * player reaches without paying, and all four locales are past it. Anything
+   * beyond that is paid content, and which locale is furthest along reflects
+   * only how far its agent got before a session limit — no locale is
+   * deliberately behind.
+   *
+   * Do not read the order of these entries as priority. Add to whichever locale
+   * has a finished pack sitting on disk.
    */
   es: {
     tutorial: tutorialEs,
     'the-lighthouse': theLighthouseEs,
     'the-understudy': theUnderstudyEs,
     'the-night-round': theNightRoundEs,
+    'deep-field': deepFieldEs,
   },
   fr: {
     tutorial: tutorialFr,
@@ -76,6 +82,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-understudy': theUnderstudyDe,
     'the-night-round': theNightRoundDe,
     'deep-field': deepFieldDe,
+    'the-wake': theWakeDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
