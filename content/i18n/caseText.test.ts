@@ -376,25 +376,42 @@ for (const caseId of TRANSLATED_CASE_IDS) {
        * A thread found by reading has to be found in the prose too. Roza names
        * Ivy and Ivy becomes reachable; a translation that says "the girl from
        * the counter" instead opens a conversation with a stranger.
+       *
+       * Being *named* is one of two ways the player can already know who a new
+       * thread is with. The other is having been talking to them: Deep Field
+       * gates the porch-camera thread on a message Theo himself sent, in Theo's
+       * own thread, so by the time it opens the player has been reading him for
+       * an hour. The rule missed that and reported the English pack — which had
+       * shipped fine — the moment a German translation caused this suite to run
+       * over it for the first time.
+       *
+       * Both are the same property stated two ways: nothing opens with a
+       * stranger. Neither alone is sufficient.
        */
       it('keeps naming the people whose threads are found by reading', () => {
         const nameOf = new Map(script.characters.map((c) => [c.id, fold(c.name)]));
-        const bodyOf = new Map(
-          script.threads.flatMap((t) => t.messages).map((m) => [m.id, fold(m.body)]),
-        );
+        const messages = script.threads.flatMap((t) => t.messages);
+        const bodyOf = new Map(messages.map((m) => [m.id, fold(m.body)]));
+        const senderOf = new Map(messages.map((m) => [m.id, m.senderId]));
 
         for (const thread of script.threads) {
           const gates = thread.requiresReadMessageIds ?? [];
           if (gates.length === 0) continue;
 
-          const names = thread.participantIds
-            .filter((id) => id !== 'you')
-            .map((id) => nameOf.get(id) ?? '');
-          const named = gates.some((id) => {
+          const others = thread.participantIds.filter((id) => id !== 'you');
+          const names = others.map((id) => nameOf.get(id) ?? '');
+
+          const introduced = gates.some((id) => {
             const body = bodyOf.get(id) ?? '';
-            return names.some((n) => n !== '' && body.includes(n));
+            if (names.some((n) => n !== '' && body.includes(n))) return true;
+            // Or the message came from the person the thread is with.
+            const sender = senderOf.get(id);
+            return sender !== undefined && others.includes(sender);
           });
-          expect(named, `nothing names anyone in ${thread.id} before it opens`).toBe(true);
+          expect(
+            introduced,
+            `${thread.id} opens with a stranger — nothing names them and they did not send the message that opens it`,
+          ).toBe(true);
         }
       });
 

@@ -16,6 +16,7 @@ import { theUnderstudyFr } from './fr/the-understudy';
 import { theNightRoundFr } from './fr/the-night-round';
 import { theUnderstudyDe } from './de/the-understudy';
 import { theNightRoundDe } from './de/the-night-round';
+import { deepFieldDe } from './de/deep-field';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -63,6 +64,9 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-lighthouse': theLighthouseDe,
     'the-understudy': theUnderstudyDe,
     'the-night-round': theNightRoundDe,
+    // First paid pack in any language. German is ahead of the others here only
+    // because its agent got further before a session limit.
+    'deep-field': deepFieldDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
