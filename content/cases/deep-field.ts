@@ -628,7 +628,7 @@ export const deepFieldRaw = {
 
   confrontation: {
     opening:
-      'Nineteen seasons. I have buried two people off this station and carried one of them myself, and now it is a radio link and a man in Cambridge. Go on.',
+      'Nineteen seasons. I have buried two people off this station and carried one of them myself, and now it is a radio link and somebody in Cambridge. Go on.',
     beats: [
       {
         id: 'f-block',

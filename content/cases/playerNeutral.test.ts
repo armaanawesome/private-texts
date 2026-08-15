@@ -33,6 +33,21 @@ import { caseTextEntries } from '../i18n/caseText';
  * hand. Deliberately narrow. It looks for a gendered noun applied to the player
  * in the second person, not for gendered words generally — plenty of *characters*
  * are described as somebody's son or a young man, and must go on being.
+ *
+ * WHAT THIS CANNOT SEE, and do not assume it does: the player referred to in the
+ * **third person**. Deep Field had Mal say `now it is a radio link and a man in
+ * Cambridge` about the player, and The Wake had Eileen say `Answer him, Donal`
+ * — both a gender, neither in the second person, neither catchable here. Knowing
+ * that `him` means the player needs coreference, and a pattern loose enough to
+ * guess at it would fire on every ordinary sentence about every other character
+ * in the game.
+ *
+ * Both were found by translation agents reading the prose for sense, and the
+ * evidence that the English was the outlier is that all four translators had
+ * already gone neutral without being asked: `alguien`, `quelqu'un`, `alguém`,
+ * `jemand`. That is the detector that works for this class — a careful reader
+ * with a reason to care about grammatical gender — and it is worth saying so
+ * plainly rather than leaving the next person to trust a green suite.
  */
 
 /** Nouns that would pin the player's gender if applied to them. */

@@ -123,7 +123,7 @@ export const theWakePtBr: CaseTranslation = {
     f6: 'Estávamos todos nós na sala da frente. Cada um de nós. Eu quero isso dito com clareza porque já tem conversa e eu sei de onde ela está vindo',
     f7: 'ele estava com uma bolsa. onde está a bolsa',
     f8: 'nove anos e essa é a sua primeira pergunta. tá',
-    f9: 'Responde a ele, Donal.',
+    f9: 'Responde à pergunta, Donal.',
     f10: 'eu não sei onde está a bolsa dele. é uma casa com quarenta pessoas dentro e um homem morto no fundo dela',
     f11: 'e já que a gente está fazendo perguntas, a Cass ficou lá nos fundos o tempo todo e ninguém falou uma palavra sobre isso também',
     f12: 'Donal.',
