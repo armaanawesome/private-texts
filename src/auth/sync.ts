@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { z } from 'zod';
 import { getSupabase } from './client';
 import { describeAuthError } from './session';
+import type { Message } from '@/i18n/message';
 import { saveBlobSchema, type SaveBlob } from '@/state/saveBlob';
 import { saveKey, caseIdFromSaveKey } from '@/state/saveKeys';
 import { planSaveSync } from '@/state/saveMerge';
@@ -41,8 +42,8 @@ const SELECT_COLUMNS =
 
 export type SyncResult =
   /** Nothing was attempted, and that is fine — no account, or accounts are off. */
-  | { kind: 'skipped'; reason: string }
-  | { kind: 'failed'; reason: string }
+  | { kind: 'skipped'; reason: Message }
+  | { kind: 'failed'; reason: Message }
   | { kind: 'synced'; downloaded: number; uploaded: number };
 
 /** Every case save on this device, keyed by case id. */
@@ -72,7 +73,10 @@ async function readLocalSaves(): Promise<Map<string, SaveBlob>> {
 
 export async function syncProgress(): Promise<SyncResult> {
   const handle = getSupabase();
-  if (handle.kind === 'unavailable') return { kind: 'skipped', reason: handle.reason };
+  // A config problem, not a player problem — it means the build shipped without
+  // Supabase keys. Raw on purpose: the audience is whoever is holding the
+  // developer build, and translating it would only make it harder to search for.
+  if (handle.kind === 'unavailable') return { kind: 'skipped', reason: { raw: handle.reason } };
   const { client } = handle;
 
   try {
@@ -83,10 +87,7 @@ export async function syncProgress(): Promise<SyncResult> {
     const { data: sessionData, error: sessionError } = await client.auth.getSession();
     const user = sessionData.session?.user ?? null;
     if (sessionError || !user) {
-      return {
-        kind: 'skipped',
-        reason: 'Not signed in. Your progress is saved on this device.',
-      };
+      return { kind: 'skipped', reason: { key: 'sync.notSignedIn' } };
     }
 
     const local = await readLocalSaves();
@@ -159,19 +160,29 @@ export async function syncProgress(): Promise<SyncResult> {
   }
 }
 
-/** Player-facing summary of a finished sync. */
-export function describeSyncResult(result: SyncResult): string {
+/**
+ * Player-facing summary of a finished sync.
+ *
+ * Four whole sentences rather than a stem plus comma-joined fragments. The
+ * fragment version built `Case notes synced — 2 brought back, 1 backed up.` in
+ * code, which hands a translator two noun phrases and an em dash and assumes
+ * their language joins clauses in that order with that punctuation. Several do
+ * not, and none of them can fix it from the catalogue.
+ */
+export function describeSyncResult(result: SyncResult): Message {
   switch (result.kind) {
     case 'skipped':
-      return result.reason;
     case 'failed':
       return result.reason;
     case 'synced': {
-      if (result.downloaded === 0 && result.uploaded === 0) return 'Everything was already in sync.';
-      const parts: string[] = [];
-      if (result.downloaded > 0) parts.push(`${result.downloaded} brought back`);
-      if (result.uploaded > 0) parts.push(`${result.uploaded} backed up`);
-      return `Case notes synced — ${parts.join(', ')}.`;
+      const { downloaded, uploaded } = result;
+      if (downloaded === 0 && uploaded === 0) return { key: 'sync.upToDate' };
+      if (downloaded > 0 && uploaded > 0) {
+        return { key: 'sync.both', params: { downloaded, uploaded } };
+      }
+      return downloaded > 0
+        ? { key: 'sync.downloaded', params: { count: downloaded } }
+        : { key: 'sync.uploaded', params: { count: uploaded } };
     }
   }
 }

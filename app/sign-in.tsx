@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
+import { render, type Message } from '@/i18n/message';
 import {
   useAuth,
   validateCredentials,
@@ -44,8 +45,18 @@ export default function SignInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [problem, setProblem] = useState<CredentialProblem | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+  // A Message for the same reason `notice` is: rendered at display time, so it
+  // is in the language the player is reading now, not the one they were in when
+  // the request failed.
+  const [formError, setFormError] = useState<Message | null>(null);
+  /**
+   * Held as a Message, not a string, and rendered at the bottom of this file.
+   *
+   * Storing the rendered sentence would freeze it in whatever language was
+   * active when the sync finished, so a player who changed language with a
+   * notice on screen would keep reading the old one.
+   */
+  const [notice, setNotice] = useState<Message | null>(null);
   const [busy, setBusy] = useState(false);
   const [focused, setFocused] = useState<CredentialField | null>(null);
 
@@ -100,9 +111,9 @@ export default function SignInScreen() {
         // Supabase reports this as a success with no identities, so without
         // this branch the player waits for a mail that was never sent.
         setMode('signIn');
-        setFormError(t('signIn.alreadyRegistered'));
+        setFormError({ key: 'signIn.alreadyRegistered' });
       } else if (attempt.outcome === 'confirmEmail') {
-        setNotice(t('signIn.confirmEmail', { email: email.trim() }));
+        setNotice({ key: 'signIn.confirmEmail', params: { email: email.trim() } });
       } else {
         setNotice(describeSyncResult(await syncProgress()));
       }
@@ -162,7 +173,7 @@ export default function SignInScreen() {
 
             {notice ? (
               <View style={styles.noticeBlock} accessibilityLiveRegion="polite">
-                <Text style={styles.noticeText}>{notice}</Text>
+                <Text style={styles.noticeText}>{render(notice, t)}</Text>
               </View>
             ) : null}
 
@@ -282,13 +293,13 @@ export default function SignInScreen() {
                 accessibilityRole="alert"
                 accessibilityLiveRegion="polite"
               >
-                <Text style={styles.problemText}>{formError}</Text>
+                <Text style={styles.problemText}>{render(formError, t)}</Text>
               </View>
             ) : null}
 
             {notice ? (
               <View style={styles.noticeBlock} accessibilityLiveRegion="polite">
-                <Text style={styles.noticeText}>{notice}</Text>
+                <Text style={styles.noticeText}>{render(notice, t)}</Text>
               </View>
             ) : null}
 

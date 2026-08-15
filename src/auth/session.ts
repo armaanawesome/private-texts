@@ -14,6 +14,10 @@ export interface AuthUser {
   email: string | null;
 }
 
+// Type-only, so this file stays a pure reduction with no runtime dependency on
+// the catalogue — it names keys, it does not resolve them.
+import type { Message } from '@/i18n/message';
+
 export type AuthStatus =
   /** No usable Supabase config. Terminal for the life of the process. */
   | { kind: 'unavailable'; reason: string }
@@ -96,40 +100,53 @@ export function classifySignUp(input: {
 }
 
 /**
- * Supabase error text, rewritten as something a player can act on.
+ * Supabase error text, classified into something a player can act on.
  *
  * Every branch names both the problem and the way out. The raw strings are
  * developer-facing and some of them ("Invalid login credentials") read as an
  * accusation rather than an instruction.
+ *
+ * Returns a `Message`, not a sentence. This used to return English prose, which
+ * meant a player who had set the app to Spanish and then mistyped a password
+ * got a Spanish screen with an English paragraph in the middle of it. Supabase
+ * itself only speaks English here, so the classification has to happen on this
+ * side and the wording has to come from the catalogue.
+ *
+ * The patterns match Supabase's *English* error text deliberately, and that is
+ * a real dependency worth naming: these are matched against what the API
+ * returns, not against anything the player sees, so they must not be
+ * translated. If Supabase ever localises its errors, every branch here stops
+ * firing and everything falls through to `raw` — degraded, but not broken.
  */
-export function describeAuthError(raw: string | null | undefined): string {
+export function describeAuthError(raw: string | null | undefined): Message {
   const message = raw?.trim() ?? '';
-  if (message === '') return 'Something went wrong. Try again in a moment.';
+  if (message === '') return { key: 'auth.error.generic' };
 
   if (/invalid login credentials|invalid.*password/i.test(message)) {
-    return 'That email and password do not match an account. Check both, or create an account instead.';
+    return { key: 'auth.error.badCredentials' };
   }
   if (/email not confirmed/i.test(message)) {
-    return 'Confirm your email first — the link is in your inbox. Check spam if it is not there.';
+    return { key: 'auth.error.emailUnconfirmed' };
   }
   if (/already registered|already been registered|user already exists/i.test(message)) {
-    return 'That email already has an account. Sign in instead.';
+    return { key: 'auth.error.alreadyRegistered' };
   }
   if (/password should be at least|password.*too short/i.test(message)) {
-    return 'That password is too short. Use at least 6 characters.';
+    return { key: 'auth.error.passwordShort' };
   }
   if (/rate limit|too many requests|for security purposes/i.test(message)) {
-    return 'Too many attempts. Wait a minute and try again.';
+    return { key: 'auth.error.rateLimit' };
   }
   if (/network|fetch|timeout|failed to fetch|connection/i.test(message)) {
-    return 'Could not reach the server. Check your connection and try again — your progress is safe on this device.';
+    return { key: 'auth.error.network' };
   }
   if (/email address.*invalid|invalid email/i.test(message)) {
-    return 'That does not look like an email address. Check it and try again.';
+    return { key: 'auth.error.badEmail' };
   }
 
   // Unrecognised errors are passed through rather than flattened into a generic
   // line: an unfamiliar message the player can screenshot is worth more than a
-  // polished one that says nothing.
-  return message;
+  // polished one that says nothing. Untranslated, necessarily — it is whatever
+  // the server said.
+  return { raw: message };
 }

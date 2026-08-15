@@ -78,6 +78,32 @@ export const EN = {
   'elapsed.weekMany': '{count} weeks ago',
   'elapsed.aWhile': 'a while ago',
 
+  /*
+   * Sign-in errors and sync results.
+   *
+   * Whole sentences, including the sync counts. `sync.both` could have been
+   * assembled from two fragments and a separator, and was — the code built
+   * "Case notes synced — 2 brought back, 1 backed up." by joining an array,
+   * which hands a translator two noun phrases and assumes their language
+   * chains clauses in that order with that punctuation.
+   */
+  'auth.error.generic': 'Something went wrong. Try again in a moment.',
+  'auth.error.badCredentials':
+    'That email and password do not match an account. Check both, or create an account instead.',
+  'auth.error.emailUnconfirmed':
+    'Confirm your email first — the link is in your inbox. Check spam if it is not there.',
+  'auth.error.alreadyRegistered': 'That email already has an account. Sign in instead.',
+  'auth.error.passwordShort': 'That password is too short. Use at least 6 characters.',
+  'auth.error.rateLimit': 'Too many attempts. Wait a minute and try again.',
+  'auth.error.network':
+    'Could not reach the server. Check your connection and try again — your progress is safe on this device.',
+  'auth.error.badEmail': 'That does not look like an email address. Check it and try again.',
+  'sync.notSignedIn': 'Not signed in. Your progress is saved on this device.',
+  'sync.upToDate': 'Everything was already in sync.',
+  'sync.downloaded': 'Case notes synced. {count} brought back from your account.',
+  'sync.uploaded': 'Case notes synced. {count} backed up to your account.',
+  'sync.both': 'Case notes synced. {downloaded} brought back, {uploaded} backed up.',
+
   'case.tab.threads': 'Threads',
   'case.tab.board': 'Board',
   'case.tab.accuse': 'Accuse',
@@ -216,6 +242,24 @@ const ES: Catalogue = {
   'elapsed.weekMany': 'hace {count} semanas',
   'elapsed.aWhile': 'hace tiempo',
 
+  'auth.error.generic': 'Algo ha salido mal. Inténtalo de nuevo en un momento.',
+  'auth.error.badCredentials':
+    'Ese correo y esa contraseña no coinciden con ninguna cuenta. Revisa los dos, o crea una cuenta.',
+  'auth.error.emailUnconfirmed':
+    'Confirma tu correo primero — el enlace está en tu bandeja de entrada. Mira en spam si no aparece.',
+  'auth.error.alreadyRegistered': 'Ese correo ya tiene una cuenta. Inicia sesión.',
+  'auth.error.passwordShort': 'Esa contraseña es demasiado corta. Usa al menos 6 caracteres.',
+  'auth.error.rateLimit': 'Demasiados intentos. Espera un minuto y vuelve a probar.',
+  'auth.error.network':
+    'No se ha podido conectar con el servidor. Revisa tu conexión y vuelve a probar — tu progreso está a salvo en este dispositivo.',
+  'auth.error.badEmail': 'Eso no parece una dirección de correo. Revísala y vuelve a probar.',
+  'sync.notSignedIn': 'No has iniciado sesión. Tu progreso se guarda en este dispositivo.',
+  'sync.upToDate': 'Ya estaba todo sincronizado.',
+  'sync.downloaded': 'Notas del caso sincronizadas. {count} recuperadas de tu cuenta.',
+  'sync.uploaded': 'Notas del caso sincronizadas. {count} guardadas en tu cuenta.',
+  'sync.both':
+    'Notas del caso sincronizadas. {downloaded} recuperadas, {uploaded} guardadas.',
+
   'case.tab.threads': 'Mensajes',
   'case.tab.board': 'Tablero',
   'case.tab.accuse': 'Acusar',
@@ -346,6 +390,26 @@ const FR: Catalogue = {
   'elapsed.lastWeek': 'la semaine dernière',
   'elapsed.weekMany': 'il y a {count} semaines',
   'elapsed.aWhile': 'il y a un moment',
+
+  'auth.error.generic': 'Quelque chose a mal tourné. Réessaie dans un instant.',
+  'auth.error.badCredentials':
+    'Cet e-mail et ce mot de passe ne correspondent à aucun compte. Vérifie les deux, ou crée un compte.',
+  'auth.error.emailUnconfirmed':
+    'Confirme d’abord ton e-mail — le lien est dans ta boîte de réception. Regarde dans les spams s’il n’y est pas.',
+  'auth.error.alreadyRegistered': 'Cet e-mail a déjà un compte. Connecte-toi.',
+  'auth.error.passwordShort': 'Ce mot de passe est trop court. Utilise au moins 6 caractères.',
+  'auth.error.rateLimit': 'Trop de tentatives. Attends une minute et réessaie.',
+  'auth.error.network':
+    'Impossible de joindre le serveur. Vérifie ta connexion et réessaie — ta progression est en sécurité sur cet appareil.',
+  'auth.error.badEmail': 'Cela ne ressemble pas à une adresse e-mail. Vérifie-la et réessaie.',
+  // "Aucun compte connecté", not "Tu n'es pas connecté" — the participle would
+  // agree with the player, who has no gender. Same rule as the case packs.
+  'sync.notSignedIn': 'Aucun compte connecté. Ta progression est enregistrée sur cet appareil.',
+  'sync.upToDate': 'Tout était déjà synchronisé.',
+  'sync.downloaded': 'Notes d’enquête synchronisées. {count} récupérées depuis ton compte.',
+  'sync.uploaded': 'Notes d’enquête synchronisées. {count} sauvegardées sur ton compte.',
+  'sync.both':
+    'Notes d’enquête synchronisées. {downloaded} récupérées, {uploaded} sauvegardées.',
 
   'case.tab.threads': 'Messages',
   'case.tab.board': 'Tableau',
@@ -479,6 +543,23 @@ const DE: Catalogue = {
   'elapsed.weekMany': 'vor {count} Wochen',
   'elapsed.aWhile': 'vor längerer Zeit',
 
+  'auth.error.generic': 'Etwas ist schiefgelaufen. Versuch es gleich noch einmal.',
+  'auth.error.badCredentials':
+    'Diese E-Mail und dieses Passwort passen zu keinem Konto. Prüf beides, oder leg ein Konto an.',
+  'auth.error.emailUnconfirmed':
+    'Bestätige zuerst deine E-Mail — der Link liegt in deinem Postfach. Sieh im Spam nach, falls er nicht da ist.',
+  'auth.error.alreadyRegistered': 'Für diese E-Mail gibt es schon ein Konto. Melde dich an.',
+  'auth.error.passwordShort': 'Dieses Passwort ist zu kurz. Nimm mindestens 6 Zeichen.',
+  'auth.error.rateLimit': 'Zu viele Versuche. Warte eine Minute und versuch es noch einmal.',
+  'auth.error.network':
+    'Der Server war nicht erreichbar. Prüf deine Verbindung und versuch es noch einmal — dein Fortschritt ist auf diesem Gerät sicher.',
+  'auth.error.badEmail': 'Das sieht nicht nach einer E-Mail-Adresse aus. Prüf sie und versuch es noch einmal.',
+  'sync.notSignedIn': 'Kein Konto angemeldet. Dein Fortschritt wird auf diesem Gerät gespeichert.',
+  'sync.upToDate': 'Es war schon alles synchron.',
+  'sync.downloaded': 'Fallnotizen synchronisiert. {count} aus deinem Konto zurückgeholt.',
+  'sync.uploaded': 'Fallnotizen synchronisiert. {count} in deinem Konto gesichert.',
+  'sync.both': 'Fallnotizen synchronisiert. {downloaded} zurückgeholt, {uploaded} gesichert.',
+
   'case.tab.threads': 'Nachrichten',
   'case.tab.board': 'Tafel',
   'case.tab.accuse': 'Anklagen',
@@ -604,6 +685,25 @@ const PT_BR: Catalogue = {
   'elapsed.lastWeek': 'semana passada',
   'elapsed.weekMany': 'há {count} semanas',
   'elapsed.aWhile': 'faz um tempo',
+
+  'auth.error.generic': 'Alguma coisa deu errado. Tente de novo daqui a pouco.',
+  'auth.error.badCredentials':
+    'Esse e-mail e essa senha não batem com nenhuma conta. Confira os dois, ou crie uma conta.',
+  'auth.error.emailUnconfirmed':
+    'Confirme seu e-mail primeiro — o link está na sua caixa de entrada. Veja no spam se não estiver lá.',
+  'auth.error.alreadyRegistered': 'Esse e-mail já tem uma conta. Entre nela.',
+  'auth.error.passwordShort': 'Essa senha é curta demais. Use pelo menos 6 caracteres.',
+  'auth.error.rateLimit': 'Tentativas demais. Espere um minuto e tente de novo.',
+  'auth.error.network':
+    'Não deu para falar com o servidor. Confira sua conexão e tente de novo — seu progresso está seguro neste aparelho.',
+  'auth.error.badEmail': 'Isso não parece um endereço de e-mail. Confira e tente de novo.',
+  // "Nenhuma conta conectada", not "Você não está conectado" — the participle
+  // would agree with the player, who has no gender.
+  'sync.notSignedIn': 'Nenhuma conta conectada. Seu progresso fica salvo neste aparelho.',
+  'sync.upToDate': 'Já estava tudo sincronizado.',
+  'sync.downloaded': 'Anotações do caso sincronizadas. {count} recuperadas da sua conta.',
+  'sync.uploaded': 'Anotações do caso sincronizadas. {count} salvas na sua conta.',
+  'sync.both': 'Anotações do caso sincronizadas. {downloaded} recuperadas, {uploaded} salvas.',
 
   'case.tab.threads': 'Mensagens',
   'case.tab.board': 'Quadro',

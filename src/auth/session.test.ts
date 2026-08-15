@@ -6,6 +6,12 @@ import {
   initialAuthStatus,
   type AuthStatus,
 } from './session';
+import { render } from '@/i18n/message';
+import { makeTranslator } from '@/i18n/translate';
+import { EN } from '@/i18n/strings';
+import { SUPPORTED_LOCALES } from '@/i18n/locales';
+
+const t = makeTranslator('en');
 
 const user = { id: 'u1', email: 'alex@example.com' };
 
@@ -133,36 +139,74 @@ describe('classifySignUp', () => {
 });
 
 describe('describeAuthError', () => {
+  /**
+   * Asserts against the English catalogue, not against a returned sentence.
+   *
+   * These used to match the function's own output, because it returned English
+   * prose. It now returns a key, which is what stops a Spanish player getting
+   * an English paragraph in the middle of a translated sign-in screen — so the
+   * wording lives in `EN` and the test resolves it the way the screen does.
+   */
+  const worded = (raw: string | null | undefined): string => render(describeAuthError(raw), t);
+
   it('turns a failed login into an instruction, not an accusation', () => {
-    const message = describeAuthError('Invalid login credentials');
+    const message = worded('Invalid login credentials');
     expect(message).toMatch(/do not match/i);
     // The recovery matters: most people hitting this have never signed up.
     expect(message).toMatch(/create an account/i);
   });
 
   it('points at the inbox for an unconfirmed email', () => {
-    expect(describeAuthError('Email not confirmed')).toMatch(/inbox/i);
+    expect(worded('Email not confirmed')).toMatch(/inbox/i);
   });
 
   it('sends an existing account to sign-in', () => {
-    expect(describeAuthError('User already registered')).toMatch(/sign in/i);
+    expect(worded('User already registered')).toMatch(/sign in/i);
   });
 
   it('reassures that local progress survives a network failure', () => {
     // The one error a player is most likely to see, and the one where the fear
     // is "have I lost my case notes".
-    expect(describeAuthError('Network request failed')).toMatch(/safe on this device/i);
+    expect(worded('Network request failed')).toMatch(/safe on this device/i);
   });
 
   it('passes an unrecognised message through rather than flattening it', () => {
-    expect(describeAuthError('Signups not allowed for this instance')).toBe(
-      'Signups not allowed for this instance',
-    );
+    const out = describeAuthError('Signups not allowed for this instance');
+    // Raw, explicitly: the point is that it did NOT get classified, and a key
+    // here would mean some pattern had started matching things it should not.
+    expect(out).toEqual({ raw: 'Signups not allowed for this instance' });
   });
 
-  it('never returns an empty string', () => {
+  it('never returns an empty string, in any locale', () => {
     for (const input of [null, undefined, '', '   ']) {
-      expect(describeAuthError(input).length).toBeGreaterThan(0);
+      for (const locale of SUPPORTED_LOCALES) {
+        const out = render(describeAuthError(input), makeTranslator(locale.tag));
+        expect(out.length, `${locale.tag} renders nothing for ${JSON.stringify(input)}`).
+          toBeGreaterThan(0);
+      }
+    }
+  });
+
+  /**
+   * Every key this can name has to exist, in English at least. The union is
+   * checked by the compiler, but a key present in the type and absent from the
+   * catalogue would render as the key itself — `auth.error.rateLimit` on screen.
+   */
+  it('names only keys the catalogue defines', () => {
+    const inputs = [
+      'Invalid login credentials',
+      'Email not confirmed',
+      'User already registered',
+      'Password should be at least 6 characters',
+      'Rate limit exceeded',
+      'Network request failed',
+      'Unable to validate email address: invalid format',
+      '',
+    ];
+    for (const input of inputs) {
+      const out = describeAuthError(input);
+      if (out.key === undefined) continue;
+      expect(EN[out.key], `no catalogue entry for ${out.key}`).toBeDefined();
     }
   });
 });

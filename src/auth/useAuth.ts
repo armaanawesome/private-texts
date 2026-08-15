@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import { AppState, type AppStateStatus } from 'react-native';
 import type { User } from '@supabase/supabase-js';
+import type { Message } from '@/i18n/message';
 import { getSupabase } from './client';
 import {
   reduceAuth,
@@ -21,8 +22,10 @@ import { normaliseEmail } from './credentials';
  * suite, kept as thin as possible for exactly that reason.
  */
 
-export type AuthAttempt = { ok: true } | { ok: false; message: string };
-export type SignUpAttempt = { ok: true; outcome: SignUpOutcome } | { ok: false; message: string };
+export type AuthAttempt = { ok: true } | { ok: false; message: Message };
+export type SignUpAttempt =
+  | { ok: true; outcome: SignUpOutcome }
+  | { ok: false; message: Message };
 
 export interface AuthApi {
   status: AuthStatus;
@@ -97,7 +100,7 @@ export function useAuth(): AuthApi {
 
   const signIn = useCallback(async (email: string, password: string): Promise<AuthAttempt> => {
     const handle = getSupabase();
-    if (handle.kind === 'unavailable') return { ok: false, message: handle.reason };
+    if (handle.kind === 'unavailable') return { ok: false, message: { raw: handle.reason } };
     const { error } = await handle.client.auth.signInWithPassword({
       email: normaliseEmail(email),
       password,
@@ -110,7 +113,7 @@ export function useAuth(): AuthApi {
 
   const signUp = useCallback(async (email: string, password: string): Promise<SignUpAttempt> => {
     const handle = getSupabase();
-    if (handle.kind === 'unavailable') return { ok: false, message: handle.reason };
+    if (handle.kind === 'unavailable') return { ok: false, message: { raw: handle.reason } };
     const { data, error } = await handle.client.auth.signUp({
       email: normaliseEmail(email),
       password,
