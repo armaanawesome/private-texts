@@ -64,13 +64,13 @@ accuse.
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `.\check.cmd` → **1402 passing across 63 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **1811 passing across 70 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
 by running the suite on 2026-08-14, not copied forward.
 
 **Run `.\check.cmd`, not `npx vitest` by hand.** It `cd`s to the project root
 first. Running vitest from the parent directory silently picks up unrelated
-projects — 118 test files instead of 63, most of them failing — and `npx tsc`
+projects — 118 test files instead of 70, most of them failing — and `npx tsc`
 there resolves to a **squatter package** called `tsc` rather than the compiler.
 Both failures look alarming and neither is real.
 
@@ -80,7 +80,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-1130 actually prove: that no case is unsolvable, no thread is unreachable, no
+1811 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -457,7 +457,7 @@ note it deliberately does **not** go through `loadScript`, which calls
 | Locale | Cases |
 |---|---|
 | es | tutorial + packs 1–3 (the whole free tier) |
-| fr, de, pt-BR | tutorial + pack 1 |
+| fr, de, pt-BR | tutorial + packs 1–3, and `deep-field` (pack 4) |
 | ja | listed in the picker, nothing translated — falls back to English by design |
 
 Each translated pack carries its own test file asserting the load-bearing prose
@@ -513,10 +513,31 @@ the arc is ever reworked.
   checks both directions: every key resolves, and a `{count}` placeholder is
   supplied exactly where the English text asks for one.
 
-- **~24 hardcoded English strings remain across `src/ui`.**
-  `restoreStatusLine`, `describeSyncResult` and the auth messages are still
-  English. None is as visible as the Continue card was, since they appear on
-  settings and sign-in rather than the home screen.
+- **The English-only helpers are done** (2026-08-14). `describeAuthError`,
+  `describeSyncResult`, `restoreStatusLine` and `restoreErrorMessage` all
+  return a `Message` now — see `src/i18n/message.ts`. Sign-in and settings
+  render it at display time.
+
+  **`Message` is the pattern to reuse.** Anything below the UI that needs to
+  say something returns `{ key, params }` or `{ raw }`, and the screen turns it
+  into words. `raw` is a deliberate variant, not an oversight: a server can
+  return an error nobody has classified, and an unfamiliar message the player
+  can screenshot beats a polished one that says nothing. Making it explicit
+  means passing text through is a visible decision rather than the default.
+
+  Holding these in state as `Message` rather than rendered strings also means a
+  notice on screen survives a language change instead of freezing in the old
+  language.
+
+  One dependency worth knowing: the `describeAuthError` patterns match
+  Supabase's **English** error text on purpose. They are matched against what
+  the API returns, never against what the player sees, so they must not be
+  translated. If Supabase ever localises its errors, every branch stops firing
+  and everything falls through to `raw` — degraded, not broken.
+
+- **Japanese is listed in the picker and is entirely empty.** Every string falls
+  back to English by design, so it works; it is just not translated. It is the
+  one locale with no case text and no UI catalogue at all.
 
 ---
 

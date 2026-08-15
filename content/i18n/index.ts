@@ -17,6 +17,8 @@ import { theNightRoundFr } from './fr/the-night-round';
 import { theUnderstudyDe } from './de/the-understudy';
 import { theNightRoundDe } from './de/the-night-round';
 import { deepFieldDe } from './de/deep-field';
+import { deepFieldFr } from './fr/deep-field';
+import { deepFieldPtBr } from './pt-BR/deep-field';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -44,9 +46,17 @@ export const CASE_TRANSLATIONS: Readonly<
   Record<LocaleTag, Readonly<Record<string, CaseTranslation>>>
 > = {
   en: {},
-  // The tutorial plus the three free packs — everything a player can reach
-  // without paying. A paid case in English behind a Spanish free tier is a
-  // deliberate boundary, not an oversight.
+  /*
+   * Locales fill in at different rates and that is fine — an untranslated case
+   * falls back to English down the same path a partly translated one takes for
+   * a missing field, so the boundary can sit anywhere without a special case.
+   *
+   * The tutorial plus packs 1–3 is the meaningful line: it is everything a
+   * player reaches without paying. Spanish stops there. The other three have
+   * `deep-field` on top of it, which is the first paid pack, and they are ahead
+   * only because their agents got further before a session limit — not because
+   * anybody decided Spanish should lag.
+   */
   es: {
     tutorial: tutorialEs,
     'the-lighthouse': theLighthouseEs,
@@ -58,14 +68,13 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-lighthouse': theLighthouseFr,
     'the-understudy': theUnderstudyFr,
     'the-night-round': theNightRoundFr,
+    'deep-field': deepFieldFr,
   },
   de: {
     tutorial: tutorialDe,
     'the-lighthouse': theLighthouseDe,
     'the-understudy': theUnderstudyDe,
     'the-night-round': theNightRoundDe,
-    // First paid pack in any language. German is ahead of the others here only
-    // because its agent got further before a session limit.
     'deep-field': deepFieldDe,
   },
   'pt-BR': {
@@ -73,6 +82,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-lighthouse': theLighthousePtBr,
     'the-understudy': theUnderstudyPtBr,
     'the-night-round': theNightRoundPtBr,
+    'deep-field': deepFieldPtBr,
   },
   ja: {},
 };
