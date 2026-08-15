@@ -104,6 +104,12 @@ export const EN = {
   'sync.uploaded': 'Case notes synced. {count} backed up to your account.',
   'sync.both': 'Case notes synced. {downloaded} brought back, {uploaded} backed up.',
 
+  'restore.working': 'Checking with the store…',
+  'restore.none': 'No purchases found for this store account.',
+  'restore.oneRestored': 'Restored 1 purchase. Your case pack is unlocked.',
+  'restore.manyRestored': 'Restored {count} purchases. Your case pack is unlocked.',
+  'restore.unreachable': 'Could not reach the store. Check your connection and try again.',
+
   'case.tab.threads': 'Threads',
   'case.tab.board': 'Board',
   'case.tab.accuse': 'Accuse',
@@ -260,6 +266,12 @@ const ES: Catalogue = {
   'sync.both':
     'Notas del caso sincronizadas. {downloaded} recuperadas, {uploaded} guardadas.',
 
+  'restore.working': 'Consultando con la tienda…',
+  'restore.none': 'No se han encontrado compras en esta cuenta de la tienda.',
+  'restore.oneRestored': 'Restaurada 1 compra. Tu pack de casos está desbloqueado.',
+  'restore.manyRestored': 'Restauradas {count} compras. Tu pack de casos está desbloqueado.',
+  'restore.unreachable': 'No se ha podido conectar con la tienda. Revisa tu conexión y vuelve a probar.',
+
   'case.tab.threads': 'Mensajes',
   'case.tab.board': 'Tablero',
   'case.tab.accuse': 'Acusar',
@@ -411,6 +423,12 @@ const FR: Catalogue = {
   'sync.both':
     'Notes d’enquête synchronisées. {downloaded} récupérées, {uploaded} sauvegardées.',
 
+  'restore.working': 'Vérification auprès de la boutique…',
+  'restore.none': 'Aucun achat trouvé pour ce compte de boutique.',
+  'restore.oneRestored': '1 achat restauré. Ton pack d’enquêtes est débloqué.',
+  'restore.manyRestored': '{count} achats restaurés. Ton pack d’enquêtes est débloqué.',
+  'restore.unreachable': 'Impossible de joindre la boutique. Vérifie ta connexion et réessaie.',
+
   'case.tab.threads': 'Messages',
   'case.tab.board': 'Tableau',
   'case.tab.accuse': 'Accuser',
@@ -560,6 +578,12 @@ const DE: Catalogue = {
   'sync.uploaded': 'Fallnotizen synchronisiert. {count} in deinem Konto gesichert.',
   'sync.both': 'Fallnotizen synchronisiert. {downloaded} zurückgeholt, {uploaded} gesichert.',
 
+  'restore.working': 'Wird im Store geprüft…',
+  'restore.none': 'Für dieses Store-Konto wurden keine Käufe gefunden.',
+  'restore.oneRestored': '1 Kauf wiederhergestellt. Dein Fallpaket ist freigeschaltet.',
+  'restore.manyRestored': '{count} Käufe wiederhergestellt. Dein Fallpaket ist freigeschaltet.',
+  'restore.unreachable': 'Der Store war nicht erreichbar. Prüf deine Verbindung und versuch es noch einmal.',
+
   'case.tab.threads': 'Nachrichten',
   'case.tab.board': 'Tafel',
   'case.tab.accuse': 'Anklagen',
@@ -704,6 +728,12 @@ const PT_BR: Catalogue = {
   'sync.downloaded': 'Anotações do caso sincronizadas. {count} recuperadas da sua conta.',
   'sync.uploaded': 'Anotações do caso sincronizadas. {count} salvas na sua conta.',
   'sync.both': 'Anotações do caso sincronizadas. {downloaded} recuperadas, {uploaded} salvas.',
+
+  'restore.working': 'Verificando com a loja…',
+  'restore.none': 'Nenhuma compra encontrada nesta conta da loja.',
+  'restore.oneRestored': '1 compra restaurada. Seu pacote de casos está liberado.',
+  'restore.manyRestored': '{count} compras restauradas. Seu pacote de casos está liberado.',
+  'restore.unreachable': 'Não deu para falar com a loja. Confira sua conexão e tente de novo.',
 
   'case.tab.threads': 'Mensagens',
   'case.tab.board': 'Quadro',

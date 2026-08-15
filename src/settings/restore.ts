@@ -7,34 +7,43 @@
  * player into a refund request.
  */
 
+import type { Message } from '@/i18n/message';
+
 export type RestoreState =
   | { readonly kind: 'idle' }
   | { readonly kind: 'working' }
   | { readonly kind: 'restored'; readonly entitlementIds: readonly string[] }
   /** The store could not be switched on for this build at all. */
   | { readonly kind: 'unavailable'; readonly reason: string }
-  | { readonly kind: 'failed'; readonly message: string };
+  | { readonly kind: 'failed'; readonly message: Message };
 
-/** Null means show nothing — an untouched row should not carry a status line. */
-export function restoreStatusLine(state: RestoreState): string | null {
+/**
+ * Null means show nothing — an untouched row should not carry a status line.
+ *
+ * Returns a `Message` rather than a sentence, for the reason set out in
+ * src/i18n/message.ts: this row is read by every player in every language, and
+ * a helper that returns English puts English on a translated screen.
+ *
+ * `unavailable.reason` stays raw on purpose. It means the build shipped without
+ * a usable store key, so its only reader is whoever is holding a developer
+ * build — translating it would make it harder to search for, not easier to act
+ * on.
+ */
+export function restoreStatusLine(state: RestoreState): Message | null {
   switch (state.kind) {
     case 'idle':
       return null;
     case 'working':
-      return 'Checking with the store…';
+      return { key: 'restore.working' };
     case 'restored': {
       const count = state.entitlementIds.length;
       // The honest empty case. "Nothing to restore" sounds like a failure; naming
       // the account is what tells someone they are signed in as the wrong one.
-      if (count === 0) {
-        return 'No purchases found for this store account.';
-      }
-      return count === 1
-        ? 'Restored 1 purchase. Your case pack is unlocked.'
-        : `Restored ${count} purchases. Your case pack is unlocked.`;
+      if (count === 0) return { key: 'restore.none' };
+      return count === 1 ? { key: 'restore.oneRestored' } : { key: 'restore.manyRestored', params: { count } };
     }
     case 'unavailable':
-      return state.reason;
+      return { raw: state.reason };
     case 'failed':
       return state.message;
   }
@@ -51,13 +60,14 @@ export function restoreIsBusy(state: RestoreState): boolean {
  * RevenueCat rejects with an Error most of the time and with a plain object some
  * of the time; `String(e)` on the latter renders "[object Object]" into the UI.
  */
-export function restoreErrorMessage(error: unknown): string {
-  const fallback = 'Could not reach the store. Check your connection and try again.';
-  if (error instanceof Error && error.message.trim() !== '') return error.message;
-  if (typeof error === 'string' && error.trim() !== '') return error;
+export function restoreErrorMessage(error: unknown): Message {
+  if (error instanceof Error && error.message.trim() !== '') return { raw: error.message };
+  if (typeof error === 'string' && error.trim() !== '') return { raw: error };
   if (typeof error === 'object' && error !== null && 'message' in error) {
     const { message } = error as { message: unknown };
-    if (typeof message === 'string' && message.trim() !== '') return message;
+    if (typeof message === 'string' && message.trim() !== '') return { raw: message };
   }
-  return fallback;
+  // Only the fallback is translated. The others are the store's own words, and
+  // a message the player can screenshot is worth more than a tidy one.
+  return { key: 'restore.unreachable' };
 }

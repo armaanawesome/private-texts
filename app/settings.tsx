@@ -6,6 +6,7 @@ import Constants from 'expo-constants';
 import { theme } from '@/ui/theme';
 import { SUPPORTED_LOCALES } from '@/i18n/locales';
 import { useTranslator } from '@/i18n/useTranslator';
+import { render } from '@/i18n/message';
 import { useSettingsStore } from '@/settings/settingsStore';
 import { clearAllProgress, hydrateSettings } from '@/settings/persistence';
 import { feedback } from '@/settings/feedback';
@@ -127,7 +128,10 @@ export default function SettingsScreen() {
     );
   }, [t]);
 
-  const restoreLine = restoreStatusLine(restore);
+  const restoreStatus = restoreStatusLine(restore);
+  // Rendered here, not built as a sentence in src/settings — same reason as the
+  // sign-in notice: the words have to come from the catalogue the player is on.
+  const restoreLine = restoreStatus === null ? undefined : render(restoreStatus, t);
   const build =
     Platform.OS === 'ios'
       ? Constants.expoConfig?.ios?.buildNumber
@@ -209,7 +213,7 @@ export default function SettingsScreen() {
           />
         </Section>
 
-        <Section title={t('settings.purchases.section')} footnote={restoreLine ?? undefined}>
+        <Section title={t('settings.purchases.section')} footnote={restoreLine}>
           <ActionRow
             label={t('common.restorePurchases')}
             detail={t('settings.restore.detail')}

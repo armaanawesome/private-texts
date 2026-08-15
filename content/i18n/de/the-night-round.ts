@@ -84,12 +84,17 @@ import type { CaseTranslation } from '../caseText';
  * tutorial: every other German endearment an old woman has for a grown godchild
  * is gendered, and this seat has no gender.
  *
- * Which is also why `godson` at m1 is `Patenkind` and not `Patensohn`. The
- * English genders the player there and the Spanish followed it with `ahijado`,
- * because Spanish has no ungendered form to reach for. German does, it costs
- * nothing, and the standing rule for this seat is that it stays neutral — so
- * this is the one place the German is deliberately less specific than the
- * English, and the English is probably the thing that wants fixing.
+ * m1 names the relationship from Ivy-s side: `Ivy war deine Patentante`. That
+ * genders Ivy, who is dead, female and known, and marks the player with
+ * nothing.
+ *
+ * This line used to read `You are Ivy-s godson` and was the only place in
+ * fifteen packs where the game told the player what they were. The German went
+ * out as `Patenkind` rather than `Patensohn` — neuter, natural, and free, where
+ * Spanish had to pick a gender because `ahijado` has no neutral form. The
+ * English has since been changed to name it from the other side, so the German
+ * now follows it directly instead of quietly disagreeing with it, and
+ * `playerNeutral.test.ts` guards the source.
  */
 export const theNightRoundDe: CaseTranslation = {
   title: 'Die Nachtrunde',
@@ -155,7 +160,7 @@ export const theNightRoundDe: CaseTranslation = {
     g9: 'Teddy hat nach dir gefragt. Mit mir redet er nicht darüber, er sagt, ich gehöre zum Personal. Er ist ab sechs jeden Morgen im Aufenthaltsraum, falls du ihn sprechen willst',
 
     // ---------------------------------------------------------------- t-margo
-    m1: 'Du bist Ivys Patenkind, oder? Sie hat mir dein Foto ungefähr vierhundert Mal gezeigt, und ich übertreibe nicht!',
+    m1: 'Ivy war deine Patentante, oder? Sie hat mir dein Foto ungefähr vierhundert Mal gezeigt, und ich übertreibe nicht!',
     m2: 'wer hat in der nacht nach ihr gesehen',
     m3: 'Ich. Ich mache elf und zwei auf dem Flur, das steht mit meinen Initialen im Nachtbuch. Elf und zwei, jede Nacht, vierzehn Jahre lang mache ich das schon',
     m4: 'Sie hat geschlafen. Das habe ich geschrieben. Schläft, ruhig, keine Auffälligkeiten',
