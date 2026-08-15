@@ -58,6 +58,11 @@ describe('parseSettings', () => {
   it('falls back to English when the stored locale is no longer shipped', () => {
     // Dropping a language between releases is normal. The player who had it
     // selected must land on English, not on a screen of missing keys.
+    //
+    // `ja` rather than an invented tag, because this stopped being hypothetical
+    // on 2026-08-14: Japanese was in the picker with an empty catalogue and was
+    // removed. Anyone who had chosen it still has this exact string on disk.
+    expect(parseSettings({ localeTag: 'ja' }).localeTag).toBe(DEFAULT_SETTINGS.localeTag);
     expect(parseSettings({ localeTag: 'kl' }).localeTag).toBe(DEFAULT_SETTINGS.localeTag);
   });
 
@@ -116,7 +121,7 @@ describe('settingsEqual', () => {
     ['soundVolume', { soundVolume: 0.1 }],
     ['hapticsEnabled', { hapticsEnabled: false }],
     ['reduceMotion', { reduceMotion: true }],
-    ['localeTag', { localeTag: 'ja' as const }],
+    ['localeTag', { localeTag: 'pt-BR' as const }],
   ])('is false when %s differs', (_label, patch) => {
     expect(settingsEqual(DEFAULT_SETTINGS, { ...DEFAULT_SETTINGS, ...patch })).toBe(false);
   });

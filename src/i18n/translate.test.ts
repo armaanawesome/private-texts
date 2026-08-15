@@ -52,15 +52,24 @@ describe('lookup', () => {
    * The whole point of partial catalogues. Japanese ships no strings yet, so
    * every key must come back readable rather than blank or as a key.
    *
-   * This has now pointed at French, then German, then Japanese as each was
-   * translated. It moves rather than being deleted because the fallback path is
-   * only proven by a locale that is genuinely empty. When the last locale ships,
-   * this must switch to a synthetic tag rather than being dropped — the day
-   * nothing is left to fall back from is the day the fallback silently rots.
+   * This pointed at French, then German, then Japanese as each was translated,
+   * and now points at nothing real — Japanese was dropped from the picker on
+   * 2026-08-14 and every remaining locale has a catalogue.
+   *
+   * So it uses a synthetic tag, exactly as the note here said it would have to
+   * when the last locale shipped: the day nothing is left to fall back from is
+   * the day the fallback silently rots.
+   *
+   * The synthetic tag is also the *stronger* test now. `ja` was a defined but
+   * empty catalogue, so `CATALOGUES[tag]` returned `{}`. An unknown tag returns
+   * `undefined`, which is what a save actually holds after a locale is removed
+   * — a player who had chosen Japanese still has `localeTag: 'ja'` on disk.
    */
+  const UNTRANSLATED = 'zz' as LocaleTag;
+
   it('falls back to English for a locale with nothing translated', () => {
     for (const key of Object.keys(EN) as StringKey[]) {
-      expect(lookup('ja', key)).toBe(EN[key]);
+      expect(lookup(UNTRANSLATED, key)).toBe(EN[key]);
     }
   });
 
@@ -123,9 +132,11 @@ describe('translator', () => {
 });
 
 describe('coverage', () => {
+  const UNTRANSLATED = 'zz' as LocaleTag;
+
   it('is complete for English and empty for an untranslated locale', () => {
     expect(coverage('en')).toBe(1);
-    expect(coverage('ja')).toBe(0);
+    expect(coverage(UNTRANSLATED)).toBe(0);
   });
 
   /**

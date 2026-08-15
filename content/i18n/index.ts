@@ -84,7 +84,6 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-night-round': theNightRoundPtBr,
     'deep-field': deepFieldPtBr,
   },
-  ja: {},
 };
 
 /** The translation to use for one case in one locale, if there is one. */

@@ -40,9 +40,9 @@ describe('the settings store', () => {
   });
 
   it('marks itself hydrated when storage has been read', () => {
-    useSettingsStore.getState().replaceAll({ ...DEFAULT_SETTINGS, localeTag: 'ja' });
+    useSettingsStore.getState().replaceAll({ ...DEFAULT_SETTINGS, localeTag: 'pt-BR' });
     expect(useSettingsStore.getState().hydrated).toBe(true);
-    expect(useSettingsStore.getState().settings.localeTag).toBe('ja');
+    expect(useSettingsStore.getState().settings.localeTag).toBe('pt-BR');
   });
 
   it('puts every field back on reset', () => {

@@ -20,13 +20,25 @@ export interface Locale {
   readonly english: string;
 }
 
+/*
+ * Japanese was here and was removed on 2026-08-14.
+ *
+ * It was listed in the picker with an empty catalogue and no case text, so
+ * choosing it did nothing except render the whole game in English. Everything
+ * technically worked — that is what the fallback is for — which is precisely
+ * why it was worth removing: a language a player can select and receive nothing
+ * from is a promise the app does not keep, and it reads worse than a shorter
+ * list.
+ *
+ * Adding it back means a catalogue in strings.ts and case text in
+ * content/i18n/ja/, not just a row here.
+ */
 export const SUPPORTED_LOCALES = [
   { tag: 'en', endonym: 'English', english: 'English' },
   { tag: 'es', endonym: 'Español', english: 'Spanish' },
   { tag: 'fr', endonym: 'Français', english: 'French' },
   { tag: 'de', endonym: 'Deutsch', english: 'German' },
   { tag: 'pt-BR', endonym: 'Português (Brasil)', english: 'Portuguese (Brazil)' },
-  { tag: 'ja', endonym: '日本語', english: 'Japanese' },
 ] as const satisfies readonly Locale[];
 
 export type LocaleTag = (typeof SUPPORTED_LOCALES)[number]['tag'];

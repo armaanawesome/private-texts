@@ -832,7 +832,6 @@ export const CATALOGUES: Readonly<Record<LocaleTag, Catalogue>> = {
   // katakana — that this catalogue cannot fake. It also keeps one genuinely
   // untranslated locale in the build, which is the only thing that proves the
   // English fallback still works.
-  ja: {},
 };
 
 export const SOURCE_LOCALE: LocaleTag = DEFAULT_LOCALE;
