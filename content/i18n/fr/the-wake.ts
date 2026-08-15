@@ -22,7 +22,7 @@ import type { CaseTranslation } from '../caseText';
  *
  * 3. Names and places. People keep their names, including the English's own
  *    alternation between a display name and a fuller one — `Eileen` in the
- *    threads but `Bridie Mulvey` in the epilogue, `Donal` but `Donal Fahey` in
+ *    threads but `Eileen Mulvey` in the epilogue, `Donal` but `Donal Fahey` in
  *    r4, `Cass` but `Cassie` when her grandmother is upset with her. That is
  *    preserved where the English puts it rather than tidied.
  *
@@ -230,5 +230,5 @@ export const theWakeFr: CaseTranslation = {
   },
 
   epilogue:
-    'Gerald Mulvey a été exhumé en février. Le rapport a utilisé le mot compatible quatre fois et n’est pas allé plus loin, et il n’avait pas à le faire, parce qu’à ce moment-là il y avait le registre de la pharmacie et il y avait Maureen.\n\nElle a fait sa déposition sur deux jours et n’a pas demandé une seule fois ce que ça lui ferait. Quand on lui a demandé pourquoi elle avait dit le salon, elle a répondu : parce que ma mère l’a dit en premier.\n\nBridie Mulvey n’est pas venue au procès. Elle a envoyé une lettre à lire, d’une seule ligne, demandant qu’on dise au tribunal que sa petite-fille était dans le passage latéral tout le temps et n’avait rien à voir avec quoi que ce soit.\n\nCass a remboursé les quatre cents livres par versements à une femme qui ne les a jamais réclamés.',
+    'Gerald Mulvey a été exhumé en février. Le rapport a utilisé le mot compatible quatre fois et n’est pas allé plus loin, et il n’avait pas à le faire, parce qu’à ce moment-là il y avait le registre de la pharmacie et il y avait Maureen.\n\nElle a fait sa déposition sur deux jours et n’a pas demandé une seule fois ce que ça lui ferait. Quand on lui a demandé pourquoi elle avait dit le salon, elle a répondu : parce que ma mère l’a dit en premier.\n\nEileen Mulvey n’est pas venue au procès. Elle a envoyé une lettre à lire, d’une seule ligne, demandant qu’on dise au tribunal que sa petite-fille était dans le passage latéral tout le temps et n’avait rien à voir avec quoi que ce soit.\n\nCass a remboursé les quatre cents livres par versements à une femme qui ne les a jamais réclamés.',
 };

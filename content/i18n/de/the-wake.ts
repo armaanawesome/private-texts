@@ -72,7 +72,7 @@ import type { CaseTranslation } from '../caseText';
  *    keeps the directedness. Flagged for the English.
  *
  * Two names in the epilogue are stale in the source and are translated as they
- * stand rather than quietly corrected: it says `Bridie Mulvey` where the
+ * stand rather than quietly corrected: it says `Eileen Mulvey` where the
  * character is called Eileen, the same way Deep Field says `Orla`, `Pilar` and
  * `Rune` for Laura, Maria and Erik. Flagged rather than fixed, because the fix
  * belongs in the English where every language gets it at once.
@@ -249,5 +249,5 @@ export const theWakeDe: CaseTranslation = {
   },
 
   epilogue:
-    'Gerald Mulvey wurde im Februar exhumiert. Der Bericht benutzte das Wort vereinbar viermal und ging nicht weiter als das, und er musste es auch nicht, weil es da schon das Register der Apotheke gab und weil es Maureen gab.\n\nSie hat ihre Aussage über zwei Tage gemacht und kein einziges Mal gefragt, was das mit ihr machen würde. Als sie gefragt wurde, warum sie das Vorderzimmer gesagt hatte, sagte sie: weil meine Mutter es zuerst gesagt hat.\n\nBridie Mulvey ist nicht zum Prozess gegangen. Sie hat einen Brief geschickt, der verlesen werden sollte, eine Zeile lang, mit der Bitte, dem Gericht zu sagen, dass ihre Enkelin die ganze Zeit im Seitengang gewesen war und mit alldem nichts zu tun hatte.\n\nCass hat die vierhundert Pfund in Raten an eine Frau zurückgezahlt, die kein einziges Mal danach gefragt hat.',
+    'Gerald Mulvey wurde im Februar exhumiert. Der Bericht benutzte das Wort vereinbar viermal und ging nicht weiter als das, und er musste es auch nicht, weil es da schon das Register der Apotheke gab und weil es Maureen gab.\n\nSie hat ihre Aussage über zwei Tage gemacht und kein einziges Mal gefragt, was das mit ihr machen würde. Als sie gefragt wurde, warum sie das Vorderzimmer gesagt hatte, sagte sie: weil meine Mutter es zuerst gesagt hat.\n\nEileen Mulvey ist nicht zum Prozess gegangen. Sie hat einen Brief geschickt, der verlesen werden sollte, eine Zeile lang, mit der Bitte, dem Gericht zu sagen, dass ihre Enkelin die ganze Zeit im Seitengang gewesen war und mit alldem nichts zu tun hatte.\n\nCass hat die vierhundert Pfund in Raten an eine Frau zurückgezahlt, die kein einziges Mal danach gefragt hat.',
 };

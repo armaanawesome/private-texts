@@ -656,6 +656,6 @@ export const theCutRaw = {
     requiredContradictionIds: ['x-nate-norbury', 'x-nate-bike', 'x-nate-wharf'],
     requiredMotiveIds: ['m-effie'],
     epilogue:
-      'The Canal and River Trust supplied eleven months of key data in a single spreadsheet and apologised for the delay.\n\nEffie Ogilvy came to Norbury on the Saturday because nobody had her number to stop her. Alan Pryce met her at the top of the lane and told her in the car park, and then sat with her in the Junction for four hours.\n\nShe read the letter out at the funeral. All four pages. She said afterwards that she had written it to be read to Julie and could not think of a reason to change a word of it now.\n\nBo Ferreira still walks Moss from eight until twenty to ten. The route goes past Julie’s old mooring, and Sam has not changed it, because Moss is thirteen and has his route.',
+      'The Canal and River Trust supplied eleven months of key data in a single spreadsheet and apologised for the delay.\n\nEffie Ogilvy came to Norbury on the Saturday because nobody had her number to stop her. Alan Pryce met her at the top of the lane and told her in the car park, and then sat with her in the Junction for four hours.\n\nShe read the letter out at the funeral. All four pages. She said afterwards that she had written it to be read to Julie and could not think of a reason to change a word of it now.\n\nSam Ferreira still walks Moss from eight until twenty to ten. The route goes past Julie’s old mooring, and Sam has not changed it, because Moss is thirteen and has his route.',
   },
 };

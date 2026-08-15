@@ -354,20 +354,28 @@ describe('Campo Profundo (pt-BR) — the names', () => {
   });
 
   /**
-   * The English briefing and epilogue call three of these people by different
-   * names from the ones on screen — Orla Byrne for Laura, Pilar Otxoa for Maria,
-   * Rune Sandved for Erik — which looks like a rename that missed two long prose
-   * fields. The translation reproduces the English exactly rather than quietly
-   * correcting it.
+   * The call that got the source fixed.
    *
-   * Asserted against the English rather than hardcoded, so that the day the source
-   * is fixed this fails and forces the Portuguese to be fixed in the same commit,
-   * instead of the two silently drifting apart.
+   * The English briefing and epilogue used to call three of these people by
+   * names that appear nowhere on screen — Orla Byrne for Laura, Pilar Otxoa for
+   * Maria, Rune Sandved for Erik. This translation reproduced them exactly
+   * rather than quietly correcting them, and asserted against the English so
+   * that fixing the source would force the Portuguese to move in the same
+   * commit instead of the two drifting apart.
+   *
+   * It worked. Six stale names across three packs were found and fixed, and
+   * `content/cases/renameLeak.test.ts` now catches the class at the source —
+   * a character's id is the name it was written under, so an id that is not
+   * part of the current display name, appearing capitalised in the prose, is an
+   * old name surfacing.
+   *
+   * Keeping the assertion with the dead names removed: tying the two prose sets
+   * together is what catches the next name that changes in only one of them.
    */
   it('uses whichever form of each name the English uses', () => {
     const here = prose(script);
     const there = prose(english);
-    for (const name of ['Orla Byrne', 'Pilar Otxoa', 'Rune Sandved', 'Laura Byrne']) {
+    for (const name of ['Laura Byrne', 'Maria Otxoa', 'Erik Sandved']) {
       expect(here.includes(name), `English and pt-BR disagree about "${name}"`).toBe(
         there.includes(name),
       );

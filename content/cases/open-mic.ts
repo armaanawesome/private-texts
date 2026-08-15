@@ -62,7 +62,7 @@ export const openMicRaw = {
     ruling:
       'Recorded as a fall. She had been drinking, the alley slopes, and the whole room was inside watching a man do five minutes about trains.',
     opening:
-      'The Hatch runs an open mic every Tuesday and films it for a channel nobody watches, which is how eleven acts a week end up with something to send a promoter.\n\nMarnie Vaux was found in the alley behind it at twenty past eleven. She had done seven minutes at five to ten and gone out for air.\n\nYou make a podcast about the circuit. She had been sending you voice notes since March.',
+      'The Hatch runs an open mic every Tuesday and films it for a channel nobody watches, which is how eleven acts a week end up with something to send a promoter.\n\nDebbie Vaux was found in the alley behind it at twenty past eleven. She had done seven minutes at five to ten and gone out for air.\n\nYou make a podcast about the circuit. She had been sending you voice notes since March.',
   },
 
   threads: [
@@ -615,6 +615,6 @@ export const openMicRaw = {
     requiredContradictionIds: ['x-gil-alley', 'x-marnie-bar', 'x-card'],
     requiredMotiveIds: ['m-tour'],
     epilogue:
-      'Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called MARNIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.\n\nKit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.\n\nFerdy Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.\n\nThe eight weeks went to somebody else. The tour manager sent Roz a message asking her to pass on that they had watched the set eleven times before they booked her and would have booked her off two minutes of it.',
+      'Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called MARNIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.\n\nKit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.\n\nKevin Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.\n\nThe eight weeks went to somebody else. The tour manager sent Roz a message asking her to pass on that they had watched the set eleven times before they booked her and would have booked her off two minutes of it.',
   },
 };

@@ -1131,7 +1131,7 @@ She has held power of attorney since 2021, the fees were three months unpaid, an
 
 > Rothera Ridge keeps three clocks. Station time for the people, UTC for the instruments, and whatever each of them has left running on their own wrist from home.
 >
-> Orla Byrne was the doctor. She was found in the cold porch at two in the morning with her outer layer still on its hook, and the six of them agreed among themselves that she had gone out to look at the sky and misjudged it. The next aircraft is in October.
+> Laura Byrne was the doctor. She was found in the cold porch at two in the morning with her outer layer still on its hook, and the six of them agreed among themselves that she had gone out to look at the sky and misjudged it. The next aircraft is in October.
 >
 > You are her desk officer in Cambridge and the last person she wrote to.
 
@@ -1373,11 +1373,11 @@ Laura had found atrial fibrillation on his annual screen. Protocol is medical ev
 
 > The station finished the winter. There was no other option and there was no other place to put him, so for one hundred and eleven days six people ate breakfast together and five of them knew.
 >
-> Pilar Otxoa wrote a twelve page report and did not soften a line of it, and then cooked with Theo every night until October because Theo could not do it alone any more.
+> Maria Otxoa wrote a twelve page report and did not soften a line of it, and then cooked with Theo every night until October because Theo could not do it alone any more.
 >
-> Rune Sandved gave his account in eleven voice notes. The transcription clerk in Cambridge said afterwards it was the clearest witness statement she had ever taken down, and asked whether he was a writer.
+> Erik Sandved gave his account in eleven voice notes. The transcription clerk in Cambridge said afterwards it was the clearest witness statement she had ever taken down, and asked whether he was a writer.
 >
-> Orla Byrne’s screen file was never recovered. The arrhythmia was confirmed at Rothera in the October medical, by a doctor who had flown in that morning and had never met either of them.
+> Laura Byrne’s screen file was never recovered. The arrhythmia was confirmed at Rothera in the October medical, by a doctor who had flown in that morning and had never met either of them.
 
 ---
 
@@ -1650,7 +1650,7 @@ He collected Gerald’s prescriptions every week of the last month and a hundred
 >
 > She gave her statement over two days and did not once ask what it would do to her. When they asked her why she had said the front room, she said: because my mother said it first.
 >
-> Bridie Mulvey did not attend the trial. She sent a letter to be read, of one line, asking that the court be told her granddaughter had been in the side return the whole time and had nothing to do with any of it.
+> Eileen Mulvey did not attend the trial. She sent a letter to be read, of one line, asking that the court be told her granddaughter had been in the side return the whole time and had nothing to do with any of it.
 >
 > Cass paid the four hundred pounds back in instalments to a woman who never once asked for it.
 
@@ -1915,11 +1915,11 @@ The original launch book has S. Brightwell in the duty column for the Saturday R
 
 > The 2009 inquest was reopened in the spring on the strength of a launch book that had spent sixteen years in a box in Dorothy Nance’s spare room.
 >
-> Imogen Kerr was not thrown out. Carol Prentice went to the committee with a written statement, ran out of it entirely, and finished by saying that the club had asked a nineteen year old to choose between a boat and a man, and that the club could hardly complain about which she chose. Em rowed five seat for the seniors in the spring, with an entry.
+> Emma Kerr was not thrown out. Carol Prentice went to the committee with a written statement, ran out of it entirely, and finished by saying that the club had asked a nineteen year old to choose between a boat and a man, and that the club could hardly complain about which she chose. Em rowed five seat for the seniors in the spring, with an entry.
 >
 > Warren Ako gave the police thirty one unbroken minutes of river and four seconds of slipway.
 >
-> Hester Vaine’s bag was under the trestles the whole time. Both books were still in it. She had put a paper clip on the page and written, in pencil, in the margin: tell Graham first.
+> Pauline Vaine’s bag was under the trestles the whole time. Both books were still in it. She had put a paper clip on the page and written, in pencil, in the margin: tell Graham first.
 
 ### Unknown number
 
@@ -2437,7 +2437,7 @@ Entry 114 was squeezed into the 1974 marriage register in a different hand, and 
 >
 > Jack Tenby replaced the latch on the tower door on the Thursday, and then repainted the whole door, and then did the porch, and his daughter says he has not stopped since.
 >
-> Petra Voss played at the funeral. She chose the Bach that Avril had complained about in January, which the parish took a while to understand and then understood all at once.
+> Denise Voss played at the funeral. She chose the Bach that Avril had complained about in January, which the parish took a while to understand and then understood all at once.
 
 ---
 
@@ -2692,7 +2692,7 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 >
 > She read the letter out at the funeral. All four pages. She said afterwards that she had written it to be read to Julie and could not think of a reason to change a word of it now.
 >
-> Bo Ferreira still walks Moss from eight until twenty to ten. The route goes past Julie’s old mooring, and Sam has not changed it, because Moss is thirteen and has his route.
+> Sam Ferreira still walks Moss from eight until twenty to ten. The route goes past Julie’s old mooring, and Sam has not changed it, because Moss is thirteen and has his route.
 
 ### Unknown number
 
@@ -2716,7 +2716,7 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 
 > The Hatch runs an open mic every Tuesday and films it for a channel nobody watches, which is how eleven acts a week end up with something to send a promoter.
 >
-> Marnie Vaux was found in the alley behind it at twenty past eleven. She had done seven minutes at five to ten and gone out for air.
+> Debbie Vaux was found in the alley behind it at twenty past eleven. She had done seven minutes at five to ten and gone out for air.
 >
 > You make a podcast about the circuit. She had been sending you voice notes since March.
 
@@ -2950,7 +2950,7 @@ They started the same month in 2009. She had eight weeks of tour support and had
 >
 > Kit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.
 >
-> Ferdy Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.
+> Kevin Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.
 >
 > The eight weeks went to somebody else. The tour manager sent Roz a message asking her to pass on that they had watched the set eleven times before they booked her and would have booked her off two minutes of it.
 
@@ -3760,11 +3760,11 @@ Nobody touched Ashley Crewe. Four of them stood on that bank and nobody rang for
 >
 > Sheila Crewe kept it in the drawer with the tea towels for a month before she gave it to anybody.
 >
-> Marika Selkirk went into Ardenshaw police station on the Wednesday morning with the invoice on her phone and a statement she had written out longhand the night before, correcting one she gave in 2005 when she was seventeen. The coroner reopened the record on the strength of it. It changed nothing about how Ashley Crewe died and it changed the whole of the last twenty minutes of his life, which is what the file had been wrong about.
+> Michelle Selkirk went into Ardenshaw police station on the Wednesday morning with the invoice on her phone and a statement she had written out longhand the night before, correcting one she gave in 2005 when she was seventeen. The coroner reopened the record on the strength of it. It changed nothing about how Ashley Crewe died and it changed the whole of the last twenty minutes of his life, which is what the file had been wrong about.
 >
 > Tobi Marchetti did his shift on the Saturday. He said afterwards that he thought about not going and then went, because nine on a rota is nine on a rota.
 >
-> Corin Vale put in for the fence a twelfth time. It went up in the November.
+> Colin Vale put in for the fence a twelfth time. It went up in the November.
 
 ---
 
@@ -4050,7 +4050,7 @@ He had been telling the Magnus Bar he was a master mariner, thirty-one years, ch
 >
 > Senga Moar gave evidence for a day and a half. She was asked eleven times whether a passenger could have been mistaken about a port call, and eleven times she said that the screens ran the notice on a ninety-second loop on every deck for ten hours.
 >
-> Marisa Kinnaird still does four nights a week on that run. She has not written anything different in the lost property book, because there was never anything wrong with how she wrote it up.
+> Sheila Kinnaird still does four nights a week on that run. She has not written anything different in the lost property book, because there was never anything wrong with how she wrote it up.
 >
 > Eck Tulloch was asked to give a statement about his movements and gave one, and then asked the officer to put in it that the nurse had made him sit down for eighty minutes and that he had missed the football. He does the crossing twice a month to see his sister. He still stands in the same corner.
 >

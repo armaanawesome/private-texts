@@ -23,6 +23,9 @@ import { deepFieldEs } from './es/deep-field';
 import { theWakeDe } from './de/the-wake';
 import { theWakeFr } from './fr/the-wake';
 import { theWakePtBr } from './pt-BR/the-wake';
+import { theWakeEs } from './es/the-wake';
+import { theLongCourseEs } from './es/the-long-course';
+import { theLongCourseDe } from './de/the-long-course';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -70,6 +73,8 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-understudy': theUnderstudyEs,
     'the-night-round': theNightRoundEs,
     'deep-field': deepFieldEs,
+    'the-wake': theWakeEs,
+    'the-long-course': theLongCourseEs,
   },
   fr: {
     tutorial: tutorialFr,
@@ -86,6 +91,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-night-round': theNightRoundDe,
     'deep-field': deepFieldDe,
     'the-wake': theWakeDe,
+    'the-long-course': theLongCourseDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,

@@ -106,7 +106,7 @@ export const deepFieldPtBr: CaseTranslation = {
     ruling:
       'Registrado como fatalidade. Ninguém consegue chegar à estação até outubro e ninguém pediu para chegar.',
     opening:
-      'Rothera Ridge mantém três relógios. A hora da estação para as pessoas, UTC para os instrumentos, e o que cada um deixou correndo no próprio pulso desde casa.\n\nOrla Byrne era a médica. Foi encontrada na antecâmara às duas da manhã com a roupa externa ainda no gancho, e os seis concordaram entre si que ela tinha saído para olhar o céu e se enganou. A próxima aeronave é em outubro.\n\nVocê é a pessoa que responde pelo caso dela em Cambridge e a última para quem ela escreveu.',
+      'Rothera Ridge mantém três relógios. A hora da estação para as pessoas, UTC para os instrumentos, e o que cada um deixou correndo no próprio pulso desde casa.\n\nLaura Byrne era a médica. Foi encontrada na antecâmara às duas da manhã com a roupa externa ainda no gancho, e os seis concordaram entre si que ela tinha saído para olhar o céu e se enganou. A próxima aeronave é em outubro.\n\nVocê é a pessoa que responde pelo caso dela em Cambridge e a última para quem ela escreveu.',
   },
 
   messages: {
@@ -246,5 +246,5 @@ export const deepFieldPtBr: CaseTranslation = {
   },
 
   epilogue:
-    'A estação terminou o inverno. Não havia outra opção e não havia outro lugar para colocar ele, então durante cento e onze dias seis pessoas tomaram café da manhã juntas e cinco delas sabiam.\n\nPilar Otxoa escreveu um relatório de doze páginas e não suavizou uma linha, e depois cozinhou com o Theo toda noite até outubro porque o Theo não conseguia mais fazer aquilo sozinho.\n\nRune Sandved prestou depoimento em onze áudios. A funcionária que transcreveu em Cambridge disse depois que era o depoimento de testemunha mais claro que ela já tinha registrado, e perguntou se ele era escritor.\n\nO arquivo do exame de Orla Byrne nunca foi recuperado. A arritmia foi confirmada em Rothera no exame médico de outubro, por um médico que tinha voado para lá naquela manhã e nunca tinha conhecido nenhum dos dois.',
+    'A estação terminou o inverno. Não havia outra opção e não havia outro lugar para colocar ele, então durante cento e onze dias seis pessoas tomaram café da manhã juntas e cinco delas sabiam.\n\nMaria Otxoa escreveu um relatório de doze páginas e não suavizou uma linha, e depois cozinhou com o Theo toda noite até outubro porque o Theo não conseguia mais fazer aquilo sozinho.\n\nErik Sandved prestou depoimento em onze áudios. A funcionária que transcreveu em Cambridge disse depois que era o depoimento de testemunha mais claro que ela já tinha registrado, e perguntou se ele era escritor.\n\nO arquivo do exame de Laura Byrne nunca foi recuperado. A arritmia foi confirmada em Rothera no exame médico de outubro, por um médico que tinha voado para lá naquela manhã e nunca tinha conhecido nenhum dos dois.',
 };

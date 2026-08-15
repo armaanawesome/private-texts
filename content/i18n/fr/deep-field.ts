@@ -37,9 +37,9 @@ import type { CaseTranslation } from '../caseText';
  *                      metmast   → le mât météo
  *
  *    The English alternates between a display name and a fuller name for three
- *    people — `Laura` in the threads but `Orla Byrne` in the briefing and the
- *    epilogue, `Maria` in the messages but `Pilar Otxoa` in the epilogue, `Erik`
- *    throughout but `Rune Sandved` in the epilogue. That is preserved exactly
+ *    people — `Laura` in the threads but `Laura Byrne` in the briefing and the
+ *    epilogue, `Maria` in the messages but `Maria Otxoa` in the epilogue, `Erik`
+ *    throughout but `Erik Sandved` in the epilogue. That is preserved exactly
  *    where the English puts it rather than tidied, because tidying it would be
  *    rewriting the source from inside a translation.
  *
@@ -105,7 +105,7 @@ export const deepFieldFr: CaseTranslation = {
     ruling:
       'Enregistré comme mort accidentelle. Personne ne peut atteindre la station avant octobre et personne ne l’a demandé.',
     opening:
-      'Rothera Ridge tient trois horloges. L’heure station pour les gens, UTC pour les instruments, et ce que chacun a laissé tourner à son propre poignet, venu de chez lui.\n\nOrla Byrne était le médecin. On l’a trouvée dans le sas froid à deux heures du matin, sa parka encore accrochée à sa patère, et à eux six ils se sont mis d’accord sur le fait qu’elle était sortie regarder le ciel et qu’elle avait mal jugé. Le prochain avion est en octobre.\n\nC’est toi qui gères son dossier à Cambridge, et la dernière personne à qui elle a écrit.',
+      'Rothera Ridge tient trois horloges. L’heure station pour les gens, UTC pour les instruments, et ce que chacun a laissé tourner à son propre poignet, venu de chez lui.\n\nLaura Byrne était le médecin. On l’a trouvée dans le sas froid à deux heures du matin, sa parka encore accrochée à sa patère, et à eux six ils se sont mis d’accord sur le fait qu’elle était sortie regarder le ciel et qu’elle avait mal jugé. Le prochain avion est en octobre.\n\nC’est toi qui gères son dossier à Cambridge, et la dernière personne à qui elle a écrit.',
   },
 
   messages: {
@@ -235,5 +235,5 @@ export const deepFieldFr: CaseTranslation = {
   },
 
   epilogue:
-    'La station a fini l’hiver. Il n’y avait pas d’autre option et pas d’autre endroit où le mettre, alors pendant cent onze jours six personnes ont pris le petit-déjeuner ensemble et cinq d’entre elles savaient.\n\nPilar Otxoa a écrit un rapport de douze pages sans en adoucir une ligne, puis a cuisiné avec Theo tous les soirs jusqu’en octobre parce que Theo n’y arrivait plus tout seul.\n\nRune Sandved a fait sa déposition en onze notes vocales. La personne chargée de la transcription à Cambridge a dit après que c’était la déclaration de témoin la plus claire qu’elle ait jamais prise, et a demandé s’il était écrivain.\n\nLe dossier de bilan d’Orla Byrne n’a jamais été retrouvé. L’arythmie a été confirmée à Rothera lors de la visite médicale d’octobre, par un médecin arrivé en avion le matin même et qui n’avait jamais rencontré ni l’une ni l’autre.',
+    'La station a fini l’hiver. Il n’y avait pas d’autre option et pas d’autre endroit où le mettre, alors pendant cent onze jours six personnes ont pris le petit-déjeuner ensemble et cinq d’entre elles savaient.\n\nMaria Otxoa a écrit un rapport de douze pages sans en adoucir une ligne, puis a cuisiné avec Theo tous les soirs jusqu’en octobre parce que Theo n’y arrivait plus tout seul.\n\nErik Sandved a fait sa déposition en onze notes vocales. La personne chargée de la transcription à Cambridge a dit après que c’était la déclaration de témoin la plus claire qu’elle ait jamais prise, et a demandé s’il était écrivain.\n\nLe dossier de bilan d’Laura Byrne n’a jamais été retrouvé. L’arythmie a été confirmée à Rothera lors de la visite médicale d’octobre, par un médecin arrivé en avion le matin même et qui n’avait jamais rencontré ni l’une ni l’autre.',
 };

@@ -53,7 +53,7 @@ export const deepFieldRaw = {
     ruling:
       'Recorded as misadventure. Nobody can reach the station until October and nobody has asked to.',
     opening:
-      'Rothera Ridge keeps three clocks. Station time for the people, UTC for the instruments, and whatever each of them has left running on their own wrist from home.\n\nOrla Byrne was the doctor. She was found in the cold porch at two in the morning with her outer layer still on its hook, and the six of them agreed among themselves that she had gone out to look at the sky and misjudged it. The next aircraft is in October.\n\nYou are her desk officer in Cambridge and the last person she wrote to.',
+      'Rothera Ridge keeps three clocks. Station time for the people, UTC for the instruments, and whatever each of them has left running on their own wrist from home.\n\nLaura Byrne was the doctor. She was found in the cold porch at two in the morning with her outer layer still on its hook, and the six of them agreed among themselves that she had gone out to look at the sky and misjudged it. The next aircraft is in October.\n\nYou are her desk officer in Cambridge and the last person she wrote to.',
   },
 
   threads: [
@@ -675,6 +675,6 @@ export const deepFieldRaw = {
     requiredContradictionIds: ['x-mal-block', 'x-mal-porch', 'x-mal-surgery'],
     requiredMotiveIds: ['m-medevac'],
     epilogue:
-      'The station finished the winter. There was no other option and there was no other place to put him, so for one hundred and eleven days six people ate breakfast together and five of them knew.\n\nPilar Otxoa wrote a twelve page report and did not soften a line of it, and then cooked with Theo every night until October because Theo could not do it alone any more.\n\nRune Sandved gave his account in eleven voice notes. The transcription clerk in Cambridge said afterwards it was the clearest witness statement she had ever taken down, and asked whether he was a writer.\n\nOrla Byrne’s screen file was never recovered. The arrhythmia was confirmed at Rothera in the October medical, by a doctor who had flown in that morning and had never met either of them.',
+      'The station finished the winter. There was no other option and there was no other place to put him, so for one hundred and eleven days six people ate breakfast together and five of them knew.\n\nMaria Otxoa wrote a twelve page report and did not soften a line of it, and then cooked with Theo every night until October because Theo could not do it alone any more.\n\nErik Sandved gave his account in eleven voice notes. The transcription clerk in Cambridge said afterwards it was the clearest witness statement she had ever taken down, and asked whether he was a writer.\n\nLaura Byrne’s screen file was never recovered. The arrhythmia was confirmed at Rothera in the October medical, by a doctor who had flown in that morning and had never met either of them.',
   },
 };

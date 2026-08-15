@@ -115,7 +115,7 @@ export const deepFieldDe: CaseTranslation = {
     ruling:
       'Als Unglücksfall verzeichnet. Bis Oktober kommt niemand zur Station, und niemand hat darum gebeten.',
     opening:
-      'Rothera Ridge hält drei Uhren. Stationszeit für die Menschen, UTC für die Instrumente, und was jeder von ihnen am eigenen Handgelenk von zu Hause weiterlaufen lässt.\n\nOrla Byrne war die Ärztin. Gefunden wurde sie um zwei Uhr nachts in der Kälteschleuse, ihre äußere Schicht noch am Haken, und die sechs haben untereinander ausgemacht, dass sie hinausgegangen war, um den Himmel anzusehen, und sich verschätzt hat. Das nächste Flugzeug kommt im Oktober.\n\nDu bist in Cambridge für sie zuständig und der letzte Mensch, dem sie geschrieben hat.',
+      'Rothera Ridge hält drei Uhren. Stationszeit für die Menschen, UTC für die Instrumente, und was jeder von ihnen am eigenen Handgelenk von zu Hause weiterlaufen lässt.\n\nLaura Byrne war die Ärztin. Gefunden wurde sie um zwei Uhr nachts in der Kälteschleuse, ihre äußere Schicht noch am Haken, und die sechs haben untereinander ausgemacht, dass sie hinausgegangen war, um den Himmel anzusehen, und sich verschätzt hat. Das nächste Flugzeug kommt im Oktober.\n\nDu bist in Cambridge für sie zuständig und der letzte Mensch, dem sie geschrieben hat.',
   },
 
   messages: {
@@ -250,5 +250,5 @@ export const deepFieldDe: CaseTranslation = {
   },
 
   epilogue:
-    'Die Station hat den Winter zu Ende gebracht. Es gab keine andere Möglichkeit und keinen anderen Ort für ihn, also haben einhundertelf Tage lang sechs Menschen zusammen gefrühstückt, und fünf von ihnen wussten es.\n\nPilar Otxoa hat einen zwölfseitigen Bericht geschrieben und keine Zeile davon abgemildert, und hat danach bis Oktober jeden Abend mit Theo gekocht, weil Theo es allein nicht mehr konnte.\n\nRune Sandved hat seine Aussage in elf Sprachnachrichten gemacht. Die Schreibkraft in Cambridge sagte hinterher, es sei die klarste Zeugenaussage, die sie je aufgenommen habe, und fragte, ob er Schriftsteller sei.\n\nOrla Byrnes Untersuchungsakte ist nie wieder aufgetaucht. Die Rhythmusstörung wurde bei der Oktoberuntersuchung in Rothera bestätigt, von einer Ärztin, die an dem Morgen eingeflogen war und keinen von beiden je getroffen hatte.',
+    'Die Station hat den Winter zu Ende gebracht. Es gab keine andere Möglichkeit und keinen anderen Ort für ihn, also haben einhundertelf Tage lang sechs Menschen zusammen gefrühstückt, und fünf von ihnen wussten es.\n\nMaria Otxoa hat einen zwölfseitigen Bericht geschrieben und keine Zeile davon abgemildert, und hat danach bis Oktober jeden Abend mit Theo gekocht, weil Theo es allein nicht mehr konnte.\n\nErik Sandved hat seine Aussage in elf Sprachnachrichten gemacht. Die Schreibkraft in Cambridge sagte hinterher, es sei die klarste Zeugenaussage, die sie je aufgenommen habe, und fragte, ob er Schriftsteller sei.\n\nLaura Byrnes Untersuchungsakte ist nie wieder aufgetaucht. Die Rhythmusstörung wurde bei der Oktoberuntersuchung in Rothera bestätigt, von einer Ärztin, die an dem Morgen eingeflogen war und keinen von beiden je getroffen hatte.',
 };

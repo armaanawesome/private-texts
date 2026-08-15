@@ -367,16 +367,27 @@ describe('O Velório (pt-BR) — the names', () => {
   });
 
   /**
-   * The English epilogue calls Eileen `Bridie Mulvey` while the screen and the rest
-   * of the prose call her Eileen — the same rename that missed a long prose field in
-   * Deep Field. The translation reproduces the English rather than quietly
-   * correcting it, and asserts against the English so that the day the source is
-   * fixed this fails and forces the Portuguese to be fixed in the same commit.
+   * This did its job on the second day it existed.
+   *
+   * The English epilogue used to call Eileen `Bridie Mulvey` while the screen
+   * and the rest of the prose called her Eileen — one of six stale names left
+   * behind by renames across three packs. Rather than quietly correcting it,
+   * this translation reproduced the English and asserted *against* the English,
+   * on the reasoning that the day the source was fixed this would fail and
+   * force the Portuguese to move in the same commit instead of drifting.
+   *
+   * That is exactly what happened: the source was fixed, this went red, and the
+   * Portuguese was corrected alongside it. `content/cases/renameLeak.test.ts`
+   * now stops the whole class at the source.
+   *
+   * Keeping the assertion, minus the dead name. Tying the two prose sets
+   * together is worth having for its own sake — it is what catches the next
+   * name that moves in only one of them.
    */
   it('uses whichever form of each name the English uses', () => {
     const here = prose(script);
     const there = prose(english);
-    for (const name of ['Bridie Mulvey', 'Eileen Mulvey', 'Donal Fahey', 'Anthony', 'Cassie']) {
+    for (const name of ['Eileen Mulvey', 'Donal Fahey', 'Anthony', 'Cassie']) {
       expect(here.includes(name), `English and pt-BR disagree about "${name}"`).toBe(
         there.includes(name),
       );

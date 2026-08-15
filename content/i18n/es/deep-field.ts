@@ -40,8 +40,8 @@ import type { CaseTranslation } from '../caseText';
  *    `el módulo` does the same for the block.
  *
  *    Left as the English has it, deliberately: the briefing calls the victim
- *    `Orla Byrne` and the epilogue calls the three of them `Pilar Otxoa`, `Rune
- *    Sandved` and `Orla Byrne`, while every message and the character table call
+ *    `Laura Byrne` and the epilogue calls the three of them `Maria Otxoa`, `Rune
+ *    Sandved` and `Laura Byrne`, while every message and the character table call
  *    them Maria, Erik and Laura. That is an inconsistency in the source — the
  *    ids are still orla/pilar/rune and the rename did not reach those two
  *    fields — and it is copied rather than repaired, because a translation that
@@ -134,7 +134,7 @@ export const deepFieldEs: CaseTranslation = {
     ruling:
       'Registrado como muerte accidental. Nadie puede llegar a la estación hasta octubre y nadie lo ha pedido.',
     opening:
-      'Rothera Ridge lleva tres relojes. La hora de la estación para las personas, UTC para los instrumentos, y lo que cada uno tenga corriendo en su propia muñeca desde casa.\n\nOrla Byrne era la médica. La encontraron en el vestíbulo frío a las dos de la mañana con la capa exterior todavía en su percha, y los seis acordaron entre ellos que había salido a mirar el cielo y lo había calculado mal. El siguiente avión es en octubre.\n\nEres su contacto en Cambridge y la última persona a la que escribió.',
+      'Rothera Ridge lleva tres relojes. La hora de la estación para las personas, UTC para los instrumentos, y lo que cada uno tenga corriendo en su propia muñeca desde casa.\n\nLaura Byrne era la médica. La encontraron en el vestíbulo frío a las dos de la mañana con la capa exterior todavía en su percha, y los seis acordaron entre ellos que había salido a mirar el cielo y lo había calculado mal. El siguiente avión es en octubre.\n\nEres su contacto en Cambridge y la última persona a la que escribió.',
   },
 
   messages: {
@@ -276,5 +276,5 @@ export const deepFieldEs: CaseTranslation = {
   },
 
   epilogue:
-    'La estación terminó el invierno. No había otra opción y no había otro sitio donde meterlo, así que durante ciento once días seis personas desayunaron juntas y cinco de ellas lo sabían.\n\nPilar Otxoa escribió un informe de doce páginas y no suavizó ni una línea, y después cocinó con Theo todas las noches hasta octubre porque Theo ya no podía hacerlo solo.\n\nRune Sandved dio su declaración en once notas de voz. La transcriptora de Cambridge dijo después que era la declaración de testigo más clara que había pasado a máquina nunca, y preguntó si era escritor.\n\nEl expediente de cribado de Orla Byrne no se recuperó nunca. La arritmia se confirmó en Rothera en el reconocimiento médico de octubre, por un médico que había llegado en avión esa mañana y que no había conocido nunca a ninguno de los dos.',
+    'La estación terminó el invierno. No había otra opción y no había otro sitio donde meterlo, así que durante ciento once días seis personas desayunaron juntas y cinco de ellas lo sabían.\n\nMaria Otxoa escribió un informe de doce páginas y no suavizó ni una línea, y después cocinó con Theo todas las noches hasta octubre porque Theo ya no podía hacerlo solo.\n\nErik Sandved dio su declaración en once notas de voz. La transcriptora de Cambridge dijo después que era la declaración de testigo más clara que había pasado a máquina nunca, y preguntó si era escritor.\n\nEl expediente de cribado de Laura Byrne no se recuperó nunca. La arritmia se confirmó en Rothera en el reconocimiento médico de octubre, por un médico que había llegado en avión esa mañana y que no había conocido nunca a ninguno de los dos.',
 };
