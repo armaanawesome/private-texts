@@ -31,6 +31,10 @@ import { theLongCoursePtBr } from './pt-BR/the-long-course';
 import { theBothyEs } from './es/the-bothy';
 import { theBothyDe } from './de/the-bothy';
 import { theBothyPtBr } from './pt-BR/the-bothy';
+import { theBothyFr } from './fr/the-bothy';
+import { sundayServiceEs } from './es/sunday-service';
+import { sundayServiceDe } from './de/sunday-service';
+import { sundayServicePtBr } from './pt-BR/sunday-service';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -81,6 +85,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-wake': theWakeEs,
     'the-long-course': theLongCourseEs,
     'the-bothy': theBothyEs,
+    'sunday-service': sundayServiceEs,
   },
   fr: {
     tutorial: tutorialFr,
@@ -90,6 +95,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'deep-field': deepFieldFr,
     'the-wake': theWakeFr,
     'the-long-course': theLongCourseFr,
+    'the-bothy': theBothyFr,
   },
   de: {
     tutorial: tutorialDe,
@@ -100,6 +106,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-wake': theWakeDe,
     'the-long-course': theLongCourseDe,
     'the-bothy': theBothyDe,
+    'sunday-service': sundayServiceDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
@@ -110,6 +117,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-wake': theWakePtBr,
     'the-long-course': theLongCoursePtBr,
     'the-bothy': theBothyPtBr,
+    'sunday-service': sundayServicePtBr,
   },
 };
 
