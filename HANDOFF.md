@@ -12,6 +12,7 @@ Built for the **RevenueCat Shipaton 2026 — Next Gen (student) award**.
 | Repo | https://github.com/armaanawesome/private-texts (public) |
 | Deadline | **2026-09-30 23:45 PDT** · internal target **2026-09-28** |
 | Started | 2026-08-08 |
+| This file last verified | **2026-08-18** — test count and language table re-run, not copied |
 | Plan | `../docs/superpowers/plans/2026-08-08-shipaton-detective.md` |
 | Build constraints | `docs/BUILDING.md` — **read before touching eas.json** |
 | Design system | `design-system/shipaton-detective/MASTER.md` |
@@ -58,19 +59,21 @@ accuse.
 | Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
 | Settings screen + audio model | ✅ code complete; **`assets/audio/` does not exist — no cue has a file** |
 | Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync — **RLS verified live** |
-| Languages | ⚠️ 4 UI catalogues complete; case text partial (see §7b) |
+| Languages | ⚠️ 4 UI catalogues complete; case text = tutorial + packs 1–6 in all four (see §7b) |
 | Standalone build | ✅ `preview` launches with no Metro (bundle verified inside the `.app`) |
 | OneSignal | ❌ not started |
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `.\check.cmd` → **1811 passing across 70 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **2404 passing across 82 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
-by running the suite on 2026-08-14, not copied forward.
+by running the suite on 2026-08-18, not copied forward. Most of the growth since
+1811 is translation: registering a pack in a locale runs every generic suite over
+it, so each of the twenty-eight registered case translations adds its share.
 
 **Run `.\check.cmd`, not `npx vitest` by hand.** It `cd`s to the project root
 first. Running vitest from the parent directory silently picks up unrelated
-projects — 118 test files instead of 70, most of them failing — and `npx tsc`
+projects — 118 test files instead of 82, most of them failing — and `npx tsc`
 there resolves to a **squatter package** called `tsc` rather than the compiler.
 Both failures look alarming and neither is real.
 
@@ -80,7 +83,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-1811 actually prove: that no case is unsolvable, no thread is unreachable, no
+2404 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -250,6 +253,37 @@ before every task.** They have called this out when it lapsed. Honour it.
 - **ruflo** ✅ installed and used for the multi-agent translation work. The old
   note here said "never connected"; that is out of date.
 
+  **Its MCP tools are not reachable from this app — the CLI is.** What earns its
+  place is `ruflo memory`, used as a **shared convention store the agents read
+  and write across their own deaths.** Sixteen entries under `privatetexts/i18n/`
+  in the namespace `translation`, each one a rule that cost real debugging:
+  `contracted-prepositions`, `dont-mirror-english-edits`,
+  `third-person-player-gender`, `place-names-in-prose`, the clock-wrap rule, the
+  arc-alias rule, the `<pack> · en` diagnostic. Agents die on session limits
+  roughly once per pack; a rule that lives only in a brief dies with them, and a
+  rule in the store is retrieved by the next one.
+
+  ```bash
+  npx ruflo memory retrieve --namespace translation --key privatetexts/i18n/contracted-prepositions
+  ```
+
+  Two gotchas, both real:
+  - **`memory store` fails from Git Bash.** The `.cmd` shim re-enters `cmd.exe`
+    and chokes on the space in `C:\Program Files`. Store from PowerShell.
+    Retrieval works from either.
+  - **A double quote in `--value` truncates the value at that character.** Same
+    class as the `git commit -m` gotcha in §10 — seven entries were silently
+    stored as 18 bytes. Write values without embedded double quotes and **check
+    the size column** afterwards.
+
+  `memory list --namespace translation` shows an access count per entry, which
+  is the honest measure of whether this is working. The cross-locale rules are
+  read four to six times each; the four locale-specific ones (`es-...`, `de-...`,
+  `fr-...`, `pt-...`) sit at **zero** — only their own agent would ever want
+  them, and that agent already knows. Store cross-locale rules; write
+  locale-specific ones into the pack file's header comment instead, where the
+  next reader of that file cannot miss them.
+
 ### Subagents — what actually goes wrong
 
 Four agents were run in parallel for translation. The failure modes were not the
@@ -268,7 +302,20 @@ ones anticipated:
   judgement call. That is the alias story in §7b, and it is why the rule is now a
   test rather than a paragraph in a brief.
 - **`git add -A` sweeps an agent's in-progress files** into your commit. It
-  happened. Scope commits to explicit paths while agents are running.
+  happened. Scope commits to explicit paths while agents are running. For the
+  same reason, **do not trust a single test run while agents are writing** — one
+  run showed a failure at 2132 tests and the next showed 2134 passing, because
+  the suite had raced a half-written file.
+- **Budget for roughly one death per pack.** Limits have reset at 6:20am,
+  5:40pm, 1:30am, 8:10pm, 9:20am, 6:30am. This is not a problem to solve; it is
+  the cadence to design the brief around — one pack at a time, write to disk,
+  report after each.
+- **The coordinator's job is salvage and registration, and that is where the
+  defects are.** Every round the pattern repeats: the agents die mid-pack, their
+  finished files are sitting on disk unregistered, and registering them is what
+  first runs the generic suites over that pack. Four of the last five real bugs
+  surfaced at exactly that moment — including two in the *English*. Do the
+  salvage before spawning anything new.
 
 ---
 
@@ -452,19 +499,47 @@ valid. `caseStore.relocaliseScript` swaps the script while preserving progress �
 note it deliberately does **not** go through `loadScript`, which calls
 `set({ ...empty(), script })` and would wipe the playthrough.
 
-**Case text status:**
+**Case text status, 2026-08-18:**
 
 | Locale | Cases |
 |---|---|
-| es | tutorial + packs 1–3 (the whole free tier) |
-| fr, de, pt-BR | tutorial + packs 1–3, and `deep-field` (pack 4) |
-| ja | listed in the picker, nothing translated — falls back to English by design |
+| es, fr, de, pt-BR | tutorial + packs 1–6 (`the-long-course` is pack 6) |
+
+Nine packs left per locale, starting at `the-bothy`. Japanese was **removed**
+from the picker on 2026-08-14 — it had a row and an empty catalogue, which is a
+worse state than absence because the picker offered a language that did nothing.
+`src/i18n/locales.ts` carries a comment saying what re-adding costs: a UI
+catalogue *and* case text, not a row.
 
 Each translated pack carries its own test file asserting the load-bearing prose
 times against the message ids that state them. That is not duplication of the
 generic checks — `caseText.test.ts` can see that a number changed, but not that
 `ten past three` was reworded into a different minute, which is the single edit
 that leaves a case unsolvable and the whole suite green.
+
+**Registering a translation is the first time the generic suites run over that
+pack at all**, and it is where the real defects surface — in the *English* as
+often as in the translation. So far registration has caught the `the-understudy`
+deadlock, two gaps in the discovery-thread naming rule, a Spanish place name the
+prose never spoke, and a French one the same rule caught for the opposite
+reason. The diagnostic, worth keeping: **if it fails for `<pack> · en` too, the
+rule is wrong; if only the locale fails, the translation is wrong.**
+
+Two rules that came out of that and will bite again:
+
+- **A place name beginning with an article gets eaten by a contracted
+  preposition.** French shipped `place.bar` as `le bar du club` with a claim
+  label reading `au bar du club` — `au` is à + le, so the full name appeared in
+  no sentence and the chip and the message read as two different rooms. Write
+  `dans le bar du club`. Every language that fuses preposition with article has
+  this: French au/du, Spanish al/del, Portuguese no/na/do/da, German im/am/zum.
+- **An English fix does not imply a translation fix.** When `Answer him, Donal`
+  was corrected in the source, two of the four locales were already neutral
+  (`le`/`lui` do not inflect) and only Portuguese leaked. Rewriting them anyway
+  broke the Spanish voice test — that pack substitutes kept-versus-dropped
+  *accents* for the English's kept-versus-dropped apostrophes, and a replacement
+  with no accent in it made a careful character type like a careless one. Check
+  whether the locale actually has the problem before editing it.
 
 ### The one rule that outranks translator judgement
 
@@ -535,9 +610,23 @@ the arc is ever reworked.
   translated. If Supabase ever localises its errors, every branch stops firing
   and everything falls through to `raw` — degraded, not broken.
 
-- **Japanese is listed in the picker and is entirely empty.** Every string falls
-  back to English by design, so it works; it is just not translated. It is the
-  one locale with no case text and no UI catalogue at all.
+- **Japanese was removed, not finished** (2026-08-14). It had a picker row, an
+  empty catalogue and no case text — technically working, since everything fell
+  back to English, but the picker was offering a language that did nothing.
+  Removing it was a one-line change and a migration question: a save written
+  before the removal holds `ja`, and the resolver must not hand that save a
+  blank UI. `src/i18n/translate.test.ts` now pins the behaviour using a
+  **synthetic tag** (`'zz' as LocaleTag`) rather than a real one, which is
+  stronger than the `ja` test it replaced — `ja` was a defined-but-empty
+  catalogue returning `{}`, whereas an unknown tag returns `undefined`, and
+  `undefined` is what a save actually holds after a locale is dropped.
+
+- **Nothing has been read by a native speaker, and the packs have not been read
+  end to end by anyone.** Restating it here because the two compound: the tests
+  are structural, and every defect found in translation this week — the stale
+  names, the third-person gender leaks, the French place name — was found by an
+  agent *reading for sense*, never by the suite. That is the shape of what is
+  still hiding.
 
 ---
 
@@ -597,11 +686,15 @@ remaining, and the Design Award is judged on craft alone.
    autosave, resume, settings, audio model, accounts and all of i18n — the
    majority of the last week's work — and it is unmerged. Everything else on
    this list is smaller than the risk of leaving it there.
-2. **The mixed-language Continue card** (§7b). Most visible i18n bug.
-3. **LICENSE and app icon** (§7 items 5 and 6). Both are judge-visible, both are
+2. **LICENSE and app icon** (§7 items 5 and 6). Both are judge-visible, both are
    still scaffold defaults, and the LICENSE needs a *decision* rather than a fix.
-4. Evidence board craft pass (§8) — the highest-value design work remaining.
-5. Then Tasks 15, 17–21.
+3. Evidence board craft pass (§8) — the highest-value design work remaining.
+4. Then Tasks 15, 17–21.
+
+   The mixed-language Continue card that used to head this list is **fixed**
+   (§7b). Translation of packs 7–15 is running in four background agents and is
+   not on the critical path — none of it is judge-visible before the free tier,
+   which has been complete in all four languages for a week.
 
 **Two ship-blockers with no code in them:** the LICENSE still reads *"Copyright
 (c) 2015-present 650 Industries, Inc. (aka Expo)"*, and `assets/icon.png` is
@@ -704,3 +797,36 @@ rather than assuming:
   the killer by tapping every suspect.
 - **The paywall sells more cases, never the free case's ending.** A paywall over
   a mystery's answer dies to one YouTube upload.
+- **The player has no gender, age or face.**
+  `content/cases/playerNeutral.test.ts` guards the *English*, because the
+  English is what forces every translator's hand — one `You are Ivy's godson`
+  made three languages gender a person the game keeps blank, and it shipped
+  through fifteen packs because in English it is one word that reads perfectly
+  naturally. Deliberately narrow: it matches a gendered noun as the complement
+  of a copula addressed to `you`, not gendered words generally.
+
+  **Read its "WHAT THIS CANNOT SEE" block before trusting it.** It is blind to
+  the player in the **third person** — `now it is a radio link and a man in
+  Cambridge`, `Answer him, Donal` — because knowing that `him` means the player
+  needs coreference, and a pattern loose enough to guess would fire on every
+  ordinary sentence about every other character. Both of those were found by
+  translation agents reading for sense, and the evidence that the English was
+  the outlier is that all four translators had already gone neutral without
+  being asked: `alguien`, `quelqu'un`, `alguém`, `jemand`. **The detector that
+  works for this class is a careful reader**, not the suite.
+- **A rename leaves nothing behind.** `content/cases/renameLeak.test.ts`. Three
+  packs shipped calling one person two different things — a case ran for an
+  hour about Laura and closed on `Orla Byrne`; The Wake said `Bridie Mulvey`
+  about a woman the player had spent the case calling Eileen. All of them in
+  briefings and epilogues, which is where a reader is least able to shrug it
+  off. The naming rules never saw it: they ask whether the *current* name
+  appears, and it always did.
+
+  The signal was in the data the whole time — **a character's id is the name it
+  was written under.** Renaming meant editing `name:` and the prose; the id
+  stayed. So an id that is not part of the current display name, appearing
+  capitalised in the prose, is the old name surfacing. On its first run it found
+  **thirteen across seven packs.** Found originally by a translation agent, not
+  by a test, and then made executable — a manual `grep -c "\bName\b"` for the
+  same thing returned 0 twice **while the name was present**, because `\b` does
+  not match in this shell. That is the argument for the test in one line.
