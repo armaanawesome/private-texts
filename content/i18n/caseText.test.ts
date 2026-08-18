@@ -349,6 +349,24 @@ for (const caseId of TRANSLATED_CASE_IDS) {
        * reasons over is 03:15–03:30, every deduction the player makes by
        * reading is wrong while every deduction the engine makes is right, and
        * the case becomes unreasonable without a single test failing.
+       *
+       * A chip may name the window, or a single moment **inside** it. This rule
+       * demanded the window bounds until pack 7 was registered, and then failed
+       * `the-bothy · en` — which is the whole diagnostic: **a rule that fails
+       * the English is a wrong rule, not a broken pack.** Only the locales are
+       * suspect when only the locales fail.
+       *
+       * What it was rejecting is the case's spine. `c-keir-book-late` and
+       * `c-keir-book-early` deliberately share one window, because an exclusive
+       * group needs overlapping windows for the engine to see the collision at
+       * all — the window is machinery there, not an observation. Each label
+       * names what was *asserted*: `at 21:40` against `by 20:00`, and that pair
+       * of numbers is the contradiction the player is meant to spot. Force both
+       * chips to name the window and they both read 20:00–22:00, the pair
+       * becomes invisible, and the case stops being solvable by reading — the
+       * exact failure this rule exists to prevent, caused by the rule.
+       *
+       * A moment outside the window is still a defect, and still caught.
        */
       it('gives every claim chip the times the engine actually holds', () => {
         for (const t of script.threads) {
@@ -357,13 +375,20 @@ for (const caseId of TRANSLATED_CASE_IDS) {
               const times = clockTimes(c.label);
               if (times.length === 0) continue; // not every claim is about a clock
 
-              // One time names the start; two name the whole window. Anything
-              // else is a chip describing a moment the engine is not reasoning
-              // over, which the player has no way to tell from the outside.
               const allowed = endForms(c.window.end).map((end) => [clock(c.window.start), end]);
               const acceptable = [[clock(c.window.start)], ...allowed];
+              const namesTheWindow = acceptable.some((f) => f.join('|') === times.join('|'));
+
+              const minutes = (hhmm: string): number => {
+                const [h, m2] = hhmm.split(':').map(Number);
+                return (h ?? 0) * 60 + (m2 ?? 0);
+              };
+              const at = times.length === 1 ? minutes(times[0] ?? '') : -1;
+              const momentInside =
+                at >= 0 && at >= c.window.start % 1440 && at <= c.window.end % 1440;
+
               expect(
-                acceptable.some((form) => form.join('|') === times.join('|')),
+                namesTheWindow || momentInside,
                 `claim ${c.id} chip says ${times.join('–')} but the engine holds ` +
                   `${clock(c.window.start)}–${clock(c.window.end)}`,
               ).toBe(true);

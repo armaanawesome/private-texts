@@ -503,9 +503,13 @@ note it deliberately does **not** go through `loadScript`, which calls
 
 | Locale | Cases |
 |---|---|
-| es, fr, de, pt-BR | tutorial + packs 1–6 (`the-long-course` is pack 6) |
+| es, de, pt-BR | tutorial + packs 1–7 (`the-bothy` is pack 7) |
+| fr | tutorial + packs 1–6 |
 
-Nine packs left per locale, starting at `the-bothy`. Japanese was **removed**
+Eight packs left per locale, starting at `sunday-service`. **`de/the-bothy` has
+no test file** — the German agent died between the translation and the test, so
+it is the one registered pack without prose-time pinning. Write it before
+anything else German. Japanese was **removed**
 from the picker on 2026-08-14 — it had a row and an empty catalogue, which is a
 worse state than absence because the picker offered a language that did nothing.
 `src/i18n/locales.ts` carries a comment saying what re-adding costs: a UI
@@ -780,6 +784,8 @@ rather than assuming:
 | `Set-Content -Encoding utf8` writes a **BOM** | Which a JSON body parser rejects. Use `[System.IO.File]::WriteAllText($f, $json, (New-Object System.Text.UTF8Encoding($false)))`. |
 | `curl` JSON bodies get mangled by PowerShell quoting | Write the body to a file, pass `--data @file`. |
 | `npx tsc \| head` then `echo $?` | Reads *head's* exit code. Redirect to a file and capture properly. |
+| **A Bash heredoc cannot write a TypeScript file containing a template literal** | Backticks and `${...}` do not survive the shell wrapper — it fails with an unmatched-quote parse error. Two agents hit this independently. Use the Write tool for those files; auto-mode's prefer-Bash instruction does not override it. |
+| **Python `"\b"` inside a Bash-tool heredoc arrives as a backspace byte** | A layer collapses the doubled backslash, so `\b` becomes 0x08 and lands invisibly in the file. Build the escape as `chr(92) + 'b'`, or check afterwards for control characters. **This very table row was corrupted by the bug it documents, twice.** |
 | No Android SDK, no emulator, JDK 8 | Never `expo run:android` locally. Cloud builds only. |
 | ruflo wrote ~250 files into the repo | `.claude*/`, `.agents/`, `.swarm/`, `*.db` are gitignored. Keep it that way — judges read this repo. |
 
