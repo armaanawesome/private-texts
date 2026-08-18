@@ -1325,7 +1325,7 @@ Laura had found atrial fibrillation on his annual screen. Protocol is medical ev
 ### The confrontation
 
 **Mal**
-> Nineteen seasons. I have buried two people off this station and carried one of them myself, and now it is a radio link and a man in Cambridge. Go on.
+> Nineteen seasons. I have buried two people off this station and carried one of them myself, and now it is a radio link and somebody in Cambridge. Go on.
 
 **You**
 > You put yourself on the platform from quarter to ten. Theo watched you come down the accommodation corridor at ten past and knew you by how you walk.
@@ -1465,7 +1465,7 @@ Laura had found atrial fibrillation on his annual screen. Protocol is medical ev
 > nine years and thats your first question. right
 
 **Eileen**
-> Answer him, Donal.
+> Answer the question, Donal.
 
 **Donal**
 > I dont know where his bag is. its a house with forty people in it and a man dead in the back of it

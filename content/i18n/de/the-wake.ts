@@ -71,11 +71,12 @@ import type { CaseTranslation } from '../caseText';
  *    so playerNeutral.test.ts does not see it. German drops the pronoun and
  *    keeps the directedness. Flagged for the English.
  *
- * Two names in the epilogue are stale in the source and are translated as they
- * stand rather than quietly corrected: it says `Eileen Mulvey` where the
- * character is called Eileen, the same way Deep Field says `Orla`, `Pilar` and
- * `Rune` for Laura, Maria and Erik. Flagged rather than fixed, because the fix
- * belongs in the English where every language gets it at once.
+ * The epilogue used to close on a name the character had been renamed out of,
+ * and this translation reproduced it rather than quietly correcting it: a locale
+ * that fixes the English on its own diverges from every other locale while the
+ * English stays broken. Flagging it was the right call — the same fault was in
+ * seven packs and thirteen characters, and `content/cases/renameLeak.test.ts`
+ * now catches the class. Both sides say `Eileen Mulvey`.
  */
 export const theWakeDe: CaseTranslation = {
   title: 'Die Totenwache',

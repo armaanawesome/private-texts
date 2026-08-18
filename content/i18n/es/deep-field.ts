@@ -39,15 +39,14 @@ import type { CaseTranslation } from '../caseText';
  *    English dropping `cold` and `met` once the thing has been named, and bare
  *    `el módulo` does the same for the block.
  *
- *    Left as the English has it, deliberately: the briefing calls the victim
- *    `Laura Byrne` and the epilogue calls the three of them `Maria Otxoa`, `Rune
- *    Sandved` and `Laura Byrne`, while every message and the character table call
- *    them Maria, Erik and Laura. That is an inconsistency in the source — the
- *    ids are still orla/pilar/rune and the rename did not reach those two
- *    fields — and it is copied rather than repaired, because a translation that
- *    quietly fixes a fact is a translation nobody can diff. Flagged for the
- *    coordinator. If the English is corrected, four strings here follow it:
- *    briefing.opening and epilogue paragraphs two, three and four.
+ *    Surnames follow the source, which has since been corrected: this pack was
+ *    first translated when the briefing and the epilogue still carried the
+ *    pre-rename names for three characters whose ids are orla, pilar and rune.
+ *    Those were copied verbatim rather than repaired, on the rule that a
+ *    translation which quietly fixes a fact is a translation nobody can diff,
+ *    and flagged instead. The English was then fixed at source and this file
+ *    with it, so Laura, Maria and Erik now read the same in every field.
+ *    renameLeak.test.ts catches the class now.
  *
  * 4. Voice. Six people write differently and the difference is the character.
  *    Maria is the station leader writing for the record: capitals, full stops,

@@ -48,14 +48,13 @@ import type { CaseTranslation } from '../caseText';
  *      lateral` is the only candidate that does all four. Bare `el patio`
  *      mirrors the English dropping `side` once it has been named.
  *
- *    Left as the English has it, deliberately: the epilogue calls the
- *    grandmother `Eileen Mulvey` while the character table, every message and
- *    the x-donal-glasses revelation call her `Eileen`. The id is still `bridie`
- *    and the rename did not reach that one field. Same class of source bug as
- *    Deep Field’s `Laura Byrne`, copied rather than repaired, because a
- *    translation that quietly fixes a fact is a translation nobody can diff.
- *    Flagged for the coordinator; if the English is corrected, one string here
- *    follows it — epilogue paragraph three.
+ *    The grandmother is `Eileen` in every field. She was `Bridie` in the
+ *    epilogue when this pack was first translated — her id is still `bridie`
+ *    and the rename had not reached that one string — and it was copied
+ *    verbatim rather than repaired, on the rule that a translation which
+ *    quietly fixes a fact is a translation nobody can diff. The English has
+ *    since been corrected at source and this file with it. renameLeak.test.ts
+ *    catches the class now.
  *
  * 4. Voice, and the one axis Spanish had to replace. In the English, who drops
  *    an apostrophe is characterisation: Cass never writes one (`im`, `didnt`,

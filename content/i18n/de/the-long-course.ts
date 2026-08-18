@@ -60,12 +60,12 @@ import type { CaseTranslation } from '../caseText';
  *                clipping (`hab`, `is`). She apologises where Warren explains.
  *      Du      — lowercase including nouns, short, and no clipping at all.
  *
- * Two names in the epilogue are stale in the source and are translated as they
- * stand: `Pauline Vaine` for Pauline and `Emma Kerr` for Emma. That is the
- * third pack with this — Deep Field says `Orla`, `Pilar` and `Rune` for Laura,
- * Maria and Erik, and The Wake says `Bridie` for Eileen. All look like renames
- * that missed the epilogue. Flagged rather than fixed, because the fix belongs
- * in the English where every language gets it at once.
+ * The epilogue used to close on two names the characters had been renamed out
+ * of, and this translation reproduced them rather than quietly correcting them.
+ * It was the third pack in a row with the fault, which is what turned it from a
+ * typo into a rule: `content/cases/renameLeak.test.ts` now catches the class,
+ * and it found thirteen of them across seven packs. Both sides say `Emma Kerr`
+ * and `Pauline Vaine`.
  */
 export const theLongCourseDe: CaseTranslation = {
   title: 'Die Langstrecke',

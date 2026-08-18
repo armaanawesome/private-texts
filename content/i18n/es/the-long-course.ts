@@ -63,15 +63,16 @@ import type { CaseTranslation } from '../caseText';
  *      tidied; what makes it navigable in both languages is that `con los
  *      suplentes` is identical on the chip and in g9.
  *
- *    Left as the English has it, deliberately, and this is the third pack in a
- *    row with the same defect: the epilogue calls the victim `Pauline Vaine`
- *    while the briefing, every message and the character table call her
- *    `Pauline`, and it calls Em `Emma Kerr` while d10 and the x-imo-seat
- *    revelation call her `Emma Kerr`. The ids are `hester` and `imo`, and the
- *    rename did not reach the epilogue. Copied rather than repaired, because a
- *    translation that quietly fixes a fact is a translation nobody can diff.
- *    Flagged for the coordinator; if the English is corrected, one string here
- *    follows it — epilogue paragraphs two and four.
+ *    The victim is `Pauline Vaine` and Em is `Emma Kerr` in every field. The
+ *    epilogue carried `Hester Vaine` and `Imogen Kerr` when this pack was first
+ *    translated — the ids are `hester` and `imo`, and the rename had not
+ *    reached that one string — and they were copied verbatim rather than
+ *    repaired, on the rule that a translation which quietly fixes a fact is a
+ *    translation nobody can diff. The English has since been corrected at
+ *    source and this file with it, across thirteen stale names in seven packs.
+ *    renameLeak.test.ts catches the class now: an id is the name a character
+ *    was written under, so an id appearing capitalised in prose while not being
+ *    part of the display name is an old name leaking.
  *
  * 5. Voice, on the accent axis established in Pack 5. In the English, who drops
  *    an apostrophe is characterisation. Em drops every one of them (`didnt`,
