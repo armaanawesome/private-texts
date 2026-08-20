@@ -110,8 +110,19 @@ const ADDRESSED = new RegExp(
  * What makes it safely catchable — unlike the third-person case, which stays
  * out of reach — is that a vocative is punctuated like one. It is set off by a
  * comma and carries no determiner: `, son.` but never `, a son.`, and `Son,` at
- * the head of a sentence but never `Son of a docker,`. Requiring that shape
- * finds both real lines and nothing else in sixteen packs.
+ * the head of a sentence but never `Son of a docker,`.
+ *
+ * **Only in a thread the player is alone in**, and this is the load-bearing
+ * half. Kevin says `Son,` twice in Pack 10 and only one of them is a defect.
+ * In `t-ferdy` the participants are `you` and Kevin, so a vocative can only be
+ * aimed at the player. In `t-club` there are four people, and he is answering
+ * Dave, who has just accused him of being out the back — that `Son` belongs to
+ * Dave and deleting it would cost real characterisation for nothing.
+ *
+ * A first pass at this rule read the whole pack as one flat string, flagged
+ * both, and the fix removed the wrong one. Knowing who a vocative is aimed at
+ * in a group thread needs discourse, the same wall the third-person case runs
+ * into — so the rule stops at the boundary where the answer is structural.
  */
 const VOCATIVE_TRAILING = new RegExp(String.raw`,\s*(?:${GENDERED.join('|')})\s*[.,?!]`, 'i');
 const VOCATIVE_LEADING = new RegExp(
@@ -125,10 +136,17 @@ function prose(script: (typeof CASES)[number]): string {
 
 describe('the player stays unmarked', () => {
   it('never tells the player what they are, in any pack', () => {
-    const RULES = [ADDRESSED, VOCATIVE_TRAILING, VOCATIVE_LEADING];
     const offenders = CASES.flatMap((script) => {
-      const text = prose(script);
-      return RULES.map((rule) => rule.exec(text))
+      const found = [ADDRESSED.exec(prose(script))];
+
+      // Vocatives only where the player is the sole audience — see above.
+      for (const thread of script.threads) {
+        if (thread.participantIds.length !== 2) continue;
+        const said = thread.messages.map((m) => m.body).join('\n');
+        found.push(VOCATIVE_TRAILING.exec(said), VOCATIVE_LEADING.exec(said));
+      }
+
+      return found
         .filter((hit) => hit !== null)
         .map((hit) => `${script.id}: "${hit![0].trim()}"`);
     });
@@ -156,14 +174,29 @@ describe('the player stays unmarked', () => {
     // for the rule being executable rather than written down somewhere.
     expect(ADDRESSED.test('I am giving it to you because you are her son and because')).toBe(true);
     expect(ADDRESSED.test('You are his daughter and you have come up here to do this')).toBe(true);
-    // Pack 10, both Kevin, found by a translation agent. Neither has a copula,
-    // so neither was reachable by the rule above.
-    expect(VOCATIVE_LEADING.test('Son, I was on the microphone.')).toBe(true);
+    // Pack 10, found by a translation agent. No copula, so out of reach above.
     expect(
       VOCATIVE_TRAILING.test(
         'I was holding a microphone in front of forty people for the whole of that section, son.',
       ),
     ).toBe(true);
+  });
+
+  /**
+   * The other half of the same rule: the line it must NOT flag.
+   *
+   * `t-club` has four people in it and Kevin is answering Dave. The shape is
+   * identical to the real defect, so only the thread tells them apart — which
+   * is why the check runs per thread rather than over the pack.
+   */
+  it('leaves a vocative alone when somebody else is in the room', () => {
+    const openMic = CASES.find((c) => c.id === 'open-mic');
+    const club = openMic?.threads.find((t) => t.id === 't-club');
+    expect(club?.participantIds.length, 't-club is no longer a group thread').toBeGreaterThan(2);
+
+    const said = (club?.messages ?? []).map((m) => m.body).join('\n');
+    expect(said, 'Kevin no longer answers Dave with it').toContain('Son, I was on the microphone.');
+    expect(VOCATIVE_LEADING.test(said), 'the shape is there').toBe(true);
   });
 
   /**

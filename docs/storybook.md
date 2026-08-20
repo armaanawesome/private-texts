@@ -2784,7 +2784,7 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 > And if we are doing where everyone was, Kevin was out the back for a good twenty minutes in the middle of that show and I do not think anybody has said so
 
 **Kevin**
-> Now then. I was on the microphone.
+> Son, I was on the microphone.
 
 **Roz**
 > Right, that is enough of that. Anything else goes to me and not to twenty-eight people.

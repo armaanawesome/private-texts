@@ -251,7 +251,7 @@ export const openMicRaw = {
           threadId: 't-club',
           senderId: 'ferdy',
           sentAt: 2458,
-          body: 'Now then. I was on the microphone.',
+          body: 'Son, I was on the microphone.',
         },
         {
           id: 'h9',
