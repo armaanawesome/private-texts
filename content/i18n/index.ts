@@ -35,6 +35,7 @@ import { theBothyFr } from './fr/the-bothy';
 import { sundayServiceEs } from './es/sunday-service';
 import { sundayServiceDe } from './de/sunday-service';
 import { sundayServicePtBr } from './pt-BR/sunday-service';
+import { theCutEs } from './es/the-cut';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -86,6 +87,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-long-course': theLongCourseEs,
     'the-bothy': theBothyEs,
     'sunday-service': sundayServiceEs,
+    'the-cut': theCutEs,
   },
   fr: {
     tutorial: tutorialFr,
