@@ -3,9 +3,16 @@
 `HANDOFF.md` is the authority on project state. This file is about *how to work*,
 and it is short on purpose.
 
-Guidelines 1–4 are Andrej Karpathy's, from
-[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills).
-The notes under each are what this repo has learned the hard way.
+Guidelines 1–4 are Andrej Karpathy's, from the `karpathy-guidelines` skill. The
+notes under each are what this repo has learned the hard way.
+
+**The ladder runs first** (`ponytail`). Stop at the first rung that holds: does
+this need to exist → is it already in this repo → stdlib → platform → installed
+dep → one line → minimum code that works. Deletion over addition. Shortest
+working diff wins — *after* you understand the problem, never instead of it.
+
+One place this repo overrides ponytail: **a rule you can state is a rule you
+should execute.** See §2 — the tests here exist because comments rotted.
 
 ## 0. Expo HAS CHANGED
 
@@ -87,6 +94,21 @@ every subagent to do the same. `/storytelling` for a case as a whole,
 `/anti-ai-writing` for in-game message text, `/viral-hooks` for a blurb,
 `/impeccable` and `/ui-ux-pro-max` before UI work. Invoke them; don't work from
 memory of them.
+
+## Tooling that is actually installed
+
+`ponytail` (the ladder, always on), `karpathy-guidelines`, and `ecc`. From ecc,
+the ones that fit this repo — do not go shopping beyond them:
+
+| Want | Use |
+|---|---|
+| Review a diff before commit | `ecc:typescript-reviewer` agent |
+| Kill dead code after a rename sweep | `ecc:refactor-clean` |
+| Coverage gaps in the engine | `ecc:test-coverage` |
+
+**GateGuard makes the first Bash and the first Edit of a session cost a
+fact-statement.** That is the point of it — but batch accordingly: one wide
+`git status` beats five narrow probes.
 
 ## Machine
 
