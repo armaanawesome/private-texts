@@ -2734,10 +2734,10 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 > the tour support came through. eight weeks. i have not told anyone and i am going to be sick
 
 **You**
-> MARNIE
+> DEBBIE
 
 **Debbie**
-> i know. i know. i have to tell gil tonight and i have been putting it off for nine days
+> i know. i know. i have to tell dave tonight and i have been putting it off for nine days
 
 **You**
 > why is that hard. hes your mate
@@ -2784,7 +2784,7 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 > And if we are doing where everyone was, Kevin was out the back for a good twenty minutes in the middle of that show and I do not think anybody has said so
 
 **Kevin**
-> Son, I was on the microphone.
+> Now then. I was on the microphone.
 
 **Roz**
 > Right, that is enough of that. Anything else goes to me and not to twenty-eight people.
@@ -2798,7 +2798,7 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 > Tuesday. Kevin compering. Then Priya, Dave, Debbie, break, four more. Debbie was on at 21:30. Not 21:55, not five to ten. 21:30, and she came off at ten to.
 
 **You**
-> gil says she was at the bar at half nine
+> dave says she was at the bar at half nine
 
 **Kit**
 > She was on the stage at half nine. I had her mic up. I know where she was because I was listening to her breathe for twenty minutes.
@@ -2826,10 +2826,10 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 > Thirty-one years. Glasgow, Leeds, the two rooms in Birmingham, the Wednesday in Bristol that is not there any more. I have compered in most towns you can name and I have been paid in most of them.
 
 **You**
-> gil said you were out the back
+> dave said you were out the back
 
 **Kevin**
-> I was holding a microphone in front of forty people for the whole of that section, son. There is a recording of me doing it. It is the same recording he wants you to watch.
+> I was holding a microphone in front of forty people for the whole of that section. There is a recording of me doing it. It is the same recording he wants you to watch.
 
 **Kevin**
 > And I will tell you what I did see, since I was pointing the other way from that camera all night.
@@ -2946,7 +2946,7 @@ They started the same month in 2009. She had eight weeks of tour support and had
 
 ### Afterwards
 
-> Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called MARNIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.
+> Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called DEBBIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.
 >
 > Kit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.
 >

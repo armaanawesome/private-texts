@@ -85,14 +85,14 @@ export const openMicRaw = {
           threadId: 't-marnie',
           senderId: 'you',
           sentAt: 208,
-          body: 'MARNIE',
+          body: 'DEBBIE',
         },
         {
           id: 'n3',
           threadId: 't-marnie',
           senderId: 'marnie',
           sentAt: 216,
-          body: 'i know. i know. i have to tell gil tonight and i have been putting it off for nine days',
+          body: 'i know. i know. i have to tell dave tonight and i have been putting it off for nine days',
         },
         {
           id: 'n4',
@@ -251,7 +251,7 @@ export const openMicRaw = {
           threadId: 't-club',
           senderId: 'ferdy',
           sentAt: 2458,
-          body: 'Son, I was on the microphone.',
+          body: 'Now then. I was on the microphone.',
         },
         {
           id: 'h9',
@@ -289,7 +289,7 @@ export const openMicRaw = {
           threadId: 't-kit',
           senderId: 'you',
           sentAt: 2614,
-          body: 'gil says she was at the bar at half nine',
+          body: 'dave says she was at the bar at half nine',
         },
         {
           id: 'k4',
@@ -356,14 +356,14 @@ export const openMicRaw = {
           threadId: 't-ferdy',
           senderId: 'you',
           sentAt: 2820,
-          body: 'gil said you were out the back',
+          body: 'dave said you were out the back',
         },
         {
           id: 'f4',
           threadId: 't-ferdy',
           senderId: 'ferdy',
           sentAt: 2834,
-          body: 'I was holding a microphone in front of forty people for the whole of that section, son. There is a recording of me doing it. It is the same recording he wants you to watch.',
+          body: 'I was holding a microphone in front of forty people for the whole of that section. There is a recording of me doing it. It is the same recording he wants you to watch.',
           claims: [
             {
               id: 'c-ferdy-stage',
@@ -615,6 +615,6 @@ export const openMicRaw = {
     requiredContradictionIds: ['x-gil-alley', 'x-marnie-bar', 'x-card'],
     requiredMotiveIds: ['m-tour'],
     epilogue:
-      'Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called MARNIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.\n\nKit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.\n\nKevin Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.\n\nThe eight weeks went to somebody else. The tour manager sent Roz a message asking her to pass on that they had watched the set eleven times before they booked her and would have booked her off two minutes of it.',
+      'Roz Antrim’s laptop had the unbroken first half of the actual night on it, in a folder called DEBBIE FOR TOUR PPL. Twenty-two minutes, one angle, and a fire door on the latch at the edge of frame from 21:35.\n\nKit Nwachukwu’s float sheets went in as evidence, forty-one of them, in biro, in a drawer.\n\nKevin Boyce compered the benefit at the Hatch in the February and did nineteen minutes and did not mention any of it once, and then did four more benefits in four cities because people kept asking him.\n\nThe eight weeks went to somebody else. The tour manager sent Roz a message asking her to pass on that they had watched the set eleven times before they booked her and would have booked her off two minutes of it.',
   },
 };

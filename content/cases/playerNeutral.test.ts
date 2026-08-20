@@ -95,15 +95,43 @@ const ADDRESSED = new RegExp(
   'i',
 );
 
+/**
+ * `Son, I was on the microphone.` and `...for the whole of that section, son.`
+ *
+ * The third shape, and the one this file was blind to for fifteen packs. A
+ * vocative genders the player without ever equating them with anything, so the
+ * copula rule above cannot see it — there is no `you are` to anchor to. Kevin
+ * says it twice in Pack 10, both times to be condescending, and being
+ * condescending to somebody is not a reason to know their gender.
+ *
+ * Found by a translation agent, like the other two. Spanish has to choose
+ * between `hijo` and `hija` where English can shrug.
+ *
+ * What makes it safely catchable — unlike the third-person case, which stays
+ * out of reach — is that a vocative is punctuated like one. It is set off by a
+ * comma and carries no determiner: `, son.` but never `, a son.`, and `Son,` at
+ * the head of a sentence but never `Son of a docker,`. Requiring that shape
+ * finds both real lines and nothing else in sixteen packs.
+ */
+const VOCATIVE_TRAILING = new RegExp(String.raw`,\s*(?:${GENDERED.join('|')})\s*[.,?!]`, 'i');
+const VOCATIVE_LEADING = new RegExp(
+  String.raw`(?:^|\n|[.?!]\s+)(?:${GENDERED.join('|')}),\s`,
+  'i',
+);
+
 function prose(script: (typeof CASES)[number]): string {
   return [...caseTextEntries(script).values()].join('\n');
 }
 
 describe('the player stays unmarked', () => {
   it('never tells the player what they are, in any pack', () => {
-    const offenders = CASES.map((script) => ({ id: script.id, hit: ADDRESSED.exec(prose(script)) }))
-      .filter((r) => r.hit !== null)
-      .map((r) => `${r.id}: "${r.hit![0].trim()}"`);
+    const RULES = [ADDRESSED, VOCATIVE_TRAILING, VOCATIVE_LEADING];
+    const offenders = CASES.flatMap((script) => {
+      const text = prose(script);
+      return RULES.map((rule) => rule.exec(text))
+        .filter((hit) => hit !== null)
+        .map((hit) => `${script.id}: "${hit![0].trim()}"`);
+    });
 
     expect(
       offenders,
@@ -128,6 +156,14 @@ describe('the player stays unmarked', () => {
     // for the rule being executable rather than written down somewhere.
     expect(ADDRESSED.test('I am giving it to you because you are her son and because')).toBe(true);
     expect(ADDRESSED.test('You are his daughter and you have come up here to do this')).toBe(true);
+    // Pack 10, both Kevin, found by a translation agent. Neither has a copula,
+    // so neither was reachable by the rule above.
+    expect(VOCATIVE_LEADING.test('Son, I was on the microphone.')).toBe(true);
+    expect(
+      VOCATIVE_TRAILING.test(
+        'I was holding a microphone in front of forty people for the whole of that section, son.',
+      ),
+    ).toBe(true);
   });
 
   /**
@@ -145,9 +181,19 @@ describe('the player stays unmarked', () => {
       'You were slow on the son.',
       'I know what you are doing to a man who cannot answer.',
       'You were kind to the girl and she remembered it.',
+      // A determiner is what separates a vocative from a list item, and a list
+      // is the shape that would otherwise cry wolf on ordinary prose.
+      'She had two children, a son and a daughter.',
+      'He is survived by his wife, his sister and his brother.',
+      'I never found out who she was, the woman on the stairs.',
+      'Ask the man, then ask his wife.',
+      // Not a vocative: `Son` heading a noun phrase rather than an address.
+      'Son of a docker, he never let anybody forget it.',
     ];
     for (const line of fine) {
-      expect(ADDRESSED.test(line), `false positive on: ${line}`).toBe(false);
+      for (const rule of [ADDRESSED, VOCATIVE_TRAILING, VOCATIVE_LEADING]) {
+        expect(rule.test(line), `false positive on: ${line}`).toBe(false);
+      }
     }
   });
 });

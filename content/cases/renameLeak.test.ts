@@ -70,7 +70,12 @@ describe('renames leave nothing behind', () => {
           continue;
         }
 
-        if (new RegExp(`\\b${old}\\b`).test(prose)) {
+        // Case-insensitive, because prose shouts. Pack 10 had `MARNIE` twice —
+        // once as a heckle and once as a folder name in the epilogue — for a
+        // character called Debbie, and a case-sensitive `\bMarnie\b` walked
+        // straight past both. Found by a translation agent; the rule that was
+        // supposed to own this class missed it on a detail of casing.
+        if (new RegExp(`\\b${old}\\b`, 'i').test(prose)) {
           leaks.push(`${script.id}: "${old}" in the prose, but the character is called "${character.name}"`);
         }
       }
