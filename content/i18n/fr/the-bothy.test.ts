@@ -236,10 +236,19 @@ describe('Le refuge (fr) — the register', () => {
   it('keeps the two register chips naming their assertions, not their window', () => {
     expect(label('c-keir-book-late')).toContain('à 21:40');
     expect(label('c-keir-book-early')).toContain('avant 20:00');
-    // Same window underneath, which is machinery rather than something to state.
+    // The windows underneath are machinery rather than something to state, and
+    // what the engine actually needs is that they OVERLAP — it cannot see an
+    // exclusive-group collision otherwise. They happen to be identical in this
+    // pack, but asserting sameness would be pinning a coincidence: sunday-service
+    // has the same shape with one window nested inside the other.
     const claimOf = (id: string) =>
       messages.flatMap((m) => m.claims ?? []).find((c) => c.id === id)!;
-    expect(claimOf('c-keir-book-late').window).toEqual(claimOf('c-keir-book-early').window);
+    const late = claimOf('c-keir-book-late').window;
+    const early = claimOf('c-keir-book-early').window;
+    expect(
+      late.start < early.end && early.start < late.end,
+      'the exclusive pair must overlap or the engine cannot see the collision',
+    ).toBe(true);
   });
 
   /**

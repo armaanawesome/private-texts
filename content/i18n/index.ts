@@ -36,6 +36,8 @@ import { sundayServiceEs } from './es/sunday-service';
 import { sundayServiceDe } from './de/sunday-service';
 import { sundayServicePtBr } from './pt-BR/sunday-service';
 import { theCutEs } from './es/the-cut';
+import { theCutDe } from './de/the-cut';
+import { openMicEs } from './es/open-mic';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -88,6 +90,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-bothy': theBothyEs,
     'sunday-service': sundayServiceEs,
     'the-cut': theCutEs,
+    'open-mic': openMicEs,
   },
   fr: {
     tutorial: tutorialFr,
@@ -109,6 +112,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-long-course': theLongCourseDe,
     'the-bothy': theBothyDe,
     'sunday-service': sundayServiceDe,
+    'the-cut': theCutDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
