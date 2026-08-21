@@ -38,6 +38,7 @@ import { sundayServicePtBr } from './pt-BR/sunday-service';
 import { theCutEs } from './es/the-cut';
 import { theCutDe } from './de/the-cut';
 import { openMicEs } from './es/open-mic';
+import { theAllotmentsEs } from './es/the-allotments';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -91,6 +92,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'sunday-service': sundayServiceEs,
     'the-cut': theCutEs,
     'open-mic': openMicEs,
+    'the-allotments': theAllotmentsEs,
   },
   fr: {
     tutorial: tutorialFr,
