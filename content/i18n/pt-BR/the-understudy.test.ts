@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { theUnderstudyPtBr } from './the-understudy';
+import { clock, digitTimes, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The Brazilian Portuguese Understudy, checked on the things a player reasons over.
@@ -41,21 +42,6 @@ const revelation = (id: string): string =>
   script.contradictions.find((x) => x.id === id)?.revelation ?? '';
 const press = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
-
-const clock = (minutes: number): string =>
-  `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
-
-/** Accent- and punctuation-blind, so `Diane’s` matches `dianes` in a message. */
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
 
 /** Prose the player reads, minus the bare entity names — those are the subject. */
 const proseOf = (s: typeof script): string => {

@@ -10,6 +10,7 @@ import {
   type CaseTranslation,
 } from './caseText';
 import { CASE_TRANSLATIONS, caseCoverage, localiseCase, translatedCaseIds } from './index';
+import { numbers, paragraphs } from './testkit';
 
 /**
  * What makes a translated case safe.
@@ -65,8 +66,6 @@ const endForms = (minutes: number): string[] =>
   minutes % 1440 === 0 ? [clock(minutes), '24:00'] : [clock(minutes)];
 
 const clockTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const placeholders = (text: string): string[] =>
   [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1] ?? '').sort();
 

@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { deepFieldEs } from './deep-field';
+import { clock, digitTimes, numbers, paragraphs } from '../testkit';
 
 /**
  * The Spanish Deep Field, checked on the things a player reasons over.
@@ -44,20 +45,6 @@ const chip = (id: string): string =>
     .flatMap((t) => t.messages)
     .flatMap((m) => m.claims ?? [])
     .find((c) => c.id === id)?.label ?? '';
-
-/**
- * Raw minutes past the case zero, wrapped. The converted platform log is held as
- * 24:45–25:30 and the chip reads 00:45–01:30, so a helper that divides by sixty
- * without wrapping reports the one claim this pack is built around as a
- * mismatch.
- */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 
 /** Every translated line the player reads, as one blob. */
 const allProse = [...caseTranslationEntries(deepFieldEs).values()].join('\n');

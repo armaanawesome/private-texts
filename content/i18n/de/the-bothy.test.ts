@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { theBothyDe } from './the-bothy';
+import { clock, digitTimes } from '../testkit';
 
 /**
  * The German Bothy, checked on the things a player reasons over.
@@ -37,16 +38,10 @@ const revelation = (id: string): string =>
 const press = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
 const toMinutes = (hhmm: string): number => {
   const [h, m] = hhmm.split(':').map(Number) as [number, number];
   return h * 60 + m;
 };
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-
 /** Prose only — the entity name tables prove nothing about the sentences. */
 const spokenProse = [...caseTranslationEntries(theBothyDe)]
   .filter(([path]) => !/^(character|place|object|thread)\./.test(path))

@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { sundayServiceDe } from './sunday-service';
+import { clock, digitTimes } from '../testkit';
 
 /**
  * The German Sunday Service, checked on the things a player reasons over.
@@ -50,16 +51,10 @@ const revelation = (id: string): string =>
 const press = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
 const toMinutes = (hhmm: string): number => {
   const [h, m] = hhmm.split(':').map(Number) as [number, number];
   return h * 60 + m;
 };
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-
 const spokenProse = [...caseTranslationEntries(sundayServiceDe)]
   .filter(([path]) => !/^(character|place|object|thread)\./.test(path))
   .map(([, value]) => value)

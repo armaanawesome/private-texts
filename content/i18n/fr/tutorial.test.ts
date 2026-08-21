@@ -4,6 +4,7 @@ import { getCase } from '../../cases/index';
 import { describeCaseContract } from '../../cases/caseContract';
 import { applyCaseText, caseTextEntries, caseTranslationEntries } from '../caseText';
 import { tutorialFr } from './tutorial';
+import { clock, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The French tutorial, checked twice over.
@@ -32,25 +33,10 @@ const script: CaseScript = applyCaseText(english, tutorialFr);
 const body = (id: string): string =>
   script.threads.flatMap((t) => t.messages).find((m) => m.id === id)?.body ?? '';
 
-/** Accent- and punctuation-blind, matching the helper in caseText.test.ts. */
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
-
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
 const endForms = (minutes: number): string[] =>
   minutes % 1440 === 0 ? [clock(minutes), '24:00'] : [clock(minutes)];
 
 const clockTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const placeholders = (text: string): string[] =>
   [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1] ?? '').sort();
 

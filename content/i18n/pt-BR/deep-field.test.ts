@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { deepFieldPtBr } from './deep-field';
+import { clock, digitTimes, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The Brazilian Portuguese Deep Field, checked on the things a player reasons over.
@@ -36,29 +37,7 @@ const revelation = (id: string): string =>
 const pressOf = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-/**
- * Wraps mod 1440. The engine holds claim windows as raw minutes past the case
- * zero, so a window after midnight is stored above 1440 — `c-mal-log` is
- * 1485–1530, which is 00:45–01:30 and not 24:45–25:30. A helper that divides by
- * 60 without wrapping reports every post-midnight claim as a mismatch, which is
- * exactly how the Portuguese Night Round broke on `c-margo-office`.
- */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const prose = (s: typeof script): string => [...caseTextEntries(s).values()].join('\n');
-
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
 
 const proseOf = (s: typeof script): string => {
   const kept: string[] = [];

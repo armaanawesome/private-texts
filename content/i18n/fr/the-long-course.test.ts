@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { theLongCourseFr } from './the-long-course';
+import { clock, digitTimes, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The French Long Course, checked on the things a player reasons over.
@@ -32,27 +33,11 @@ const revelation = (id: string): string =>
 const pressOf = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-/** Wraps mod 1440, per privatetexts/i18n/clock-wrapping. */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
 const endForms = (minutes: number): string[] =>
   minutes % 1440 === 0 ? [clock(minutes), '24:00'] : [clock(minutes)];
 
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const placeholders = (text: string): string[] =>
   [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1] ?? '').sort();
-
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
 
 const proseOf = (s: CaseScript): string =>
   fold(

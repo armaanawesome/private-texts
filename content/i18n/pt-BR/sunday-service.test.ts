@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { sundayServicePtBr } from './sunday-service';
+import { clock, digitTimes, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The Brazilian Portuguese Sunday Service, checked on the things a player reasons over.
@@ -40,18 +41,10 @@ const revelation = (id: string): string =>
 const pressOf = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-/** Wraps mod 1440, per privatetexts/i18n/clock-wrapping. */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
 const toMinutes = (hhmm: string): number => {
   const [h, m] = hhmm.split(':');
   return Number(h) * 60 + Number(m);
 };
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const prose = (s: typeof script): string => [...caseTextEntries(s).values()].join('\n');
 
 /** Everything the player reads, minus the bare entity names — those are the subject. */
@@ -60,14 +53,6 @@ const spokenOf = (s: typeof script): string =>
     .filter(([path]) => !/^(character|place|object)\./.test(path))
     .map(([, value]) => value)
     .join('\n');
-
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
 
 /* --------------------------------------------- the contract, checked up front */
 

@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { theNightRoundPtBr } from './the-night-round';
+import { clock, digitTimes, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The Brazilian Portuguese Night Round, checked on the things a player reasons over.
@@ -41,34 +42,7 @@ const revelation = (id: string): string =>
 const pressOf = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-/**
- * Wraps at midnight, because this pack is a night shift.
- *
- * The engine stores a window as raw minutes from the case's own zero, so a claim
- * covering one in the morning is held as 25:00–26:00 and rendered to the player
- * as 01:00–02:00 — `clockOf` takes it mod 1440 and `domainFor` does not. A
- * helper that divides by 60 without wrapping therefore reports every post-
- * midnight claim as a mismatch, which is what this one did: it failed
- * `c-margo-office` claiming the chip said 01:00–02:00 while the engine held
- * 25:00–26:00. Those are the same hour.
- */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const prose = (s: typeof script): string => [...caseTextEntries(s).values()].join('\n');
-
-/** Accent- and punctuation-blind, so `Ivy’s` matches `ivys` in a message. */
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
 
 /** Prose the player reads, minus the bare entity names — those are the subject. */
 const proseOf = (s: typeof script): string => {

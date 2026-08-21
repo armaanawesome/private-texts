@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { openMicEs } from './open-mic';
+import { clock, digitTimes, numbers, paragraphs } from '../testkit';
 
 /**
  * The Spanish Open Mic, checked on the things a player reasons over.
@@ -38,19 +39,10 @@ const chip = (id: string): string =>
     .flatMap((m) => m.claims ?? [])
     .find((c) => c.id === id)?.label ?? '';
 
-/** Raw minutes past the case zero, wrapped. */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
 const toMinutes = (hhmm: string): number => {
   const [h, m] = hhmm.split(':').map(Number) as [number, number];
   return h * 60 + m;
 };
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
-
 const allProse = [...caseTranslationEntries(openMicEs).values()].join('\n');
 
 /* ----------------------------------------------- the contract, on the Spanish */

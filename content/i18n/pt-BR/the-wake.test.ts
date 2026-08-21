@@ -9,6 +9,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { theWakePtBr } from './the-wake';
+import { clock, digitTimes, fold, numbers, paragraphs } from '../testkit';
 
 /**
  * The Brazilian Portuguese Wake, checked on the things a player reasons over.
@@ -35,29 +36,7 @@ const revelation = (id: string): string =>
 const pressOf = (id: string): string =>
   script.confrontation?.beats.find((b) => b.id === id)?.press ?? '';
 
-/**
- * Wraps mod 1440. The engine holds claim windows as raw minutes past the case
- * zero, and this pack's epoch is the start of Gerald's last month — the funeral is
- * day 43 and the prescription chips sit on day 21, so those windows are stored at
- * 29400 and 61440 rather than anywhere near a wall clock. A helper that divides by
- * 60 without wrapping reports every chip in the pack as a mismatch.
- */
-const clock = (minutes: number): string => {
-  const m = ((minutes % 1440) + 1440) % 1440;
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-};
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 const prose = (s: typeof script): string => [...caseTextEntries(s).values()].join('\n');
-
-const fold = (text: string): string =>
-  text
-    .normalize('NFD')
-    .replace(/[^\p{L}\p{N}\s]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
 
 const proseOf = (s: typeof script): string => {
   const kept: string[] = [];

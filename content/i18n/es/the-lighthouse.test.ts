@@ -8,6 +8,7 @@ import {
   caseTranslationEntries,
 } from '../caseText';
 import { theLighthouseEs } from './the-lighthouse';
+import { clock, digitTimes, numbers, paragraphs } from '../testkit';
 
 /**
  * The Spanish Lighthouse, checked on the things a player reasons over.
@@ -32,12 +33,6 @@ const english = getCase('the-lighthouse')!;
 const script = applyCaseText(english, theLighthouseEs);
 const body = (id: string): string =>
   script.threads.flatMap((t) => t.messages).find((m) => m.id === id)?.body ?? '';
-
-const clock = (minutes: number): string =>
-  `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
-const digitTimes = (text: string): string[] => text.match(/\b\d{2}:\d{2}\b/g) ?? [];
-const numbers = (text: string): string[] => (text.match(/\d+/g) ?? []).sort();
-const paragraphs = (text: string): number => text.split(/\n{2,}/).length;
 
 /* --------------------------------------------- the contract, checked up front */
 
