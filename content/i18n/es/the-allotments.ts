@@ -145,7 +145,7 @@ export const theAllotmentsEs: CaseTranslation = {
     // ---------------------------------------------------------------- t-joyce
     j1: 'Llevo diecinueve años de tesorera y lo guardo todo, cosa que a la gente le hace gracia hasta la semana en que deja de hacérsela.',
     j2: 'El desguace me dio once días de imágenes el jueves, después de habérmelas negado dos años por lo de los vertidos. Hizo falta que lo pidiera un policía en vez de yo.',
-    j3: 'Da justo al camino de Carr Bank. Deborah Threlfall lo sube a las 19:02 y lo vuelve a bajar a las 19:11, y en once días de grabación no se ve fuego en ese sitio en ningún momento salvo el de Ted.',
+    j3: 'Enfoca justo el camino de Carr Bank. Deborah Threlfall lo sube a las 19:02 y lo vuelve a bajar a las 19:11, y en once días de grabación no se ve fuego en ese sitio en ningún momento salvo el de Ted.',
     j4: 'la horca',
     j5: 'Wilf subió esa horca a su propia caseta el viernes de la otra semana y yo lo vi hacerlo, porque se paró a quejarse del hombro todo el camino. Estuvo apoyada dentro de su puerta desde entonces hasta el martes.',
     j6: 'Así que quien la cogió la cogió en esa fila de casetas, de pie donde estaba él. Olvídate de Nev. Lo que te dice es quién estaba lo bastante cerca para alcanzarla.',
@@ -185,7 +185,7 @@ export const theAllotmentsEs: CaseTranslation = {
     'x-deb-burning':
       'Dijo que estuvo quemando todo el rato y que cualquiera a favor de viento lo diría. Su montón no llegó a encenderse. Sami pasó por el final de la 14 cuatro veces y el único humo que hubo en Carr Bank esa tarde fue el de Ted Harrap en la 40, y ella estuvo dos veces en el depósito llenando regaderas con Sami, hablando de su tejado, preguntándole por su madre.',
     'x-deb-lane':
-      'La cámara del desguace da justo al camino de Carr Bank y Joyce Ubani llevaba dos años pidiendo esas imágenes por lo de los vertidos. Hizo falta que lo pidiera un policía en vez de ella. Deborah Threlfall sube el camino a las 19:02 y lo vuelve a bajar a las 19:11, y en once días de grabación no hay fuego en ese sitio salvo el de Ted.',
+      'La cámara del desguace enfoca justo el camino de Carr Bank y Joyce Ubani llevaba dos años pidiendo esas imágenes por lo de los vertidos. Hizo falta que lo pidiera un policía en vez de ella. Deborah Threlfall sube el camino a las 19:02 y lo vuelve a bajar a las 19:11, y en once días de grabación no hay fuego en ese sitio salvo el de Ted.',
     'x-fork':
       'Todo el mundo de ese sitio puede identificar esa horca a doce metros, que es exactamente por lo que nadie preguntó dónde había estado. Wilf se la pidió prestada el viernes de la otra semana para las cañas de frambuesa y la subió él mismo a su propia caseta, quejándose del hombro todo el camino, y Joyce lo vio hacerlo. Estuvo apoyada dentro de su puerta desde entonces. No es una prueba sobre Nev Ashworth. Es una prueba sobre estar de pie donde él estaba de pie.',
   },
