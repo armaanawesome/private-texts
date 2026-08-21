@@ -2746,7 +2746,7 @@ Julie reported him to social services in 2009 and his daughter went to her aunt.
 > because we started the same month. october 2009, the same room, the same open spot list. and i am going on tour and he is still booking the tuesday
 
 **Debbie**
-> and he does the same five. genuinely the same five. i could do gils set. everyone in that room could do gils set
+> and he does the same five. genuinely the same five. i could do daves set. everyone in that room could do daves set
 
 **You**
 > that is not your fault

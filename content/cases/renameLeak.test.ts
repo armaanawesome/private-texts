@@ -70,12 +70,21 @@ describe('renames leave nothing behind', () => {
           continue;
         }
 
-        // Case-insensitive, because prose shouts. Pack 10 had `MARNIE` twice —
-        // once as a heckle and once as a folder name in the epilogue — for a
+        // Case-insensitive, and possessive-aware. Both halves were paid for.
+        //
+        // Pack 10 had `MARNIE` twice — a heckle and a folder name — for a
         // character called Debbie, and a case-sensitive `\bMarnie\b` walked
-        // straight past both. Found by a translation agent; the rule that was
-        // supposed to own this class missed it on a detail of casing.
-        if (new RegExp(`\\b${old}\\b`, 'i').test(prose)) {
+        // past both. Turning the flag on then found `gil` three times for a
+        // character called Dave, lowercase every time because it only appears
+        // in messages from people who never capitalise.
+        //
+        // Then the same pack turned out to say `gils set`, twice in one line,
+        // and that got past the fixed rule too: `\bgil\b` needs a boundary
+        // after the name and `gils` has none. The voice is what hid it — those
+        // characters drop apostrophes, so the possessive is bare. Both misses
+        // came from a translation agent reading the prose, and both were
+        // details of orthography rather than of naming.
+        if (new RegExp(`\\b${old}(?:['’]s|s)?\\b`, 'i').test(prose)) {
           leaks.push(`${script.id}: "${old}" in the prose, but the character is called "${character.name}"`);
         }
       }
@@ -98,5 +107,23 @@ describe('renames leave nothing behind', () => {
 
     expect(character.name.includes(old)).toBe(false);
     expect(new RegExp(`\\b${old}\\b`).test(prose)).toBe(true);
+  });
+
+  /**
+   * And the possessive form, which is the one that got past two earlier
+   * versions of this rule. Kept separate from the case above so a future
+   * tightening cannot satisfy both with the same match.
+   */
+  it('catches a bare possessive in a voice that drops apostrophes', () => {
+    const rule = (id: string) =>
+      new RegExp(`\\b${id.slice(0, 1).toUpperCase()}${id.slice(1)}(?:['’]s|s)?\\b`, 'i');
+
+    expect(rule('gil').test('i could do gils set. everyone in that room could do gils set')).toBe(
+      true,
+    );
+    expect(rule('gil').test("that was gil's set and he knows it")).toBe(true);
+    // Still finds the plain form, and still ignores the current name.
+    expect(rule('gil').test('gil said you were out the back')).toBe(true);
+    expect(rule('gil').test('dave said you were out the back')).toBe(false);
   });
 });

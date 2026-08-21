@@ -113,7 +113,7 @@ export const openMicRaw = {
           threadId: 't-marnie',
           senderId: 'marnie',
           sentAt: 244,
-          body: 'and he does the same five. genuinely the same five. i could do gils set. everyone in that room could do gils set',
+          body: 'and he does the same five. genuinely the same five. i could do daves set. everyone in that room could do daves set',
         },
         {
           id: 'n7',

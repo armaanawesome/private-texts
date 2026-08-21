@@ -50,13 +50,13 @@ import type { CaseTranslation } from '../caseText';
  *    talking to stay ahead of a question. Debbie is lowercase and unclosed. The
  *    player is lowercase and short, and shouts once, in capitals, at n2.
  *
- * One thing reproduced rather than corrected: n6 says `gils set` twice, and the
- * character is called Dave. `gil` is his id and the old first name. It is the
- * same rename leak class as the thirteen already fixed, and it hides from
- * `renameLeak.test.ts` twice over — lowercase, and with a possessive `s`
- * attached, so neither the capital nor the word boundary matches. Flagged, not
- * fixed, because a locale that repairs the English on its own diverges from
- * every other locale while the English stays as it is.
+ * The old name is gone from both sides. n6 said `gils set` twice for a
+ * character called Dave, and this file reproduced it rather than quietly
+ * correcting it, on the rule that a translation which fixes a fact is a
+ * translation nobody can diff. The English is fixed at source now and this
+ * file with it. `renameLeak.test.ts` had missed it because `gil` needs a
+ * boundary after the name and `gils` has none — these characters drop
+ * apostrophes, so the possessive is bare. The rule is possessive-aware now.
  */
 export const openMicDe: CaseTranslation = {
   title: 'Open Mic',
@@ -108,7 +108,7 @@ export const openMicDe: CaseTranslation = {
     n3: 'ich weiß. ich weiß. ich muss es dave heute abend sagen und ich schiebe es seit neun tagen vor mir her',
     n4: 'warum ist das schwer. er ist dein kumpel',
     n5: 'weil wir im selben monat angefangen haben. oktober 2009, derselbe raum, dieselbe liste für die offenen slots. und ich gehe auf tour und er bucht immer noch den dienstag',
-    n6: 'und er macht dieselben fünf. wirklich dieselben fünf. ich könnte gils set machen. jeder in dem raum könnte gils set machen',
+    n6: 'und er macht dieselben fünf. wirklich dieselben fünf. ich könnte daves set machen. jeder in dem raum könnte daves set machen',
     n7: 'das ist nicht deine schuld',
     n8: 'nein aber er wird mein gesicht sehen wenn er daran denkt. jahrelang. ich mache das lange genug um genau zu wissen wie das läuft',
     n9: 'bin da. um fünf vor zehn dran. mache es danach, in der gasse, weg vom saal, wie eine feige',
