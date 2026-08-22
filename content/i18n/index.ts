@@ -48,6 +48,10 @@ import { theAllotmentsDe } from './de/the-allotments';
 import { theReunionEs } from './es/the-reunion';
 import { openMicFr } from './fr/open-mic';
 import { openMicPtBr } from './pt-BR/open-mic';
+import { theHelplineDe } from './de/the-helpline';
+import { theNightFerryEs } from './es/the-night-ferry';
+import { theAllotmentsFr } from './fr/the-allotments';
+import { theAllotmentsPtBr } from './pt-BR/the-allotments';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
 import { theNightRoundPtBr } from './pt-BR/the-night-round';
 
@@ -104,6 +108,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-allotments': theAllotmentsEs,
     'the-helpline': theHelplineEs,
     'the-reunion': theReunionEs,
+    'the-night-ferry': theNightFerryEs,
   },
   fr: {
     tutorial: tutorialFr,
@@ -117,6 +122,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'sunday-service': sundayServiceFr,
     'the-cut': theCutFr,
     'open-mic': openMicFr,
+    'the-allotments': theAllotmentsFr,
   },
   de: {
     tutorial: tutorialDe,
@@ -131,6 +137,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-cut': theCutDe,
     'open-mic': openMicDe,
     'the-allotments': theAllotmentsDe,
+    'the-helpline': theHelplineDe,
   },
   'pt-BR': {
     tutorial: tutorialPtBr,
@@ -144,6 +151,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'sunday-service': sundayServicePtBr,
     'the-cut': theCutPtBr,
     'open-mic': openMicPtBr,
+    'the-allotments': theAllotmentsPtBr,
   },
 };
 
