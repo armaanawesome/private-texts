@@ -52,11 +52,6 @@ import type { CaseTranslation } from '../caseText';
  *    The test asserts both halves — present in h8, absent from the whole of Kevin's
  *    own thread.
  *
- * Reproduced from the English rather than corrected, and asserted against it: n6
- * says `o set do gil` twice, where `gil` is the id and the man is called Dave.
- * renameLeak.test.ts does not catch it because its pattern is `\bGil\b` and this
- * is lowercase with a possessive s. Flagged rather than fixed here, so the two
- * languages move together when the source does.
  *
  * No arc content. Pack 10 is standalone: no Keeper, no coda.
  */
@@ -110,7 +105,7 @@ export const openMicPtBr: CaseTranslation = {
     n3: 'eu sei. eu sei. tenho que contar pro dave hoje à noite e venho empurrando isso com a barriga há nove dias',
     n4: 'por que isso é difícil. ele é seu amigo',
     n5: 'porque a gente começou no mesmo mês. outubro de 2009, a mesma sala, a mesma lista de novatos. e eu vou fazer turnê e ele continua marcando a terça',
-    n6: 'e ele faz os mesmos cinco. sinceramente os mesmos cinco. eu conseguiria fazer o set do gil. todo mundo naquela sala conseguiria fazer o set do gil',
+    n6: 'e ele faz os mesmos cinco. sinceramente os mesmos cinco. eu conseguiria fazer o set do dave. todo mundo naquela sala conseguiria fazer o set do dave',
     n7: 'isso não é culpa sua',
     n8: 'não mas vai ser a minha cara que ele vai ver quando pensar nisso. por anos. eu faço isso há tempo suficiente pra saber exatamente como funciona',
     n9: 'cheguei. subo cinco pras dez. vou contar depois, no beco, longe da sala, feito uma covarde',
