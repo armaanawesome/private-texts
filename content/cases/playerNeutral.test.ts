@@ -48,6 +48,19 @@ import { caseTextEntries } from '../i18n/caseText';
  * `jemand`. That is the detector that works for this class — a careful reader
  * with a reason to care about grammatical gender — and it is worth saying so
  * plainly rather than leaving the next person to trust a green suite.
+ *
+ * The finale had two more, found the same way, and worth counting because they
+ * make the pattern look systematic rather than accidental: `there is a version
+ * of you that does not need the four days and I have met her`, and `a very
+ * great detective ... and she has never once let me down`. Four instances,
+ * three packs, every one third-person, every one invisible here — and all four
+ * surfaced only when somebody had to choose an ending for a word.
+ *
+ * The through-line, for whoever writes pack seventeen: the second person is
+ * where a writer *notices* they are assigning a gender, so it almost never
+ * happens there. The third person is where it slips, because English lets a
+ * pronoun agree with an antecedent several clauses back and nothing in the
+ * sentence looks like a decision being made.
  */
 
 /** Nouns that would pin the player's gender if applied to them. */

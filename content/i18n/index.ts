@@ -50,6 +50,7 @@ import { openMicFr } from './fr/open-mic';
 import { openMicPtBr } from './pt-BR/open-mic';
 import { theHelplineDe } from './de/the-helpline';
 import { theNightFerryEs } from './es/the-night-ferry';
+import { theListenerEs } from './es/the-listener';
 import { theAllotmentsFr } from './fr/the-allotments';
 import { theAllotmentsPtBr } from './pt-BR/the-allotments';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
@@ -109,6 +110,7 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-helpline': theHelplineEs,
     'the-reunion': theReunionEs,
     'the-night-ferry': theNightFerryEs,
+    'the-listener': theListenerEs,
   },
   fr: {
     tutorial: tutorialFr,

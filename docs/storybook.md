@@ -4095,7 +4095,7 @@ He had been telling the Magnus Bar he was a master mariner, thirty-one years, ch
 > The care home was better. You went at the drug round and not at the woman, which is the harder thing to do and almost nobody does it.
 
 **Unknown number**
-> I thought less of the ferry business. You had him on the second day and you spent four more making certain, and I understand why, but there is a version of you that does not need the four days and I have met her.
+> I thought less of the ferry business. You had him on the second day and you spent four more making certain, and I understand why, but there is a version of you that does not need the four days and I have met them.
 
 **Unknown number**
 > Eleven now. I have kept all of them. I would not expect you to believe that and it does not matter whether you do.
@@ -4348,7 +4348,7 @@ He hears the moment a person stops being able to not do it, and he has wanted to
 >
 > That is what you are. That is what you have been since you were twenty-six.
 >
-> I did not choose you because you were the best. You are the best because I chose you, and I have spent eighteen years feeding a very great detective the only work that could ever tell me whether I was right, and she has never once let me down, and I have never once been able to tell a living soul.
+> I did not choose you because you were the best. You are the best because I chose you, and I have spent eighteen years feeding a very great detective the only work that could ever tell me whether I was right, and they have never once let me down, and I have never once been able to tell a living soul.
 >
 > That is the whole of it. That is what this was.
 
