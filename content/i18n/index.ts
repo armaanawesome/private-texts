@@ -54,6 +54,10 @@ import { theListenerEs } from './es/the-listener';
 import { theReunionDe } from './de/the-reunion';
 import { theNightFerryDe } from './de/the-night-ferry';
 import { theListenerDe } from './de/the-listener';
+import { theHelplineFr } from './fr/the-helpline';
+import { theReunionFr } from './fr/the-reunion';
+import { theNightFerryFr } from './fr/the-night-ferry';
+import { theListenerFr } from './fr/the-listener';
 import { theAllotmentsFr } from './fr/the-allotments';
 import { theAllotmentsPtBr } from './pt-BR/the-allotments';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
@@ -128,6 +132,10 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-cut': theCutFr,
     'open-mic': openMicFr,
     'the-allotments': theAllotmentsFr,
+    'the-helpline': theHelplineFr,
+    'the-reunion': theReunionFr,
+    'the-night-ferry': theNightFerryFr,
+    'the-listener': theListenerFr,
   },
   de: {
     tutorial: tutorialDe,
