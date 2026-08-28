@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { Stack, Link } from 'expo-router';
 import { Text, Pressable, StyleSheet } from 'react-native';
 import { useTranslator } from '@/i18n/useTranslator';
+import { hydrateSettings } from '@/settings/persistence';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { theme } from '@/ui/theme';
@@ -73,6 +75,25 @@ const styles = StyleSheet.create({
 });
 
 export default function RootLayout() {
+  /*
+   * Read stored preferences once, at the root, before any screen renders.
+   *
+   * This used to be called from app/settings.tsx and nowhere else, which meant
+   * the store sat on DEFAULT_SETTINGS until the player happened to open
+   * Settings. Every preference was therefore ignored at launch - including
+   * `localeTag`, so somebody who had chosen German got an English home screen
+   * every time and only saw their own language after visiting a screen that
+   * had nothing to do with it.
+   *
+   * It also silently disabled the first-run walkthrough, which waits for
+   * `hydrated` before deciding anything: the flag never flipped, so the check
+   * never ran. A screen that reads a preference cannot be the screen
+   * responsible for loading it.
+   */
+  useEffect(() => {
+    void hydrateSettings();
+  }, []);
+
   return (
     <GestureHandlerRootView style={rootStyle}>
       <StatusBar style="light" />

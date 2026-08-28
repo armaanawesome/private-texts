@@ -115,8 +115,16 @@ const AVATAR = 44;
 const styles = StyleSheet.create({
   block: { backgroundColor: theme.color.rail, borderRadius: theme.radius.chip },
 
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.md },
-  tile: { flexBasis: '47%', flexGrow: 1, maxWidth: '48%', gap: theme.space.sm },
+  // Matches app/index.tsx exactly. A skeleton on a different grid than the
+  // content it stands in for reflows the moment the real tiles arrive, which
+  // is the one thing a skeleton exists to prevent.
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    rowGap: theme.space.lg,
+  },
+  tile: { width: '48%', gap: theme.space.sm },
   art: { aspectRatio: 3 / 4, width: '100%', borderRadius: theme.radius.chip },
   name: { height: 16, width: '80%', borderRadius: 4 },
   meta: { height: 11, width: '45%', borderRadius: 4 },

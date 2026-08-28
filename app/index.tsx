@@ -165,7 +165,22 @@ function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
   const t = useTranslator();
   const count = script.contradictions.length;
 
+  /*
+   * The width lives on this View, NOT on the Pressable inside it.
+   *
+   * `<Link asChild>` clones its child and supplies its own props, and the
+   * tile's sizing did not survive that: measured in a browser, the rendered
+   * element computed to `flex-basis: auto; flex-grow: 0; max-width: none` -
+   * none of the three values this file sets. The tiles were being sized by
+   * their contents, which is why they came out unequal, and why on a device
+   * they came out full width: content-sizing a subtree whose first child is a
+   * bare `aspectRatio` box with no width of its own has no reason to stop.
+   *
+   * A plain View outside the Link cannot have its style swallowed, so the
+   * column width is stated somewhere that is guaranteed to keep it.
+   */
   return (
+    <View style={styles.tile}>
     <Link href={locked ? '/paywall' : `/case/${script.id}/threads`} asChild>
       <Pressable
         accessibilityRole="button"
@@ -180,7 +195,7 @@ function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
               : 'home.tile.openLabel',
           { title: script.title, count },
         )}
-        style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
+        style={({ pressed }) => [styles.tileInner, pressed && styles.pressed]}
       >
         <CaseArt script={script} locked={locked} />
         <Text style={styles.name} numberOfLines={2}>
@@ -200,6 +215,7 @@ function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
         </View>
       </Pressable>
     </Link>
+    </View>
   );
 }
 
@@ -219,12 +235,23 @@ const styles = StyleSheet.create({
   },
   sectionLabel: { ...theme.type.meta, color: theme.color.textDim, letterSpacing: 0.4 },
 
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.md },
-  /**
-   * Two up. `flexBasis` with a subtracted gap rather than a fixed width, so the
-   * tiles hold their proportions on a narrow phone and a tablet alike.
+  /*
+   * space-between rather than a column gap, paired with a plain percentage
+   * width below. Percentage `flexBasis` with `flexGrow` and a percentage
+   * `maxWidth` is the combination that broke: three interacting values, only
+   * reliable if all three survive to the element, and one of them did not.
+   * Two 48% columns and the gap is whatever is left.
    */
-  tile: { flexBasis: '47%', flexGrow: 1, maxWidth: '48%', gap: theme.space.sm },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    rowGap: theme.space.lg,
+  },
+  /** Two up. The column, and the only place the width is stated. */
+  tile: { width: '48%' },
+  /** Inside the Link, so it may lose its style without costing the layout. */
+  tileInner: { gap: theme.space.sm },
   pressed: { opacity: 0.7 },
 
   name: { ...theme.type.body, color: theme.color.text, fontWeight: '600' },
