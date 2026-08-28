@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Link, useFocusEffect } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
-import { CasePoster } from '@/ui/CasePoster';
+import { CaseArt } from '@/ui/CaseArt';
 import { ContinueCard } from '@/ui/ContinueCard';
 import { getLocalisedCase } from '@content/i18n';
 import { useLocalisedCases } from '@/i18n/useCase';
@@ -120,7 +120,7 @@ function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
         )}
         style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
       >
-        <CasePoster script={script} locked={locked} />
+        <CaseArt script={script} locked={locked} />
         <Text style={styles.name} numberOfLines={2}>
           {script.title}
         </Text>

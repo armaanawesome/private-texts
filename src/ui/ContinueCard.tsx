@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import Animated, { FadeIn, useReducedMotion } from 'react-native-reanimated';
 import { theme } from './theme';
 import { useTranslator } from '@/i18n/useTranslator';
-import { CasePoster } from './CasePoster';
+import { CaseArt } from './CaseArt';
 import { describeElapsed, type ResumeOffer } from '@/state/resume';
 import type { CaseScript } from '@/engine';
 
@@ -100,7 +100,7 @@ export function ContinueCard({ offer, script, now }: Props) {
         >
           <View style={styles.row}>
             <View style={styles.poster}>
-              <CasePoster script={script} locked={false} />
+              <CaseArt script={script} locked={false} />
             </View>
 
             <View style={styles.body}>
