@@ -55,7 +55,7 @@ accuse.
 | Routes | ✅ threads → board → accuse, + settings, language, sign-in |
 | Paywall | ✅ custom UI, **purchase unverified** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
-| 15 case packs + tutorial | ✅ written; **packs 2–15 never read end to end by a human** |
+| 15 case packs + tutorial | ✅ written, and **all sixteen read end to end by the owner** (2026-08-28) |
 | Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
 | Settings screen + audio model | ✅ code complete; **`assets/audio/` does not exist — no cue has a file** |
 | Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync — **RLS verified live** |
@@ -723,9 +723,17 @@ different times and it says "These describe different times". The player learns
 what a contradiction is by being told what one isn't, which is the only way that
 doesn't require a tutorial voice explaining the rules.
 
-Case 1 has been played end to end by the owner. **Packs 2–15 have not**, and a
-passing test suite is not a playthrough. That is the largest remaining risk to
-the content, and it is a reading job rather than a coding one.
+**All sixteen packs have now been read end to end by the owner** (2026-08-28),
+which closes what this file called the largest remaining risk to the content.
+A passing suite is still not a playthrough — it proves no case is unsolvable
+and no translation drops an id, and nothing about whether a case is enjoyable
+— but the reading job that only a human could do is done for the English.
+
+**The translations are the part still unread.** Four locales, sixteen packs
+each, and no native speaker has read any of them. Every defect found in them
+so far — stale names, four shapes of player-gender leak, contracted
+prepositions eating place names, six converted units — was found by an agent
+reading for sense, never by the suite.
 
 Write every case **backwards**: solution first, then the claim table, then the
 dialogue. Writing forwards produces a story with a mystery bolted on. Every case
