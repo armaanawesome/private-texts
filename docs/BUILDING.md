@@ -72,7 +72,8 @@ stay current: they fetch everything from Metro at launch.
 | Platform | Built from | Notes |
 |---|---|---|
 | Android APK | `9189368` (2026-08-11) | Dev launcher confirmed inside the APK. ~244 MB. |
-| iOS simulator | `bcc6cca` (2026-08-09) | Still valid — every commit since changed only `.ts`/`.tsx`/`.md`. |
+| iOS simulator (dev client) | `bcc6cca` (2026-08-09) | **Stale.** `app.json` and `package.json` both changed after it — new icon and splash, `expo-splash-screen` added. Superseded by the preview build below. |
+| iOS simulator (**preview**) | `11b9b4c` (2026-08-28) | Self-contained Release `.tar.gz` for a cloud simulator (Limrun). Purchases OFF by design — see below. |
 
 An older dev client stays valid as long as nothing **native** has changed. To
 check before assuming, list what actually changed:
@@ -87,6 +88,34 @@ If that touches only `.ts`, `.tsx`, or docs, the existing dev client is fine.
 EAS artifact links expire (roughly 30 days on the free tier). If a link is dead
 the build itself is gone, and a rebuild is the only option — so keep the APK
 somewhere local rather than relying on the URL.
+
+> **The 2026-08-28 iOS preview link expires around 2026-09-27 — three days
+> before the 2026-09-30 deadline.** Download the `.tar.gz` and keep it locally
+> now, rather than discovering on submission weekend that the only iOS artifact
+> has evaporated and the quota is spent.
+
+## What a `preview` iOS build can and cannot test
+
+Worth writing down because two of these look like bugs and are not.
+
+`preview` is a **Release** build, and `src/entitlements/keyPolicy.ts` refuses a
+`test_`-prefixed key outside `__DEV__` — the native SDK would otherwise put up a
+"Wrong API Key" alert and kill the process on the splash screen. So on any
+preview build the store is switched off:
+
+- **All twelve paid cases stay locked**, and since the entitlement guard landed
+  they also refuse to open by deep link. That is the guard working, not a
+  regression.
+- **The paywall shows the build-configuration reason**, not "nothing to sell".
+- **Purchases, restore, and the unlock path are untestable here.** They need the
+  `development` profile with Metro.
+- **Sign-in and sync are unavailable**: `EXPO_PUBLIC_SUPABASE_URL` and
+  `EXPO_PUBLIC_SUPABASE_ANON_KEY` are not registered in *any* EAS environment.
+  Only the RevenueCat key is. Register them before demoing sync.
+
+What it *is* the only build that can prove: that `privatetexts://debug`
+redirects instead of opening the Test Store harness, which is a Release-only
+behaviour.
 
 **Test Store purchases work in these builds** because a dev client is Debug.
 That makes the dev client, not a preview build, the one to record the submission
