@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useLocalSearchParams, Redirect } from 'expo-router';
+import { useEffect, useMemo } from 'react';
+import { useLocalSearchParams, Redirect, Stack } from 'expo-router';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { visibleThreads } from '@/engine';
 import { useCaseStore } from '@/state/caseStore';
@@ -20,6 +20,20 @@ export default function CaseLayout() {
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const { entitlementIds, loading: entitlementsLoading } = useEntitlements();
+
+  /*
+   * The case's own name in the bar.
+   *
+   * Unset, expo-router falls back to the route pattern, so this screen was
+   * titled `case/[caseId]` on a device - and the conversation screen's back
+   * button read `< case/[caseId]` with it, because iOS takes the back label from
+   * the parent's title. Two bugs, one cause.
+   *
+   * Memoised for the reason app/_layout.tsx documents: an inline literal is a
+   * new reference every render, so the navigator calls setOptions, re-renders,
+   * and loops until React throws.
+   */
+  const screenOptions = useMemo(() => ({ title: script?.title ?? '' }), [script?.title]);
 
   /*
    * The paywall, enforced where the player ARRIVES.
@@ -99,22 +113,25 @@ export default function CaseLayout() {
   const ready = script.solution.requiredContradictionIds.every((id) => confirmedIds.includes(id));
 
   return (
-    <NativeTabs>
-      <NativeTabs.Trigger name="threads">
-        <NativeTabs.Trigger.Icon sf="bubble.left.and.bubble.right" md="chat" />
-        <NativeTabs.Trigger.Label>{t('case.tab.threads')}</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Badge hidden={unread === 0}>{String(unread)}</NativeTabs.Trigger.Badge>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="board">
-        <NativeTabs.Trigger.Icon sf="pin" md="push_pin" />
-        <NativeTabs.Trigger.Label>{t('case.tab.board')}</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="accuse">
-        <NativeTabs.Trigger.Icon sf="exclamationmark.bubble" md="gavel" />
-        <NativeTabs.Trigger.Label>{t('case.tab.accuse')}</NativeTabs.Trigger.Label>
-        {/* A space can render as an empty pill on Android; a character is safe. */}
-        <NativeTabs.Trigger.Badge hidden={!ready}>!</NativeTabs.Trigger.Badge>
-      </NativeTabs.Trigger>
-    </NativeTabs>
+    <>
+      <Stack.Screen options={screenOptions} />
+      <NativeTabs>
+        <NativeTabs.Trigger name="threads">
+          <NativeTabs.Trigger.Icon sf="bubble.left.and.bubble.right" md="chat" />
+          <NativeTabs.Trigger.Label>{t('case.tab.threads')}</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Badge hidden={unread === 0}>{String(unread)}</NativeTabs.Trigger.Badge>
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="board">
+          <NativeTabs.Trigger.Icon sf="pin" md="push_pin" />
+          <NativeTabs.Trigger.Label>{t('case.tab.board')}</NativeTabs.Trigger.Label>
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="accuse">
+          <NativeTabs.Trigger.Icon sf="exclamationmark.bubble" md="gavel" />
+          <NativeTabs.Trigger.Label>{t('case.tab.accuse')}</NativeTabs.Trigger.Label>
+          {/* A space can render as an empty pill on Android; a character is safe. */}
+          <NativeTabs.Trigger.Badge hidden={!ready}>!</NativeTabs.Trigger.Badge>
+        </NativeTabs.Trigger>
+      </NativeTabs>
+    </>
   );
 }

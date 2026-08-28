@@ -58,6 +58,12 @@ export const EN = {
   'home.continue.unreadMany': '{count} unread',
   'home.continue.label': 'Continue {title}.',
   'home.continue.backTo': 'Back to {thread}.',
+
+  /* The conversation screen. Reading is paced by the player: a tap delivers
+     the next message, and the button skips the rest of the thread. */
+  'thread.conversation': 'Conversation',
+  'thread.tapToContinue': 'Tap to continue',
+  'thread.skipAll': 'Skip all',
   'home.continue.proved': '{proved} of {total} proved. Last played {elapsed}.',
 
   /*
@@ -239,6 +245,12 @@ const ES: Catalogue = {
   'home.continue.unreadMany': '{count} sin leer',
   'home.continue.label': 'Continuar {title}.',
   'home.continue.backTo': 'Volver a {thread}.',
+
+  /* The conversation screen. Reading is paced by the player: a tap delivers
+     the next message, and the button skips the rest of the thread. */
+  'thread.conversation': 'Conversación',
+  'thread.tapToContinue': 'Toca para continuar',
+  'thread.skipAll': 'Saltar todo',
   'home.continue.proved': '{proved} de {total} probadas. Última partida {elapsed}.',
 
   'elapsed.justNow': 'ahora mismo',
@@ -396,6 +408,12 @@ const FR: Catalogue = {
   'home.continue.unreadMany': '{count} non lus',
   'home.continue.label': 'Continuer {title}.',
   'home.continue.backTo': 'Retour à {thread}.',
+
+  /* The conversation screen. Reading is paced by the player: a tap delivers
+     the next message, and the button skips the rest of the thread. */
+  'thread.conversation': 'Conversation',
+  'thread.tapToContinue': 'Appuyez pour continuer',
+  'thread.skipAll': 'Tout passer',
   'home.continue.proved': '{proved} sur {total} prouvées. Dernière session {elapsed}.',
 
   'elapsed.justNow': "à l'instant",
@@ -556,6 +574,12 @@ const DE: Catalogue = {
   'home.continue.unreadMany': '{count} ungelesen',
   'home.continue.label': '{title} fortsetzen.',
   'home.continue.backTo': 'Zurück zu {thread}.',
+
+  /* The conversation screen. Reading is paced by the player: a tap delivers
+     the next message, and the button skips the rest of the thread. */
+  'thread.conversation': 'Unterhaltung',
+  'thread.tapToContinue': 'Zum Fortfahren tippen',
+  'thread.skipAll': 'Alles überspringen',
   'home.continue.proved': '{proved} von {total} bewiesen. Zuletzt gespielt {elapsed}.',
 
   'elapsed.justNow': 'gerade eben',
@@ -707,6 +731,12 @@ const PT_BR: Catalogue = {
   'home.continue.unreadMany': '{count} não lidas',
   'home.continue.label': 'Continuar {title}.',
   'home.continue.backTo': 'Voltar para {thread}.',
+
+  /* The conversation screen. Reading is paced by the player: a tap delivers
+     the next message, and the button skips the rest of the thread. */
+  'thread.conversation': 'Conversa',
+  'thread.tapToContinue': 'Toque para continuar',
+  'thread.skipAll': 'Pular tudo',
   'home.continue.proved': '{proved} de {total} provadas. Jogado por último {elapsed}.',
 
   'elapsed.justNow': 'agora mesmo',
