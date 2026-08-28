@@ -4,6 +4,7 @@ import { Link, useFocusEffect } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { CaseArt } from '@/ui/CaseArt';
+import { CaseGridSkeleton } from '@/ui/Skeleton';
 import { ContinueCard } from '@/ui/ContinueCard';
 import { getLocalisedCase } from '@content/i18n';
 import { useLocalisedCases } from '@/i18n/useCase';
@@ -35,7 +36,12 @@ export default function CaseSelectScreen() {
   const t = useTranslator();
   const cases = useLocalisedCases();
   const localeTag = useSettingsStore((s) => s.settings.localeTag);
-  const { entitlementIds } = useEntitlements();
+  const {
+    entitlementIds,
+    loading: entitlementsLoading,
+    error: entitlementsError,
+    refresh: refreshEntitlements,
+  } = useEntitlements();
   const [resume, setResume] = useState<Resume | null>(null);
 
   /**
@@ -81,6 +87,27 @@ export default function CaseSelectScreen() {
         <ContinueCard offer={resume.offer} script={resume.script} now={resume.now} />
       ) : null}
 
+      {/*
+        A store outage used to be silent here: useEntitlements caught the error
+        and the grid simply drew every paid case as locked, which reads as "you
+        do not own these" rather than "we could not ask". Inline and cleared by
+        retrying, never a full-screen blocker - the whole game is bundled and
+        plays offline, so blocking it on a network failure would be a worse bug
+        than the one being reported.
+      */}
+      {entitlementsError ? (
+        <View style={styles.notice}>
+          <Text style={styles.noticeText}>{t('home.storeUnreachable')}</Text>
+          <Pressable
+            onPress={refreshEntitlements}
+            accessibilityRole="button"
+            hitSlop={theme.hit.slop}
+          >
+            <Text style={styles.noticeAction}>{t('common.retry')}</Text>
+          </Pressable>
+        </View>
+      ) : null}
+
       <View style={styles.section}>
         {/* Only earns its place once there are two zones to tell apart. */}
         {resume ? (
@@ -89,11 +116,22 @@ export default function CaseSelectScreen() {
           </View>
         ) : null}
 
-        <View style={styles.grid}>
-          {cases.map((c) => (
-            <CaseTile key={c.id} script={c} locked={!isCaseUnlocked(c, entitlementIds)} />
-          ))}
-        </View>
+        {/*
+          The skeleton is not decoration - it fixes a defect. `entitlementIds`
+          starts empty while RevenueCat is asked, so drawing the grid straight
+          away rendered all twelve paid cases as LOCKED and then popped them open
+          a moment later. A paying customer watched their own library re-lock
+          itself on every launch.
+        */}
+        {entitlementsLoading ? (
+          <CaseGridSkeleton count={cases.length} />
+        ) : (
+          <View style={styles.grid}>
+            {cases.map((c) => (
+              <CaseTile key={c.id} script={c} locked={!isCaseUnlocked(c, entitlementIds)} />
+            ))}
+          </View>
+        )}
       </View>
 
       {/* Dev-only. A "Test Store harness" link on the first screen is workshop
@@ -179,6 +217,23 @@ const styles = StyleSheet.create({
   mark: { width: 2, height: 12, borderRadius: 1, backgroundColor: theme.color.danger },
   markLocked: { backgroundColor: theme.color.rail },
   metaText: { ...theme.type.meta, color: theme.color.textDim, fontSize: 11 },
+
+  notice: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.space.md,
+    padding: theme.space.md,
+    borderRadius: theme.radius.chip,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: theme.color.rule,
+    backgroundColor: theme.color.surface,
+  },
+  noticeText: { ...theme.type.meta, color: theme.color.textDim, flex: 1 },
+  noticeAction: {
+    ...theme.type.meta,
+    color: theme.color.accent,
+    textDecorationLine: 'underline',
+  },
 
   debug: { ...theme.type.meta, color: theme.color.textDim },
 });

@@ -8,6 +8,7 @@ import { useTranslator } from '@/i18n/useTranslator';
 import { useLocalisedCase } from '@/i18n/useCase';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import { decideCaseAccess } from '@/entitlements/access';
+import { ThreadListSkeleton } from '@/ui/Skeleton';
 
 export default function CaseLayout() {
   const { caseId } = useLocalSearchParams<{ caseId: string }>();
@@ -74,7 +75,10 @@ export default function CaseLayout() {
   // Fails closed while RevenueCat is still answering. `useEntitlements` opens
   // at [] with loading true, so treating "no entitlements yet" as "blocked"
   // would eject a paying player from a case they own on the first render.
-  if (access.kind === 'checking') return null;
+  // A skeleton, not null. This is the frame a deep link lands on, and on a slow
+  // connection RevenueCat can take a second or two to answer - a blank screen
+  // for that long is indistinguishable from a crash.
+  if (access.kind === 'checking') return <ThreadListSkeleton />;
 
   // Home, not `/paywall`. The paywall is a modal that dismisses with
   // `router.back()`, and a deep link arrives with no history behind it, so

@@ -6,6 +6,7 @@ import { BriefingScreen } from '@/ui/BriefingScreen';
 import { clockOf } from '@/ui/timeScale';
 import { useCaseStore } from '@/state/caseStore';
 import { visibleThreads, type CaseScript, type Thread } from '@/engine';
+import { ThreadListSkeleton } from '@/ui/Skeleton';
 
 const PLAYER_ID = 'you';
 
@@ -47,7 +48,10 @@ export default function ThreadsScreen() {
   // Wait for the save to be read back. Without this, a case the player is
   // halfway through renders for a frame with nothing marked read, which the
   // briefing gate below reads as a fresh case and flashes the briefing.
-  if (!hydrated) return null;
+  // The wait is correct - see above - but it must not be a blank screen. On a
+  // cold start this is the first thing a returning player sees after tapping a
+  // case, and the rows it draws are the shape of the inbox that follows.
+  if (!hydrated) return <ThreadListSkeleton />;
 
   // The briefing stands in front of the inbox on a fresh case only. Once a
   // single message has been read the player has started, and re-showing the

@@ -39,6 +39,8 @@ export const EN = {
   'home.pitch':
     'Someone is dead. All you have is their messages. Find the statement that cannot be true.',
   'home.cases.title': 'All cases',
+  'home.storeUnreachable':
+    'Could not check your purchases. Cases you own will unlock when you are back online.',
   'home.tile.sealed': 'Sealed',
   'home.tile.toProve': '{count} to prove',
   /**
@@ -223,6 +225,8 @@ const ES: Catalogue = {
   'home.pitch':
     'Alguien ha muerto. Solo tienes sus mensajes. Encuentra la afirmación que no puede ser cierta.',
   'home.cases.title': 'Todos los casos',
+  'home.storeUnreachable':
+    'No se pudieron comprobar tus compras. Los casos que ya tienes se desbloquearán cuando vuelvas a estar en línea.',
   'home.tile.sealed': 'Sellado',
   'home.tile.toProve': '{count} por probar',
   'home.tile.lockedLabel': '{title}, sellado. {count} contradicciones. Desbloquear.',
@@ -378,6 +382,8 @@ const FR: Catalogue = {
   'home.pitch':
     'Quelqu’un est mort. Vous n’avez que ses messages. Trouvez la déclaration qui ne peut pas être vraie.',
   'home.cases.title': 'Toutes les affaires',
+  'home.storeUnreachable':
+    'Impossible de vérifier vos achats. Les affaires que vous possédez se déverrouilleront dès le retour de la connexion.',
   'home.tile.sealed': 'Scellée',
   'home.tile.toProve': '{count} à prouver',
   'home.tile.lockedLabel': '{title}, scellée. {count} contradictions. Déverrouiller.',
@@ -536,6 +542,8 @@ const DE: Catalogue = {
   'home.pitch':
     'Jemand ist tot. Alles, was du hast, sind die Nachrichten. Finde die Aussage, die nicht wahr sein kann.',
   'home.cases.title': 'Alle Fälle',
+  'home.storeUnreachable':
+    'Deine Käufe konnten nicht geprüft werden. Fälle, die dir gehören, werden freigeschaltet, sobald du wieder online bist.',
   'home.tile.sealed': 'Versiegelt',
   'home.tile.toProve': '{count} zu beweisen',
   'home.tile.lockedLabel': '{title}, versiegelt. {count} Widersprüche. Freischalten.',
@@ -685,6 +693,8 @@ const PT_BR: Catalogue = {
   'home.pitch':
     'Alguém morreu. Tudo o que você tem são as mensagens. Encontre a afirmação que não pode ser verdade.',
   'home.cases.title': 'Todos os casos',
+  'home.storeUnreachable':
+    'Não foi possível verificar suas compras. Os casos que você já tem serão desbloqueados quando você voltar a ficar online.',
   'home.tile.sealed': 'Lacrado',
   'home.tile.toProve': '{count} a provar',
   'home.tile.lockedLabel': '{title}, lacrado. {count} contradições. Desbloquear.',
