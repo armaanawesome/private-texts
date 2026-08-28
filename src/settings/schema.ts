@@ -21,6 +21,14 @@ export interface Settings {
   readonly hapticsEnabled: boolean;
   readonly reduceMotion: boolean;
   readonly localeTag: LocaleTag;
+  /**
+   * Whether the player has been shown how the game works.
+   *
+   * A preference rather than a save, because it is per-person rather than
+   * per-case, and because it has to survive "reset progress" - somebody
+   * clearing their playthroughs is not asking to be taught the controls again.
+   */
+  readonly hasSeenHowToPlay: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -29,6 +37,7 @@ export const DEFAULT_SETTINGS: Settings = {
   hapticsEnabled: true,
   reduceMotion: false,
   localeTag: DEFAULT_LOCALE,
+  hasSeenHowToPlay: false,
 };
 
 /**
@@ -60,6 +69,13 @@ const settingsBlob = z.object({
    * exists to avoid.
    */
   localeTag: z.custom<LocaleTag>(isLocaleTag).catch(DEFAULT_SETTINGS.localeTag),
+  /**
+   * Defaults to false, so a save written before this existed - every save on
+   * every device today - reads as "not yet taught" and gets the walkthrough
+   * once. Erring the other way would silently skip it for everyone who already
+   * has the app.
+   */
+  hasSeenHowToPlay: z.boolean().catch(DEFAULT_SETTINGS.hasSeenHowToPlay),
 });
 
 /** Never throws. Anything unrecognisable becomes the defaults. */
@@ -94,6 +110,7 @@ export function settingsEqual(a: Settings, b: Settings): boolean {
     a.soundVolume === b.soundVolume &&
     a.hapticsEnabled === b.hapticsEnabled &&
     a.reduceMotion === b.reduceMotion &&
-    a.localeTag === b.localeTag
+    a.localeTag === b.localeTag &&
+    a.hasSeenHowToPlay === b.hasSeenHowToPlay
   );
 }

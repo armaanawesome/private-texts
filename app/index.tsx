@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { Link, useFocusEffect } from 'expo-router';
+import { Link, Redirect, useFocusEffect } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { CaseArt } from '@/ui/CaseArt';
@@ -36,6 +36,8 @@ export default function CaseSelectScreen() {
   const t = useTranslator();
   const cases = useLocalisedCases();
   const localeTag = useSettingsStore((s) => s.settings.localeTag);
+  const hasSeenHowToPlay = useSettingsStore((s) => s.settings.hasSeenHowToPlay);
+  const settingsHydrated = useSettingsStore((s) => s.hydrated);
   const {
     entitlementIds,
     loading: entitlementsLoading,
@@ -72,6 +74,20 @@ export default function CaseSelectScreen() {
       // the previous language sitting on the first screen.
     }, [entitlementIds, localeTag]),
   );
+
+  /*
+   * The controls, before the game asks anyone to use them.
+   *
+   * Gated on `settingsHydrated`, which is the whole reason that flag exists.
+   * Preferences start at their defaults and are replaced wholesale once storage
+   * has been read, and the default is `false` - so redirecting before the read
+   * lands would show the walkthrough to a returning player every launch.
+   *
+   * Redirect rather than a modal: this is the first thing that happens, and it
+   * should not leave a home screen sitting behind it that the player can see
+   * but not reach.
+   */
+  if (settingsHydrated && !hasSeenHowToPlay) return <Redirect href="/how-to-play" />;
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>

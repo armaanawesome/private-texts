@@ -61,6 +61,30 @@ export const EN = {
 
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
+
+  /* The walkthrough shown once on first launch, and repeatable from Settings.
+     Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.help.section': 'Help',
+  'howToPlay.title': 'How to play',
+  'howToPlay.step': 'Step {n} of {total}',
+  'howToPlay.skip': 'Skip',
+  'howToPlay.next': 'Next',
+  'howToPlay.start': 'Start playing',
+  'howToPlay.1.title': 'The ruling is wrong',
+  'howToPlay.1.body':
+    'Someone is dead and the file is closed. Everything you get is in their messages. One statement in them cannot be true.',
+  'howToPlay.2.title': 'Tap to read on',
+  'howToPlay.2.body':
+    'Messages arrive one at a time. Tap anywhere to bring in the next. Skip all jumps to the end of a conversation.',
+  'howToPlay.3.title': 'Hold a message to pin it',
+  'howToPlay.3.body':
+    'Press and hold any message. If it claims someone was somewhere at a certain time, you can put that claim on the record.',
+  'howToPlay.4.title': 'Two claims, one impossibility',
+  'howToPlay.4.body':
+    'Compare two pinned claims on the board. If they put one person in two places over the same minute, that is a contradiction. Most pairs will not fire, and that is the game.',
+  'howToPlay.5.title': 'Name them',
+  'howToPlay.5.body':
+    'When a contradiction shows who lied about where they were, accuse them. You get one accusation per case, and it is final.',
   'thread.conversation': 'Conversation',
   'thread.tapToContinue': 'Tap to continue',
   'thread.skipAll': 'Skip all',
@@ -248,6 +272,30 @@ const ES: Catalogue = {
 
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
+
+  /* The walkthrough shown once on first launch, and repeatable from Settings.
+     Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.help.section': 'Ayuda',
+  'howToPlay.title': 'Cómo jugar',
+  'howToPlay.step': 'Paso {n} de {total}',
+  'howToPlay.skip': 'Saltar',
+  'howToPlay.next': 'Siguiente',
+  'howToPlay.start': 'Empezar a jugar',
+  'howToPlay.1.title': 'El dictamen es falso',
+  'howToPlay.1.body':
+    'Alguien ha muerto y el caso está cerrado. Todo lo que tienes está en sus mensajes. Una de esas frases no puede ser cierta.',
+  'howToPlay.2.title': 'Toca para seguir leyendo',
+  'howToPlay.2.body':
+    'Los mensajes llegan de uno en uno. Toca en cualquier parte para traer el siguiente. Saltar todo va al final de la conversación.',
+  'howToPlay.3.title': 'Mantén pulsado para fijar',
+  'howToPlay.3.body':
+    'Mantén pulsado cualquier mensaje. Si afirma que alguien estuvo en un lugar a una hora, puedes dejar constancia de esa afirmación.',
+  'howToPlay.4.title': 'Dos afirmaciones, una imposibilidad',
+  'howToPlay.4.body':
+    'Compara dos afirmaciones fijadas en el tablero. Si sitúan a una persona en dos lugares durante el mismo minuto, hay contradicción. La mayoría de los pares no saltará, y de eso va el juego.',
+  'howToPlay.5.title': 'Di su nombre',
+  'howToPlay.5.body':
+    'Cuando una contradicción demuestre quién mintió sobre dónde estaba, acúsalo. Tienes una sola acusación por caso y es definitiva.',
   'thread.conversation': 'Conversación',
   'thread.tapToContinue': 'Toca para continuar',
   'thread.skipAll': 'Saltar todo',
@@ -411,6 +459,30 @@ const FR: Catalogue = {
 
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
+
+  /* The walkthrough shown once on first launch, and repeatable from Settings.
+     Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.help.section': 'Aide',
+  'howToPlay.title': 'Comment jouer',
+  'howToPlay.step': 'Étape {n} sur {total}',
+  'howToPlay.skip': 'Passer',
+  'howToPlay.next': 'Suivant',
+  'howToPlay.start': 'Commencer',
+  'howToPlay.1.title': 'La conclusion est fausse',
+  'howToPlay.1.body':
+    'Quelqu’un est mort et le dossier est clos. Tout ce que vous avez tient dans ses messages. Une de ces phrases ne peut pas être vraie.',
+  'howToPlay.2.title': 'Appuyez pour lire la suite',
+  'howToPlay.2.body':
+    'Les messages arrivent un par un. Appuyez n’importe où pour faire venir le suivant. Tout passer va à la fin de la conversation.',
+  'howToPlay.3.title': 'Maintenez pour épingler',
+  'howToPlay.3.body':
+    'Maintenez un message enfoncé. S’il affirme que quelqu’un se trouvait quelque part à une heure donnée, vous pouvez consigner cette affirmation.',
+  'howToPlay.4.title': 'Deux affirmations, une impossibilité',
+  'howToPlay.4.body':
+    'Comparez deux affirmations sur le tableau. Si elles placent une personne à deux endroits sur la même minute, c’est une contradiction. La plupart des paires ne donneront rien, et c’est le jeu.',
+  'howToPlay.5.title': 'Nommez-le',
+  'howToPlay.5.body':
+    'Quand une contradiction montre qui a menti sur l’endroit où il se trouvait, accusez-le. Une seule accusation par affaire, et elle est définitive.',
   'thread.conversation': 'Conversation',
   'thread.tapToContinue': 'Appuyez pour continuer',
   'thread.skipAll': 'Tout passer',
@@ -577,6 +649,30 @@ const DE: Catalogue = {
 
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
+
+  /* The walkthrough shown once on first launch, and repeatable from Settings.
+     Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.help.section': 'Hilfe',
+  'howToPlay.title': 'So wird gespielt',
+  'howToPlay.step': 'Schritt {n} von {total}',
+  'howToPlay.skip': 'Überspringen',
+  'howToPlay.next': 'Weiter',
+  'howToPlay.start': 'Losspielen',
+  'howToPlay.1.title': 'Das Urteil stimmt nicht',
+  'howToPlay.1.body':
+    'Jemand ist tot und die Akte ist geschlossen. Alles, was du hast, steht in den Nachrichten. Einer dieser Sätze kann nicht wahr sein.',
+  'howToPlay.2.title': 'Zum Weiterlesen tippen',
+  'howToPlay.2.body':
+    'Nachrichten kommen einzeln an. Tippe irgendwo hin, um die nächste zu holen. Alles überspringen springt ans Ende des Gesprächs.',
+  'howToPlay.3.title': 'Halten, um festzuhalten',
+  'howToPlay.3.body':
+    'Halte eine Nachricht gedrückt. Behauptet sie, jemand sei zu einer bestimmten Zeit an einem Ort gewesen, kannst du diese Aussage zu den Akten nehmen.',
+  'howToPlay.4.title': 'Zwei Aussagen, eine Unmöglichkeit',
+  'howToPlay.4.body':
+    'Vergleiche zwei Aussagen auf der Tafel. Setzen sie eine Person in derselben Minute an zwei Orte, ist das ein Widerspruch. Die meisten Paare ergeben nichts, und genau das ist das Spiel.',
+  'howToPlay.5.title': 'Nenne den Namen',
+  'howToPlay.5.body':
+    'Wenn ein Widerspruch zeigt, wer über seinen Aufenthaltsort gelogen hat, klage ihn an. Eine Anklage pro Fall, und sie ist endgültig.',
   'thread.conversation': 'Unterhaltung',
   'thread.tapToContinue': 'Zum Fortfahren tippen',
   'thread.skipAll': 'Alles überspringen',
@@ -734,6 +830,30 @@ const PT_BR: Catalogue = {
 
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
+
+  /* The walkthrough shown once on first launch, and repeatable from Settings.
+     Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.help.section': 'Ajuda',
+  'howToPlay.title': 'Como jogar',
+  'howToPlay.step': 'Passo {n} de {total}',
+  'howToPlay.skip': 'Pular',
+  'howToPlay.next': 'Avançar',
+  'howToPlay.start': 'Começar a jogar',
+  'howToPlay.1.title': 'O laudo está errado',
+  'howToPlay.1.body':
+    'Alguém morreu e o caso foi encerrado. Tudo o que você tem está nas mensagens. Uma dessas frases não pode ser verdade.',
+  'howToPlay.2.title': 'Toque para continuar lendo',
+  'howToPlay.2.body':
+    'As mensagens chegam uma de cada vez. Toque em qualquer lugar para trazer a próxima. Pular tudo vai até o fim da conversa.',
+  'howToPlay.3.title': 'Segure para fixar',
+  'howToPlay.3.body':
+    'Segure qualquer mensagem. Se ela afirma que alguém estava em algum lugar a certa hora, você pode registrar essa afirmação.',
+  'howToPlay.4.title': 'Duas afirmações, uma impossibilidade',
+  'howToPlay.4.body':
+    'Compare duas afirmações no quadro. Se elas colocam uma pessoa em dois lugares no mesmo minuto, isso é uma contradição. A maioria dos pares não vai fechar, e esse é o jogo.',
+  'howToPlay.5.title': 'Diga o nome',
+  'howToPlay.5.body':
+    'Quando uma contradição mostrar quem mentiu sobre onde estava, acuse. É uma acusação por caso, e ela é definitiva.',
   'thread.conversation': 'Conversa',
   'thread.tapToContinue': 'Toque para continuar',
   'thread.skipAll': 'Pular tudo',

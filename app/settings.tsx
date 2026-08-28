@@ -152,6 +152,16 @@ export default function SettingsScreen() {
           ))}
         </View>
 
+        {/* First, because it is the only row here that teaches rather than
+            configures - and the player most likely to open Settings looking for
+            help is the one who skipped it. */}
+        <Section title={t('settings.help.section')}>
+          <ActionRow
+            label={t('howToPlay.title')}
+            onPress={() => router.push('/how-to-play')}
+          />
+        </Section>
+
         <Section title={t('settings.sound.section')}>
           <ToggleRow
             label={t('settings.sound.label')}

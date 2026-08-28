@@ -21,8 +21,30 @@ describe('parseSettings', () => {
       hapticsEnabled: false,
       reduceMotion: true,
       localeTag: 'fr',
+      // Deliberately the non-default, so this asserts the field survives a round
+      // trip rather than merely agreeing with what the default would have been.
+      hasSeenHowToPlay: true,
     };
     expect(parseSettings(stored)).toEqual(stored);
+  });
+
+  /**
+   * The one that decides whether a returning player is taught the controls again.
+   *
+   * Every settings blob written before the walkthrough existed lacks this field,
+   * and `.catch` gives those `false` — "not yet taught" — so the walkthrough
+   * shows once for everyone who already has the app. Defaulting the other way
+   * would silently skip it for exactly the players it was added for.
+   */
+  it('treats a blob written before the walkthrough existed as not yet taught', () => {
+    const olderBuild = {
+      soundEnabled: true,
+      soundVolume: 0.7,
+      hapticsEnabled: true,
+      reduceMotion: false,
+      localeTag: 'en',
+    };
+    expect(parseSettings(olderBuild).hasSeenHowToPlay).toBe(false);
   });
 
   it('fills in a missing field without discarding the fields that survived', () => {
