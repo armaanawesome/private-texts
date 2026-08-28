@@ -20,19 +20,14 @@
     },
     "android": {
       "package": "com.armaan.shipatondetective",
-      "adaptiveIcon": {
-        "backgroundColor": "#0E1013",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
       "predictiveBackGestureEnabled": false,
       "permissions": [
         "android.permission.MODIFY_AUDIO_SETTINGS"
       ],
       "blockedPermissions": [
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "backgroundColor": "#0E1013"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,6 +38,15 @@
         "expo-audio",
         {
           "microphonePermission": false
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "backgroundColor": "#0E1013",
+          "imageWidth": 180,
+          "resizeMode": "contain"
         }
       ]
     ],
