@@ -58,6 +58,10 @@ import { theHelplineFr } from './fr/the-helpline';
 import { theReunionFr } from './fr/the-reunion';
 import { theNightFerryFr } from './fr/the-night-ferry';
 import { theListenerFr } from './fr/the-listener';
+import { theReunionPtBr } from './pt-BR/the-reunion';
+import { theNightFerryPtBr } from './pt-BR/the-night-ferry';
+import { theListenerPtBr } from './pt-BR/the-listener';
+import { theHelplinePtBr } from './pt-BR/the-helpline';
 import { theAllotmentsFr } from './fr/the-allotments';
 import { theAllotmentsPtBr } from './pt-BR/the-allotments';
 import { theUnderstudyPtBr } from './pt-BR/the-understudy';
@@ -168,6 +172,10 @@ export const CASE_TRANSLATIONS: Readonly<
     'the-cut': theCutPtBr,
     'open-mic': openMicPtBr,
     'the-allotments': theAllotmentsPtBr,
+    'the-helpline': theHelplinePtBr,
+    'the-reunion': theReunionPtBr,
+    'the-night-ferry': theNightFerryPtBr,
+    'the-listener': theListenerPtBr,
   },
 };
 

@@ -187,7 +187,7 @@ export const theAllotmentsEs: CaseTranslation = {
     'x-deb-lane':
       'La cámara del desguace enfoca justo el camino de Carr Bank y Joyce Ubani llevaba dos años pidiendo esas imágenes por lo de los vertidos. Hizo falta que lo pidiera un policía en vez de ella. Deborah Threlfall sube el camino a las 19:02 y lo vuelve a bajar a las 19:11, y en once días de grabación no hay fuego en ese sitio salvo el de Ted.',
     'x-fork':
-      'Todo el mundo de ese sitio puede identificar esa horca a doce metros, que es exactamente por lo que nadie preguntó dónde había estado. Wilf se la pidió prestada el viernes de la otra semana para las cañas de frambuesa y la subió él mismo a su propia caseta, quejándose del hombro todo el camino, y Joyce lo vio hacerlo. Estuvo apoyada dentro de su puerta desde entonces. No es una prueba sobre Nev Ashworth. Es una prueba sobre estar de pie donde él estaba de pie.',
+      'Todo el mundo de ese sitio puede identificar esa horca a cuarenta pies, que es exactamente por lo que nadie preguntó dónde había estado. Wilf se la pidió prestada el viernes de la otra semana para las cañas de frambuesa y la subió él mismo a su propia caseta, quejándose del hombro todo el camino, y Joyce lo vio hacerlo. Estuvo apoyada dentro de su puerta desde entonces. No es una prueba sobre Nev Ashworth. Es una prueba sobre estar de pie donde él estaba de pie.',
   },
 
   confrontation: {

@@ -174,36 +174,30 @@ describe('case text: the mechanism', () => {
     expect(applyCaseText(tutorial, undefined)).toBe(tutorial);
 
     /*
-     * Derived, never hardcoded — for the locale as well as the case.
+     * The guard that used to live here has fired, and this is what it was for.
      *
-     * This named `the-lighthouse` until it was translated into Spanish, and
-     * would then have failed on the very day the by-reference path most needed
-     * proving. The case half was fixed then; the locale half was not, and it
-     * broke the same way the moment French gained the tutorial — the line above
-     * used to read `localiseCase(tutorial, 'fr')`, asserting that French was
-     * empty, three lines under a comment explaining why hardcoding is wrong.
+     * It derived every untranslated (case, locale) pair and asserted at least
+     * one existed, with the message that if none did, the test had nothing left
+     * to prove and should be deleted. Sixty-four pairs, sixteen packs in four
+     * languages — there are none left. It named nothing and hardcoded nothing,
+     * so it stayed correct right up to the moment it made itself obsolete.
      *
-     * So neither half names anything now. Every untranslated pair is checked
-     * rather than one chosen specimen, which also means this cannot quietly
-     * degrade to testing nothing as the gaps fill in — if there are no
-     * untranslated pairs left, the guard below fails and says so.
+     * The by-reference path is not obsolete though. It is what an unregistered
+     * pack or a dropped locale takes, and both will happen again — pack
+     * seventeen will exist before its translations do, and a save written
+     * before Japanese was removed still holds `ja`.
+     *
+     * So it is proved with a synthetic tag instead of a real gap, which is the
+     * same technique `src/i18n/translate.test.ts` moved to when Japanese was
+     * dropped, and stronger than the gap it replaces: an unknown tag returns
+     * `undefined` from the registry, which is exactly what a stale save holds.
      */
-    const pairs = SUPPORTED_LOCALES.flatMap((l) =>
-      CASES.filter((c) => CASE_TRANSLATIONS[l.tag]?.[c.id] === undefined).map((c) => ({
-        tag: l.tag,
-        script: c,
-      })),
-    ).filter((p) => p.tag !== DEFAULT_LOCALE);
-
-    expect(
-      pairs.length,
-      'every case is translated in every locale — this test has nothing left to prove and should be deleted',
-    ).toBeGreaterThan(0);
-
-    for (const { tag, script } of pairs) {
-      expect(localiseCase(script, tag), `${tag}/${script.id} should pass through by reference`).toBe(
-        script,
-      );
+    const UNTRANSLATED = 'zz' as LocaleTag;
+    for (const script of CASES) {
+      expect(
+        localiseCase(script, UNTRANSLATED),
+        `${script.id} in an unknown locale should pass through by reference`,
+      ).toBe(script);
     }
   });
 

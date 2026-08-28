@@ -102,7 +102,7 @@ export const theNightFerryFr: CaseTranslation = {
     n3: 'J’ai apporté quelque chose. Arrête.',
     n4: 'Parti à 1730 pile. Toujours la seule compagnie du nord qui part quand elle dit qu’elle part.',
     n5: 'Le dîner était très bien. La houle monte et la moitié du bar est devenue très silencieuse et je m’amuse énormément.',
-    n6: 'Tu ne vas pas croire qui est assis à un mètre de moi. Dougie Yarrow. Il était sur le Rona avec moi en 2003 et je ne l’avais pas revu depuis vingt-deux ans.',
+    n6: 'Tu ne vas pas croire qui est assis à quatre pieds de moi. Dougie Yarrow. Il était sur le Rona avec moi en 2003 et je ne l’avais pas revu depuis vingt-deux ans.',
     n7: 'qui',
     n8: 'Garçon de carré. Magnifique chanteur. Il a fait un Ewan MacColl à la fête de Noël qui a mis quatre hommes adultes en morceaux.',
     n9: 'Il est devenu un peu bizarre avec moi. Je crois que je l’ai gêné et je ne le voulais pas, j’étais seulement contente.',

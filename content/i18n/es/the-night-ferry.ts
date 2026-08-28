@@ -130,7 +130,7 @@ export const theNightFerryEs: CaseTranslation = {
     n3: 'He traído algo. Déjalo ya.',
     n4: 'Salida a las 1730 clavadas. Sigue siendo la única compañía del norte que sale cuando dice que va a salir.',
     n5: 'La cena bien. Hay marejada y medio bar se ha quedado muy callado y yo me lo estoy pasando enormemente bien.',
-    n6: 'No te vas a creer quién está sentado a un metro de mí. Dougie Yarrow. Estuvo conmigo en la Rona en 2003 y no le echaba la vista encima desde hace veintidós años.',
+    n6: 'No te vas a creer quién está sentado a cuatro pies de mí. Dougie Yarrow. Estuvo conmigo en la Rona en 2003 y no le echaba la vista encima desde hace veintidós años.',
     n7: 'quién',
     n8: 'Camarero de comedor. Cantaba precioso. Se marcó un Ewan MacColl en la fiesta de Navidad que dejó hechos polvo a cuatro hombretones.',
     n9: 'Se ha puesto un poco raro conmigo. Creo que lo he avergonzado y no era mi intención, yo solo me alegraba.',

@@ -95,7 +95,7 @@ export const theCutPtBr: CaseTranslation = {
 
   briefing: {
     causeOfDeath:
-      'Afogamento. Ela caiu do próprio convés de popa e o canal tem um metro e vinte ali.',
+      'Afogamento. Ela caiu do próprio convés de popa e o canal tem quatro pés ali.',
     ruling:
       'Registrado como acidental. Ela tinha sessenta e quatro anos, estava escuro, e havia uma garrafa de vinho na mesa.',
     opening:

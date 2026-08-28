@@ -138,7 +138,7 @@ export const theWakePtBr: CaseTranslation = {
     r6: 'Disse. E diria de novo, e vou te contar exatamente por quê, e depois você pensa de mim o que quiser.',
     r7: 'A Cassie tirou quatrocentas libras da minha bolsa na quarta. A Maureen pegou ela fazendo isso e eu peguei as duas nisso, e nós três combinamos que o dia em que a gente enterrava o avô dela não era o dia.',
     r8: 'Então quando o policial perguntou onde cada um estava, a gente disse a sala da frente, todos nós, juntos. Foi por ela. Não foi por mais ninguém e eu não pensei um segundo que pudesse ser por mais alguém.',
-    r9: 'Aquela menina estava no corredor lateral passando mal de vergonha, e o meu filho estava morrendo a seis metros dela, e fui eu que mandei ela para lá.',
+    r9: 'Aquela menina estava no corredor lateral passando mal de vergonha, e o meu filho estava morrendo a vinte pés dela, e fui eu que mandei ela para lá.',
     r10: 'Fala com ela. Ela não fala comigo e eu não culpo ela por isso.',
 
     // ----------------------------------------------------------------- t-cass

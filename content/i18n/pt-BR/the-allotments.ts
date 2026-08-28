@@ -178,7 +178,7 @@ export const theAllotmentsPtBr: CaseTranslation = {
     'x-deb-lane':
       'A câmera do ferro-velho olha direto para cima da viela de Carr Bank e Joyce Ubani vinha pedindo aquelas imagens havia dois anos por causa do descarte irregular. Foi preciso um policial pedir em vez dela. Deborah Threlfall sobe a viela às 19:02 e desce de volta às 19:11, e em onze dias de imagem não há fogo naquelas hortas além do fogo do Ted.',
     'x-fork':
-      'Todo mundo naquelas hortas identifica aquele garfo a doze metros, que é exatamente o motivo de ninguém ter perguntado onde ele tinha estado. Wilf pegou emprestado na sexta da semana retrasada para as framboeseiras e carregou até o próprio galpão sozinho, reclamando do ombro o caminho inteiro, e Joyce viu ele fazer isso. Ficou de pé atrás da porta dele desde então. Aquilo não é prova sobre Nev Ashworth. É prova sobre estar de pé onde ele estava de pé.',
+      'Todo mundo naquelas hortas identifica aquele garfo a quarenta pés, que é exatamente o motivo de ninguém ter perguntado onde ele tinha estado. Wilf pegou emprestado na sexta da semana retrasada para as framboeseiras e carregou até o próprio galpão sozinho, reclamando do ombro o caminho inteiro, e Joyce viu ele fazer isso. Ficou de pé atrás da porta dele desde então. Aquilo não é prova sobre Nev Ashworth. É prova sobre estar de pé onde ele estava de pé.',
   },
 
   confrontation: {
