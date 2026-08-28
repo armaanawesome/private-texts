@@ -30,6 +30,8 @@
 export const CASE_ART: Readonly<Record<string, number>> = {
   tutorial: require('../../assets/cases/tutorial.png'),
   'the-lighthouse': require('../../assets/cases/the-lighthouse.png'),
+  'the-understudy': require('../../assets/cases/the-understudy.png'),
+  'the-night-round': require('../../assets/cases/the-night-round.png'),
   'the-wake': require('../../assets/cases/the-wake.png'),
   'the-listener': require('../../assets/cases/the-listener.png'),
 };

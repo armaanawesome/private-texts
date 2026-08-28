@@ -634,6 +634,47 @@ the arc is ever reworked.
 
 ---
 
+## 7c. Case cover art — six of sixteen, resumes 2026-09-01
+
+`assets/cases/<caseId>.png` holds painted covers; `src/ui/caseArtAssets.ts` maps
+them; `src/ui/CaseArt.tsx` renders the painting where one exists and falls back
+to the generated `CasePoster` where it does not.
+
+**Painted so far:** tutorial, the-lighthouse, the-understudy, the-night-round,
+the-wake, the-listener.
+
+**Still on the generated poster (ten):** deep-field, the-long-course, the-bothy,
+sunday-service, the-cut, open-mic, the-allotments, the-helpline, the-reunion,
+the-night-ferry.
+
+**Blocked only by Canva's generation quota, which resets 2026-09-01.** Saving and
+exporting kept working when generation did not, so the pattern is: generate four
+candidates per pack, the owner picks by number, then save → export at 640×640 →
+`assets/cases/<caseId>.png` → add the `require` line.
+
+The system, so the last ten match: flat editorial linocut, one solid background
+colour per case, black and warm cream shapes only, print speckle, no text and no
+people. The motif is the case's lie abstracted — a rehearsed crowd with one unit
+out of alignment for The Wake, eleven box files with one pulled forward for The
+Listener. Oxblood is reserved for the finale because the app icon is oxblood.
+
+**The fallback is permanent, not a stopgap.** It is what lets art land one case
+at a time, and it is why the art map may stay partial forever without anything
+looking broken. `caseArtAssets.test.ts` asserts every art filename is a real case
+id — the map is hand-written because React Native resolves `require` at bundle
+time, and a hand-written map is the kind of thing a rename rots.
+
+Two traps already paid for: `caseArt.ts` beside `CaseArt.tsx` resolve to one
+module on a case-insensitive filesystem, and `StyleSheet.absoluteFillObject` is
+not typed in this RN version.
+
+**Unverified:** the covers have only been seen as standalone 640×640 exports, not
+in the running grid. The frame is 3:4 and the art is square, so `resizeMode:
+'cover'` is trimming left and right. Check that on device before trusting the
+crop.
+
+---
+
 ## 8. Design work — needs a fresh session
 
 The chat surface has had one Mobbin-grounded craft pass. **Nothing else has.**
