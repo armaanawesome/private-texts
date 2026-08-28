@@ -11,10 +11,18 @@ import { useSettingsStore } from '@/settings/settingsStore';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import { readResume } from '@/state/persistence';
 import { offerResume, type ResumeOffer } from '@/state/resume';
+import { isCaseUnlocked } from '@/entitlements/access';
 import type { CaseScript } from '@/engine';
 
-const isUnlocked = (script: CaseScript, entitlementIds: readonly string[]): boolean =>
-  script.requiredEntitlementId === undefined || entitlementIds.includes(script.requiredEntitlementId);
+/*
+ * The lock rule is imported, not restated.
+ *
+ * It lived here as a local const, which is precisely how the paywall came to be
+ * enforced on the tile instead of on the case. Now `src/entitlements/access.ts`
+ * owns it, this screen uses it to draw lock state, and
+ * `app/case/[caseId]/_layout.tsx` uses the same function to enforce it. A grid
+ * that disagrees with the route is the bug either way round.
+ */
 
 interface Resume {
   offer: ResumeOffer;
@@ -46,7 +54,7 @@ export default function CaseSelectScreen() {
           last: stored?.last ?? null,
           save: stored?.save ?? null,
           script,
-          unlocked: script !== undefined && isUnlocked(script, entitlementIds),
+          unlocked: script !== undefined && isCaseUnlocked(script, entitlementIds),
         });
         setResume(offer && script ? { offer, script, now: Date.now() } : null);
       })();
@@ -83,7 +91,7 @@ export default function CaseSelectScreen() {
 
         <View style={styles.grid}>
           {cases.map((c) => (
-            <CaseTile key={c.id} script={c} locked={!isUnlocked(c, entitlementIds)} />
+            <CaseTile key={c.id} script={c} locked={!isCaseUnlocked(c, entitlementIds)} />
           ))}
         </View>
       </View>

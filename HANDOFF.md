@@ -12,9 +12,10 @@ Built for the **RevenueCat Shipaton 2026 — Next Gen (student) award**.
 | Repo | https://github.com/armaanawesome/private-texts (public) |
 | Deadline | **2026-09-30 23:45 PDT** · internal target **2026-09-28** |
 | Started | 2026-08-08 |
-| This file last verified | **2026-08-18** — test count and language table re-run, not copied |
+| This file last verified | **2026-08-28** — test count, language row, and a full security review re-run, not copied |
 | Plan | `../docs/superpowers/plans/2026-08-08-shipaton-detective.md` |
 | Build constraints | `docs/BUILDING.md` — **read before touching eas.json** |
+| Security review | `docs/SECURITY.md` — threat model, findings, and **why `npm audit fix --force` must never be run here** |
 | Design system | `design-system/shipaton-detective/MASTER.md` |
 
 ---
@@ -59,21 +60,21 @@ accuse.
 | Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
 | Settings screen + audio model | ✅ code complete; **`assets/audio/` does not exist — no cue has a file** |
 | Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync — **RLS verified live** |
-| Languages | ⚠️ 4 UI catalogues complete; case text = tutorial + packs 1–6 in all four (see §7b) |
+| Languages | ✅ 4 UI catalogues + **all 16 cases in all four locales** (es, fr, de, pt-BR) — **no native speaker has read any of it** |
 | Standalone build | ✅ `preview` launches with no Metro (bundle verified inside the `.app`) |
-| OneSignal | ❌ not started |
+| OneSignal | ❌ not started — **not a dependency, no code**. Only an `.env.example` placeholder, plus a `remote-notification` iOS background mode in `app.json` that nothing uses |
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `.\check.cmd` → **2404 passing across 82 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4736 passing across 123 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
-by running the suite on 2026-08-18, not copied forward. Most of the growth since
-1811 is translation: registering a pack in a locale runs every generic suite over
-it, so each of the twenty-eight registered case translations adds its share.
+by running the suite on 2026-08-28, not copied forward. Most of the growth is
+translation: registering a pack in a locale runs every generic suite over it, and
+all sixty-four locale registrations (16 cases x 4 languages) are now in.
 
 **Run `.\check.cmd`, not `npx vitest` by hand.** It `cd`s to the project root
 first. Running vitest from the parent directory silently picks up unrelated
-projects — 118 test files instead of 82, most of them failing — and `npx tsc`
+projects — far more test files than this repo has, most of them failing — and `npx tsc`
 there resolves to a **squatter package** called `tsc` rather than the compiler.
 Both failures look alarming and neither is real.
 
@@ -83,7 +84,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-2404 actually prove: that no case is unsolvable, no thread is unreachable, no
+4736 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.

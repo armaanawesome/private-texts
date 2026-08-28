@@ -173,6 +173,11 @@ See [`docs/BUILDING.md`](docs/BUILDING.md) for the full build pipeline,
 including why those two profiles exist and the failure mode they were built
 to avoid.
 
+[`docs/SECURITY.md`](docs/SECURITY.md) records the threat model and the
+adversarial review — including why `npm audit` reports vulnerabilities that must
+not be "fixed", since `npm audit fix --force` would roll Expo back eleven major
+versions.
+
 ## Testing
 
 ```

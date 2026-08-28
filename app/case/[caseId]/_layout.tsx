@@ -6,6 +6,8 @@ import { useCaseStore } from '@/state/caseStore';
 import { loadProgress } from '@/state/persistence';
 import { useTranslator } from '@/i18n/useTranslator';
 import { useLocalisedCase } from '@/i18n/useCase';
+import { useEntitlements } from '@/entitlements/useEntitlements';
+import { decideCaseAccess } from '@/entitlements/access';
 
 export default function CaseLayout() {
   const { caseId } = useLocalSearchParams<{ caseId: string }>();
@@ -16,9 +18,39 @@ export default function CaseLayout() {
   const loaded = useCaseStore((s) => s.script);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
+  const { entitlementIds, loading: entitlementsLoading } = useEntitlements();
+
+  /*
+   * The paywall, enforced where the player ARRIVES.
+   *
+   * It used to be enforced only where they came from: the case grid picked
+   * `/paywall` or `/case/...` as a link target, which decides what a TILE does
+   * and nothing more. `app.json` registers the `privatetexts://` scheme and
+   * expo-router derives a deep link for every file under `app/`, with no
+   * allowlist, so every paid case also answered to a URL that never passed the
+   * grid at all:
+   *
+   *     privatetexts://case/the-wake/threads
+   *
+   * Twelve of sixteen cases open that way. All case prose is bundled locally,
+   * so there was no server round trip left to fail and nothing else to say no.
+   *
+   * This layout is the right place to say it once: all three case tabs are its
+   * children, and it is the only thing that loads a script into the store, so
+   * `/thread/[threadId]` is covered too - that screen reads the store and
+   * bounces when it is empty.
+   */
+  const access = script
+    ? decideCaseAccess({ script, entitlementIds, loading: entitlementsLoading })
+    : ({ kind: 'blocked' } as const);
+  const allowed = access.kind === 'allowed';
 
   useEffect(() => {
-    if (!script || loaded === script) return;
+    // `allowed` is load-bearing, not belt-and-braces. Redirecting from the
+    // render path alone would still let this effect put the paid script in the
+    // store on the way out - and `/thread/[threadId]` reads the store, so the
+    // case would stay open at a second URL after the first one bounced.
+    if (!script || !allowed || loaded === script) return;
 
     if (loaded?.id === script.id) {
       // Same case, different language. Swap the prose and keep the session —
@@ -35,9 +67,20 @@ export default function CaseLayout() {
     // and backs out would otherwise move the pointer to a case with no save at
     // all, and lose the Continue offer for the case they were really in the
     // middle of. saveProgress moves the pointer, and only real progress saves.
-  }, [script, loaded, loadScript, relocaliseScript]);
+  }, [script, allowed, loaded, loadScript, relocaliseScript]);
 
   if (!script) return <Redirect href="/" />;
+
+  // Fails closed while RevenueCat is still answering. `useEntitlements` opens
+  // at [] with loading true, so treating "no entitlements yet" as "blocked"
+  // would eject a paying player from a case they own on the first render.
+  if (access.kind === 'checking') return null;
+
+  // Home, not `/paywall`. The paywall is a modal that dismisses with
+  // `router.back()`, and a deep link arrives with no history behind it, so
+  // redirecting into it would strand the player in a modal with no way out.
+  // Home always exists, and the locked tile there is the honest route to buy.
+  if (access.kind === 'blocked') return <Redirect href="/" />;
 
   // Only counts threads the player can actually open — a gated thread is not
   // "unread", it does not exist yet as far as they are concerned.

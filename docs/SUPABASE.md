@@ -93,6 +93,13 @@ Notes on the column choices:
 
 ## 4. Row-level security
 
+> **These policies are now a runnable migration:**
+> [`supabase/migrations/0001_case_progress.sql`](../supabase/migrations/0001_case_progress.sql).
+> That file is the authority — apply it rather than copying SQL out of this
+> document. It also adds size limits this section never had: RLS decides *whose*
+> rows a player may write, not *how much*, and an account holder can call the
+> REST API directly. See `docs/SECURITY.md` finding 4.
+
 **This is the part that matters.** Without it, the anon key — which ships in the
 bundle and is readable by anyone — grants every player read and write access to
 every other player's rows.

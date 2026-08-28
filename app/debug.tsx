@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
+import { Redirect } from 'expo-router';
 
 import { theme } from '@/ui/theme';
 import { useEntitlements } from '@/entitlements/useEntitlements';
@@ -12,6 +13,22 @@ import {
 
 /** Verification harness for the RevenueCat Test Store. Not part of the game. */
 export default function DebugPurchaseScreen() {
+  /*
+   * Dev builds only, checked HERE rather than only on the link that reaches it.
+   *
+   * `app/index.tsx` wraps its "Test Store harness" link in `__DEV__`, which
+   * hides the entrance and nothing else. The route itself is a file under
+   * `app/`, so expo-router still published it, and `app/_layout.tsx` still
+   * registered its screen - leaving `privatetexts://debug` open in a release
+   * build, where it exposes a live purchase and restore harness plus internal
+   * entitlement diagnostics to anyone who types the URL.
+   *
+   * Before the hooks on purpose. `__DEV__` is a build-time constant, so this
+   * branch is fixed for the life of the bundle and cannot change the hook order
+   * between renders - and in a release build Metro drops the rest as dead code.
+   */
+  if (!__DEV__) return <Redirect href="/" />;
+
   const { entitlementIds, loading, error, refresh } = useEntitlements();
   const [log, setLog] = useState<string[]>([]);
   // StoreKit and Play Billing queue duplicate calls; the UI must not let the

@@ -1,0 +1,228 @@
+# Security review — 2026-08-28
+
+An adversarial pass over everything built so far: what an attacker can reach,
+what they can take, and what changed in response. Written as a record rather than
+a checklist, because the two real findings were both *placement* bugs — the rule
+existed and was correct, it just was not applied where it had to be.
+
+Scope: the Expo/React Native client, the Supabase progress-sync backend, the
+RevenueCat entitlement path, local storage, and the dependency tree.
+
+---
+
+## Threat model
+
+The app is a single-player deduction game. Worth stating plainly, because it
+decides what counts as a vulnerability here:
+
+- **Every case's prose is bundled into the app.** All sixteen ship in the binary.
+  Someone determined to read a paid case without paying can unzip the `.apk` and
+  read the JavaScript bundle. That is inherent to an offline game and is not
+  fixable by gating; it is why the paywall protects *convenience and the play
+  experience*, not *secrecy of the text*.
+- **Local save files are not an attack surface worth defending.** A player can
+  edit their own progress. They cheat themselves in a game with no leaderboard,
+  no multiplayer, and no shared state. Not a finding.
+- **What genuinely matters:** (1) one player reading or writing another player's
+  data, (2) a paid case opening for someone who has not paid through the app's own
+  navigation, (3) a secret reaching the client bundle, (4) anything that turns the
+  project's Supabase quota into somebody else's resource.
+
+---
+
+## Findings
+
+### 1. CRITICAL — the paywall was enforced on the tile, not on the case
+
+**Fixed.** `app/case/[caseId]/_layout.tsx`, `src/entitlements/access.ts`.
+
+Lock state was computed in `app/index.tsx` for one purpose: choosing a link
+target. A ternary picked `/paywall` or the case route and handed it to `<Link>`.
+
+That decides what a *tile* does. Nothing at the destination re-asked the question
+— `useEntitlements` was not imported anywhere under `app/case/`, and the case
+layout's only guard was a redirect when the script was missing, which checks that
+the case *exists*, not that the player may open it.
+
+`app.json` sets `"scheme": "privatetexts"`, and expo-router derives a deep link
+for every file under `app/` with no allowlist. So every paid case also answered to
+a URL that never passed through the grid:
+
+```
+privatetexts://case/the-wake/threads
+```
+
+Twelve of the sixteen cases — the entire paid catalogue — open that way. No
+rooting, no patched bundle, no proxy, no tooling: a URL in a browser, a link in a
+note, or one `adb shell am start`.
+
+**Confidence.** The missing guard is certain — it is the absence of a check, read
+directly from the source, and the regression tests below now assert its presence.
+The deep-link *reachability* follows from expo-router's documented file-based
+linking plus the registered scheme; it has not been demonstrated on a handset,
+because the app has never been installed on one. That demonstration is still
+outstanding and worth doing when the first device build lands, but the fix does
+not depend on it: a route that never checks entitlement is wrong regardless of
+which paths reach it.
+
+**The fix.** The rule moved to `src/entitlements/access.ts` and is enforced in the
+case layout — the single component every case tab is a child of, and the only
+thing that loads a script into `useCaseStore`. Three things were needed, and the
+last is the one that is easy to get wrong:
+
+- **Block at the destination.** A blocked verdict redirects home. Home rather
+  than `/paywall`, because the paywall is a modal that dismisses with
+  `router.back()`, and a deep link arrives with no history behind it —
+  redirecting into it would strand the player in a modal with no way out.
+- **Fail closed, but not on the customer.** `useEntitlements` opens at `[]` with
+  `loading: true`. A guard that treated an empty array as "blocked" would eject a
+  *paying* player from a case they own on the first render, every time. Hence a
+  distinct `checking` state that renders nothing and decides nothing.
+- **Gate the load, not just the render.** The layout's effect ran *before* the
+  early return, so a render-only guard would still have put the paid script into
+  the store on its way out — and `app/thread/[threadId].tsx` renders whatever the
+  store holds. The case would have stayed readable at a second URL after the first
+  one bounced. The effect is now gated on the access decision too.
+
+### 2. HIGH — the Test Store harness shipped in release builds
+
+**Fixed.** `app/debug.tsx`.
+
+`app/index.tsx` wrapped its link to the harness in `__DEV__`. That hides the
+entrance and nothing else: the route is a file under `app/`, so expo-router
+published it and `app/_layout.tsx` registered its screen unconditionally.
+`privatetexts://debug` therefore opened a live purchase-and-restore harness with
+internal entitlement diagnostics in a production build.
+
+It cannot grant anything for free — every button goes through the real store — so
+this is exposure and workshop debris rather than a bypass. The guard now lives in
+the screen, because the screen is what the URL reaches.
+
+### 3. MEDIUM — row-level security existed only as prose
+
+**Fixed.** `supabase/migrations/0001_case_progress.sql`.
+
+The policies were correct, and `docs/SUPABASE.md` records a real two-account
+verification against a live project on 2026-08-12, including the test that matters
+most: B inserting a row with A's `user_id` returned `403`. That is genuine
+evidence and it is why this is not rated higher.
+
+But RLS is the *only* thing between the anon key — which ships in every build and
+is readable by anyone — and every player's rows, and it lived in a paragraph. A
+paragraph cannot be re-applied to a restored project, diffed in review, or run.
+The policies are now a committed, idempotent migration.
+
+### 4. MEDIUM — `case_progress` was an unbounded write endpoint
+
+**Fixed** in the same migration.
+
+RLS decides *whose* rows a player may write. It says nothing about *how much*, and
+the app's client is not the only thing that can write: any account holder can call
+the REST API directly with their own token. Unconstrained, the table was an open
+write-any-volume endpoint attached to the project's quota — a signed-up attacker
+could park arbitrary megabytes in the `text[]` columns, which on a free tier is a
+denial of service against the app itself.
+
+Added `CHECK` constraints on `case_id` shape and on array cardinality and byte
+length, set far above real usage (the longest case id is fifteen characters; the
+busiest case has a few hundred messages) and far below anything worth abusing. The
+known remaining ceiling is documented in the migration: the *number* of rows one
+account may create is still unbounded, and the fix for that, if it ever matters,
+is a per-user row-count trigger rather than a wider constraint.
+
+### 5. INFORMATIONAL — `npm audit` reports 16 vulnerabilities. Do not "fix" them.
+
+**Not fixed, deliberately. Read this before running `npm audit fix --force`.**
+
+`npm audit --omit=dev` reports 16 vulnerabilities, 5 high. They collapse to three
+advisories, and both packages are build-time only:
+
+| Advisory | Package | Reaches a player's device? |
+|---|---|---|
+| [GHSA-w3rx-r6r6-pgpr](https://github.com/advisories/GHSA-w3rx-r6r6-pgpr) | `image-size` (DoS, ICNS) | No — `expo` → `@expo/metro` → `metro`, the bundler |
+| [GHSA-5p2g-fcmc-qvqq](https://github.com/advisories/GHSA-5p2g-fcmc-qvqq) | `image-size` (DoS, JXL/HEIF) | No — same path |
+| [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq) | `uuid` (bounds check) | No — `expo-splash-screen` → `@expo/config-plugins` → `xcode`, prebuild only |
+
+Neither is in the shipped JavaScript bundle. Both are denial-of-service in tooling
+that only ever processes this project's own files, on this machine.
+
+**The trap:** `npm audit fix --force` resolves these by *downgrading `expo` from
+`~57.0.11` to `46.0.21`* — a major-version rollback across eleven SDK releases,
+which would take React Native, expo-router, and every `expo-*` package with it.
+The "fix" is far more destructive than the finding. The count is expected to stay
+non-zero until Expo updates its own transitive pins.
+
+---
+
+## Checked and found clean
+
+Recorded so the next pass knows what has already been looked at, and so a future
+finding in one of these areas reads as a regression rather than a discovery.
+
+- **No secret has ever been committed.** `.env` is gitignored and absent from the
+  full history (`git log --all -- .env` is empty). No `.pem`, `.key`, `.p12`,
+  `.jks`, or service-account file appears in any commit.
+- **Only publishable keys are client-side.** All four env vars are `EXPO_PUBLIC_*`,
+  correctly, and `src/auth/config.ts` mechanically refuses a key matching
+  `sb_secret_` or a JWT carrying a `service_role` claim — it degrades to "accounts
+  unavailable" rather than constructing a client with it.
+- **No injection sinks.** No `eval`, no `new Function`, no
+  `dangerouslySetInnerHTML`, no prototype access anywhere in `src/`, `app/`, or
+  `content/`.
+- **No `WebView`, no `Linking.openURL`, no raw `fetch`/`axios`, no `http://`.** The
+  only network client is supabase-js, over the configured HTTPS URL.
+- **Entitlements are never persisted locally.** No cached "unlocked" flag exists in
+  AsyncStorage, so there is nothing to flip. Entitlement state is read from the
+  RevenueCat SDK on every launch and updated by its listener — which also catches
+  revocations and refunds, not just purchases.
+- **Saves are validated, never cast.** Every read goes through `saveBlobSchema`
+  (Zod), and a corrupt or hand-edited save is deleted and started fresh rather than
+  trusted. Rows coming back from Supabase go through the *same* schema.
+- **Sync cannot be aimed at another user.** `sync.ts` filters on the caller's own
+  `user_id` even though RLS already enforces it, and the upsert's `user_id` comes
+  from the live session, not from any stored or remote value.
+- **The auth session store is deliberately narrowed** to `getItem`/`setItem`/
+  `removeItem`, so supabase-js cannot reach `AsyncStorage.clear()` and take every
+  case save with it on sign-out.
+- **Production logging leaks nothing.** Three `console` calls survive in shipped
+  code; they print configuration *reasons*, never key values, and the verbose
+  entitlement dump is `__DEV__`-guarded.
+- **Android permissions are minimal** — `MODIFY_AUDIO_SETTINGS` only, with
+  `RECORD_AUDIO` explicitly blocked and `expo-audio` configured with
+  `microphonePermission: false`.
+
+---
+
+## Still outstanding
+
+- **Demonstrate the deep-link fix on a device.** The guard is tested structurally;
+  it has not been exercised against a real `privatetexts://case/the-wake/threads`
+  intent, because the app has never been installed on a handset. Do this with the
+  first device build.
+- **Apply the migration to the live project.** The policies are already on it, but
+  running `0001_case_progress.sql` is what proves the file matches reality — and
+  the size constraints in it are genuinely new.
+- **Delete the two Supabase test accounts** (`rls-test-a-608514@example.com`,
+  `rls-test-b-608514@example.com`). Only the project owner can do this.
+- **Turn email confirmation back on** before any public release. `docs/SUPABASE.md`
+  §2 explains why it is off for the hackathon build.
+- **Legacy anon JWT key** is in use; Supabase deprecates those at the end of 2026.
+
+---
+
+## Regression tests
+
+The fixes are held in place by two files:
+
+- `src/entitlements/access.test.ts` — proves the *rule* is right, including that it
+  fails closed while the store is answering without stranding an owner.
+- `src/entitlements/routeGuards.test.ts` — proves the rule is *applied*, by reading
+  the route sources the way `src/engine/boundary.test.ts` reads the engine's. It
+  asserts the case layout calls the shared decision, blocks, holds while checking,
+  and gates the script load; that `app/debug.tsx` redirects out of itself in
+  release; and that **no file under `app/` mentions `requiredEntitlementId` at
+  all** — a local copy of the rule is precisely how this vulnerability happened, so
+  a second derivation is now a test failure.
+
+Each assertion was verified by mutation: the guards were removed one pair at a
+time and the corresponding tests confirmed to fail, then restored.
