@@ -66,7 +66,7 @@ accuse.
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 
-**Tests:** `.\check.cmd` → **4736 passing across 123 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4738 passing across 123 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
 by running the suite on 2026-08-28, not copied forward. Most of the growth is
 translation: registering a pack in a locale runs every generic suite over it, and
@@ -84,7 +84,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-4736 actually prove: that no case is unsolvable, no thread is unreachable, no
+4738 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -634,6 +634,57 @@ the arc is ever reworked.
   still hiding.
 
 ---
+
+## 7d. Rendering the app in a browser — added 2026-08-29
+
+**This found two real bugs in twenty minutes that the suite and the flex
+arithmetic both said were not there.** It is now the first thing to reach for
+when a device screenshot disagrees with what the code says should happen.
+
+```
+npm run web --prefix shipaton-detective
+```
+
+Already wired as the `private-texts` entry in the workspace
+`.claude/launch.json`, on port 8081.
+
+**What renders:** the case grid, Settings, the language picker, the sign-in
+screen, and the how-to-play walkthrough. **What does not:** anything under
+`app/case/`, because the case layout uses
+`expo-router/unstable-native-tabs`. That is most of the game, so this is a
+harness for the shell, not a substitute for a device.
+
+**It is react-native-web, not Yoga.** Layout here is CSS flexbox and native
+layout is Yoga, and they disagree in exactly the places percentage sizing gets
+interesting. Treat a measurement as evidence about *this* renderer. What makes it
+worth doing anyway is that it measures — `getBoundingClientRect` and
+`getComputedStyle` give numbers, and numbers settle arguments that screenshots
+and arithmetic cannot.
+
+### The two bugs, because both are the same shape
+
+**The tiles were never sized.** `styles.tile` set `flexBasis: '47%'`,
+`flexGrow: 1` and `maxWidth: '48%'`. The rendered element computed to
+`flex-basis: auto; flex-grow: 0; max-width: none` — none of the three arrived.
+`<Link asChild>` clones its child and supplies its own props, and the
+Pressable's style went with it. Tiles were sized by their contents, so they came
+out unequal (117, 118, 120, 127 wide) and on a device filled the row:
+content-sizing a subtree whose first child is a bare `aspectRatio` box with no
+width has no reason to stop. **The width now lives on a plain View outside the
+Link**, and the grid is two 48% columns with `space-between` rather than three
+interacting values that all have to survive.
+
+**Preferences were never read at launch.** `hydrateSettings()` was called from
+`app/settings.tsx` and nowhere else, so the store sat on `DEFAULT_SETTINGS`
+until the player opened Settings. Every stored preference was ignored until then,
+**including `localeTag`** — a player who chose German got an English home
+screen every launch and only saw their own language after visiting a screen that
+had nothing to do with it. In a game translated into four languages that is not a
+small bug. The root layout now hydrates once, before any screen renders.
+
+Both share a lesson worth keeping: **a value that has to survive a component
+boundary to be correct will eventually not survive it.** State the width where
+nothing can take it; load the preferences where every screen benefits.
 
 ## 7c. Case cover art — six of sixteen, resumes 2026-09-01
 
