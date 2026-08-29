@@ -1,7 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
 import { View, StyleSheet, PanResponder, type LayoutChangeEvent } from 'react-native';
 import { theme } from '@/ui/theme';
-import { VOLUME_STEPS, stepForVolume, volumeForStep, volumeStepLabel } from './volumeSteps';
+import {
+  VOLUME_STEPS,
+  stepForVolume,
+  volumeAtPosition,
+  volumeForStep,
+  volumeStepLabel,
+} from './volumeSteps';
 
 /**
  * A continuous volume slider.
@@ -51,11 +57,8 @@ export function VolumeSlider({
   const latest = useRef({ trackWidth, onChange, disabled, volume });
   latest.current = { trackWidth, onChange, disabled, volume };
 
-  const valueAt = (x: number): number => {
-    const w = latest.current.trackWidth;
-    if (w <= 0) return latest.current.volume;
-    return Math.min(1, Math.max(0, x / w));
-  };
+  const valueAt = (x: number): number =>
+    volumeAtPosition(x, latest.current.trackWidth, latest.current.volume);
 
   const pan = useMemo(
     () =>
@@ -83,7 +86,6 @@ export function VolumeSlider({
   return (
     <View
       style={styles.row}
-      onLayout={(e: LayoutChangeEvent) => setTrackWidth(e.nativeEvent.layout.width)}
       /*
        * One adjustable element, as the rail had. A screen reader user changes
        * this by swiping up and down, and the increments land on the same six
@@ -105,16 +107,32 @@ export function VolumeSlider({
       }}
       {...pan.panHandlers}
     >
-      <View style={[styles.track, disabled && styles.dim]}>
+      {/*
+        Measured HERE rather than on the row above, which is the element that
+        carries the accessibility role and the responder handlers. Measured
+        there it reported nothing at all - not a wrong width, no layout event
+        ever - and the thumb sat at zero however loud the volume was.
+        src/ui/ClaimTimeline.tsx measures the same way on a plain styled View,
+        which is the shape that works.
+      */}
+      <View
+        style={[styles.track, disabled && styles.dim]}
+        onLayout={(e: LayoutChangeEvent) => setTrackWidth(e.nativeEvent.layout.width)}
+      >
         <View style={[styles.fill, { width: `${shown * 100}%` }]} />
       </View>
       <View
         style={[
           styles.thumb,
           disabled && styles.dim,
-          // Travel is the track minus one thumb, so the thumb stays inside its
-          // own track at both ends rather than hanging off them.
-          { left: shown * Math.max(trackWidth - THUMB, 0) },
+          /*
+           * Percentage plus a negative margin, so the thumb is positioned
+           * without knowing any width. At 0 it sits flush left, at 1 its right
+           * edge meets the end of the track, and in between it slides by the
+           * track minus its own width - the same travel a measured version
+           * gives, with nothing to measure and so nothing to measure wrongly.
+           */
+          { left: `${shown * 100}%`, marginLeft: -THUMB * shown },
         ]}
       />
     </View>

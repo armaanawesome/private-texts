@@ -12,6 +12,24 @@
  */
 
 /** Six audible steps, plus silence at 0. */
+/**
+ * Where along a track a touch landed, as a volume.
+ *
+ * Pulled out of the slider component because it is the only arithmetic in it,
+ * and inside a component it cannot be tested in the Node suite at all — the
+ * gesture that feeds it needs a device, but the sum it performs does not.
+ *
+ * The zero-width guard is the case that matters. A layout event can arrive
+ * after the first touch, or never on a view that was never measured, and
+ * dividing by that width would send the volume to Infinity and clamp it to
+ * full. Returning the current value instead means an unmeasured slider does
+ * nothing rather than something violent.
+ */
+export function volumeAtPosition(x: number, width: number, current: number): number {
+  if (!(width > 0)) return current;
+  return Math.min(1, Math.max(0, x / width));
+}
+
 export const VOLUME_STEPS = 6;
 
 /** The step a stored 0–1 position sits on. */

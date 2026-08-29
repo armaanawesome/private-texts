@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { VOLUME_STEPS, stepForVolume, volumeForStep, volumeStepLabel } from './volumeSteps';
+import {
+  VOLUME_STEPS,
+  stepForVolume,
+  volumeAtPosition,
+  volumeForStep,
+  volumeStepLabel,
+} from './volumeSteps';
 
 describe('stepForVolume', () => {
   it('maps silence and full travel to the ends', () => {
@@ -54,5 +60,49 @@ describe('volumeStepLabel', () => {
   it('reads as a position on the rail', () => {
     expect(volumeStepLabel(3)).toBe('Level 3 of 6');
     expect(volumeStepLabel(VOLUME_STEPS)).toBe('Level 6 of 6');
+  });
+});
+
+
+/**
+ * The slider's only arithmetic.
+ *
+ * The gesture that feeds it needs a device and cannot be exercised here — a
+ * synthetic pointer event does not reach React's responder system reliably
+ * enough to prove anything. The sum it performs is testable, so it is tested,
+ * and what is left for the device is genuinely only "does a finger reach this".
+ */
+describe('volumeAtPosition', () => {
+  it('maps the left edge to silence and the right edge to full', () => {
+    expect(volumeAtPosition(0, 300, 0.5)).toBe(0);
+    expect(volumeAtPosition(300, 300, 0.5)).toBe(1);
+  });
+
+  it('maps the middle to half', () => {
+    expect(volumeAtPosition(150, 300, 0)).toBeCloseTo(0.5, 5);
+  });
+
+  /** A finger dragged off the end of the track, which is normal, not an error. */
+  it('clamps a touch that travelled past either end', () => {
+    expect(volumeAtPosition(-80, 300, 0.5)).toBe(0);
+    expect(volumeAtPosition(420, 300, 0.5)).toBe(1);
+  });
+
+  /**
+   * The case this guard exists for. A layout event can arrive after the first
+   * touch, or never at all on a view that was never measured. Dividing by that
+   * width sends the result to Infinity, which clamps to FULL VOLUME — so the
+   * unmeasured slider would not merely misbehave, it would go loud.
+   */
+  it('returns the current volume rather than dividing by an unmeasured width', () => {
+    expect(volumeAtPosition(120, 0, 0.3)).toBe(0.3);
+    expect(volumeAtPosition(120, -1, 0.3)).toBe(0.3);
+    expect(volumeAtPosition(120, Number.NaN, 0.3)).toBe(0.3);
+  });
+
+  it('agrees with the step helpers at the ends', () => {
+    expect(stepForVolume(volumeAtPosition(0, 300, 0.5))).toBe(0);
+    expect(stepForVolume(volumeAtPosition(300, 300, 0.5))).toBe(VOLUME_STEPS);
+    expect(volumeForStep(VOLUME_STEPS)).toBe(1);
   });
 });
