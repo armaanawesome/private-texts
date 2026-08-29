@@ -146,6 +146,21 @@ export function offerResume(params: {
   if (script.id !== last.caseId) return null;
   if (!hasStarted(save)) return null;
 
+  /*
+   * A finished case has no "where you left off".
+   *
+   * Without this, solving a case leaves Continue pointing back into it - the
+   * last thing the player did was end it, and the pointer records that
+   * faithfully. It reads as an invitation to replay the one case they have no
+   * reason to reopen, and it does it on the screen whose whole job is to say
+   * what to do next. Now that cases unlock in order, what to do next is the
+   * case that just became available, and the grid is what offers it.
+   *
+   * Replaying stays possible - the tile is still there and still opens. What
+   * goes away is the app suggesting it.
+   */
+  if (save.solved) return null;
+
   const threadId = resumableThreadId(script, save);
   return {
     caseId: last.caseId,

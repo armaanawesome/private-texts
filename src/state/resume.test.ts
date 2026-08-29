@@ -133,6 +133,25 @@ describe('resumableThreadId', () => {
 describe('offerResume', () => {
   const base = { last: LAST, save: save({ lastThreadId: 't-nadia', readMessageIds: ['m1'] }), script: SCRIPT, unlocked: true };
 
+  /**
+   * A finished case is not somewhere to be resumed to.
+   *
+   * The pointer records the last case the player touched, and the last thing
+   * they did in a solved case was end it — so without this, solving one leaves
+   * Continue inviting them back into the single case they have no reason to
+   * reopen, on the screen whose entire job is to say what to do next. With
+   * cases unlocking in order, what to do next is the one that just became
+   * available, and the grid already offers that.
+   */
+  it('does not offer a case that has been solved', () => {
+    const solved = { ...base, save: save({ lastThreadId: 't-nadia', readMessageIds: ['m1'], solved: true }) };
+    expect(offerResume(solved)).toBeNull();
+  });
+
+  it('still offers a case that was started and not solved', () => {
+    expect(offerResume(base)).not.toBeNull();
+  });
+
   it('offers the conversation the player was in', () => {
     const offer = offerResume(base);
     expect(offer).not.toBeNull();
