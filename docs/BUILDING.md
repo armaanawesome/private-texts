@@ -2,9 +2,14 @@
 
 ## Read this first: do not spend a build on a JS change
 
-EAS free-tier builds are limited and **the quota is shared across platforms** —
-`--platform android` costs exactly what `--platform ios` costs. Switching
-platform to save builds does not work. This is an Expo project on both.
+EAS free-tier builds are limited. **The quota is per platform, not shared** —
+corrected 2026-08-29, when iOS refused a build for having spent its month and
+Android went straight through to a real one on the same commit, minutes apart.
+The earlier version of this line said the opposite and it cost nothing to
+believe, because nobody had tried.
+
+A refusal is instant and costs no quota, so attempting a build is a cheap way to
+find out where you stand.
 
 What actually costs nothing:
 

@@ -12,7 +12,7 @@ Built for the **RevenueCat Shipaton 2026 — Next Gen (student) award**.
 | Repo | https://github.com/armaanawesome/private-texts (public) |
 | Deadline | **2026-09-30 23:45 PDT** · internal target **2026-09-28** |
 | Started | 2026-08-08 |
-| This file last verified | **2026-08-28** — test count, language row, and a full security review re-run, not copied |
+| This file last verified | **2026-08-29** — test count re-run, and Supabase re-checked against the live project rather than from notes |
 | Plan | `../docs/superpowers/plans/2026-08-08-shipaton-detective.md` |
 | Build constraints | `docs/BUILDING.md` — **read before touching eas.json** |
 | Security review | `docs/SECURITY.md` — threat model, findings, and **why `npm audit fix --force` must never be run here** |
@@ -53,20 +53,22 @@ accuse.
 | Chat UI + craft pass | ✅ Mobbin-grounded |
 | Evidence board | ✅ functional, **no craft pass** |
 | Accusation screen | ✅ functional, **no craft pass** |
-| Routes | ✅ threads → board → accuse, + settings, language, sign-in |
+| Routes | ✅ threads → board → accuse, + settings, language, sign-in, how-to-play — **all reachable now; settings and sign-in had no entrance at all until 2026-08-29** |
 | Paywall | ✅ custom UI, **purchase unverified** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
 | 15 case packs + tutorial | ✅ written, and **all sixteen read end to end by the owner** (2026-08-28) |
 | Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
-| Settings screen + audio model | ✅ code complete; **`assets/audio/` does not exist — no cue has a file** |
-| Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync — **RLS verified live** |
+| Settings screen + audio model | ✅ code complete, volume is a real slider; **`assets/audio/` does not exist — no cue has a file** |
+| Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync. **RLS re-verified live 2026-08-29** (anonymous read `[]`, anonymous insert `401 / 42501`), `solved` column applied, keys registered with EAS |
 | Languages | ✅ 4 UI catalogues + **all 16 cases in all four locales** (es, fr, de, pt-BR) — **no native speaker has read any of it** |
 | Standalone build | ✅ `preview` launches with no Metro (bundle verified inside the `.app`) |
 | OneSignal | ❌ not started — **not a dependency, no code**. Only an `.env.example` placeholder, plus a `remote-notification` iOS background mode in `app.json` that nothing uses |
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
+| Linear progression | ✅ cases unlock in order, enforced on the tile **and** at the route; `solved` persists locally and syncs |
+| Onboarding | ✅ five-step walkthrough on first launch, hands into the Bakehouse; repeatable from Settings |
 
-**Tests:** `.\check.cmd` → **4738 passing across 123 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4764 passing across 124 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
 by running the suite on 2026-08-28, not copied forward. Most of the growth is
 translation: registering a pack in a locale runs every generic suite over it, and
@@ -84,7 +86,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-4738 actually prove: that no case is unsolvable, no thread is unreachable, no
+4764 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -634,6 +636,20 @@ the arc is ever reworked.
   still hiding.
 
 ---
+
+## 7e. EAS build quota — iOS is spent until 2026-09-01
+
+The free plan's **iOS** allowance ran out on 2026-08-29 and resets on
+**Tue 1 Sep**. The refusal is instant and costs nothing, so attempting a build is
+a cheap way to check the state rather than something to avoid.
+
+**Quota is per platform, not shared.** `docs/BUILDING.md` said the opposite —
+"the quota is shared across platforms, `--platform android` costs exactly what
+`--platform ios` costs" — and that is wrong: with iOS refusing instantly,
+Android went straight through to a real build. Corrected there too.
+
+1 September is also when the Canva generation quota returns for the last ten
+case covers, so the two jobs land on the same day and are worth doing together.
 
 ## 7d. Rendering the app in a browser — added 2026-08-29
 

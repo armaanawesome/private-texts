@@ -193,15 +193,55 @@ finding in one of these areas reads as a regression rather than a discovery.
 
 ---
 
+## Re-verified against the live project — 2026-08-29
+
+Run with the anon key against the real Supabase project, not read off the
+migration file:
+
+| Check | Result |
+|---|---|
+| `auth/v1/health` | `200` |
+| Anonymous read of `case_progress` | `[]` — no rows leak |
+| Anonymous insert | `401`, `42501 new row violates row-level security policy` |
+| `solved` column | present (migration applied by the owner) |
+
+**The anon key was checked before it was uploaded to EAS, not assumed.** A
+`service_role` key is also a JWT and is indistinguishable from an anon key at a
+glance; this one's payload decodes to `"role":"anon"`, which is what makes it safe
+to inline into a client bundle. Had it read `service_role` the correct move was to
+stop and ask for it to be rotated, because `EXPO_PUBLIC_*` values are extractable
+from any shipped build.
+
+**What could not be verified this way:** the `CHECK` constraints from finding 4.
+Row-level security refuses an anonymous insert before Postgres evaluates a column
+constraint, so a probe with a deliberately malformed `case_id` comes back as an
+RLS refusal rather than a constraint violation. Confirming those needs an
+authenticated session — and RLS is the outer gate in any case.
+
+## A second route guard, for the same reason as the first — 2026-08-29
+
+Linear progression was added after this review, and it arrived with the same
+shape of hole the paywall had: the rule was applied on the case tile, and a tile
+decides what a tap does and nothing more. Writing the route guard surfaced a live
+version of it — the layout's script-loading effect was gated on the entitlement
+alone, so a progression-blocked case would still have been loaded into the store
+on its way to the redirect, and `/thread/[threadId]` renders whatever the store
+holds.
+
+Both gates now hold the load, and `src/entitlements/routeGuards.test.ts` asserts
+it. Worth stating plainly because it is now the second instance: **in this app,
+any rule deciding whether content may be seen has to be enforced at the route,
+because expo-router publishes a deep link for every file under `app/`.**
+
 ## Still outstanding
 
 - **Demonstrate the deep-link fix on a device.** The guard is tested structurally;
   it has not been exercised against a real `privatetexts://case/the-wake/threads`
   intent, because the app has never been installed on a handset. Do this with the
   first device build.
-- **Apply the migration to the live project.** The policies are already on it, but
-  running `0001_case_progress.sql` is what proves the file matches reality — and
-  the size constraints in it are genuinely new.
+- **Confirm the size constraints landed.** `solved` is verified present, but the
+  `CHECK` constraints cannot be probed anonymously (see above). If the whole
+  migration was run they are there; if only the `solved` line was, they are not.
 - **Delete the two Supabase test accounts** (`rls-test-a-608514@example.com`,
   `rls-test-b-608514@example.com`). Only the project owner can do this.
 - **Turn email confirmation back on** before any public release. `docs/SUPABASE.md`
