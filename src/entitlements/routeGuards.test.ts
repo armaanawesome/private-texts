@@ -75,8 +75,25 @@ describe('the case route enforces entitlement', () => {
    * bounced. So the load itself has to be gated, not just the output.
    */
   it('gates the script load, not only the render', () => {
-    const effect = layout.slice(layout.indexOf('useEffect('), layout.indexOf('}, ['));
-    expect(effect).toContain('!allowed');
+    // Located by the loadScript call rather than by taking the first useEffect
+    // in the file. The naive version broke the moment a second effect was added
+    // above this one, which is a false alarm on a real change - the worst kind
+    // of test, because the next person's instinct is to loosen the assertion.
+    const load = layout.indexOf('loadScript(script)');
+    const effect = layout.slice(layout.lastIndexOf('useEffect(', load), load);
+    expect(effect).toContain('mayLoad');
+  });
+
+  /**
+   * The same bypass, one gate later.
+   *
+   * Linear progression is enforced on the tile, and a tile decides what a TAP
+   * does and nothing more. Without a check here, `privatetexts://case/<id>/threads`
+   * walks straight past the order the whole feature exists to impose.
+   */
+  it('enforces linear progression at the route, not only on the grid', () => {
+    expect(layout).toContain('firstUnsolvedBefore');
+    expect(layout).toContain("if (blockedBy !== null) return <Redirect");
   });
 });
 

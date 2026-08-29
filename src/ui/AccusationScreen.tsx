@@ -6,6 +6,7 @@ import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { ConfrontationScreen } from './ConfrontationScreen';
 import { useCaseStore } from '@/state/caseStore';
+import { saveProgress } from '@/state/persistence';
 import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
 
 export function AccusationScreen() {
@@ -13,6 +14,7 @@ export function AccusationScreen() {
   const script = useCaseStore((s) => s.script);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
+  const markSolved = useCaseStore((s) => s.markSolved);
   const [result, setResult] = useState<AccusationResult | null>(null);
   const [closed, setClosed] = useState(false);
 
@@ -36,7 +38,12 @@ export function AccusationScreen() {
   function accuse(person: Character) {
     Alert.alert(
       `Accuse ${person.name}?`,
-      'This is final. Be sure you can prove it.',
+      // This used to read "This is final. Be sure you can prove it." It was not
+      // true. Naming the wrong person returns a refusal and the screen falls
+      // straight back to the suspects with every proof intact, so the player can
+      // name somebody else immediately. Copy that threatens a consequence the
+      // game does not impose teaches people to stop playing.
+      'If your evidence does not fit them, you will be told so and can name someone else.',
       [
         { text: 'Back', style: 'cancel' },
         {
@@ -44,7 +51,16 @@ export function AccusationScreen() {
           style: 'destructive',
           onPress: () => {
             feedback.notify('warning');
-            setResult(evaluateAccusation(script!, person.id, progress));
+            const outcome = evaluateAccusation(script!, person.id, progress);
+            setResult(outcome);
+            // Written to disk here rather than left in component state, which is
+            // where the result used to live and die: closing the app after
+            // solving a case forgot it had been solved. Now that cases unlock in
+            // order, forgetting it would re-lock the rest of the game.
+            if (outcome.correct) {
+              markSolved();
+              void saveProgress(script!.id);
+            }
           },
         },
       ],

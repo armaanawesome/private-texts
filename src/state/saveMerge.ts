@@ -76,6 +76,10 @@ export function mergeSaves(local: SaveBlob | null, remote: SaveBlob | null): Sav
   return {
     readMessageIds: union(l.readMessageIds, r.readMessageIds),
     confirmedContradictionIds: union(l.confirmedContradictionIds, r.confirmedContradictionIds),
+    // OR, never AND. If either device saw this case solved then it was solved,
+    // and the other simply has not heard yet. Anything else would let a stale
+    // phone re-lock a case the player has already finished.
+    solved: l.solved || r.solved,
     ...resumePointer(local, remote),
   };
 }
@@ -100,7 +104,8 @@ export function savesDiffer(previous: SaveBlob | null, next: SaveBlob): boolean 
     // The resume pointer counts. Comparing only the arrays would mean a player
     // who moved to a new thread and read nothing new never has that synced.
     previous.lastThreadId !== next.lastThreadId ||
-    previous.lastMessageId !== next.lastMessageId
+    previous.lastMessageId !== next.lastMessageId ||
+    previous.solved !== next.solved
   );
 }
 

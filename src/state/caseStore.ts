@@ -34,6 +34,8 @@ interface CaseState {
    */
   lastThreadId: string | null;
   lastMessageId: string | null;
+  /** Solved: the right person named. Persisted; gates the next case. */
+  solved: boolean;
   /**
    * Whether the saved progress for this case has been read back yet.
    *
@@ -51,6 +53,8 @@ interface CaseState {
   togglePin: (claimId: string) => void;
   submitPins: () => void;
   clearPins: () => void;
+  /** Set once, on a correct accusation. Never unset by a wrong one. */
+  markSolved: () => void;
   reset: () => void;
 }
 
@@ -78,6 +82,7 @@ const empty = () => ({
   lastComparedClaimIds: [] as string[],
   lastThreadId: null,
   lastMessageId: null,
+  solved: false,
   hydrated: false,
 });
 
@@ -85,6 +90,8 @@ export const useCaseStore = create<CaseState>((set, get) => ({
   ...empty(),
 
   loadScript: (script) => set({ ...empty(), script }),
+
+  markSolved: () => set({ solved: true }),
 
   /**
    * Swap the script's prose without touching a single thing the player has done.

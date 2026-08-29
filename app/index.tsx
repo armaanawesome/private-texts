@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
 import { Link, Redirect, useFocusEffect } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
@@ -10,7 +10,8 @@ import { getLocalisedCase } from '@content/i18n';
 import { useLocalisedCases } from '@/i18n/useCase';
 import { useSettingsStore } from '@/settings/settingsStore';
 import { useEntitlements } from '@/entitlements/useEntitlements';
-import { readResume } from '@/state/persistence';
+import { readResume, readSolvedCaseIds } from '@/state/persistence';
+import { decideCaseGate, gateIsLocked, type CaseGate } from '@/state/progression';
 import { offerResume, type ResumeOffer } from '@/state/resume';
 import { isCaseUnlocked } from '@/entitlements/access';
 import type { CaseScript } from '@/engine';
@@ -45,6 +46,12 @@ export default function CaseSelectScreen() {
     refresh: refreshEntitlements,
   } = useEntitlements();
   const [resume, setResume] = useState<Resume | null>(null);
+  /**
+   * Null until the saves have been read, which is NOT the same as an empty
+   * set. Empty means "nothing solved", and every case after the first would
+   * draw locked on that — so the distinction is what stops the grid flashing.
+   */
+  const [solvedIds, setSolvedIds] = useState<ReadonlySet<string> | null>(null);
 
   /**
    * On focus, not on mount: the player arrives back here every time they leave
@@ -55,8 +62,9 @@ export default function CaseSelectScreen() {
     useCallback(() => {
       let alive = true;
       void (async () => {
-        const stored = await readResume();
+        const [stored, solved] = await Promise.all([readResume(), readSolvedCaseIds()]);
         if (!alive) return;
+        setSolvedIds(solved);
         const script = stored ? getLocalisedCase(stored.last.caseId, localeTag) : undefined;
         const offer = offerResume({
           last: stored?.last ?? null,
@@ -139,13 +147,25 @@ export default function CaseSelectScreen() {
           a moment later. A paying customer watched their own library re-lock
           itself on every launch.
         */}
-        {entitlementsLoading ? (
+        {entitlementsLoading || solvedIds === null ? (
           <CaseGridSkeleton count={cases.length} />
         ) : (
           <View style={styles.grid}>
-            {cases.map((c) => (
-              <CaseTile key={c.id} script={c} locked={!isCaseUnlocked(c, entitlementIds)} />
-            ))}
+            {cases.map((c) => {
+              const gate = decideCaseGate({
+                script: c,
+                order: cases,
+                solvedIds,
+                entitlementIds,
+                entitlementsLoading,
+                progressLoaded: true,
+              });
+              const blockedBy =
+                gate.kind === 'locked-progression'
+                  ? (cases.find((x) => x.id === gate.blockedByCaseId)?.title ?? '')
+                  : '';
+              return <CaseTile key={c.id} script={c} gate={gate} blockedByTitle={blockedBy} />;
+            })}
           </View>
         )}
       </View>
@@ -161,9 +181,51 @@ export default function CaseSelectScreen() {
   );
 }
 
-function CaseTile({ script, locked }: { script: CaseScript; locked: boolean }) {
+function CaseTile({
+  script,
+  gate,
+  blockedByTitle,
+}: {
+  script: CaseScript;
+  gate: CaseGate;
+  blockedByTitle: string;
+}) {
   const t = useTranslator();
   const count = script.contradictions.length;
+  const locked = gateIsLocked(gate);
+  const byProgress = gate.kind === 'locked-progression';
+
+  /*
+   * A progression lock is NOT a link.
+   *
+   * The paywall is somewhere to go; "finish the earlier case" is not, and
+   * routing to a screen that only says no would cost a push and a back press
+   * to deliver one sentence. Said in place instead, naming the case that is in
+   * the way — the useful part is WHICH case, and the tile alone cannot fit it.
+   */
+  if (byProgress) {
+    return (
+      <View style={styles.tile}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ disabled: true }}
+          accessibilityLabel={t('home.locked.body', { title: blockedByTitle })}
+          onPress={() =>
+            Alert.alert(t('home.locked.title'), t('home.locked.body', { title: blockedByTitle }))
+          }
+          style={({ pressed }) => [styles.tileInner, pressed && styles.pressed]}
+        >
+          <CaseArt script={script} locked />
+          <Text style={styles.name} numberOfLines={2}>
+            {script.title}
+          </Text>
+          <View style={styles.meta}>
+            <Text style={styles.metaText}>{t('home.tile.lockedByProgress')}</Text>
+          </View>
+        </Pressable>
+      </View>
+    );
+  }
 
   /*
    * The width lives on this View, NOT on the Pressable inside it.

@@ -1,9 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, Redirect, Stack } from 'expo-router';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { visibleThreads } from '@/engine';
 import { useCaseStore } from '@/state/caseStore';
-import { loadProgress } from '@/state/persistence';
+import { loadProgress, readSolvedCaseIds } from '@/state/persistence';
+import { CASES } from '@content/cases';
+import { firstUnsolvedBefore } from '@/state/progression';
 import { useTranslator } from '@/i18n/useTranslator';
 import { useLocalisedCase } from '@/i18n/useCase';
 import { useEntitlements } from '@/entitlements/useEntitlements';
@@ -20,6 +22,30 @@ export default function CaseLayout() {
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const { entitlementIds, loading: entitlementsLoading } = useEntitlements();
+
+  /*
+   * The progression gate, enforced HERE as well as on the tile.
+   *
+   * Exactly the lesson the paywall bypass taught: a rule applied only where the
+   * player came from is not applied at all, because expo-router publishes a
+   * deep link for every route under app/. A grid that draws a case locked while
+   * `privatetexts://case/the-wake/threads` opens it is the same defect wearing
+   * different clothes.
+   */
+  const [solvedIds, setSolvedIds] = useState<ReadonlySet<string> | null>(null);
+  useEffect(() => {
+    let alive = true;
+    void readSolvedCaseIds().then((s) => {
+      if (alive) setSolvedIds(s);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const blockedBy =
+    script && solvedIds ? firstUnsolvedBefore(script.id, CASES, solvedIds) : null;
+
 
   /*
    * The case's own name in the bar.
@@ -59,13 +85,24 @@ export default function CaseLayout() {
     ? decideCaseAccess({ script, entitlementIds, loading: entitlementsLoading })
     : ({ kind: 'blocked' } as const);
   const allowed = access.kind === 'allowed';
+  /*
+   * BOTH gates, and this is what the effect below is allowed to load on.
+   *
+   * Gating the load on the entitlement alone was the first version of this and
+   * it was wrong for the new gate in exactly the way it had already been wrong
+   * for the old one: the effect would put a progression-blocked script into the
+   * store on its way to the redirect, and /thread/[threadId] renders whatever
+   * the store holds. Held open until the saves have been read, because "nothing
+   * solved yet" and "still reading" are the same value.
+   */
+  const mayLoad = allowed && solvedIds !== null && blockedBy === null;
 
   useEffect(() => {
     // `allowed` is load-bearing, not belt-and-braces. Redirecting from the
     // render path alone would still let this effect put the paid script in the
     // store on the way out - and `/thread/[threadId]` reads the store, so the
     // case would stay open at a second URL after the first one bounced.
-    if (!script || !allowed || loaded === script) return;
+    if (!script || !mayLoad || loaded === script) return;
 
     if (loaded?.id === script.id) {
       // Same case, different language. Swap the prose and keep the session —
@@ -82,7 +119,7 @@ export default function CaseLayout() {
     // and backs out would otherwise move the pointer to a case with no save at
     // all, and lose the Continue offer for the case they were really in the
     // middle of. saveProgress moves the pointer, and only real progress saves.
-  }, [script, allowed, loaded, loadScript, relocaliseScript]);
+  }, [script, mayLoad, loaded, loadScript, relocaliseScript]);
 
   if (!script) return <Redirect href="/" />;
 
@@ -92,7 +129,10 @@ export default function CaseLayout() {
   // A skeleton, not null. This is the frame a deep link lands on, and on a slow
   // connection RevenueCat can take a second or two to answer - a blank screen
   // for that long is indistinguishable from a crash.
-  if (access.kind === 'checking') return <ThreadListSkeleton />;
+  if (access.kind === 'checking' || solvedIds === null) return <ThreadListSkeleton />;
+
+  // Out of order. Home, where the tile explains which case is in the way.
+  if (blockedBy !== null) return <Redirect href="/" />;
 
   // Home, not `/paywall`. The paywall is a modal that dismisses with
   // `router.back()`, and a deep link arrives with no history behind it, so

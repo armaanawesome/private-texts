@@ -37,6 +37,22 @@ export const saveBlobSchema = z.object({
    */
   lastThreadId: z.string().nullable().catch(() => null),
   lastMessageId: z.string().nullable().catch(() => null),
+
+  /**
+   * Whether this case has been solved — the right person named, with the proof
+   * and the motive already in hand.
+   *
+   * Load-bearing now that cases unlock in order: this is the only record that a
+   * case was finished, and without it a relaunch would re-lock everything the
+   * player had earned. It defaults to false, so every save written before this
+   * existed reads as unsolved, which is the safe direction — a player is asked
+   * to finish a case again at worst, never handed one they have not reached.
+   *
+   * A wrong accusation does NOT set it. The accusation screen refuses and lets
+   * the player name someone else with all their proof intact, so being wrong
+   * costs time and nothing else.
+   */
+  solved: z.boolean().catch(() => false),
 });
 
 export type SaveBlob = z.infer<typeof saveBlobSchema>;
@@ -47,6 +63,7 @@ export const emptySave = (): SaveBlob => ({
   confirmedContradictionIds: [],
   lastThreadId: null,
   lastMessageId: null,
+  solved: false,
 });
 
 /*

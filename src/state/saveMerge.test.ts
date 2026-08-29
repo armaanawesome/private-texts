@@ -15,12 +15,56 @@ import type { SaveBlob } from './saveBlob';
 const blob = (
   read: string[],
   confirmed: string[],
-  pointer: { thread?: string | null; message?: string | null } = {},
+  pointer: { thread?: string | null; message?: string | null; solved?: boolean } = {},
 ): SaveBlob => ({
   readMessageIds: read,
   confirmedContradictionIds: confirmed,
   lastThreadId: pointer.thread ?? null,
   lastMessageId: pointer.message ?? null,
+  solved: pointer.solved ?? false,
+});
+
+/**
+ * `solved` merges as OR, and that is not a stylistic choice.
+ *
+ * It is the only record that a case was finished, and cases now unlock in
+ * order — so losing it does not lose a flag, it re-locks the rest of the game
+ * for somebody who had earned their way through. Every other merge rule in this
+ * file exists to avoid deleting an evening of reading; this one exists to avoid
+ * deleting a playthrough.
+ */
+describe('solved survives the merge', () => {
+  it('is kept when only the local device saw the case solved', () => {
+    expect(mergeSaves(blob([], [], { solved: true }), blob([], [])).solved).toBe(true);
+  });
+
+  it('is kept when only the server saw the case solved', () => {
+    expect(mergeSaves(blob([], []), blob([], [], { solved: true })).solved).toBe(true);
+  });
+
+  it('stays false while neither side has solved it', () => {
+    expect(mergeSaves(blob([], []), blob([], [])).solved).toBe(false);
+  });
+
+  /**
+   * The failure this is really guarding. A phone that has been offline since
+   * before the case was solved still holds solved:false, and it is a perfectly
+   * ordinary writer on the next sync. Anything that prefers one side over the
+   * other, rather than OR-ing them, hands that stale phone the power to re-lock
+   * a finished case on every device.
+   */
+  it('is not re-locked by a stale device that never saw the win', () => {
+    const stale = blob(['m1'], []);
+    const finished = blob(['m1', 'm2'], ['c1'], { solved: true });
+    expect(mergeSaves(stale, finished).solved).toBe(true);
+    expect(mergeSaves(finished, stale).solved).toBe(true);
+  });
+
+  it('counts as a difference worth syncing', () => {
+    const before = blob(['m1'], ['c1']);
+    const after = blob(['m1'], ['c1'], { solved: true });
+    expect(savesDiffer(before, after)).toBe(true);
+  });
 });
 
 describe('mergeSaves', () => {

@@ -35,10 +35,13 @@ const remoteRowSchema = z.object({
   confirmed_contradiction_ids: z.array(z.string()).nullable(),
   last_thread_id: z.string().nullable(),
   last_message_id: z.string().nullable(),
+  // Nullable because a row written before the column existed carries no value,
+  // and a null there means unsolved rather than unreadable.
+  solved: z.boolean().nullable(),
 });
 
 const SELECT_COLUMNS =
-  'case_id, read_message_ids, confirmed_contradiction_ids, last_thread_id, last_message_id';
+  'case_id, read_message_ids, confirmed_contradiction_ids, last_thread_id, last_message_id, solved';
 
 export type SyncResult =
   /** Nothing was attempted, and that is fine — no account, or accounts are off. */
@@ -111,6 +114,7 @@ export async function syncProgress(): Promise<SyncResult> {
         confirmedContradictionIds: parsed.data.confirmed_contradiction_ids ?? [],
         lastThreadId: parsed.data.last_thread_id,
         lastMessageId: parsed.data.last_message_id,
+        solved: parsed.data.solved ?? false,
       });
       if (blob.success) remote.set(parsed.data.case_id, blob.data);
     }
@@ -142,6 +146,7 @@ export async function syncProgress(): Promise<SyncResult> {
           confirmed_contradiction_ids: blob.confirmedContradictionIds,
           last_thread_id: blob.lastThreadId,
           last_message_id: blob.lastMessageId,
+          solved: blob.solved,
           updated_at: now,
         })),
         // The table's primary key. Without naming it, a second sync from the

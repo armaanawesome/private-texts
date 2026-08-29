@@ -39,6 +39,11 @@ export const EN = {
   'home.pitch':
     'Someone is dead. All you have is their messages. Find the statement that cannot be true.',
   'home.cases.title': 'All cases',
+  /* Linear flow: a case whose predecessors are unfinished. Distinct from
+     home.tile.sealed, which means unbought. */
+  'home.tile.lockedByProgress': 'Locked',
+  'home.locked.title': 'Not yet',
+  'home.locked.body': 'Finish {title} first. The cases run in order.',
   'home.storeUnreachable':
     'Could not check your purchases. Cases you own will unlock when you are back online.',
   'home.tile.sealed': 'Sealed',
@@ -255,6 +260,11 @@ const ES: Catalogue = {
   'home.pitch':
     'Alguien ha muerto. Solo tienes sus mensajes. Encuentra la afirmación que no puede ser cierta.',
   'home.cases.title': 'Todos los casos',
+  /* Linear flow: a case whose predecessors are unfinished. Distinct from
+     home.tile.sealed, which means unbought. */
+  'home.tile.lockedByProgress': 'Bloqueado',
+  'home.locked.title': 'Todavía no',
+  'home.locked.body': 'Termina {title} antes que este. Los casos van en orden.',
   'home.storeUnreachable':
     'No se pudieron comprobar tus compras. Los casos que ya tienes se desbloquearán cuando vuelvas a estar en línea.',
   'home.tile.sealed': 'Sellado',
@@ -442,6 +452,11 @@ const FR: Catalogue = {
   'home.pitch':
     'Quelqu’un est mort. Vous n’avez que ses messages. Trouvez la déclaration qui ne peut pas être vraie.',
   'home.cases.title': 'Toutes les affaires',
+  /* Linear flow: a case whose predecessors are unfinished. Distinct from
+     home.tile.sealed, which means unbought. */
+  'home.tile.lockedByProgress': 'Verrouillée',
+  'home.locked.title': 'Pas encore',
+  'home.locked.body': 'Terminez {title} d’abord. Les affaires se suivent dans l’ordre.',
   'home.storeUnreachable':
     'Impossible de vérifier vos achats. Les affaires que vous possédez se déverrouilleront dès le retour de la connexion.',
   'home.tile.sealed': 'Scellée',
@@ -632,6 +647,11 @@ const DE: Catalogue = {
   'home.pitch':
     'Jemand ist tot. Alles, was du hast, sind die Nachrichten. Finde die Aussage, die nicht wahr sein kann.',
   'home.cases.title': 'Alle Fälle',
+  /* Linear flow: a case whose predecessors are unfinished. Distinct from
+     home.tile.sealed, which means unbought. */
+  'home.tile.lockedByProgress': 'Gesperrt',
+  'home.locked.title': 'Noch nicht',
+  'home.locked.body': 'Schließe zuerst {title} ab. Die Fälle laufen der Reihe nach.',
   'home.storeUnreachable':
     'Deine Käufe konnten nicht geprüft werden. Fälle, die dir gehören, werden freigeschaltet, sobald du wieder online bist.',
   'home.tile.sealed': 'Versiegelt',
@@ -813,6 +833,11 @@ const PT_BR: Catalogue = {
   'home.pitch':
     'Alguém morreu. Tudo o que você tem são as mensagens. Encontre a afirmação que não pode ser verdade.',
   'home.cases.title': 'Todos os casos',
+  /* Linear flow: a case whose predecessors are unfinished. Distinct from
+     home.tile.sealed, which means unbought. */
+  'home.tile.lockedByProgress': 'Bloqueado',
+  'home.locked.title': 'Ainda não',
+  'home.locked.body': 'Termine {title} primeiro. Os casos seguem em ordem.',
   'home.storeUnreachable':
     'Não foi possível verificar suas compras. Os casos que você já tem serão desbloqueados quando você voltar a ficar online.',
   'home.tile.sealed': 'Lacrado',

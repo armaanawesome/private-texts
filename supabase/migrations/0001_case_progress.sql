@@ -36,6 +36,17 @@ create table if not exists public.case_progress (
 -- player's rows.
 -- ---------------------------------------------------------------------------
 
+-- Added after the table shipped, so it is a separate idempotent statement
+-- rather than a column in the create above: existing projects already have the
+-- table and would skip a changed create-if-not-exists entirely.
+--
+-- Solved means the right person was named, with the proof and motive in hand.
+-- Cases unlock in order, so this row is what stands between a player and the
+-- rest of the game. NOT NULL DEFAULT false so every row written before this
+-- column existed reads as unsolved, which is the safe direction.
+alter table public.case_progress
+  add column if not exists solved boolean not null default false;
+
 alter table public.case_progress enable row level security;
 
 drop policy if exists "read own progress"   on public.case_progress;

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCaseStore } from './caseStore';
 import { saveBlobSchema, type SaveBlob } from './saveBlob';
-import { saveKey } from './saveKeys';
+import { saveKey, saveKeysIn, caseIdFromSaveKey } from './saveKeys';
 import { RESUME_KEY, lastPlayedSchema, type LastPlayed } from './resume';
 
 /**
@@ -16,9 +16,15 @@ import { RESUME_KEY, lastPlayedSchema, type LastPlayed } from './resume';
  * whether resuming makes sense at all, lives in resume.ts.
  */
 export async function saveProgress(caseId: string): Promise<void> {
-  const { readMessageIds, confirmedContradictionIds, lastThreadId, lastMessageId } =
+  const { readMessageIds, confirmedContradictionIds, lastThreadId, lastMessageId, solved } =
     useCaseStore.getState();
-  const blob: SaveBlob = { readMessageIds, confirmedContradictionIds, lastThreadId, lastMessageId };
+  const blob: SaveBlob = {
+    readMessageIds,
+    confirmedContradictionIds,
+    lastThreadId,
+    lastMessageId,
+    solved,
+  };
   await AsyncStorage.setItem(saveKey(caseId), JSON.stringify(blob));
   // Any write is evidence this is the case being played.
   await markLastPlayed(caseId);
@@ -51,11 +57,42 @@ export async function loadProgress(caseId: string): Promise<void> {
       confirmedContradictionIds: blob.confirmedContradictionIds,
       lastThreadId: blob.lastThreadId,
       lastMessageId: blob.lastMessageId,
+      solved: blob.solved,
     });
   }
   // Set even when there was nothing to load: the question the flag answers is
   // "has storage been consulted", not "was there a save".
   useCaseStore.setState({ hydrated: true });
+}
+
+/**
+ * Every case this device has solved.
+ *
+ * The case grid needs all of them at once to decide what is reachable, and the
+ * per-case store only ever holds the case that is open — so this reads the saves
+ * directly rather than going through it.
+ *
+ * A corrupt save counts as unsolved rather than throwing. Being asked to replay
+ * a case is a bad afternoon; a grid that cannot render is a broken app, and the
+ * same reasoning already governs `readSave`.
+ */
+export async function readSolvedCaseIds(): Promise<Set<string>> {
+  const solved = new Set<string>();
+  // AsyncStorage is one flat namespace shared with Supabase's session entry and
+  // the settings blob, so the keys are filtered rather than assumed.
+  const keys = saveKeysIn(await AsyncStorage.getAllKeys());
+  if (keys.length === 0) return solved;
+
+  for (const [key, raw] of await AsyncStorage.multiGet(keys)) {
+    const caseId = caseIdFromSaveKey(key);
+    if (caseId === null || raw === null) continue;
+    try {
+      if (saveBlobSchema.parse(JSON.parse(raw)).solved) solved.add(caseId);
+    } catch {
+      continue;
+    }
+  }
+  return solved;
 }
 
 /** Stamps this case as the one Continue should offer. */
