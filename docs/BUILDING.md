@@ -73,7 +73,8 @@ stay current: they fetch everything from Metro at launch.
 |---|---|---|
 | Android APK | `9189368` (2026-08-11) | Dev launcher confirmed inside the APK. ~244 MB. |
 | iOS simulator (dev client) | `bcc6cca` (2026-08-09) | **Stale.** `app.json` and `package.json` both changed after it — new icon and splash, `expo-splash-screen` added. Superseded by the preview build below. |
-| iOS simulator (**preview**) | `11b9b4c` (2026-08-28) | Self-contained Release `.tar.gz` for a cloud simulator (Limrun). Purchases OFF by design — see below. |
+| iOS simulator (preview) | `11b9b4c` (2026-08-28) | Superseded. Its grid rendered one full-width tile per row. |
+| iOS simulator (**preview**) | `0d944c2` (2026-08-29) | Current. Self-contained Release `.tar.gz` for a cloud simulator (Limrun). Purchases OFF by design — see below. |
 
 An older dev client stays valid as long as nothing **native** has changed. To
 check before assuming, list what actually changed:
