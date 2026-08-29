@@ -11,6 +11,8 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { readSolvedCaseIds } from '@/state/persistence';
+import { DEMO_CASE_ID } from '@content/cases';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { render, type Message } from '@/i18n/message';
@@ -76,6 +78,23 @@ export default function SignInScreen() {
     else router.replace('/');
   }, [router]);
 
+  /**
+   * Open the demo case, unless this player has already finished it.
+   *
+   * Called only AFTER `syncProgress()`, and the order is the whole point: a
+   * returning player signing in on a new phone has an empty device and a full
+   * account, so asking the disk before the server would drop somebody twelve
+   * cases in back into the tutorial.
+   *
+   * Silent when the case is already solved. Sign-in is reachable from Settings
+   * mid-game, and hijacking that into a case the player did not ask to open
+   * would be worse than doing nothing.
+   */
+  const startDemoIfUnplayed = useCallback(async () => {
+    const solved = await readSolvedCaseIds();
+    if (!solved.has(DEMO_CASE_ID)) router.replace(`/case/${DEMO_CASE_ID}/threads`);
+  }, [router]);
+
   const runSync = useCallback(async () => {
     setBusy(true);
     setNotice(describeSyncResult(await syncProgress()));
@@ -101,8 +120,12 @@ export default function SignInScreen() {
 
     if (mode === 'signIn') {
       const attempt = await signIn(email, password);
-      if (!attempt.ok) setFormError(attempt.message);
-      else setNotice(describeSyncResult(await syncProgress()));
+      if (!attempt.ok) {
+        setFormError(attempt.message);
+      } else {
+        setNotice(describeSyncResult(await syncProgress()));
+        await startDemoIfUnplayed();
+      }
     } else {
       const attempt = await signUp(email, password);
       if (!attempt.ok) {
@@ -116,11 +139,12 @@ export default function SignInScreen() {
         setNotice({ key: 'signIn.confirmEmail', params: { email: email.trim() } });
       } else {
         setNotice(describeSyncResult(await syncProgress()));
+        await startDemoIfUnplayed();
       }
     }
 
     setBusy(false);
-  }, [busy, email, password, mode, signIn, signUp, t]);
+  }, [busy, email, password, mode, signIn, signUp, t, startDemoIfUnplayed]);
 
   const leaveButton = (
     <Pressable

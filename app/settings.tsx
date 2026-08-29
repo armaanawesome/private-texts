@@ -10,7 +10,7 @@ import { render } from '@/i18n/message';
 import { useSettingsStore } from '@/settings/settingsStore';
 import { clearAllProgress, hydrateSettings } from '@/settings/persistence';
 import { feedback } from '@/settings/feedback';
-import { VolumeRail } from '@/settings/VolumeRail';
+import { VolumeSlider } from '@/settings/VolumeSlider';
 import {
   ActionRow,
   CustomRow,
@@ -155,6 +155,11 @@ export default function SettingsScreen() {
         {/* First, because it is the only row here that teaches rather than
             configures - and the player most likely to open Settings looking for
             help is the one who skipped it. */}
+        {/* Sign-in had no entrance anywhere in the app until now. */}
+        <Section title={t('settings.account.section')}>
+          <ActionRow label={t('signIn.title')} onPress={() => router.push('/sign-in')} />
+        </Section>
+
         <Section title={t('settings.help.section')}>
           <ActionRow
             label={t('howToPlay.title')}
@@ -173,7 +178,7 @@ export default function SettingsScreen() {
             }}
           />
           <CustomRow label={t('settings.volume.label')}>
-            <VolumeRail
+            <VolumeSlider
               volume={settings.soundVolume}
               disabled={!settings.soundEnabled}
               onChange={(soundVolume) => {

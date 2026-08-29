@@ -13,6 +13,7 @@ import { Stack, useRouter } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { useSettingsStore } from '@/settings/settingsStore';
+import { DEMO_CASE_ID } from '@content/cases';
 
 /**
  * How the game works, before the game asks you to play it.
@@ -55,10 +56,24 @@ export default function HowToPlayScreen() {
    * showing it again next launch would overrule a choice they made — the
    * Settings row is how they come back if they were wrong.
    */
-  const finish = useCallback(() => {
-    update({ hasSeenHowToPlay: true });
-    router.replace('/');
-  }, [update, router]);
+  const finish = useCallback(
+    (into: 'demo' | 'home') => {
+      update({ hasSeenHowToPlay: true });
+      /*
+       * "Start playing" opens the demo case rather than the case list, which is
+       * the whole point of the pair. The Bakehouse exists to teach the reasoning
+       * — one contradiction fires and two near-misses correctly refuse to — and
+       * these five steps teach the controls it assumes. Landing on a grid in
+       * between makes the player choose their own tutorial, which is the one
+       * decision onboarding should not ask for.
+       *
+       * Skipping still goes home. Somebody who skipped the instructions is not
+       * asking to be dropped into a case; they are asking to look around.
+       */
+      router.replace(into === 'demo' ? `/case/${DEMO_CASE_ID}/threads` : '/');
+    },
+    [update, router],
+  );
 
   const goTo = useCallback(
     (next: number) => {
@@ -116,7 +131,7 @@ export default function HowToPlayScreen() {
 
         <View style={styles.actions}>
           <Pressable
-            onPress={finish}
+            onPress={() => finish('home')}
             accessibilityRole="button"
             hitSlop={theme.hit.slop}
             style={styles.skip}
@@ -125,7 +140,7 @@ export default function HowToPlayScreen() {
           </Pressable>
 
           <Pressable
-            onPress={() => (last ? finish() : goTo(index + 1))}
+            onPress={() => (last ? finish('demo') : goTo(index + 1))}
             accessibilityRole="button"
             style={({ pressed }) => [styles.next, pressed && styles.pressed]}
           >

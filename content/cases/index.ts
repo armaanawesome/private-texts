@@ -44,6 +44,16 @@ export const CASES: readonly CaseScript[] = [
   loadCase(theListenerRaw),
 ];
 
+/**
+ * The demo case: first in the order, free, and where onboarding lands.
+ *
+ * Read off the case rather than written out again, so the id cannot drift from
+ * the thing it names. Both the walkthrough and the post-sign-in hand-off route
+ * here, and `CASES[0]` would say the same thing less clearly and need a
+ * non-null assertion to satisfy noUncheckedIndexedAccess.
+ */
+export const DEMO_CASE_ID = tutorialRaw.id;
+
 export function getCase(caseId: string): CaseScript | undefined {
   return CASES.find((c) => c.id === caseId);
 }

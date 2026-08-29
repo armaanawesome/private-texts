@@ -69,6 +69,7 @@ export const EN = {
 
   /* The walkthrough shown once on first launch, and repeatable from Settings.
      Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.account.section': 'Account',
   'settings.help.section': 'Help',
   'howToPlay.title': 'How to play',
   'howToPlay.step': 'Step {n} of {total}',
@@ -285,6 +286,7 @@ const ES: Catalogue = {
 
   /* The walkthrough shown once on first launch, and repeatable from Settings.
      Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.account.section': 'Cuenta',
   'settings.help.section': 'Ayuda',
   'howToPlay.title': 'Cómo jugar',
   'howToPlay.step': 'Paso {n} de {total}',
@@ -477,6 +479,7 @@ const FR: Catalogue = {
 
   /* The walkthrough shown once on first launch, and repeatable from Settings.
      Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.account.section': 'Compte',
   'settings.help.section': 'Aide',
   'howToPlay.title': 'Comment jouer',
   'howToPlay.step': 'Étape {n} sur {total}',
@@ -672,6 +675,7 @@ const DE: Catalogue = {
 
   /* The walkthrough shown once on first launch, and repeatable from Settings.
      Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.account.section': 'Konto',
   'settings.help.section': 'Hilfe',
   'howToPlay.title': 'So wird gespielt',
   'howToPlay.step': 'Schritt {n} von {total}',
@@ -858,6 +862,7 @@ const PT_BR: Catalogue = {
 
   /* The walkthrough shown once on first launch, and repeatable from Settings.
      Teaches the controls; the tutorial CASE teaches the reasoning. */
+  'settings.account.section': 'Conta',
   'settings.help.section': 'Ajuda',
   'howToPlay.title': 'Como jogar',
   'howToPlay.step': 'Passo {n} de {total}',
