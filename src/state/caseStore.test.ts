@@ -301,3 +301,56 @@ describe('relocaliseScript', () => {
     expect(useCaseStore.getState().readMessageIds).toEqual([]);
   });
 });
+
+/**
+ * Replay: forget the playthrough, remember that there was one.
+ *
+ * The distinction is load-bearing in two places at once. The case grid draws its
+ * green tick from `solved`, and linear progression unlocks the NEXT case from
+ * the same flag — so a restart that cleared it would take a player's tick away
+ * and re-lock the rest of the game behind a case they had already finished, as
+ * a reward for wanting to play it again.
+ */
+describe('restart', () => {
+  beforeEach(() => {
+    useCaseStore.getState().loadScript(SCRIPT as CaseScript);
+  });
+
+  it('clears the playthrough but keeps solved', () => {
+    const s = useCaseStore.getState();
+    s.markRead('m1');
+    s.markSolved();
+
+    useCaseStore.getState().restart();
+
+    const after = useCaseStore.getState();
+    expect(after.readMessageIds).toEqual([]);
+    expect(after.confirmedContradictionIds).toEqual([]);
+    expect(after.pinnedClaimIds).toEqual([]);
+    expect(after.lastThreadId).toBeNull();
+    expect(after.solved).toBe(true);
+  });
+
+  it('keeps the script loaded', () => {
+    useCaseStore.getState().restart();
+    expect(useCaseStore.getState().script?.id).toBe('c');
+  });
+
+  /**
+   * The case layout only calls loadProgress when the SCRIPT changes, and on a
+   * replay it has not — so nothing would ever set this. The inbox waits on it,
+   * so inheriting the false from empty() would leave a replay on a skeleton for
+   * as long as the player was willing to look at one.
+   */
+  it('leaves storage marked as consulted', () => {
+    useCaseStore.setState({ hydrated: true });
+    useCaseStore.getState().restart();
+    expect(useCaseStore.getState().hydrated).toBe(true);
+  });
+
+  it('is not loadScript, which forgets the case was ever solved', () => {
+    useCaseStore.getState().markSolved();
+    useCaseStore.getState().loadScript(SCRIPT as CaseScript);
+    expect(useCaseStore.getState().solved).toBe(false);
+  });
+});

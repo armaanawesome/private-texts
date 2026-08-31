@@ -21,30 +21,40 @@ describe('parseSettings', () => {
       hapticsEnabled: false,
       reduceMotion: true,
       localeTag: 'fr',
-      // Deliberately the non-default, so this asserts the field survives a round
-      // trip rather than merely agreeing with what the default would have been.
-      hasSeenHowToPlay: true,
+      // Deliberately the non-defaults, so this asserts the fields survive a round
+      // trip rather than merely agreeing with what the defaults would have been.
+      hasSeenLanding: true,
+      tutorialDismissed: true,
     };
     expect(parseSettings(stored)).toEqual(stored);
   });
 
   /**
-   * The one that decides whether a returning player is taught the controls again.
+   * The one that decides whether a returning player meets the front door.
    *
-   * Every settings blob written before the walkthrough existed lacks this field,
-   * and `.catch` gives those `false` — "not yet taught" — so the walkthrough
-   * shows once for everyone who already has the app. Defaulting the other way
-   * would silently skip it for exactly the players it was added for.
+   * Every settings blob written before the landing existed lacks this field, and
+   * `.catch` gives those `false` — "has not been through the door" — so it shows
+   * once for everyone who already has the app. Defaulting the other way would
+   * silently skip it, and skipping it is the one thing it must not do: it is
+   * where signing in now lives.
+   *
+   * The blob below deliberately still carries `hasSeenHowToPlay`, the field the
+   * landing replaced. That is what a real device holds today, and the assertion
+   * is that a retired key is dropped rather than mistaken for the new one.
    */
-  it('treats a blob written before the walkthrough existed as not yet taught', () => {
+  it('treats a blob written before the landing existed as not yet seen', () => {
     const olderBuild = {
       soundEnabled: true,
       soundVolume: 0.7,
       hapticsEnabled: true,
       reduceMotion: false,
       localeTag: 'en',
+      hasSeenHowToPlay: true,
     };
-    expect(parseSettings(olderBuild).hasSeenHowToPlay).toBe(false);
+    const parsed = parseSettings(olderBuild);
+    expect(parsed.hasSeenLanding).toBe(false);
+    expect(parsed.tutorialDismissed).toBe(false);
+    expect(parsed).not.toHaveProperty('hasSeenHowToPlay');
   });
 
   it('fills in a missing field without discarding the fields that survived', () => {

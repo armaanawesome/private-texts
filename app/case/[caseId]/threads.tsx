@@ -7,6 +7,7 @@ import { clockOf } from '@/ui/timeScale';
 import { useCaseStore } from '@/state/caseStore';
 import { visibleThreads, type CaseScript, type Thread } from '@/engine';
 import { ThreadListSkeleton } from '@/ui/Skeleton';
+import { TutorialCoach } from '@/tutorial/TutorialCoach';
 
 const PLAYER_ID = 'you';
 
@@ -67,7 +68,12 @@ export default function ThreadsScreen() {
   const hidden = script.threads.length - threads.length;
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+    <View style={styles.root}>
+      <TutorialCoach screen="threads" />
+      {/* `flex: 1` is not decoration here. The scroller is now a child of a flex
+          column rather than the screen itself, and without it a ScrollView takes
+          its content height and stops scrolling. */}
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
       {threads.map((t, i) => (
         <ThreadRow
           key={t.id}
@@ -85,7 +91,8 @@ export default function ThreadsScreen() {
             : `${hidden} conversations are still out of reach. Prove something first.`}
         </Text>
       ) : null}
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -153,6 +160,7 @@ const AVATAR = 44;
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: theme.color.bg },
+  scroll: { flex: 1 },
   content: { paddingBottom: theme.space.xl },
 
   row: {

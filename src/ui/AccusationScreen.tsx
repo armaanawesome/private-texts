@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import { feedback } from '@/settings/feedback';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { ConfrontationScreen } from './ConfrontationScreen';
+import { CaseClosedScreen } from './CaseClosedScreen';
+import { TutorialCoach } from '@/tutorial/TutorialCoach';
 import { useCaseStore } from '@/state/caseStore';
 import { saveProgress } from '@/state/persistence';
 import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
@@ -79,39 +81,33 @@ export function AccusationScreen() {
 
   if (result?.correct) {
     return (
-      <Animated.ScrollView
-        entering={reduceMotion ? undefined : FadeIn.duration(600)}
-        contentContainerStyle={styles.endRoot}
-      >
-        <Text style={styles.endTitle}>Case closed</Text>
-        <Text style={styles.epilogue}>{result.epilogue}</Text>
-
-        {/* The coda lands after the player believes it is over. Staggered so it
-            reads as messages arriving, not as more of the epilogue. */}
-        {script.coda ? (
-          <View style={styles.coda}>
-            <Text style={styles.codaFrom}>{script.coda.from}</Text>
-            {script.coda.messages.map((m, i) => (
-              <Animated.View
-                key={i}
-                entering={
-                  reduceMotion
-                    ? undefined
-                    : FadeInDown.springify().damping(18).mass(0.6).delay(1400 + i * 1100)
-                }
-                style={styles.codaBubble}
-              >
-                <Text style={styles.codaText}>{m}</Text>
-              </Animated.View>
-            ))}
-          </View>
-        ) : null}
-      </Animated.ScrollView>
+      <CaseClosedScreen
+        script={script}
+        epilogue={result.epilogue}
+        proved={confirmedIds.length}
+        total={script.contradictions.length}
+        /*
+         * Replay has to clear the two pieces of state this component owns, not
+         * merely the store. `result` and `closed` live here, and the store knows
+         * nothing about either — without this the case would restart underneath
+         * a closing screen that stayed on top of it.
+         */
+        onReplay={() => {
+          setResult(null);
+          setClosed(false);
+        }}
+      />
     );
   }
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+    <View style={styles.root}>
+      {/* First child, in flow: it takes its own height and the list scrolls below. */}
+      <TutorialCoach screen="accuse" />
+      {/* `flex: 1` is not decoration here. The scroller is now a child of a flex
+          column rather than the screen itself, and without it a ScrollView takes
+          its content height and stops scrolling. */}
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
       <Text style={styles.prompt}>Who killed them?</Text>
       <Text style={styles.sub}>
         Naming the right person is not enough. You have to be able to prove it.
@@ -170,13 +166,15 @@ export function AccusationScreen() {
             </Pressable>
           );
         })}
-      </View>
-    </ScrollView>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: theme.color.bg },
+  scroll: { flex: 1 },
   content: { padding: theme.space.md, gap: theme.space.md },
   prompt: { ...theme.type.title, color: theme.color.text },
   sub: { ...theme.type.body, color: theme.color.textDim },
@@ -210,25 +208,4 @@ const styles = StyleSheet.create({
   motive: { ...theme.type.meta, color: theme.color.accent, marginTop: 2 },
   marks: { flexDirection: 'row', gap: 3, alignItems: 'center' },
   mark: { width: 3, height: 18, borderRadius: 1.5, backgroundColor: theme.color.danger },
-  endRoot: { padding: theme.space.lg, gap: theme.space.lg, flexGrow: 1, justifyContent: 'center' },
-  endTitle: { ...theme.type.title, color: theme.color.accent, textAlign: 'center' },
-  epilogue: { ...theme.type.body, color: theme.color.text },
-
-  coda: {
-    marginTop: theme.space.xl,
-    paddingTop: theme.space.lg,
-    borderTopWidth: 1,
-    borderTopColor: theme.color.rule,
-    gap: theme.space.sm,
-  },
-  codaFrom: { ...theme.type.claim, fontSize: 11, color: theme.color.textDim },
-  codaBubble: {
-    alignSelf: 'flex-start',
-    maxWidth: '88%',
-    backgroundColor: theme.color.bubbleThem,
-    borderRadius: theme.radius.bubble,
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-  },
-  codaText: { ...theme.type.body, color: theme.color.text },
 });

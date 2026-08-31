@@ -31,6 +31,17 @@ const paywallOptions = {
 const debugOptions = { title: 'Test Store harness' } as const;
 
 /**
+ * No bar at all on the front door.
+ *
+ * The screen carries its own wordmark, and a header here would offer a back
+ * button to a home screen the player has not been shown yet. `gestureEnabled`
+ * off for the same reason: swiping back out of the landing would drop somebody
+ * onto the case grid with the choice still unmade, and the home screen would
+ * simply push them straight back here.
+ */
+const landingOptions = { headerShown: false, gestureEnabled: false } as const;
+
+/**
  * The only way into Settings, and for a while there was none at all.
  *
  * `app/settings.tsx`, `app/language.tsx` and `app/sign-in.tsx` were all built
@@ -100,6 +111,7 @@ export default function RootLayout() {
       <Stack screenOptions={rootScreenOptions}>
         {/* Presentation belongs to the navigator, not to the screen component. */}
         <Stack.Screen name="index" options={indexOptions} />
+        <Stack.Screen name="landing" options={landingOptions} />
         <Stack.Screen name="paywall" options={paywallOptions} />
         <Stack.Screen name="debug" options={debugOptions} />
       </Stack>

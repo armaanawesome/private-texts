@@ -5,6 +5,7 @@ import { MessageList, PLAYER_ID } from '@/ui/MessageList';
 import { ClaimMenu } from '@/ui/ClaimMenu';
 import { useCaseStore } from '@/state/caseStore';
 import { saveProgress } from '@/state/persistence';
+import { TutorialCoach } from '@/tutorial/TutorialCoach';
 
 export default function ThreadScreen() {
   const { threadId } = useLocalSearchParams<{ threadId: string }>();
@@ -46,6 +47,10 @@ export default function ThreadScreen() {
       {/* Memoised: an inline literal makes the navigator setOptions every
           render, which loops. See app/_layout.tsx. */}
       <Stack.Screen options={titleOptions} />
+      {/* Above the list rather than over it. The list advances on a tap anywhere
+          in it, and an overlay is one z-index away from eating the very tap the
+          prompt is asking for. */}
+      <TutorialCoach screen="thread" />
       <MessageList thread={thread} characters={script.characters} onPressClaims={setSheetFor} />
 
       <ClaimMenu

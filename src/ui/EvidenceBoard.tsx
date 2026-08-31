@@ -9,6 +9,7 @@ import { describePredicate, attributionFor } from './claimText';
 import { useCaseStore } from '@/state/caseStore';
 import { saveProgress } from '@/state/persistence';
 import { availableClaims, type Claim, type CaseScript } from '@/engine';
+import { TutorialCoach } from '@/tutorial/TutorialCoach';
 
 export function EvidenceBoard() {
   const reduceMotion = useReduceMotion();
@@ -38,7 +39,12 @@ export function EvidenceBoard() {
   const proven = script.contradictions.filter((c) => confirmedIds.includes(c.id));
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+    <View style={styles.root}>
+      <TutorialCoach screen="board" />
+      {/* `flex: 1` is not decoration here. The scroller is now a child of a flex
+          column rather than the screen itself, and without it a ScrollView takes
+          its content height and stops scrolling. */}
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
       <Sheet script={script} a={a} b={b} lit={lastVerdict?.ok === true} reduceMotion={reduceMotion} />
 
       <ContradictionResult
@@ -103,7 +109,8 @@ export function EvidenceBoard() {
           </View>
         </>
       ) : null}
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -170,6 +177,7 @@ function SectionHead({ label, count }: { label: string; count: number }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: theme.color.bg },
+  scroll: { flex: 1 },
   content: { padding: theme.space.md, gap: theme.space.lg, paddingBottom: theme.space.xl },
 
   waiting: {

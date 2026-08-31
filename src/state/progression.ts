@@ -60,6 +60,28 @@ export function firstUnsolvedBefore(
   return null;
 }
 
+/**
+ * The case that follows this one, or null at the end of the list.
+ *
+ * Feeds the "Next case" button on the closing screen, which is the whole reason
+ * it is a function here rather than index arithmetic inside a component: the end
+ * of the list and an id this build no longer ships both have to produce a
+ * *missing* button, and both are one character away from producing a button that
+ * navigates nowhere.
+ *
+ * Says nothing about whether the next case may be opened — `decideCaseGate`
+ * answers that, and the caller asks it separately, because a next case that is
+ * paid and unowned is still somewhere worth offering to go.
+ */
+export function nextCaseAfter<T extends OrderedCase>(
+  caseId: string,
+  order: readonly T[],
+): T | null {
+  const index = order.findIndex((c) => c.id === caseId);
+  if (index === -1) return null;
+  return order[index + 1] ?? null;
+}
+
 export function decideCaseGate(input: {
   script: OrderedCase;
   order: readonly OrderedCase[];

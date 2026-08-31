@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { readSolvedCaseIds } from '@/state/persistence';
 import { DEMO_CASE_ID } from '@content/cases';
 import { theme } from '@/ui/theme';
@@ -40,6 +40,8 @@ import {
  */
 export default function SignInScreen() {
   const router = useRouter();
+  /** Set only by the landing page. Absent when this screen is opened from Settings. */
+  const { onboarding } = useLocalSearchParams<{ onboarding?: string }>();
   const t = useTranslator();
   const { status, signIn, signUp, signOut } = useAuth();
 
@@ -79,21 +81,28 @@ export default function SignInScreen() {
   }, [router]);
 
   /**
-   * Open the demo case, unless this player has already finished it.
+   * Where to go once the account is settled — but only when this screen is
+   * standing in the middle of onboarding.
+   *
+   * The landing page arrives here as `/sign-in?onboarding=1`, having already
+   * replaced itself, so this screen owes the player a destination: leaving them
+   * on a form they have finished with is a dead end. Opened from Settings there
+   * is no flag, nothing moves, and they leave the way they came — the only
+   * correct answer for somebody who came here mid-game to switch accounts, and
+   * previously not what happened: this used to fire either way, so signing in
+   * from Settings could yank a player into the demo case unasked.
    *
    * Called only AFTER `syncProgress()`, and the order is the whole point: a
    * returning player signing in on a new phone has an empty device and a full
    * account, so asking the disk before the server would drop somebody twelve
-   * cases in back into the tutorial.
-   *
-   * Silent when the case is already solved. Sign-in is reachable from Settings
-   * mid-game, and hijacking that into a case the player did not ask to open
-   * would be worse than doing nothing.
+   * cases in back into the tutorial. Once the sync has landed, a demo already
+   * solved sends them to the case list instead.
    */
-  const startDemoIfUnplayed = useCallback(async () => {
+  const finishOnboarding = useCallback(async () => {
+    if (!onboarding) return;
     const solved = await readSolvedCaseIds();
-    if (!solved.has(DEMO_CASE_ID)) router.replace(`/case/${DEMO_CASE_ID}/threads`);
-  }, [router]);
+    router.replace(solved.has(DEMO_CASE_ID) ? '/' : `/case/${DEMO_CASE_ID}/threads`);
+  }, [onboarding, router]);
 
   const runSync = useCallback(async () => {
     setBusy(true);
@@ -124,7 +133,7 @@ export default function SignInScreen() {
         setFormError(attempt.message);
       } else {
         setNotice(describeSyncResult(await syncProgress()));
-        await startDemoIfUnplayed();
+        await finishOnboarding();
       }
     } else {
       const attempt = await signUp(email, password);
@@ -139,12 +148,12 @@ export default function SignInScreen() {
         setNotice({ key: 'signIn.confirmEmail', params: { email: email.trim() } });
       } else {
         setNotice(describeSyncResult(await syncProgress()));
-        await startDemoIfUnplayed();
+        await finishOnboarding();
       }
     }
 
     setBusy(false);
-  }, [busy, email, password, mode, signIn, signUp, t, startDemoIfUnplayed]);
+  }, [busy, email, password, mode, signIn, signUp, t, finishOnboarding]);
 
   const leaveButton = (
     <Pressable

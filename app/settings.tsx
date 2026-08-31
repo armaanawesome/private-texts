@@ -160,10 +160,21 @@ export default function SettingsScreen() {
           <ActionRow label={t('signIn.title')} onPress={() => router.push('/sign-in')} />
         </Section>
 
+        {/*
+          This used to open a five-page slideshow. There is no slideshow any
+          more — the walkthrough runs inside the Bakehouse, on the real inbox and
+          the real board — so the row turns those prompts back on rather than
+          navigating anywhere. Confirmed with an alert because the effect is not
+          on this screen, and an invisible change reads as a dead button.
+        */}
         <Section title={t('settings.help.section')}>
           <ActionRow
-            label={t('howToPlay.title')}
-            onPress={() => router.push('/how-to-play')}
+            label={t('tutorial.replayRow')}
+            onPress={() => {
+              update({ tutorialDismissed: false });
+              feedback.selection();
+              Alert.alert(t('tutorial.replayTitle'), t('tutorial.replayBody'));
+            }}
           />
         </Section>
 

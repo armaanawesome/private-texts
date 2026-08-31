@@ -53,7 +53,7 @@ accuse.
 | Chat UI + craft pass | ✅ Mobbin-grounded |
 | Evidence board | ✅ functional, **no craft pass** |
 | Accusation screen | ✅ functional, **no craft pass** |
-| Routes | ✅ threads → board → accuse, + settings, language, sign-in, how-to-play — **all reachable now; settings and sign-in had no entrance at all until 2026-08-29** |
+| Routes | ✅ landing → threads → board → accuse, + settings, language, sign-in — all reachable. `/how-to-play` is **gone**; `/landing` replaces it |
 | Paywall | ✅ custom UI, **purchase unverified** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
 | 15 case packs + tutorial | ✅ written, and **all sixteen read end to end by the owner** (2026-08-28) |
@@ -66,9 +66,10 @@ accuse.
 | Video, screenshots, icon | ❌ not started |
 | Android | ⚠️ APK builds; never installed on a handset |
 | Linear progression | ✅ cases unlock in order, enforced on the tile **and** at the route; `solved` persists locally and syncs |
-| Onboarding | ✅ five-step walkthrough on first launch, hands into the Bakehouse; repeatable from Settings |
+| Onboarding | ✅ animated landing (sign in / play as guest) → Bakehouse, with the walkthrough running **inside** the case as coach marks. Re-armed from Settings |
+| Case closed | ✅ closed-file header, proof tally, coda, and three exits: next case, all cases, play again |
 
-**Tests:** `.\check.cmd` → **4764 passing across 124 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4784 passing across 125 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
 by running the suite on 2026-08-28, not copied forward. Most of the growth is
 translation: registering a pack in a locale runs every generic suite over it, and
@@ -86,7 +87,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-4764 actually prove: that no case is unsolvable, no thread is unreachable, no
+4784 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -636,6 +637,50 @@ the arc is ever reworked.
   still hiding.
 
 ---
+
+## 7f. Onboarding, and the back button that was not there — 2026-08-31
+
+Reported from a Limrun run: the demo case opened on first launch **with no back
+button**, and closing and reopening the app fixed it. Both halves of that are the
+same cause.
+
+`app/index.tsx` sent a first-time player on with `<Redirect href="/how-to-play" />`,
+and **a redirect REPLACES the current route**. The home screen was consumed on the
+way past; the walkthrough then replaced *itself* with the demo case; and the case
+arrived as the only entry on the stack, so the navigator had no parent to draw a
+back button from. The second launch worked because `hasSeenHowToPlay` was set by
+then and the whole chain was skipped.
+
+**A push, not a redirect,** is the fix, and it is now the rule for every route
+into a case: leave the home screen underneath. `app/case/[caseId]/_layout.tsx`
+also carries a `headerLeft` for the case a push cannot help — a deep link, which
+expo-router publishes for every route under `app/` whether or not anybody meant
+it to.
+
+### What replaced the slideshow
+
+`app/how-to-play.tsx` is deleted. Five full-screen pages taught the controls
+somewhere the controls did not exist, so the player had to remember a gesture
+until they met the thing it acts on. The walkthrough now runs **inside the
+Bakehouse**, as a strip above the real inbox, the real conversation, the real
+board and the real accusation screen.
+
+`src/tutorial/steps.ts` holds the whole rule, and it stores **no step counter**.
+The step is derived from the save — read count, pin count, proved count — which
+is correct after a crash, after a reinstall, after a sync from another device,
+and on replay, none of which a counter survives for free. It is also therefore
+testable, which the slideshow never was.
+
+**`hasSeenHowToPlay` is gone from settings**, replaced by `hasSeenLanding` and
+`tutorialDismissed`. Zod drops the retired key as unknown and both new fields
+`.catch` to `false`, so an existing install reads clean and meets the landing once.
+
+### A trap worth knowing about
+
+`vitest.config.mts` `test.include` is an **allowlist of directories**, not a hint.
+`src/tutorial/steps.test.ts` was written, passing, and **never collected** — the
+suite stayed green while proving nothing about it. A new source directory needs
+its glob added there or its tests silently do not exist.
 
 ## 7e. EAS build quota — iOS is spent until 2026-09-01
 

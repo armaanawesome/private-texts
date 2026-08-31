@@ -55,6 +55,8 @@ interface CaseState {
   clearPins: () => void;
   /** Set once, on a correct accusation. Never unset by a wrong one. */
   markSolved: () => void;
+  /** Play the open case again from the top, without forgetting it was solved. */
+  restart: () => void;
   reset: () => void;
 }
 
@@ -92,6 +94,22 @@ export const useCaseStore = create<CaseState>((set, get) => ({
   loadScript: (script) => set({ ...empty(), script }),
 
   markSolved: () => set({ solved: true }),
+
+  /**
+   * Replay: everything the player did, cleared — except that they did it.
+   *
+   * `loadScript` is the obvious way to do this and it is wrong twice over. It
+   * clears `solved`, which would re-lock every case behind this one the moment
+   * somebody chose to play a favourite again; and it clears `hydrated`, which
+   * the inbox waits on, so the replay would sit on a skeleton forever because
+   * the case layout only calls `loadProgress` when the script CHANGES and on a
+   * replay it has not.
+   *
+   * `hydrated: true` is therefore stated rather than inherited: storage has been
+   * consulted, and the answer is deliberately nothing.
+   */
+  restart: () =>
+    set((s) => ({ ...empty(), script: s.script, solved: s.solved, hydrated: true })),
 
   /**
    * Swap the script's prose without touching a single thing the player has done.

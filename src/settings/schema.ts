@@ -22,13 +22,29 @@ export interface Settings {
   readonly reduceMotion: boolean;
   readonly localeTag: LocaleTag;
   /**
-   * Whether the player has been shown how the game works.
+   * Whether this person has been through the front door — the screen that
+   * offers signing in or playing as a guest.
+   *
+   * This replaces `hasSeenHowToPlay`, which gated a five-page slideshow that no
+   * longer exists. The walkthrough now runs inside the Bakehouse as coach marks
+   * on the real controls, and what that needs to know is not "have you read the
+   * instructions" but "have you done any of it yet" — which the save already
+   * answers. See src/tutorial/steps.ts.
    *
    * A preference rather than a save, because it is per-person rather than
-   * per-case, and because it has to survive "reset progress" - somebody
-   * clearing their playthroughs is not asking to be taught the controls again.
+   * per-case, and because it has to survive "reset progress": somebody clearing
+   * their playthroughs is not asking to be signed out.
    */
-  readonly hasSeenHowToPlay: boolean;
+  readonly hasSeenLanding: boolean;
+  /**
+   * The player asked the coach marks to stop.
+   *
+   * Separate from `hasSeenLanding` because they answer different questions and
+   * are set at different moments. Turning this back off is what the Settings
+   * "How to play" row does — there is no slideshow left to open, so the row
+   * re-arms the real thing instead.
+   */
+  readonly tutorialDismissed: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -37,7 +53,8 @@ export const DEFAULT_SETTINGS: Settings = {
   hapticsEnabled: true,
   reduceMotion: false,
   localeTag: DEFAULT_LOCALE,
-  hasSeenHowToPlay: false,
+  hasSeenLanding: false,
+  tutorialDismissed: false,
 };
 
 /**
@@ -70,12 +87,15 @@ const settingsBlob = z.object({
    */
   localeTag: z.custom<LocaleTag>(isLocaleTag).catch(DEFAULT_SETTINGS.localeTag),
   /**
-   * Defaults to false, so a save written before this existed - every save on
-   * every device today - reads as "not yet taught" and gets the walkthrough
-   * once. Erring the other way would silently skip it for everyone who already
-   * has the app.
+   * Both default to false, so a blob written before they existed — including
+   * one still carrying the retired `hasSeenHowToPlay`, which zod drops as an
+   * unknown key — reads as "has not been through the door" and "coach marks
+   * still on". Erring the other way would silently skip the front door for
+   * everyone who already has the app, and skipping it is the one thing it
+   * cannot do: it is where signing in now lives.
    */
-  hasSeenHowToPlay: z.boolean().catch(DEFAULT_SETTINGS.hasSeenHowToPlay),
+  hasSeenLanding: z.boolean().catch(DEFAULT_SETTINGS.hasSeenLanding),
+  tutorialDismissed: z.boolean().catch(DEFAULT_SETTINGS.tutorialDismissed),
 });
 
 /** Never throws. Anything unrecognisable becomes the defaults. */
@@ -111,6 +131,7 @@ export function settingsEqual(a: Settings, b: Settings): boolean {
     a.hapticsEnabled === b.hapticsEnabled &&
     a.reduceMotion === b.reduceMotion &&
     a.localeTag === b.localeTag &&
-    a.hasSeenHowToPlay === b.hasSeenHowToPlay
+    a.hasSeenLanding === b.hasSeenLanding &&
+    a.tutorialDismissed === b.tutorialDismissed
   );
 }

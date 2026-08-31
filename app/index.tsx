@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
-import { Link, Redirect, useFocusEffect } from 'expo-router';
+import { Link, useFocusEffect, useRouter } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { CaseArt } from '@/ui/CaseArt';
@@ -36,8 +36,9 @@ interface Resume {
 export default function CaseSelectScreen() {
   const t = useTranslator();
   const cases = useLocalisedCases();
+  const router = useRouter();
   const localeTag = useSettingsStore((s) => s.settings.localeTag);
-  const hasSeenHowToPlay = useSettingsStore((s) => s.settings.hasSeenHowToPlay);
+  const hasSeenLanding = useSettingsStore((s) => s.settings.hasSeenLanding);
   const settingsHydrated = useSettingsStore((s) => s.hydrated);
   const {
     entitlementIds,
@@ -83,19 +84,39 @@ export default function CaseSelectScreen() {
     }, [entitlementIds, localeTag]),
   );
 
-  /*
-   * The controls, before the game asks anyone to use them.
+  /**
+   * The front door, on a first launch.
    *
    * Gated on `settingsHydrated`, which is the whole reason that flag exists.
    * Preferences start at their defaults and are replaced wholesale once storage
-   * has been read, and the default is `false` - so redirecting before the read
-   * lands would show the walkthrough to a returning player every launch.
+   * has been read, and the default is `false` — so navigating before the read
+   * lands would show the landing to a returning player every launch.
    *
-   * Redirect rather than a modal: this is the first thing that happens, and it
-   * should not leave a home screen sitting behind it that the player can see
-   * but not reach.
+   * ## Pushed, NOT redirected — this is the missing back button
+   *
+   * This was `<Redirect href="/how-to-play" />`, and a redirect REPLACES the
+   * current route. The home screen was therefore consumed on the way past, the
+   * walkthrough then replaced itself with the demo case, and the case opened as
+   * the only entry on the stack — no parent, so the navigator drew no back
+   * button and there was genuinely nowhere to go. It came right on the second
+   * launch because the flag was set by then and the whole chain was skipped,
+   * which is exactly the "closed the app and did it again and it worked"
+   * symptom.
+   *
+   * A push keeps home underneath. The landing replaces itself with the case, the
+   * case inherits home as its parent, and back works. Every route into a case
+   * now leaves that parent in place — `app/case/[caseId]/_layout.tsx` carries a
+   * belt-and-braces header button for the deep-link case that cannot.
    */
-  if (settingsHydrated && !hasSeenHowToPlay) return <Redirect href="/how-to-play" />;
+  const landingPending = settingsHydrated && !hasSeenLanding;
+  useEffect(() => {
+    if (landingPending) router.push('/landing');
+  }, [landingPending, router]);
+
+  // Blank for the frame between the effect firing and the landing arriving. The
+  // grid drawn underneath is a screen this player has not earned the right to
+  // see yet, and a flash of it is how the last build opened.
+  if (landingPending) return <View style={styles.root} />;
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
@@ -164,7 +185,15 @@ export default function CaseSelectScreen() {
                 gate.kind === 'locked-progression'
                   ? (cases.find((x) => x.id === gate.blockedByCaseId)?.title ?? '')
                   : '';
-              return <CaseTile key={c.id} script={c} gate={gate} blockedByTitle={blockedBy} />;
+              return (
+                <CaseTile
+                  key={c.id}
+                  script={c}
+                  gate={gate}
+                  blockedByTitle={blockedBy}
+                  solved={solvedIds.has(c.id)}
+                />
+              );
             })}
           </View>
         )}
@@ -185,10 +214,17 @@ function CaseTile({
   script,
   gate,
   blockedByTitle,
+  solved,
 }: {
   script: CaseScript;
   gate: CaseGate;
   blockedByTitle: string;
+  /**
+   * Named once, correctly, at least once. Survives a replay: the save keeps
+   * `solved` through `restart`, so a player who reopens a favourite does not
+   * watch their own tick come off — and does not re-lock everything behind it.
+   */
+  solved: boolean;
 }) {
   const t = useTranslator();
   const count = script.contradictions.length;
@@ -247,22 +283,40 @@ function CaseTile({
       <Pressable
         accessibilityRole="button"
         // The case title stays as authored — it is case content, not chrome.
-        accessibilityLabel={t(
-          locked
-            ? count === 1
-              ? 'home.tile.lockedLabelOne'
-              : 'home.tile.lockedLabel'
-            : count === 1
-              ? 'home.tile.openLabelOne'
-              : 'home.tile.openLabel',
-          { title: script.title, count },
-        )}
+        // The tick is a visual mark and would otherwise be silent, so it is
+        // said first, where a screen reader user meets it in the same order.
+        accessibilityLabel={
+          (solved ? `${t('home.tile.solved')}. ` : '') +
+          t(
+            locked
+              ? count === 1
+                ? 'home.tile.lockedLabelOne'
+                : 'home.tile.lockedLabel'
+              : count === 1
+                ? 'home.tile.openLabelOne'
+                : 'home.tile.openLabel',
+            { title: script.title, count },
+          )
+        }
         style={({ pressed }) => [styles.tileInner, pressed && styles.pressed]}
       >
         <CaseArt script={script} locked={locked} />
-        <Text style={styles.name} numberOfLines={2}>
-          {script.title}
-        </Text>
+        {/*
+          The tick leads the title rather than trailing it. Trailing, it would
+          land after a name that wraps to two lines at 48% of a phone — some
+          tiles would show it on line one and some on line two, and a mark whose
+          position moves is a mark that has to be looked for.
+        */}
+        <View style={styles.nameRow}>
+          {solved ? (
+            <View style={styles.tick}>
+              <Text style={styles.tickMark}>✓</Text>
+            </View>
+          ) : null}
+          <Text style={styles.name} numberOfLines={2}>
+            {script.title}
+          </Text>
+        </View>
         <View style={styles.meta}>
           {/* One mark per contradiction the case hides — the same bar the
               comparison sheet draws, so the motif introduces itself here. */}
@@ -271,8 +325,13 @@ function CaseTile({
               <View key={i} style={[styles.mark, locked && styles.markLocked]} />
             ))}
           </View>
-          <Text style={styles.metaText}>
-            {locked ? t('home.tile.sealed') : t('home.tile.toProve', { count })}
+          {/* "3 to prove" is a false promise on a case already closed. */}
+          <Text style={[styles.metaText, solved && styles.metaSolved]}>
+            {solved
+              ? t('home.tile.solved')
+              : locked
+                ? t('home.tile.sealed')
+                : t('home.tile.toProve', { count })}
           </Text>
         </View>
       </Pressable>
@@ -316,8 +375,21 @@ const styles = StyleSheet.create({
   tileInner: { gap: theme.space.sm },
   pressed: { opacity: 0.7 },
 
-  name: { ...theme.type.body, color: theme.color.text, fontWeight: '600' },
+  nameRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 6 },
+  name: { ...theme.type.body, color: theme.color.text, fontWeight: '600', flex: 1 },
+  /** Sized to the cap height of the title beside it, and nudged to sit on its baseline. */
+  tick: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    marginTop: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.color.solved,
+  },
+  tickMark: { color: theme.color.bg, fontSize: 11, lineHeight: 13, fontWeight: '700' },
   meta: { flexDirection: 'row', alignItems: 'center', gap: theme.space.sm },
+  metaSolved: { color: theme.color.solved },
   marks: { flexDirection: 'row', gap: 3 },
   mark: { width: 2, height: 12, borderRadius: 1, backgroundColor: theme.color.danger },
   markLocked: { backgroundColor: theme.color.rail },

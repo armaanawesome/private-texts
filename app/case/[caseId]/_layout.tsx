@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLocalSearchParams, Redirect, Stack } from 'expo-router';
+import { Text, Pressable, StyleSheet } from 'react-native';
+import { useLocalSearchParams, Redirect, Stack, Link, useRouter } from 'expo-router';
+import { theme } from '@/ui/theme';
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { visibleThreads } from '@/engine';
 import { useCaseStore } from '@/state/caseStore';
@@ -12,8 +14,28 @@ import { useEntitlements } from '@/entitlements/useEntitlements';
 import { decideCaseAccess } from '@/entitlements/access';
 import { ThreadListSkeleton } from '@/ui/Skeleton';
 
+/**
+ * `Link` rather than `router.back()`, precisely because there is nothing to go
+ * back to — that is the only situation this renders in. `replace`, so it swaps
+ * the case for the home screen instead of stacking one on top of it.
+ */
+function HomeLink({ label }: { label: string }) {
+  return (
+    <Link href="/" replace asChild>
+      <Pressable accessibilityRole="button" hitSlop={theme.hit.slop}>
+        <Text style={styles.headerLink}>{label}</Text>
+      </Pressable>
+    </Link>
+  );
+}
+
+const styles = StyleSheet.create({
+  headerLink: { ...theme.type.body, color: theme.color.accent },
+});
+
 export default function CaseLayout() {
   const { caseId } = useLocalSearchParams<{ caseId: string }>();
+  const router = useRouter();
   const t = useTranslator();
   const script = useLocalisedCase(caseId);
   const loadScript = useCaseStore((s) => s.loadScript);
@@ -59,7 +81,30 @@ export default function CaseLayout() {
    * new reference every render, so the navigator calls setOptions, re-renders,
    * and loops until React throws.
    */
-  const screenOptions = useMemo(() => ({ title: script?.title ?? '' }), [script?.title]);
+  /*
+   * A way out, even when there is no history to go back through.
+   *
+   * The navigator draws a back button from the stack, so a case that is the only
+   * entry on it gets none — which is how the first build stranded a player
+   * inside the demo case: onboarding redirected rather than pushed, consuming
+   * the home screen on the way past. The navigation is fixed at its source, and
+   * this is the guard for the routes that can still arrive with an empty stack
+   * whatever onboarding does: `privatetexts://case/the-bakehouse/threads`, and
+   * every other deep link expo-router publishes for free.
+   *
+   * `canGoBack` is read during render rather than watched, which is enough:
+   * the answer cannot change while this layout is mounted, because the history
+   * beneath a screen is fixed at the moment it is pushed.
+   */
+  const screenOptions = useMemo(
+    () => ({
+      title: script?.title ?? '',
+      ...(router.canGoBack()
+        ? null
+        : { headerLeft: () => <HomeLink label={t('case.allCases')} /> }),
+    }),
+    [script?.title, router, t],
+  );
 
   /*
    * The paywall, enforced where the player ARRIVES.

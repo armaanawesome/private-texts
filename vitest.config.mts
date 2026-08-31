@@ -22,6 +22,11 @@ export default defineConfig({
       'src/audio/**/*.test.ts',
       'src/auth/**/*.test.ts',
       'src/i18n/**/*.test.ts',
+      // This list is an ALLOWLIST, not a hint. A new source directory's tests do
+      // not run until its glob is added here, and they do not fail either — they
+      // are simply never collected, and the suite stays green while proving
+      // nothing about them. src/tutorial was written, passing, and invisible.
+      'src/tutorial/**/*.test.ts',
       // .ts only, never .tsx: the pure helpers a component leans on are testable
       // here, the components themselves need a renderer and are not.
       'src/ui/**/*.test.ts',

@@ -38,6 +38,14 @@ export const theme = {
      * one job — they carry the forensic-timeline surface and nothing else.
      */
 
+    /**
+     * A case the player has finished. 6.4:1 on bg, so it carries text as well
+     * as the tick fill — the same green family as the player's own bubble
+     * (#2F6F4E) lifted until it is legible, rather than a new hue. The grid
+     * should not gain a colour just to say "done".
+     */
+    solved: '#5FBF87',
+
     /** Hairline separators: the time axis, section rules. Never a fill. */
     rule: '#2A2F36',
     /** The unfilled track a claim bar is drawn along. Reads as "clock not covered". */

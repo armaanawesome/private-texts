@@ -67,30 +67,42 @@ export const EN = {
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
 
-  /* The walkthrough shown once on first launch, and repeatable from Settings.
-     Teaches the controls; the tutorial CASE teaches the reasoning. */
   'settings.account.section': 'Account',
+  /* The front door, and the walkthrough that runs inside the demo case rather
+     than in front of it. See app/landing.tsx and src/tutorial/steps.ts. */
+  'landing.kicker': 'A case in your messages',
+  'landing.line1': 'They ruled it an accident.',
+  'landing.line2': 'You have everyone’s messages from that night.',
+  'landing.line3': 'One of them is in two places at once.',
+  'landing.signIn': 'Sign in',
+  'landing.guest': 'Play as guest',
+  'landing.syncNote':
+    'Signing in carries your cases to another phone. You can do it later from Settings.',
+  'tutorial.openThread': 'These are the messages from that night. Open the top conversation.',
+  'tutorial.tapToRead': 'Tap anywhere to bring in the next message.',
+  'tutorial.holdToPin':
+    'Now press and hold a message. That pins what it claims: who was where, and when.',
+  'tutorial.compare':
+    'Pin a second claim, then compare the two. One person cannot hold the same minute in two places.',
+  'tutorial.nameThem': 'You have proved it. Now say who.',
+  'tutorial.dismiss': 'Got it',
+  'tutorial.dismissLabel': 'Stop showing these prompts',
+  'tutorial.replayRow': 'Show the walkthrough again',
+  'tutorial.replayTitle': 'Walkthrough is back on',
+  'tutorial.replayBody': 'The prompts will appear again the next time you open the first case.',
+  'closed.stamp': 'Case closed',
+  'closed.named': 'named, and proved',
+  'closed.proved': '{proved} of {total} contradictions proved',
+  'closed.next': 'Next case: {title}',
+  'closed.unlockNext': 'Unlock {title}',
+  'closed.allCases': 'All cases',
+  'closed.replay': 'Play this case again',
+  'closed.replayHint': 'Clears your progress in this case and starts it from the first message.',
+  'closed.finale': 'That was the last case in the file.',
+  'home.tile.solved': 'Solved',
+  'case.allCases': 'Cases',
+
   'settings.help.section': 'Help',
-  'howToPlay.title': 'How to play',
-  'howToPlay.step': 'Step {n} of {total}',
-  'howToPlay.skip': 'Skip',
-  'howToPlay.next': 'Next',
-  'howToPlay.start': 'Start playing',
-  'howToPlay.1.title': 'The ruling is wrong',
-  'howToPlay.1.body':
-    'Someone is dead and the file is closed. Everything you get is in their messages. One statement in them cannot be true.',
-  'howToPlay.2.title': 'Tap to read on',
-  'howToPlay.2.body':
-    'Messages arrive one at a time. Tap anywhere to bring in the next. Skip all jumps to the end of a conversation.',
-  'howToPlay.3.title': 'Hold a message to pin it',
-  'howToPlay.3.body':
-    'Press and hold any message. If it claims someone was somewhere at a certain time, you can put that claim on the record.',
-  'howToPlay.4.title': 'Two claims, one impossibility',
-  'howToPlay.4.body':
-    'Compare two pinned claims on the board. If they put one person in two places over the same minute, that is a contradiction. Most pairs will not fire, and that is the game.',
-  'howToPlay.5.title': 'Name them',
-  'howToPlay.5.body':
-    'When a contradiction shows who lied about where they were, accuse them. You get one accusation per case, and it is final.',
   'thread.conversation': 'Conversation',
   'thread.tapToContinue': 'Tap to continue',
   'thread.skipAll': 'Skip all',
@@ -284,30 +296,42 @@ const ES: Catalogue = {
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
 
-  /* The walkthrough shown once on first launch, and repeatable from Settings.
-     Teaches the controls; the tutorial CASE teaches the reasoning. */
   'settings.account.section': 'Cuenta',
+  /* The front door, and the walkthrough that runs inside the demo case rather
+     than in front of it. See app/landing.tsx and src/tutorial/steps.ts. */
+  'landing.kicker': 'Un caso en tus mensajes',
+  'landing.line1': 'Lo declararon un accidente.',
+  'landing.line2': 'Tienes los mensajes de todos de esa noche.',
+  'landing.line3': 'Uno de ellos está en dos sitios a la vez.',
+  'landing.signIn': 'Iniciar sesión',
+  'landing.guest': 'Jugar como invitado',
+  'landing.syncNote':
+    'Iniciar sesión lleva tus casos a otro teléfono. Puedes hacerlo más tarde desde Ajustes.',
+  'tutorial.openThread': 'Estos son los mensajes de esa noche. Abre la conversación de arriba.',
+  'tutorial.tapToRead': 'Toca en cualquier parte para que llegue el siguiente mensaje.',
+  'tutorial.holdToPin':
+    'Ahora mantén pulsado un mensaje. Eso fija lo que afirma: quién estaba dónde, y cuándo.',
+  'tutorial.compare':
+    'Fija una segunda afirmación y compáralas. Una persona no puede ocupar el mismo minuto en dos sitios.',
+  'tutorial.nameThem': 'Lo has probado. Ahora di quién fue.',
+  'tutorial.dismiss': 'Entendido',
+  'tutorial.dismissLabel': 'Dejar de mostrar estos avisos',
+  'tutorial.replayRow': 'Volver a ver el tutorial',
+  'tutorial.replayTitle': 'Tutorial reactivado',
+  'tutorial.replayBody': 'Los avisos volverán a aparecer la próxima vez que abras el primer caso.',
+  'closed.stamp': 'Caso cerrado',
+  'closed.named': 'señalado, y probado',
+  'closed.proved': '{proved} de {total} contradicciones probadas',
+  'closed.next': 'Siguiente caso: {title}',
+  'closed.unlockNext': 'Desbloquear {title}',
+  'closed.allCases': 'Todos los casos',
+  'closed.replay': 'Volver a jugar este caso',
+  'closed.replayHint': 'Borra tu progreso en este caso y lo empieza desde el primer mensaje.',
+  'closed.finale': 'Ese era el último caso del expediente.',
+  'home.tile.solved': 'Resuelto',
+  'case.allCases': 'Casos',
+
   'settings.help.section': 'Ayuda',
-  'howToPlay.title': 'Cómo jugar',
-  'howToPlay.step': 'Paso {n} de {total}',
-  'howToPlay.skip': 'Saltar',
-  'howToPlay.next': 'Siguiente',
-  'howToPlay.start': 'Empezar a jugar',
-  'howToPlay.1.title': 'El dictamen es falso',
-  'howToPlay.1.body':
-    'Alguien ha muerto y el caso está cerrado. Todo lo que tienes está en sus mensajes. Una de esas frases no puede ser cierta.',
-  'howToPlay.2.title': 'Toca para seguir leyendo',
-  'howToPlay.2.body':
-    'Los mensajes llegan de uno en uno. Toca en cualquier parte para traer el siguiente. Saltar todo va al final de la conversación.',
-  'howToPlay.3.title': 'Mantén pulsado para fijar',
-  'howToPlay.3.body':
-    'Mantén pulsado cualquier mensaje. Si afirma que alguien estuvo en un lugar a una hora, puedes dejar constancia de esa afirmación.',
-  'howToPlay.4.title': 'Dos afirmaciones, una imposibilidad',
-  'howToPlay.4.body':
-    'Compara dos afirmaciones fijadas en el tablero. Si sitúan a una persona en dos lugares durante el mismo minuto, hay contradicción. La mayoría de los pares no saltará, y de eso va el juego.',
-  'howToPlay.5.title': 'Di su nombre',
-  'howToPlay.5.body':
-    'Cuando una contradicción demuestre quién mintió sobre dónde estaba, acúsalo. Tienes una sola acusación por caso y es definitiva.',
   'thread.conversation': 'Conversación',
   'thread.tapToContinue': 'Toca para continuar',
   'thread.skipAll': 'Saltar todo',
@@ -477,30 +501,44 @@ const FR: Catalogue = {
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
 
-  /* The walkthrough shown once on first launch, and repeatable from Settings.
-     Teaches the controls; the tutorial CASE teaches the reasoning. */
   'settings.account.section': 'Compte',
+  /* The front door, and the walkthrough that runs inside the demo case rather
+     than in front of it. See app/landing.tsx and src/tutorial/steps.ts. */
+  'landing.kicker': 'Une affaire dans vos messages',
+  'landing.line1': 'Ils ont conclu à un accident.',
+  'landing.line2': 'Vous avez les messages de tout le monde, ceux de cette nuit-là.',
+  'landing.line3': 'L’un d’eux est à deux endroits en même temps.',
+  'landing.signIn': 'Se connecter',
+  'landing.guest': 'Jouer en invité',
+  'landing.syncNote':
+    'La connexion emporte vos affaires sur un autre téléphone. Vous pouvez le faire plus tard depuis les Réglages.',
+  'tutorial.openThread': 'Voici les messages de cette nuit-là. Ouvrez la conversation du haut.',
+  'tutorial.tapToRead': 'Touchez n’importe où pour faire arriver le message suivant.',
+  'tutorial.holdToPin':
+    'Maintenant, appuyez longuement sur un message. Cela épingle ce qu’il affirme : qui était où, et quand.',
+  'tutorial.compare':
+    'Épinglez une deuxième affirmation, puis comparez-les. Une personne ne peut pas occuper la même minute à deux endroits.',
+  'tutorial.nameThem': 'Vous l’avez prouvé. Dites maintenant qui c’est.',
+  'tutorial.dismiss': 'Compris',
+  'tutorial.dismissLabel': 'Ne plus afficher ces indications',
+  'tutorial.replayRow': 'Revoir le guide',
+  'tutorial.replayTitle': 'Guide réactivé',
+  'tutorial.replayBody':
+    'Les indications réapparaîtront à la prochaine ouverture de la première affaire.',
+  'closed.stamp': 'Affaire classée',
+  'closed.named': 'mise en cause, preuves à l’appui',
+  'closed.proved': '{proved} contradictions prouvées sur {total}',
+  'closed.next': 'Affaire suivante : {title}',
+  'closed.unlockNext': 'Débloquer {title}',
+  'closed.allCases': 'Toutes les affaires',
+  'closed.replay': 'Rejouer cette affaire',
+  'closed.replayHint':
+    'Efface votre progression dans cette affaire et la reprend au premier message.',
+  'closed.finale': 'C’était la dernière affaire du dossier.',
+  'home.tile.solved': 'Résolue',
+  'case.allCases': 'Affaires',
+
   'settings.help.section': 'Aide',
-  'howToPlay.title': 'Comment jouer',
-  'howToPlay.step': 'Étape {n} sur {total}',
-  'howToPlay.skip': 'Passer',
-  'howToPlay.next': 'Suivant',
-  'howToPlay.start': 'Commencer',
-  'howToPlay.1.title': 'La conclusion est fausse',
-  'howToPlay.1.body':
-    'Quelqu’un est mort et le dossier est clos. Tout ce que vous avez tient dans ses messages. Une de ces phrases ne peut pas être vraie.',
-  'howToPlay.2.title': 'Appuyez pour lire la suite',
-  'howToPlay.2.body':
-    'Les messages arrivent un par un. Appuyez n’importe où pour faire venir le suivant. Tout passer va à la fin de la conversation.',
-  'howToPlay.3.title': 'Maintenez pour épingler',
-  'howToPlay.3.body':
-    'Maintenez un message enfoncé. S’il affirme que quelqu’un se trouvait quelque part à une heure donnée, vous pouvez consigner cette affirmation.',
-  'howToPlay.4.title': 'Deux affirmations, une impossibilité',
-  'howToPlay.4.body':
-    'Comparez deux affirmations sur le tableau. Si elles placent une personne à deux endroits sur la même minute, c’est une contradiction. La plupart des paires ne donneront rien, et c’est le jeu.',
-  'howToPlay.5.title': 'Nommez-le',
-  'howToPlay.5.body':
-    'Quand une contradiction montre qui a menti sur l’endroit où il se trouvait, accusez-le. Une seule accusation par affaire, et elle est définitive.',
   'thread.conversation': 'Conversation',
   'thread.tapToContinue': 'Appuyez pour continuer',
   'thread.skipAll': 'Tout passer',
@@ -673,30 +711,44 @@ const DE: Catalogue = {
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
 
-  /* The walkthrough shown once on first launch, and repeatable from Settings.
-     Teaches the controls; the tutorial CASE teaches the reasoning. */
   'settings.account.section': 'Konto',
+  /* The front door, and the walkthrough that runs inside the demo case rather
+     than in front of it. See app/landing.tsx and src/tutorial/steps.ts. */
+  'landing.kicker': 'Ein Fall in deinen Nachrichten',
+  'landing.line1': 'Es wurde als Unfall zu den Akten gelegt.',
+  'landing.line2': 'Du hast die Nachrichten aller Beteiligten aus jener Nacht.',
+  'landing.line3': 'Einer von ihnen ist an zwei Orten zugleich.',
+  'landing.signIn': 'Anmelden',
+  'landing.guest': 'Als Gast spielen',
+  'landing.syncNote':
+    'Mit einem Konto nimmst du deine Fälle auf ein anderes Telefon mit. Du kannst das später in den Einstellungen tun.',
+  'tutorial.openThread': 'Das sind die Nachrichten aus jener Nacht. Öffne das oberste Gespräch.',
+  'tutorial.tapToRead': 'Tippe irgendwo hin, damit die nächste Nachricht kommt.',
+  'tutorial.holdToPin':
+    'Halte jetzt eine Nachricht gedrückt. Das merkt vor, was sie behauptet: wer wo war, und wann.',
+  'tutorial.compare':
+    'Merke eine zweite Aussage vor und vergleiche beide. Eine Person kann dieselbe Minute nicht an zwei Orten verbringen.',
+  'tutorial.nameThem': 'Du hast es bewiesen. Sag jetzt, wer es war.',
+  'tutorial.dismiss': 'Verstanden',
+  'tutorial.dismissLabel': 'Diese Hinweise nicht mehr zeigen',
+  'tutorial.replayRow': 'Anleitung erneut anzeigen',
+  'tutorial.replayTitle': 'Anleitung ist wieder an',
+  'tutorial.replayBody':
+    'Die Hinweise erscheinen wieder, wenn du den ersten Fall das nächste Mal öffnest.',
+  'closed.stamp': 'Fall geschlossen',
+  'closed.named': 'benannt, und bewiesen',
+  'closed.proved': '{proved} von {total} Widersprüchen bewiesen',
+  'closed.next': 'Nächster Fall: {title}',
+  'closed.unlockNext': '{title} freischalten',
+  'closed.allCases': 'Alle Fälle',
+  'closed.replay': 'Diesen Fall noch einmal spielen',
+  'closed.replayHint':
+    'Löscht deinen Fortschritt in diesem Fall und beginnt bei der ersten Nachricht.',
+  'closed.finale': 'Das war der letzte Fall in der Akte.',
+  'home.tile.solved': 'Gelöst',
+  'case.allCases': 'Fälle',
+
   'settings.help.section': 'Hilfe',
-  'howToPlay.title': 'So wird gespielt',
-  'howToPlay.step': 'Schritt {n} von {total}',
-  'howToPlay.skip': 'Überspringen',
-  'howToPlay.next': 'Weiter',
-  'howToPlay.start': 'Losspielen',
-  'howToPlay.1.title': 'Das Urteil stimmt nicht',
-  'howToPlay.1.body':
-    'Jemand ist tot und die Akte ist geschlossen. Alles, was du hast, steht in den Nachrichten. Einer dieser Sätze kann nicht wahr sein.',
-  'howToPlay.2.title': 'Zum Weiterlesen tippen',
-  'howToPlay.2.body':
-    'Nachrichten kommen einzeln an. Tippe irgendwo hin, um die nächste zu holen. Alles überspringen springt ans Ende des Gesprächs.',
-  'howToPlay.3.title': 'Halten, um festzuhalten',
-  'howToPlay.3.body':
-    'Halte eine Nachricht gedrückt. Behauptet sie, jemand sei zu einer bestimmten Zeit an einem Ort gewesen, kannst du diese Aussage zu den Akten nehmen.',
-  'howToPlay.4.title': 'Zwei Aussagen, eine Unmöglichkeit',
-  'howToPlay.4.body':
-    'Vergleiche zwei Aussagen auf der Tafel. Setzen sie eine Person in derselben Minute an zwei Orte, ist das ein Widerspruch. Die meisten Paare ergeben nichts, und genau das ist das Spiel.',
-  'howToPlay.5.title': 'Nenne den Namen',
-  'howToPlay.5.body':
-    'Wenn ein Widerspruch zeigt, wer über seinen Aufenthaltsort gelogen hat, klage ihn an. Eine Anklage pro Fall, und sie ist endgültig.',
   'thread.conversation': 'Unterhaltung',
   'thread.tapToContinue': 'Zum Fortfahren tippen',
   'thread.skipAll': 'Alles überspringen',
@@ -860,30 +912,43 @@ const PT_BR: Catalogue = {
   /* The conversation screen. Reading is paced by the player: a tap delivers
      the next message, and the button skips the rest of the thread. */
 
-  /* The walkthrough shown once on first launch, and repeatable from Settings.
-     Teaches the controls; the tutorial CASE teaches the reasoning. */
   'settings.account.section': 'Conta',
+  /* The front door, and the walkthrough that runs inside the demo case rather
+     than in front of it. See app/landing.tsx and src/tutorial/steps.ts. */
+  'landing.kicker': 'Um caso nas suas mensagens',
+  'landing.line1': 'Registraram como acidente.',
+  'landing.line2': 'Você tem as mensagens de todo mundo daquela noite.',
+  'landing.line3': 'Um deles está em dois lugares ao mesmo tempo.',
+  'landing.signIn': 'Entrar',
+  'landing.guest': 'Jogar como convidado',
+  'landing.syncNote':
+    'Entrar leva seus casos para outro celular. Você pode fazer isso depois nos Ajustes.',
+  'tutorial.openThread': 'Estas são as mensagens daquela noite. Abra a conversa de cima.',
+  'tutorial.tapToRead': 'Toque em qualquer lugar para trazer a próxima mensagem.',
+  'tutorial.holdToPin':
+    'Agora segure uma mensagem. Isso fixa o que ela afirma: quem estava onde, e quando.',
+  'tutorial.compare':
+    'Fixe uma segunda afirmação e compare as duas. Uma pessoa não ocupa o mesmo minuto em dois lugares.',
+  'tutorial.nameThem': 'Você provou. Agora diga quem foi.',
+  'tutorial.dismiss': 'Entendi',
+  'tutorial.dismissLabel': 'Parar de mostrar estas dicas',
+  'tutorial.replayRow': 'Ver o tutorial de novo',
+  'tutorial.replayTitle': 'Tutorial reativado',
+  'tutorial.replayBody':
+    'As dicas voltam a aparecer na próxima vez que você abrir o primeiro caso.',
+  'closed.stamp': 'Caso encerrado',
+  'closed.named': 'apontado, e provado',
+  'closed.proved': '{proved} de {total} contradições provadas',
+  'closed.next': 'Próximo caso: {title}',
+  'closed.unlockNext': 'Desbloquear {title}',
+  'closed.allCases': 'Todos os casos',
+  'closed.replay': 'Jogar este caso de novo',
+  'closed.replayHint': 'Apaga seu progresso neste caso e recomeça na primeira mensagem.',
+  'closed.finale': 'Esse foi o último caso do arquivo.',
+  'home.tile.solved': 'Resolvido',
+  'case.allCases': 'Casos',
+
   'settings.help.section': 'Ajuda',
-  'howToPlay.title': 'Como jogar',
-  'howToPlay.step': 'Passo {n} de {total}',
-  'howToPlay.skip': 'Pular',
-  'howToPlay.next': 'Avançar',
-  'howToPlay.start': 'Começar a jogar',
-  'howToPlay.1.title': 'O laudo está errado',
-  'howToPlay.1.body':
-    'Alguém morreu e o caso foi encerrado. Tudo o que você tem está nas mensagens. Uma dessas frases não pode ser verdade.',
-  'howToPlay.2.title': 'Toque para continuar lendo',
-  'howToPlay.2.body':
-    'As mensagens chegam uma de cada vez. Toque em qualquer lugar para trazer a próxima. Pular tudo vai até o fim da conversa.',
-  'howToPlay.3.title': 'Segure para fixar',
-  'howToPlay.3.body':
-    'Segure qualquer mensagem. Se ela afirma que alguém estava em algum lugar a certa hora, você pode registrar essa afirmação.',
-  'howToPlay.4.title': 'Duas afirmações, uma impossibilidade',
-  'howToPlay.4.body':
-    'Compare duas afirmações no quadro. Se elas colocam uma pessoa em dois lugares no mesmo minuto, isso é uma contradição. A maioria dos pares não vai fechar, e esse é o jogo.',
-  'howToPlay.5.title': 'Diga o nome',
-  'howToPlay.5.body':
-    'Quando uma contradição mostrar quem mentiu sobre onde estava, acuse. É uma acusação por caso, e ela é definitiva.',
   'thread.conversation': 'Conversa',
   'thread.tapToContinue': 'Toque para continuar',
   'thread.skipAll': 'Pular tudo',

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { firstUnsolvedBefore, decideCaseGate, gateIsLocked } from './progression';
+import { firstUnsolvedBefore, decideCaseGate, gateIsLocked, nextCaseAfter } from './progression';
 import { CASE_PACK_ENTITLEMENT } from '@/entitlements/ids';
 
 /**
@@ -133,5 +133,28 @@ describe('gateIsLocked', () => {
     // Checking is NOT locked. A tile drawn as locked while the answer is still
     // outstanding is the flash this whole design exists to avoid.
     expect(gateIsLocked({ kind: 'checking' })).toBe(false);
+  });
+});
+
+describe('nextCaseAfter', () => {
+  const order = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+
+  it('gives the case that follows', () => {
+    expect(nextCaseAfter('a', order)).toEqual({ id: 'b' });
+    expect(nextCaseAfter('b', order)).toEqual({ id: 'c' });
+  });
+
+  /** The closing screen shows a different ending when there is nowhere to go. */
+  it('gives null at the end of the list', () => {
+    expect(nextCaseAfter('c', order)).toBeNull();
+  });
+
+  /**
+   * A save can name a case this build no longer ships. That has to be a missing
+   * button rather than a button that navigates to nothing.
+   */
+  it('gives null for a case that is not in the order', () => {
+    expect(nextCaseAfter('gone', order)).toBeNull();
+    expect(nextCaseAfter('a', [])).toBeNull();
   });
 });
