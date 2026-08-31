@@ -23,6 +23,32 @@ export function Tick() {
   return <View style={styles.tick} />;
 }
 
+/**
+ * The settings mark, for the header where the word "Settings" used to sit.
+ *
+ * Sliders rather than a gear, for two reasons. A gear cannot be drawn from Views
+ * at any quality — it needs a real vector path, and `@expo/vector-icons` is not
+ * installed here; adding an icon font to draw one glyph is the kind of
+ * dependency this repo declines. And sliders are already this app's own
+ * language: the volume control on the settings screen is exactly this shape, so
+ * the button and the thing it opens are drawn from the same idea.
+ *
+ * Three rails with their knobs at different positions, on the same hairline
+ * weight as the chevron and the tick above.
+ */
+export function SettingsGlyph() {
+  return (
+    <View style={styles.glyph}>
+      {[0.62, 0.3, 0.78].map((at, i) => (
+        <View key={i} style={styles.glyphRow}>
+          <View style={styles.glyphRail} />
+          <View style={[styles.glyphKnob, { left: `${at * 100}%` }]} />
+        </View>
+      ))}
+    </View>
+  );
+}
+
 /* --------------------------------------------------------------- section -- */
 
 /**
@@ -330,6 +356,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.md,
     paddingBottom: theme.space.md,
     gap: theme.space.sm,
+  },
+
+  /** 22pt: an optical match for the header word it replaces, inside a 44pt target. */
+  glyph: { width: 22, height: 16, justifyContent: 'space-between' },
+  glyphRow: { height: 2, justifyContent: 'center' },
+  glyphRail: { height: StyleSheet.hairlineWidth, backgroundColor: theme.color.accent },
+  glyphKnob: {
+    position: 'absolute',
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    marginLeft: -2,
+    backgroundColor: theme.color.accent,
   },
 
   chevron: {

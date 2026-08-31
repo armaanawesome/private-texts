@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Stack, Link } from 'expo-router';
-import { Text, Pressable, StyleSheet } from 'react-native';
+import { Pressable, AppState } from 'react-native';
 import { useTranslator } from '@/i18n/useTranslator';
 import { hydrateSettings } from '@/settings/persistence';
+import { SettingsGlyph } from '@/settings/SettingsList';
+import { syncProgress } from '@/auth';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { theme } from '@/ui/theme';
@@ -54,8 +56,21 @@ function SettingsLink() {
   const t = useTranslator();
   return (
     <Link href="/settings" asChild>
-      <Pressable accessibilityRole="button" hitSlop={theme.hit.slop}>
-        <Text style={styles.headerLink}>{t('settings.title')}</Text>
+      {/*
+        A mark, not the word.
+
+        "Settings" spelled out in a header bar reads as a prototype — no shipped
+        app labels that control — and it was also the widest thing in the bar, so
+        it crowded the title beside it. The label survives as
+        `accessibilityLabel`, which is where it was always doing the real work: a
+        screen reader still announces the word, and it is still translated.
+      */}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={t('settings.title')}
+        hitSlop={theme.hit.slop}
+      >
+        <SettingsGlyph />
       </Pressable>
     </Link>
   );
@@ -81,10 +96,6 @@ const indexOptions = {
 
 const rootStyle = { flex: 1, backgroundColor: theme.color.bg } as const;
 
-const styles = StyleSheet.create({
-  headerLink: { ...theme.type.body, color: theme.color.accent },
-});
-
 export default function RootLayout() {
   /*
    * Read stored preferences once, at the root, before any screen renders.
@@ -103,6 +114,28 @@ export default function RootLayout() {
    */
   useEffect(() => {
     void hydrateSettings();
+  }, []);
+
+  /**
+   * Back up progress when the app goes away.
+   *
+   * `syncProgress` was called from exactly one place — the sign-in screen — so a
+   * player who signed in and then went off and solved four cases uploaded
+   * nothing at all. Their account existed and `case_progress` stayed empty,
+   * which is precisely the "signed up and it never reached the table" report,
+   * and it also meant the one thing an account is for, carrying progress to
+   * another phone, silently did not work.
+   *
+   * Backgrounding is the right moment for it: it is when a session actually
+   * ends, it costs one round trip rather than one per message read, and it is
+   * the last instant before the OS is entitled to kill the process. Sync is a
+   * no-op when nobody is signed in, so this stays free for guests.
+   */
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (next) => {
+      if (next === 'background' || next === 'inactive') void syncProgress();
+    });
+    return () => sub.remove();
   }, []);
 
   return (

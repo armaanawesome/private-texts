@@ -25,6 +25,40 @@ const R = theme.radius.bubble;
 const TIGHT = 6;
 
 /**
+ * Each person's bubble carries their own colour, dimmed to a surface tint.
+ *
+ * Every incoming bubble was one grey, which is not what a phone looks like and,
+ * worse, made a group thread a wall of identical boxes with only a small name
+ * label to tell four speakers apart. The character's `avatarColor` is already
+ * their identity in the inbox, on the accusation sheet and in the confrontation,
+ * so this is that same signal reaching the one screen where it was missing.
+ *
+ * Mixed hard toward the bubble grey rather than used neat. At full strength
+ * these are avatar colours — saturated enough to sit behind a face circle — and
+ * a saturated bubble both destroys the body-text contrast and stops the screen
+ * reading as somebody's real phone. `MIX` is the fraction of the character's
+ * colour that survives; the rest is the original grey, so every bubble stays in
+ * the same dark family and only its temperature changes.
+ */
+const MIX = 0.22;
+
+function mixChannel(from: number, to: number): number {
+  return Math.round(from + (to - from) * MIX);
+}
+
+function tintFor(sender: Character): string {
+  const hex = sender.avatarColor.replace('#', '');
+  if (hex.length !== 6) return theme.color.bubbleThem;
+  const base = theme.color.bubbleThem.replace('#', '');
+  const channel = (at: number) =>
+    mixChannel(parseInt(base.slice(at, at + 2), 16), parseInt(hex.slice(at, at + 2), 16));
+  const out = [channel(0), channel(2), channel(4)]
+    .map((v) => v.toString(16).padStart(2, '0'))
+    .join('');
+  return `#${out}`;
+}
+
+/**
  * Corner geometry follows the run, not the message.
  *
  * A run of messages from one person reads as a single utterance when the inner
@@ -50,13 +84,13 @@ function ChatBubbleImpl({ message, sender, isOwn, geometry, onPressClaims, reduc
     <View
       style={[
         styles.bubble,
-        isOwn ? styles.own : styles.them,
+        isOwn ? styles.own : { backgroundColor: tintFor(sender) },
         radii(isOwn, geometry),
         hasClaims && styles.hasClaims,
       ]}
     >
       {geometry.first && !isOwn ? <Text style={styles.sender}>{sender.name}</Text> : null}
-      <Text style={styles.body}>{message.body}</Text>
+      <Text style={[styles.body, hasClaims && styles.bodyClaim]}>{message.body}</Text>
     </View>
   );
 
@@ -108,13 +142,13 @@ export const StaticBubble = forwardRef<View, Omit<Props, 'onPressClaims' | 'redu
         <View
           style={[
             styles.bubble,
-            isOwn ? styles.own : styles.them,
+            isOwn ? styles.own : { backgroundColor: tintFor(sender) },
             radii(isOwn, geometry),
             styles.lifted,
           ]}
         >
           {geometry.first && !isOwn ? <Text style={styles.sender}>{sender.name}</Text> : null}
-          <Text style={styles.body}>{message.body}</Text>
+          <Text style={[styles.body, styles.bodyClaim]}>{message.body}</Text>
         </View>
       </View>
     );
@@ -130,7 +164,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 9,
   },
-  them: { backgroundColor: theme.color.bubbleThem },
   own: { backgroundColor: theme.color.bubbleYou },
   /**
    * A message you can hold to pin straight to the board.
@@ -142,6 +175,18 @@ const styles = StyleSheet.create({
    * job is to be mistaken for a real messaging app.
    */
   hasClaims: { borderWidth: StyleSheet.hairlineWidth, borderColor: theme.color.rule },
+  /**
+   * The line carries a claim, so it is set in semibold.
+   *
+   * The hairline border above was meant to mark these without shouting, and it
+   * marked them so quietly that players reported missing clues entirely — the
+   * whole point of a message that can go on the record is that you notice it is
+   * one. Weight rather than colour: a coloured line in a chat reads as a link or
+   * a system notice, whereas bold reads as emphasis inside somebody's own
+   * sentence, which is what this is. It also survives every locale, which a
+   * colour-coded convention explained nowhere does not.
+   */
+  bodyClaim: { fontWeight: '600' },
   /**
    * The copy that floats above the blur. This one *is* the moment, so it takes
    * the accent outline the in-thread marker deliberately refuses.

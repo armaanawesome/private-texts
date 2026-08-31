@@ -5,6 +5,7 @@ import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { ChatBubble, type BubbleGeometry } from './ChatBubble';
 import { TypingIndicator } from './TypingIndicator';
+import { ChatWallpaper } from './ChatWallpaper';
 import { DateDivider } from './DateDivider';
 import { useCaseStore } from '@/state/caseStore';
 import { useTranslator } from '@/i18n/useTranslator';
@@ -14,6 +15,15 @@ export const PLAYER_ID = 'you';
 
 /** A visible pause in the conversation earns a time marker. */
 const TIME_GAP_MINUTES = 5;
+
+/**
+ * How near the bottom counts as "following the conversation", in points.
+ *
+ * Not zero: a finger resting mid-flick, or a bubble whose height settles a pixel
+ * late, would otherwise register as "the player has scrolled away" and the next
+ * message would arrive off-screen with no indication it had.
+ */
+const FOLLOW_SLACK = 48;
 
 interface Props {
   thread: Thread;
@@ -25,11 +35,21 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
   const reduceMotion = useReduceMotion();
   const t = useTranslator();
   const markRead = useCaseStore((s) => s.markRead);
+  // The wallpaper is per CASE, not per thread: one household, one phone, one
+  // backdrop across every conversation in it.
+  const caseId = useCaseStore((s) => s.script?.id);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
 
   const initialCount = thread.messages.filter((m) => readMessageIds.includes(m.id)).length;
   const [shown, setShown] = useState(Math.max(initialCount, 1));
   const scrollRef = useRef<ScrollView>(null);
+  /**
+   * A ref, not state, and deliberately so twice over: it is read inside
+   * `onContentSizeChange`, where a state value would be the one captured when
+   * that closure was created, and it changes on every scroll frame, which is far
+   * too often to be worth a re-render.
+   */
+  const atBottom = useRef(true);
 
   const byId = new Map(characters.map((c) => [c.id, c]));
   const done = shown >= thread.messages.length;
@@ -82,17 +102,52 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
   const awaitingOther = !done && pending !== undefined && pending.senderId !== PLAYER_ID;
 
   return (
-    <Pressable
-      onPress={done ? undefined : advance}
-      style={styles.flex}
-      accessibilityRole={done ? undefined : 'button'}
-      accessibilityLabel={done ? t('thread.conversation') : t('thread.tapToContinue')}
-    >
+    <View style={styles.flex}>
+      {/* Behind everything, and pointer-transparent, so taps and pans reach the list. */}
+      {caseId ? <ChatWallpaper caseId={caseId} /> : null}
       <ScrollView
         ref={scrollRef}
         contentContainerStyle={styles.content}
-        onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: !reduceMotion })}
+        /*
+         * Reading back is a normal thing to do in a conversation.
+         *
+         * This used to chase the bottom on EVERY content size change, so
+         * scrolling up to re-read an earlier message was undone the instant
+         * anything below it changed. A real messaging app follows the newest
+         * message only when you are already down there, and leaves you where you
+         * are when you are not — so that is what this does now.
+         */
+        onScroll={(e) => {
+          const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent;
+          atBottom.current =
+            contentSize.height - (contentOffset.y + layoutMeasurement.height) < FOLLOW_SLACK;
+        }}
+        scrollEventThrottle={16}
+        onContentSizeChange={() => {
+          if (atBottom.current) scrollRef.current?.scrollToEnd({ animated: !reduceMotion });
+        }}
       >
+        {/*
+          The tap target lives INSIDE the scroller, not around it.
+
+          Wrapping the ScrollView in a Pressable put a competing responder in
+          front of every drag. React Native hands a moved touch to the scroll
+          view, but the wrapper still contended for short ones, so small scrolls
+          died and only a hard fling got through — exactly the reported "can only
+          scroll all the way up or down". As a child, the Pressable receives taps
+          and the ScrollView keeps every pan, which is the arrangement that lets
+          both gestures work at once.
+
+          `flexGrow` on the content container plus `flex` here is what lets a tap
+          land in the empty space below a short conversation, rather than only on
+          the bubbles themselves.
+        */}
+        <Pressable
+          onPress={done ? undefined : advance}
+          style={styles.tapLayer}
+          accessibilityRole={done ? undefined : 'button'}
+          accessibilityLabel={done ? t('thread.conversation') : t('thread.tapToContinue')}
+        >
         {visible.map((m, i) => {
           const prev = i > 0 ? visible[i - 1] : undefined;
           const next = visible[i + 1];
@@ -124,6 +179,7 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
           );
         })}
         {awaitingOther ? <TypingIndicator /> : null}
+        </Pressable>
       </ScrollView>
 
       {!done ? (
@@ -151,14 +207,22 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
           </Pressable>
         </Animated.View>
       ) : null}
-    </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   flex: { flex: 1, backgroundColor: theme.color.bg },
-  // Clears the footer, so the newest bubble is never parked under the button.
-  content: { paddingHorizontal: theme.space.md, paddingBottom: theme.space.xl * 2.5 },
+
+  // `flexGrow`, so a short conversation still fills the scroller and the tap
+  // layer below it covers the whole screen rather than only the bubbles.
+  content: {
+    flexGrow: 1,
+    paddingHorizontal: theme.space.md,
+    // Clears the footer, so the newest bubble is never parked under the button.
+    paddingBottom: theme.space.xl * 2.5,
+  },
+  tapLayer: { flex: 1 },
 
   footer: {
     position: 'absolute',

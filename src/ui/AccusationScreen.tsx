@@ -9,6 +9,7 @@ import { CaseClosedScreen } from './CaseClosedScreen';
 import { TutorialCoach } from '@/tutorial/TutorialCoach';
 import { useCaseStore } from '@/state/caseStore';
 import { saveProgress } from '@/state/persistence';
+import { syncProgress } from '@/auth';
 import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
 
 export function AccusationScreen() {
@@ -62,6 +63,17 @@ export function AccusationScreen() {
             if (outcome.correct) {
               markSolved();
               void saveProgress(script!.id);
+              /*
+               * Push it now, not merely at the next backgrounding.
+               *
+               * Solving a case is the one moment in the game worth losing
+               * nothing from, and it is also when a player is most likely to put
+               * the phone down in a way that never produces a clean background
+               * event. Fire and forget: a signed-out player gets a cheap no-op,
+               * and a failure is retried by the next sync rather than surfaced
+               * over the top of the epilogue.
+               */
+              void syncProgress();
             }
           },
         },
