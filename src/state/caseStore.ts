@@ -37,6 +37,18 @@ interface CaseState {
   /** Solved: the right person named. Persisted; gates the next case. */
   solved: boolean;
   /**
+   * This session is a deliberate replay of a case already solved.
+   *
+   * NOT persisted, and that is the whole design. Reopening a finished case
+   * should land on its closing screen — the epilogue and the three ways on —
+   * rather than making the player read every message and accuse the same person
+   * again to reach a screen they have already earned. `solved` alone cannot
+   * express that, because a replay legitimately empties every other counter;
+   * only "did the player press Play again, in this session" separates the two,
+   * and that question dies with the session by definition.
+   */
+  replaying: boolean;
+  /**
    * Whether the saved progress for this case has been read back yet.
    *
    * The inbox waits on this. Without it, a resumed case renders for a frame
@@ -85,6 +97,7 @@ const empty = () => ({
   lastThreadId: null,
   lastMessageId: null,
   solved: false,
+  replaying: false,
   hydrated: false,
 });
 
@@ -109,7 +122,16 @@ export const useCaseStore = create<CaseState>((set, get) => ({
    * consulted, and the answer is deliberately nothing.
    */
   restart: () =>
-    set((s) => ({ ...empty(), script: s.script, solved: s.solved, hydrated: true })),
+    set((s) => ({
+      ...empty(),
+      script: s.script,
+      solved: s.solved,
+      hydrated: true,
+      // What tells the inbox to show the case rather than its closing screen.
+      // `loadScript` clears it via empty(), so opening any case afresh — this one
+      // included, on the next launch — correctly forgets that a replay happened.
+      replaying: true,
+    })),
 
   /**
    * Swap the script's prose without touching a single thing the player has done.

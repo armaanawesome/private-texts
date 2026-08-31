@@ -348,6 +348,24 @@ describe('restart', () => {
     expect(useCaseStore.getState().hydrated).toBe(true);
   });
 
+  /**
+   * The inbox shows a solved case's closing screen unless this flag says the
+   * player asked to play it again. Without it, Play again clears the save, lands
+   * back on the inbox, still reads `solved`, and shows the closing screen it had
+   * just come from — a button that appears to do nothing.
+   */
+  it('marks the session as a replay, and loadScript clears that again', () => {
+    useCaseStore.getState().markSolved();
+    expect(useCaseStore.getState().replaying).toBe(false);
+
+    useCaseStore.getState().restart();
+    expect(useCaseStore.getState().replaying).toBe(true);
+
+    // Opening any case afresh — including this one next launch — forgets it.
+    useCaseStore.getState().loadScript(SCRIPT as CaseScript);
+    expect(useCaseStore.getState().replaying).toBe(false);
+  });
+
   it('is not loadScript, which forgets the case was ever solved', () => {
     useCaseStore.getState().markSolved();
     useCaseStore.getState().loadScript(SCRIPT as CaseScript);

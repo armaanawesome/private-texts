@@ -1,4 +1,4 @@
-import { Children, type ReactNode } from 'react';
+import { Children, Fragment, type ReactNode } from 'react';
 import { View, Text, StyleSheet, Pressable, Switch, Platform } from 'react-native';
 import { theme } from '@/ui/theme';
 
@@ -45,12 +45,41 @@ export function Section({
 
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <View style={styles.card}>
+      {/*
+        A stamped kicker with a rule running off it, NOT a label above a card.
+
+        The bordered card was the whole reason this screen read as iOS Settings:
+        a rounded, hairline-bordered container holding divided rows IS that
+        control, and no amount of recolouring changes what it is. Nine reference
+        settings screens were pulled for this and they split two ways — cards
+        (Grok, Posh, Phantom) and ruled groups (Tesla, Disney+) — so the card is
+        a convention rather than a requirement, and this app has a better answer
+        of its own.
+
+        The rule is lifted from `SectionHead` on the evidence board, which is
+        where this game already says "a section of a record". Settings now speaks
+        the same language as the board and the closing screen rather than the
+        language of the operating system.
+      */}
+      <View style={styles.sectionHead}>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <View style={styles.sectionRule} />
+      </View>
+      <View>
         {rows.map((row, i) => (
-          <View key={i} style={i > 0 ? styles.divided : undefined}>
+          <Fragment key={i}>
+            {/*
+              A separator element, not a border on a wrapper.
+
+              The wrapper carried `marginLeft` to inset the rule, which also
+              inset everything inside it — so every row after the first sat
+              further right than the one above. The bordered card used to hide
+              that; without the card it is plainly visible as a ragged left
+              edge. Insetting a rule of its own moves the rule and nothing else.
+            */}
+            {i > 0 ? <View style={styles.divider} /> : null}
             {row}
-          </View>
+          </Fragment>
         ))}
       </View>
       {footnote === undefined ? null : <Text style={styles.footnote}>{footnote}</Text>}
@@ -229,27 +258,32 @@ export function CustomRow({ label, children }: { label: string; children: ReactN
 }
 
 const styles = StyleSheet.create({
+  /**
+   * No bottom margin. Both settings screens already put `gap: theme.space.xl`
+   * between sections, and adding to it here stacked two spacings into a gulf
+   * wide enough that the groups stopped reading as one screen.
+   */
   section: { gap: theme.space.sm },
+  sectionHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.space.sm,
+    paddingHorizontal: theme.space.md,
+  },
   /** Mono and dim: the same "transcribed record" voice the evidence board uses. */
   sectionTitle: {
     ...theme.type.claim,
     fontSize: 11,
-    letterSpacing: 1,
+    letterSpacing: 1.4,
     textTransform: 'uppercase',
     color: theme.color.textDim,
-    paddingHorizontal: theme.space.md,
   },
-  card: {
-    backgroundColor: theme.color.surface,
-    borderRadius: theme.radius.chip,
-    borderWidth: 1,
-    borderColor: theme.color.rule,
-    overflow: 'hidden',
-  },
-  /** Inset from the left so the rule starts under the label, not under the card edge. */
-  divided: {
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: theme.color.rule,
+  /** Runs off the kicker to the right margin. The board's SectionHead, exactly. */
+  sectionRule: { flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: theme.color.rule },
+  /** Inset from the left so the rule starts under the label, not at the screen edge. */
+  divider: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: theme.color.rule,
     marginLeft: theme.space.md,
   },
   footnote: {
@@ -281,7 +315,16 @@ const styles = StyleSheet.create({
   labelDestructive: { color: theme.color.dangerText },
   labelDisabled: { color: theme.color.textDim },
   detail: { ...theme.type.meta, color: theme.color.textDim },
-  value: { ...theme.type.body, color: theme.color.textDim },
+  /**
+   * Mono, where the label beside it is not.
+   *
+   * The right-hand value is a stored fact — a language, a version, a count — and
+   * the mono face is this app's voice for exactly that everywhere else it
+   * appears. It also does the work the vanished card border used to do: it makes
+   * the two halves of a row read as different kinds of thing at a glance,
+   * without a box around them.
+   */
+  value: { ...theme.type.claim, color: theme.color.accent },
 
   expanded: {
     paddingHorizontal: theme.space.md,

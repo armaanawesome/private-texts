@@ -7,6 +7,7 @@ import { clockOf } from '@/ui/timeScale';
 import { useCaseStore } from '@/state/caseStore';
 import { visibleThreads, type CaseScript, type Thread } from '@/engine';
 import { ThreadListSkeleton } from '@/ui/Skeleton';
+import { CaseClosedScreen } from '@/ui/CaseClosedScreen';
 import { TutorialCoach } from '@/tutorial/TutorialCoach';
 
 const PLAYER_ID = 'you';
@@ -26,6 +27,8 @@ export default function ThreadsScreen() {
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const hydrated = useCaseStore((s) => s.hydrated);
+  const solved = useCaseStore((s) => s.solved);
+  const replaying = useCaseStore((s) => s.replaying);
   const [briefed, setBriefed] = useState(false);
 
   /**
@@ -53,6 +56,37 @@ export default function ThreadsScreen() {
   // cold start this is the first thing a returning player sees after tapping a
   // case, and the rows it draws are the shape of the inbox that follows.
   if (!hydrated) return <ThreadListSkeleton />;
+
+  /*
+   * A case already closed opens on its closing screen, not on its inbox.
+   *
+   * Reopening a solved case used to drop the player back at the top of the
+   * conversations, and the only route to the epilogue and the "next case"
+   * button was to read the whole thing again, accuse the same person again, and
+   * sit through the confrontation again — a wall in front of progress, built
+   * out of content they had already finished.
+   *
+   * The epilogue comes off the script rather than out of an accusation result,
+   * which is what makes this possible at all: `evaluateAccusation` only ever
+   * returned `script.solution.epilogue`, so nothing about it ever needed the
+   * accusation to have just happened.
+   *
+   * `replaying` is the escape hatch, set by `restart()` — see caseStore. Without
+   * it, pressing Play again would clear the save, land back here, still read
+   * `solved`, and show the closing screen it had just come from, forever.
+   */
+  if (solved && !replaying) {
+    return (
+      <CaseClosedScreen
+        script={script}
+        epilogue={script.solution.epilogue}
+        proved={confirmedIds.length}
+        total={script.contradictions.length}
+        messagesRead={readMessageIds.length}
+        threadCount={script.threads.length}
+      />
+    );
+  }
 
   // The briefing stands in front of the inbox on a fresh case only. Once a
   // single message has been read the player has started, and re-showing the

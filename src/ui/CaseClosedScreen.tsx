@@ -56,7 +56,12 @@ interface Props {
   messagesRead: number;
   threadCount: number;
   /** Lets the caller drop its own "this case is over" state before the replay opens. */
-  onReplay: () => void;
+  /**
+   * Lets the caller drop its own "this case is over" state before the replay
+   * opens. Optional because the inbox — which renders this for a case reopened
+   * after being solved — holds no such state; the store alone decides there.
+   */
+  onReplay?: (() => void) | undefined;
 }
 
 export function CaseClosedScreen({
@@ -107,16 +112,37 @@ export function CaseClosedScreen({
     // store, and `restart` has left `solved` standing — the tick on the case
     // grid must not come off because somebody chose to play a case again.
     void saveProgress(script.id);
-    onReplay();
+    onReplay?.();
     router.replace(`/case/${script.id}/threads`);
   }, [restart, script.id, onReplay, router]);
 
+  /**
+   * The next case, opened by way of the home screen.
+   *
+   * This used to be `router.replace('/case/<next>/threads')` and it did not
+   * work: it left the player looking at the CURRENT case's inbox. The reason is
+   * that this screen lives inside the case's own `NativeTabs` navigator, so a
+   * href matching `case/[caseId]/threads` is resolved by the nearest navigator
+   * — which reads it as "switch to the threads tab" and keeps the caseId it
+   * already has. The case never changed; only the tab did.
+   *
+   * Handing off through home fixes it properly rather than by fighting the
+   * resolution. The root Stack owns `/`, so the case group is genuinely left,
+   * and the case layout REMOUNTS on the way back in. That second part matters
+   * as much as the first: the layout reads the solved-case set once on mount,
+   * so without a remount it would still be holding the set from before this
+   * case was solved, and would bounce the next case as progression-locked.
+   *
+   * The param round-trip mirrors the `resume` hand-off in
+   * app/case/[caseId]/threads.tsx, which exists for the same class of reason.
+   */
   const openNext = useCallback(() => {
     if (!next) return;
-    // `replace`, not push: this screen is finished with, and replacing it leaves
-    // the home screen underneath, so the next case opens with a working back
-    // button. Pushing would stack a second case on top of a closed one.
-    router.replace(nextUnlocked ? `/case/${next.id}/threads` : '/paywall');
+    if (!nextUnlocked) {
+      router.replace('/paywall');
+      return;
+    }
+    router.replace({ pathname: '/', params: { open: next.id } });
   }, [router, next, nextUnlocked]);
 
   return (

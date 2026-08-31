@@ -638,6 +638,21 @@ the arc is ever reworked.
 
 ---
 
+## 7h. The browser harness renders case routes after all — 2026-08-31
+
+**§7d's limit was wrong.** It said the harness 'cannot render anything under
+app/case/'. It can: loading `/case/tutorial/threads` on web renders the
+NativeTabs bar, the case title, and the screen under it. That mistaken limit had
+been used to skip verification of the case flow more than once.
+
+What it verified this session, live rather than by argument: a solved case opens
+on its closing screen (CASE CLOSED, the killer, the three-figure score row), and
+'Next case' lands on the next case rather than the current one.
+
+**The console buffer accumulates across navigations.** Errors from before a fix
+keep appearing after it. Judge by whether the page renders, not by the presence
+of an old entry in that list.
+
 ## 7g. Where the skills actually live — 2026-08-31
 
 **Both skill roots are real, and they hold different skills.** Searching only

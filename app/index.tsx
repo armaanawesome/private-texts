@@ -1,6 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
-import { Link, useFocusEffect, useRouter } from 'expo-router';
+import {
+  Link,
+  useFocusEffect,
+  useLocalSearchParams,
+  useRootNavigationState,
+  useRouter,
+} from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { CaseArt } from '@/ui/CaseArt';
@@ -108,10 +114,54 @@ export default function CaseSelectScreen() {
    * now leaves that parent in place — `app/case/[caseId]/_layout.tsx` carries a
    * belt-and-braces header button for the deep-link case that cannot.
    */
+  /**
+   * Undefined until the root navigator has mounted.
+   *
+   * Both effects below navigate from this screen, and navigating before the root
+   * layout exists throws "Attempted to navigate before mounting the Root Layout"
+   * — which is not hypothetical here: it was thrown by the `open` hand-off the
+   * first time it was tested, because a URL carrying that param fires the effect
+   * on the very first render. The landing push has been getting away with it
+   * only because it waits on an async storage read, which is timing, not a
+   * guarantee. `privatetexts://?open=<case>` is a real deep link expo-router
+   * publishes for free, and it arrives cold.
+   */
+  const rootState = useRootNavigationState();
+  const navReady = rootState?.key !== undefined;
+
   const landingPending = settingsHydrated && !hasSeenLanding;
   useEffect(() => {
-    if (landingPending) router.push('/landing');
-  }, [landingPending, router]);
+    if (navReady && landingPending) router.push('/landing');
+  }, [navReady, landingPending, router]);
+
+  /**
+   * "Next case", handed off through here.
+   *
+   * The closing screen cannot open a sibling case directly. It sits inside that
+   * case's own `NativeTabs` navigator, and a href matching
+   * `case/[caseId]/threads` is resolved by the nearest navigator, which reads it
+   * as a tab switch and keeps the caseId it already has — so the player pressed
+   * Next case and got the current case's inbox. Routing through home leaves the
+   * case group properly, and the case layout remounts on the way back in, which
+   * is also what re-reads the solved-case set, so the next case is not judged
+   * against a set from before this one was finished.
+   *
+   * Guarded by a ref rather than by clearing the param, which is where the
+   * `resume` hand-off this was modelled on and this one part company. Clearing
+   * first mutates the navigation state and then pushes against it in the same
+   * tick, and on a cold `privatetexts://?open=<case>` that threw "Attempted to
+   * navigate before mounting the Root Layout" and left the screen blank. A ref
+   * touches no navigation state at all: the push is the only thing that moves,
+   * and the id it already handled cannot fire twice.
+   */
+  const { open } = useLocalSearchParams<{ open?: string }>();
+  const handledOpen = useRef<string | null>(null);
+  useEffect(() => {
+    if (!navReady || !open || handledOpen.current === open) return;
+    handledOpen.current = open;
+    router.push(`/case/${open}/threads`);
+  }, [navReady, open, router]);
+
 
   // Blank for the frame between the effect firing and the landing arriving. The
   // grid drawn underneath is a screen this player has not earned the right to
