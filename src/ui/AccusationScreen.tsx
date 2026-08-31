@@ -54,6 +54,7 @@ export function AccusationScreen() {
           style: 'destructive',
           onPress: () => {
             feedback.notify('warning');
+            feedback.cue('accusation');
             const outcome = evaluateAccusation(script!, person.id, progress);
             setResult(outcome);
             // Written to disk here rather than left in component state, which is

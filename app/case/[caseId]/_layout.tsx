@@ -13,6 +13,7 @@ import { useLocalisedCase } from '@/i18n/useCase';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import { decideCaseAccess } from '@/entitlements/access';
 import { ThreadListSkeleton } from '@/ui/Skeleton';
+import { useBed } from '@/audio';
 
 /**
  * `Link` rather than `router.back()`, precisely because there is nothing to go
@@ -104,6 +105,10 @@ export default function CaseLayout() {
    * Once is also correct on its own terms: the history beneath a screen is fixed
    * at the moment it is pushed, so there is nothing here to re-read.
    */
+  // Each case gets its own room tone. Null while the script resolves, which
+  // the player reads as silence rather than as the menu bed leaking in.
+  useBed(script?.id ?? null);
+
   const [canGoBack] = useState(() => router.canGoBack());
   const screenOptions = useMemo(
     () => ({

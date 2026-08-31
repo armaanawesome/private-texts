@@ -20,6 +20,7 @@ import { readResume, readSolvedCaseIds } from '@/state/persistence';
 import { decideCaseGate, gateIsLocked, type CaseGate } from '@/state/progression';
 import { offerResume, type ResumeOffer } from '@/state/resume';
 import { isCaseUnlocked } from '@/entitlements/access';
+import { useBed, MENU_BED } from '@/audio';
 import type { CaseScript } from '@/engine';
 
 /*
@@ -59,6 +60,16 @@ export default function CaseSelectScreen() {
    * draw locked on that — so the distinction is what stops the grid flashing.
    */
   const [solvedIds, setSolvedIds] = useState<ReadonlySet<string> | null>(null);
+
+  /*
+   * The menu bed, for as long as this screen is the one in front.
+   *
+   * It is a focus effect inside the hook, not a mount effect, which is what
+   * makes coming back from a case swap the case's room tone for this one — the
+   * home screen never unmounts while a case is open, so a mount effect would
+   * fire once at launch and never again.
+   */
+  useBed(MENU_BED);
 
   /**
    * On focus, not on mount: the player arrives back here every time they leave

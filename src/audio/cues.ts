@@ -8,7 +8,7 @@ import type { CueGain } from './volume';
  * the soundtrack into keyboard clatter and the two that matter would stop
  * registering.
  */
-export type CueId = 'message' | 'pin' | 'contradiction' | 'confession';
+export type CueId = 'message' | 'pin' | 'contradiction' | 'confession' | 'accusation';
 
 export interface Cue extends CueGain {
   readonly id: CueId;
@@ -23,6 +23,14 @@ export const CUES: Record<CueId, Cue> = {
   contradiction: { id: 'contradiction', role: 'signal', gain: 1 },
   /** She admits it. The one moment the game is allowed to be loud. */
   confession: { id: 'confession', role: 'signal', gain: 0.9 },
+  /**
+   * A name being put to the record. A gavel, twice.
+   *
+   * `signal`, not `flourish`: naming somebody is the one irreversible-feeling
+   * move in the game, and a player with Reduce Motion on still needs to hear
+   * that it landed. Pitched under the confession, which is the louder moment.
+   */
+  accusation: { id: 'accusation', role: 'signal', gain: 0.8 },
 };
 
 /**
@@ -30,4 +38,10 @@ export const CUES: Record<CueId, Cue> = {
  * `string[]` and would need a cast to become `CueId[]`. The test below is what
  * keeps the two in step instead.
  */
-export const CUE_IDS: readonly CueId[] = ['message', 'pin', 'contradiction', 'confession'];
+export const CUE_IDS: readonly CueId[] = [
+  'message',
+  'pin',
+  'contradiction',
+  'confession',
+  'accusation',
+];

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScrollView, Pressable, View, Text, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useReduceMotion } from '@/settings/useReduceMotion';
+import { feedback } from '@/settings/feedback';
 import { theme } from './theme';
 import { ChatBubble, type BubbleGeometry } from './ChatBubble';
 import { TypingIndicator } from './TypingIndicator';
@@ -68,8 +69,19 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
    * a time.
    */
   const advance = useCallback(() => {
+    /*
+     * The tone belongs to the message being revealed, and only when somebody
+     * else sent it. A phone does not chime at you for your own outgoing text,
+     * and firing it on every tap would make the sound meaningless within one
+     * conversation.
+     *
+     * Read before the update rather than inside it: a state updater can be
+     * invoked more than once for a single call, and a cue is a side effect.
+     */
+    const revealed = thread.messages[shown];
+    if (revealed && revealed.senderId !== PLAYER_ID) feedback.cue('message');
     setShown((n) => Math.min(n + 1, thread.messages.length));
-  }, [thread.messages.length]);
+  }, [shown, thread.messages]);
 
   const skipAll = useCallback(() => {
     setShown(thread.messages.length);

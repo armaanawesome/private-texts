@@ -5,6 +5,7 @@ import { useTranslator } from '@/i18n/useTranslator';
 import { hydrateSettings } from '@/settings/persistence';
 import { SettingsGlyph } from '@/settings/SettingsList';
 import { syncProgress } from '@/auth';
+import { stopBed } from '@/audio';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { theme } from '@/ui/theme';
@@ -133,7 +134,13 @@ export default function RootLayout() {
    */
   useEffect(() => {
     const sub = AppState.addEventListener('change', (next) => {
-      if (next === 'background' || next === 'inactive') void syncProgress();
+      if (next === 'background' || next === 'inactive') {
+        void syncProgress();
+        // The session is configured not to play in the background, but an
+        // explicit stop also frees the decoded loop rather than leaving it
+        // resident for however long the OS keeps the process alive.
+        stopBed();
+      }
     });
     return () => sub.remove();
   }, []);

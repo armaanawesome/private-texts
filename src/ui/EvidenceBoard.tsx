@@ -56,8 +56,23 @@ export function EvidenceBoard() {
       <Pressable
         disabled={!canCompare}
         onPress={() => {
-          feedback.notify('success');
           submitPins();
+          /*
+           * The cue fires HERE, on the board, which is where a contradiction is
+           * actually proven. It was wired only in the confrontation screen, so
+           * the single most important moment in the game — two statements that
+           * cannot both be true — happened in silence.
+           *
+           * Read back after the call because zustand applies synchronously, and
+           * a failed comparison must not be rewarded with the success sound.
+           */
+          const verdict = useCaseStore.getState().lastVerdict;
+          if (verdict?.ok) {
+            feedback.notify('success');
+            feedback.cue('contradiction');
+          } else {
+            feedback.notify('warning');
+          }
           // Persist after the verdict resolves: a proven contradiction unlocks
           // threads, and losing that to a force-quit would be brutal.
           void saveProgress(script.id);

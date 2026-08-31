@@ -29,7 +29,7 @@ let primed = false;
  * that is the reason people delete games. `mixWithOthers` is the matching one —
  * a 150ms sting must not stop the podcast the player is listening to.
  */
-function primeAudio(): void {
+export function primeAudio(): void {
   if (primed) return;
   primed = true;
   void setAudioModeAsync({

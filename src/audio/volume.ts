@@ -49,6 +49,36 @@ export function amplitudeFor(sliderPosition: number): number {
   return p * p;
 }
 
+/**
+ * How loud a looping background bed sits under everything else.
+ *
+ * A fifth of the cue level. Background music mixed at the same gain as a text
+ * tone stops being background — it competes with the thing the player is
+ * actually doing, which here is reading somebody's messages.
+ */
+const BED_GAIN = 0.2;
+
+/**
+ * Whether a bed should play at all, and how loud.
+ *
+ * Lives here rather than beside the bed registry for a mechanical reason worth
+ * knowing: `beds.ts` is a list of `require` calls on WAV files, and requiring a
+ * binary outside Metro throws, so anything in that file is untestable in Node.
+ * `caseArtAssets.test.ts` documents the same constraint for the PNG map. Keeping
+ * the arithmetic in this file — which imports nothing at all — is what lets the
+ * rule below have tests.
+ *
+ * Reduce Motion silences beds outright, where a `signal` cue survives it. A
+ * drone is the definition of a non-informational sound: it tells the player
+ * nothing they could miss, so somebody who asked for less sensory load should
+ * not be handed seventeen of them.
+ */
+export function resolveBedVolume(prefs: VolumePrefs): number {
+  if (!prefs.soundEnabled) return 0;
+  if (prefs.reduceMotion) return 0;
+  return clamp01(amplitudeFor(prefs.soundVolume) * BED_GAIN);
+}
+
 export function resolveVolume(prefs: VolumePrefs, cue: CueGain): number {
   if (!prefs.soundEnabled) return 0;
 
