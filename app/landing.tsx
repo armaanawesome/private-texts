@@ -7,7 +7,19 @@ import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { useSettingsStore } from '@/settings/settingsStore';
+import { TypingIndicator } from '@/ui/TypingIndicator';
 import { DEMO_CASE_ID } from '@content/cases';
+
+/**
+ * Android gets a ripple as well as the opacity change.
+ *
+ * An opacity dip is the iOS idiom and reads as almost nothing on Android, where
+ * a press with no ripple is the signature of a control that did not register.
+ * Two colours because one ripple cannot show on both a filled amber button and a
+ * hairline-outlined one.
+ */
+const RIPPLE_ON_LIGHT = { color: 'rgba(0,0,0,0.18)' } as const;
+const RIPPLE_ON_DARK = { color: 'rgba(255,255,255,0.12)' } as const;
 
 /**
  * The front door.
@@ -87,6 +99,26 @@ export default function LandingScreen() {
             <Text style={styles.bubbleText}>{t(key)}</Text>
           </Animated.View>
         ))}
+
+        {/*
+          The thread does not stop, it waits.
+
+          Six reference welcome screens were pulled for this design and every one
+          of them fills the space under the pitch — a logo, a photograph, a
+          collage, a feature list. This screen had a bare flex spacer there, and
+          it read as an unfinished layout rather than as breathing room.
+
+          The app's own typing indicator is the honest thing to put in it. It
+          says the case is still coming in, it is the exact component the
+          conversations use, and it costs no new asset. Held back until the last
+          line has landed, because somebody typing before they have said anything
+          is a loading spinner wearing a costume.
+        */}
+        <Animated.View
+          entering={reduceMotion ? undefined : FadeIn.duration(400).delay(LINES.length * STAGGER)}
+        >
+          <TypingIndicator />
+        </Animated.View>
       </View>
 
       <View style={styles.spacer} />
@@ -100,6 +132,7 @@ export default function LandingScreen() {
         <Pressable
           onPress={() => leave('demo')}
           accessibilityRole="button"
+          android_ripple={RIPPLE_ON_LIGHT}
           style={({ pressed }) => [styles.primary, pressed && styles.pressed]}
         >
           <Text style={styles.primaryText}>{t('landing.guest')}</Text>
@@ -114,6 +147,7 @@ export default function LandingScreen() {
         <Pressable
           onPress={() => leave('sign-in')}
           accessibilityRole="button"
+          android_ripple={RIPPLE_ON_DARK}
           style={({ pressed }) => [styles.secondary, pressed && styles.pressed]}
         >
           <Text style={styles.secondaryText}>{t('landing.signIn')}</Text>
@@ -138,7 +172,7 @@ const styles = StyleSheet.create({
   wordmark: { ...theme.type.title, color: theme.color.text, fontSize: 34, lineHeight: 40 },
 
   /** The same bubble the cases draw, at the same radius — this is the product, not an ad for it. */
-  thread: { gap: theme.space.sm, alignItems: 'flex-start' },
+  thread: { gap: theme.space.sm, alignItems: 'flex-start', overflow: 'hidden' },
   bubble: {
     maxWidth: '92%',
     backgroundColor: theme.color.bubbleThem,

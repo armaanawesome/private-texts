@@ -86,6 +86,8 @@ export function AccusationScreen() {
         epilogue={result.epilogue}
         proved={confirmedIds.length}
         total={script.contradictions.length}
+        messagesRead={readMessageIds.length}
+        threadCount={script.threads.length}
         /*
          * Replay has to clear the two pieces of state this component owns, not
          * merely the store. `result` and `closed` live here, and the store knows
