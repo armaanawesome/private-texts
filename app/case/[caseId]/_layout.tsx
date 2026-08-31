@@ -92,18 +92,25 @@ export default function CaseLayout() {
    * whatever onboarding does: `privatetexts://case/the-bakehouse/threads`, and
    * every other deep link expo-router publishes for free.
    *
-   * `canGoBack` is read during render rather than watched, which is enough:
-   * the answer cannot change while this layout is mounted, because the history
-   * beneath a screen is fixed at the moment it is pushed.
+   * Read ONCE, into state, and the dependency below is the resulting boolean —
+   * never the router object. Every other screenOptions memo in this app depends
+   * on `t` and a title and nothing else, deliberately: if the options object's
+   * identity changes on any render, `Stack.Screen` calls setOptions, the
+   * navigator re-renders, and it loops until React throws "Maximum update depth
+   * exceeded". app/_layout.tsx documents that crash. Putting a router object in
+   * this dep array would bet the whole case screen on its identity being stable;
+   * a boolean costs nothing and cannot lose that bet.
+   *
+   * Once is also correct on its own terms: the history beneath a screen is fixed
+   * at the moment it is pushed, so there is nothing here to re-read.
    */
+  const [canGoBack] = useState(() => router.canGoBack());
   const screenOptions = useMemo(
     () => ({
       title: script?.title ?? '',
-      ...(router.canGoBack()
-        ? null
-        : { headerLeft: () => <HomeLink label={t('case.allCases')} /> }),
+      ...(canGoBack ? null : { headerLeft: () => <HomeLink label={t('case.allCases')} /> }),
     }),
-    [script?.title, router, t],
+    [script?.title, canGoBack, t],
   );
 
   /*
