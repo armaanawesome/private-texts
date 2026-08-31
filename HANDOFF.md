@@ -638,6 +638,30 @@ the arc is ever reworked.
 
 ---
 
+## 7g. Where the skills actually live — 2026-08-31
+
+**Both skill roots are real, and they hold different skills.** Searching only
+one of them proves nothing, which is a mistake this session made out loud: a
+`find` over `~/.claude` came back empty for `impeccable` and `ui-ux-pro-max`
+and was reported to the user as "not installed". They were installed the whole
+time, one directory over.
+
+| Root | Holds |
+|---|---|
+| `C:\Users\armaa\Downloads\ClaudeCode\.claude\skills\` — the PROJECT root, which is the PARENT of this repo | `impeccable`, `ui-ux-pro-max`, `using-superpowers`, `find-skills`, `expo-router`, every `expo-*` and `revenuecat-*`, `taste-skill`, `emil-design-eng`, `web-design-guidelines` |
+| `~/.claude/skills/` | `anti-ai-writing`, `storytelling`, `viral-hooks`, `ruflo`, `supabase`, `prompt-master` |
+| `~/.claude/plugins/` | `ecc:*`, `ponytail`, `karpathy-guidelines`, `claude-seo` |
+
+**The skill listing in the session context is the authority — read it rather
+than probing the filesystem.** `ListSkills` is not the check either: it returns
+claude.ai-managed skills only, and comes back empty for every skill above.
+
+**Mobbin is authorized and works.** The tools are `search_screens`,
+`search_flows`, `search_sections`. The session context has listed Mobbin under
+"requires authentication" while it was answering queries in the same turn — that
+notice is unreliable for this server, so **call it and see** rather than
+believing the reminder.
+
 ## 7f. Onboarding, and the back button that was not there — 2026-08-31
 
 Reported from a Limrun run: the demo case opened on first launch **with no back
@@ -683,6 +707,18 @@ suite stayed green while proving nothing about it. A new source directory needs
 its glob added there or its tests silently do not exist.
 
 ## 7e. EAS build quota — iOS is spent until 2026-09-01
+
+**Latest Android APK — build `7722aec6`, commit `70dbc11`, finished 2026-08-31 17:22.**
+
+`https://expo.dev/artifacts/eas/Vlcnz5Hae6beZB2lvFlgSgHCLmu429YZmZcfQZWfLs8.apk`
+
+Free-tier artifacts expire in roughly 30 days, so download it rather than
+relying on the link. It carries the landing page, the in-case walkthrough, the
+redesigned case-closed screen, the solved ticks, and the back-button fix. The one
+commit after it (`9fbaad1`) is hardening with no behavioural change — verified
+rather than assumed: `useRouter()` returns a module-level singleton, so the memo
+it rewrites could not have been looping. **No rebuild is needed for it.**
+
 
 The free plan's **iOS** allowance ran out on 2026-08-29 and resets on
 **Tue 1 Sep**. The refusal is instant and costs nothing, so attempting a build is
