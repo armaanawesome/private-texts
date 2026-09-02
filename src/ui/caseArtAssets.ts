@@ -27,6 +27,18 @@
  * The `require` calls must be literal — React Native resolves them at bundle
  * time, so this cannot be a loop over case ids.
  */
+/*
+ * The map is no longer partial: all sixteen cases have art, so the generated
+ * poster is now a fallback nothing reaches. It stays anyway — a seventeenth case
+ * should ship a tile that belongs on the day it is written, not on the day
+ * somebody gets round to drawing it.
+ *
+ * The first six are 640×640; the ten added afterwards are 1080×1350. That is
+ * deliberate rather than sloppy: `CaseArt` draws into a 3:4 frame with
+ * `resizeMode="cover"`, so a square source loses roughly a quarter of itself top
+ * and bottom, where a 4:5 source loses almost nothing. The newer covers were
+ * generated at the aspect the grid actually renders.
+ */
 export const CASE_ART: Readonly<Record<string, number>> = {
   tutorial: require('../../assets/cases/tutorial.png'),
   'the-lighthouse': require('../../assets/cases/the-lighthouse.png'),
@@ -34,6 +46,16 @@ export const CASE_ART: Readonly<Record<string, number>> = {
   'the-night-round': require('../../assets/cases/the-night-round.png'),
   'the-wake': require('../../assets/cases/the-wake.png'),
   'the-listener': require('../../assets/cases/the-listener.png'),
+  'deep-field': require('../../assets/cases/deep-field.png'),
+  'the-long-course': require('../../assets/cases/the-long-course.png'),
+  'the-bothy': require('../../assets/cases/the-bothy.png'),
+  'sunday-service': require('../../assets/cases/sunday-service.png'),
+  'the-cut': require('../../assets/cases/the-cut.png'),
+  'open-mic': require('../../assets/cases/open-mic.png'),
+  'the-allotments': require('../../assets/cases/the-allotments.png'),
+  'the-helpline': require('../../assets/cases/the-helpline.png'),
+  'the-reunion': require('../../assets/cases/the-reunion.png'),
+  'the-night-ferry': require('../../assets/cases/the-night-ferry.png'),
 };
 
 /** The painted cover for a case, or undefined while it still uses the generated one. */
