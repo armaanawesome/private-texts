@@ -1,4 +1,4 @@
-# Private Texts — working agreement
+# Read Receipts — working agreement
 
 `HANDOFF.md` is the authority on project state. This file is about *how to work*,
 and it is short on purpose.

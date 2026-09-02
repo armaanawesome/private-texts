@@ -1,4 +1,4 @@
-# Private Texts
+# Read Receipts
 
 A murder mystery told entirely through text threads. You have the victim's
 phone. You win only by pinning two messages that can't both be true, and
@@ -141,8 +141,8 @@ unlocks Packs 4–15 immediately.
 ## Running it
 
 ```bash
-git clone https://github.com/armaanawesome/private-texts.git
-cd private-texts
+git clone https://github.com/armaanawesome/read-receipts.git
+cd read-receipts
 npm install
 cp .env.example .env
 ```

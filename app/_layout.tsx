@@ -84,7 +84,7 @@ function SettingsLink() {
  * `index` on the first screen of the game - and a child's back button then read
  * `< index` too, because iOS takes the back label from the parent's title.
  *
- * Empty rather than 'Private Texts': the screen already carries that as a
+ * Empty rather than 'Read Receipts': the screen already carries that as a
  * masthead, and saying it twice in forty points of vertical space is worse than
  * not saying it. The bar still earns its place - it owns the safe area and it
  * holds the settings link - and an empty parent title makes the back label fall

@@ -1,4 +1,4 @@
-# HANDOFF — Private Texts
+# HANDOFF — Read Receipts
 
 **Read this first. It is the authority on project state.**
 
@@ -9,7 +9,7 @@ Built for the **RevenueCat Shipaton 2026 — Next Gen (student) award**.
 
 | | |
 |---|---|
-| Repo | https://github.com/armaanawesome/private-texts (public) |
+| Repo | https://github.com/armaanawesome/read-receipts (public) |
 | Deadline | **2026-09-30 23:45 PDT** · internal target **2026-09-28** |
 | Started | 2026-08-08 |
 | This file last verified | **2026-08-29** — test count re-run, and Supabase re-checked against the live project rather than from notes |
@@ -58,20 +58,22 @@ accuse.
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
 | 15 case packs + tutorial | ✅ written, and **all sixteen read end to end by the owner** (2026-08-28) |
 | Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
-| Settings screen + audio model | ✅ code complete, volume is a real slider; **`assets/audio/` does not exist — no cue has a file** |
+| Settings screen + audio model | ✅ code complete, volume is a real slider, **22 files in `assets/audio/` — 5 cues + 17 beds, all synthesised by `tools/make-audio.mjs`. Structurally verified; never listened to by a human** |
 | Accounts (Supabase) | ✅ email sign-in, persistent session, cross-device sync. **RLS re-verified live 2026-08-29** (anonymous read `[]`, anonymous insert `401 / 42501`), `solved` column applied, keys registered with EAS |
 | Languages | ✅ 4 UI catalogues + **all 16 cases in all four locales** (es, fr, de, pt-BR) — **no native speaker has read any of it** |
 | Standalone build | ✅ `preview` launches with no Metro (bundle verified inside the `.app`) |
 | OneSignal | ❌ not started — **not a dependency, no code**. Only an `.env.example` placeholder, plus a `remote-notification` iOS background mode in `app.json` that nothing uses |
-| Video, screenshots, icon | ❌ not started |
+| Video, screenshots | ❌ not started — both need a device |
+| App icon | ✅ the original Canva mark (two overlapping speech bubbles on oxblood). Alternates carrying a detective element were drawn on 2026-09-03 and **rejected — the owner prefers this one. Do not redo it.** One real caveat: `app.json` sets `icon` with no `adaptiveIcon`, so Android launchers mask it to a circle and clip the bubble edges |
 | Android | ⚠️ APK builds; never installed on a handset |
 | Linear progression | ✅ cases unlock in order, enforced on the tile **and** at the route; `solved` persists locally and syncs |
 | Onboarding | ✅ animated landing (sign in / play as guest) → Bakehouse, with the walkthrough running **inside** the case as coach marks. Re-armed from Settings |
 | Case closed | ✅ closed-file header, proof tally, coda, and three exits: next case, all cases, play again |
 
-**Tests:** `.\check.cmd` → **4784 passing across 125 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4794 passing across 126 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
-by running the suite on 2026-08-28, not copied forward. Most of the growth is
+by running the suite on 2026-09-03, not copied forward. The file added since the
+last count is `src/audio/beds.test.ts`. Most of the growth is
 translation: registering a pack in a locale runs every generic suite over it, and
 all sixty-four locale registrations (16 cases x 4 languages) are now in.
 
@@ -87,7 +89,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-4784 actually prove: that no case is unsolvable, no thread is unreachable, no
+4794 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -207,7 +209,7 @@ longer needed — see the table above — so do not spend builds on it.
   could not find the global copy on this machine.
 - Verify a build before trusting it:
   ```bash
-  curl -sL <artifact-url> -o a.tar.gz && tar -xzf a.tar.gz && ls PrivateTexts.app/
+  curl -sL <artifact-url> -o a.tar.gz && tar -xzf a.tar.gz && ls ReadReceipts.app/
   ```
 
 ---
@@ -638,6 +640,49 @@ the arc is ever reworked.
 
 ---
 
+## 7i. Audio — 22 files, all synthesised, none ever heard — 2026-09-02
+
+**Nobody has listened to any of this.** It is verified structurally: valid
+RIFF/WAVE, mono, 16-bit, zero clipped samples, one bed per case. That says
+nothing about whether it sounds good, and retuning is now a fast loop.
+
+`tools/make-audio.mjs` generates all 22 files (4.0MB): five cues at 22050Hz
+(`message`, `pin`, `contradiction`, `confession`, `accusation`) and seventeen
+beds at 16000Hz (menu + one per case), each an 8-second seamless loop whose tail
+is crossfaded into its head. Root and swell vary by a hash of the track name, so
+beds differ 78–96Hz without anybody choosing sixteen keys by hand.
+
+`src/audio/` splits the same way `src/settings` does: every decision is made in a
+pure file and only the service modules touch expo-audio.
+
+**`resolveBedVolume` lives in `volume.ts`, not `beds.ts`, and that is load-bearing.**
+`beds.ts` is a list of `require` calls on binaries, and requiring a WAV outside
+Metro throws — so a test importing it cannot run in Node at all. Same trap and
+same fix as `caseArtAssets.test.ts`: put the arithmetic somewhere importable and
+verify the registry by the shape of the directory it points at.
+
+Two decisions worth not re-litigating:
+
+- **`useBed` uses `useFocusEffect`, not `useEffect`.** Screens below the top of a
+  stack stay mounted, so a mount effect never re-fires on the way back and the
+  bed would not change when the player returned to the menu.
+- **Beds are silent under Reduce Motion; cues are not.** A drone carries no
+  information and somebody who asked for less sensory load should not get
+  seventeen of them. A cue marks the moment a contradiction landed, and removing
+  it would hide something.
+
+**Two cues were coded and never fired.** They existed in the registry and no call
+site played them. The contradiction cue now fires in `EvidenceBoard` after
+`submitPins()`, gated on `lastVerdict?.ok` — read the verdict from
+`useCaseStore.getState()` after the call, not from the render-scope value, which
+is a frame stale. A cue in a registry is not a cue in the game; grep for the call
+site before believing one works.
+
+**Optional:** the 3.9MB of WAV beds would be about a tenth the size as m4a. That
+needs ffmpeg, which is not on this machine.
+
+---
+
 ## 7h. The browser harness renders case routes after all — 2026-08-31
 
 **§7d's limit was wrong.** It said the harness 'cannot render anything under
@@ -757,7 +802,7 @@ when a device screenshot disagrees with what the code says should happen.
 npm run web --prefix shipaton-detective
 ```
 
-Already wired as the `private-texts` entry in the workspace
+Already wired as the `read-receipts` entry in the workspace
 `.claude/launch.json`, on port 8081.
 
 **What renders:** the case grid, Settings, the language picker, the sign-in
@@ -798,23 +843,44 @@ Both share a lesson worth keeping: **a value that has to survive a component
 boundary to be correct will eventually not survive it.** State the width where
 nothing can take it; load the preferences where every screen benefits.
 
-## 7c. Case cover art — six of sixteen, resumes 2026-09-01
+## 7c. Case cover art — all sixteen painted, two worth redoing
 
 `assets/cases/<caseId>.png` holds painted covers; `src/ui/caseArtAssets.ts` maps
 them; `src/ui/CaseArt.tsx` renders the painting where one exists and falls back
 to the generated `CasePoster` where it does not.
 
-**Painted so far:** tutorial, the-lighthouse, the-understudy, the-night-round,
-the-wake, the-listener.
+**All sixteen cases are painted** as of commit `9c994bf`. `assets/` is now 17MB.
 
-**Still on the generated poster (ten):** deep-field, the-long-course, the-bothy,
-sunday-service, the-cut, open-mic, the-allotments, the-helpline, the-reunion,
-the-night-ferry.
+**One `generate-design` call returns FOUR candidates, not one.** This was learned
+the expensive way. The last ten covers were deliberately briefed as "two options
+per case" to conserve quota, on the assumption that options cost calls — they do
+not. Twenty options came back for ten calls. Offering the owner *more* choice was
+half the price of offering less. Brief four next time.
 
-**Blocked only by Canva's generation quota, which resets 2026-09-01.** Saving and
-exporting kept working when generation did not, so the pattern is: generate four
-candidates per pack, the owner picks by number, then save → export at 640×640 →
-`assets/cases/<caseId>.png` → add the `require` line.
+**`export-design` fails with "Not allowed to access design" if you pass `width`,
+`height` or `lossless`.** Send `{"type": "png"}` alone. Call `get-export-formats`
+first; it is required.
+
+**Two covers shipped as the owner picked them but miss their own brief**, and
+both are one call each to redo when quota returns:
+
+- **sunday-service** — briefed as a church with its roof *absent*, which is the
+  case's entire lie ("the man who reroofed the church says there was no roof on
+  it"). It came back with a roof and a spire. Handsome poster, missing wound.
+- **the-reunion** — renders its crowd as faces. No other cover in the set
+  contains a face, and its blank clock reads as a moon.
+
+Regenerating both was attempted on 2026-09-03 and **both generators are out of
+credit**: Canva returns `quota limit`, and the Gamma image MCP returns
+`402 Insufficient credits`. Prompts written for the retry are in
+`docs/cover-prompts-pending.md` — the fix for sunday-service is to brief a *ruin*
+rather than "a church without a roof", because the model normalises the second
+back into a church.
+
+**Aspect ratio is deliberately inconsistent.** The first six are 640×640; the last
+ten are 1080×1350. `CaseArt` draws into a 3:4 frame with `resizeMode="cover"`, so
+a square source loses about a quarter of itself top and bottom where a 4:5 source
+loses almost nothing. Generate at 4:5.
 
 The system, so the last ten match: flat editorial linocut, one solid background
 colour per case, black and warm cream shapes only, print speckle, no text and no
@@ -832,10 +898,10 @@ Two traps already paid for: `caseArt.ts` beside `CaseArt.tsx` resolve to one
 module on a case-insensitive filesystem, and `StyleSheet.absoluteFillObject` is
 not typed in this RN version.
 
-**Unverified:** the covers have only been seen as standalone 640×640 exports, not
-in the running grid. The frame is 3:4 and the art is square, so `resizeMode:
-'cover'` is trimming left and right. Check that on device before trusting the
-crop.
+**Verified in the running grid on 2026-08-31**, correcting the previous entry
+here, which said the covers had only been seen as standalone exports: all sixteen
+tiles render their painting in the browser harness, with the green solved tick,
+and each new cover's motif is still legible at tile size.
 
 ---
 

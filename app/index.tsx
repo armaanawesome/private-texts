@@ -182,7 +182,7 @@ export default function CaseSelectScreen() {
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       <View style={styles.masthead}>
-        <Text style={styles.title}>Private Texts</Text>
+        <Text style={styles.title}>Read Receipts</Text>
         {/* The pitch is for someone who has not played. A returning player has
             already bought it, and leaving it here would push Continue down the
             screen to make room for an argument they have accepted. */}

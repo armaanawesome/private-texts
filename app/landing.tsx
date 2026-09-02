@@ -90,7 +90,7 @@ export default function LandingScreen() {
     <View style={[styles.root, { paddingTop: insets.top + theme.space.xl }]}>
       <View style={styles.head}>
         <Text style={styles.kicker}>{t('landing.kicker')}</Text>
-        <Text style={styles.wordmark}>Private Texts</Text>
+        <Text style={styles.wordmark}>Read Receipts</Text>
       </View>
 
       <View style={styles.thread}>
