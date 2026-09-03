@@ -242,9 +242,15 @@ export const EN = {
   'paywall.title': 'More cases',
   'paywall.body':
     'Another death, another phone, another story that does not hold up. Unlock the case pack to keep going.',
-  'paywall.bullet.case': 'A second full-length case',
+  'paywall.bullet.case': 'Twelve more full-length cases',
   'paywall.bullet.suspects': 'New suspects, new contradictions',
   'paywall.bullet.permanent': 'Yours permanently — this is not a subscription',
+  /**
+   * Sits beside a struck-through reference figure. `{count}` is how many cases
+   * the pack unlocks, so this reads as what the pack is worth rather than as a
+   * price it used to carry — it has never carried another price.
+   */
+  'paywall.compare': 'value across {count} cases',
   'paywall.empty': 'The store has nothing to sell right now. Try again in a moment.',
   'paywall.unreachable': 'Could not reach the store.',
   'paywall.failed': 'The purchase did not go through. You have not been charged.',
@@ -452,9 +458,10 @@ const ES: Catalogue = {
   'paywall.title': 'Más casos',
   'paywall.body':
     'Otra muerte, otro teléfono, otra historia que no se sostiene. Desbloquea el pack de casos para seguir.',
-  'paywall.bullet.case': 'Un segundo caso completo',
+  'paywall.bullet.case': 'Doce casos completos más',
   'paywall.bullet.suspects': 'Nuevos sospechosos, nuevas contradicciones',
   'paywall.bullet.permanent': 'Tuyo para siempre: esto no es una suscripción',
+  'paywall.compare': 'de valor en {count} casos',
   'paywall.empty': 'La tienda no tiene nada que vender ahora mismo. Inténtalo de nuevo en un momento.',
   'paywall.unreachable': 'No se pudo conectar con la tienda.',
   'paywall.failed': 'La compra no se completó. No se te ha cobrado.',
@@ -666,9 +673,10 @@ const FR: Catalogue = {
   'paywall.title': 'Plus d’affaires',
   'paywall.body':
     'Une autre mort, un autre téléphone, une autre histoire qui ne tient pas. Déverrouillez le pack pour continuer.',
-  'paywall.bullet.case': 'Une deuxième affaire complète',
+  'paywall.bullet.case': 'Douze affaires complètes de plus',
   'paywall.bullet.suspects': 'De nouveaux suspects, de nouvelles contradictions',
   'paywall.bullet.permanent': 'À vous définitivement — ce n’est pas un abonnement',
+  'paywall.compare': 'de valeur sur {count} affaires',
   'paywall.empty': 'La boutique n’a rien à proposer pour le moment. Réessayez dans un instant.',
   'paywall.unreachable': 'Impossible de joindre la boutique.',
   'paywall.failed': 'L’achat n’a pas abouti. Vous n’avez pas été débité.',
@@ -874,9 +882,10 @@ const DE: Catalogue = {
   'paywall.title': 'Mehr Fälle',
   'paywall.body':
     'Ein weiterer Tod, ein weiteres Telefon, eine weitere Geschichte, die nicht standhält. Schalte das Fallpaket frei, um weiterzumachen.',
-  'paywall.bullet.case': 'Ein zweiter Fall in voller Länge',
+  'paywall.bullet.case': 'Zwölf weitere Fälle in voller Länge',
   'paywall.bullet.suspects': 'Neue Verdächtige, neue Widersprüche',
   'paywall.bullet.permanent': 'Dauerhaft deins — kein Abo',
+  'paywall.compare': 'Gegenwert für {count} Fälle',
   'paywall.empty': 'Der Store hat gerade nichts anzubieten. Versuch es gleich noch einmal.',
   'paywall.unreachable': 'Der Store war nicht erreichbar.',
   'paywall.failed': 'Der Kauf ist nicht durchgegangen. Dir wurde nichts berechnet.',
@@ -1075,9 +1084,10 @@ const PT_BR: Catalogue = {
   'paywall.title': 'Mais casos',
   'paywall.body':
     'Outra morte, outro celular, outra história que não se sustenta. Desbloqueie o pacote de casos para continuar.',
-  'paywall.bullet.case': 'Um segundo caso completo',
+  'paywall.bullet.case': 'Mais doze casos completos',
   'paywall.bullet.suspects': 'Novos suspeitos, novas contradições',
   'paywall.bullet.permanent': 'Seu para sempre — não é assinatura',
+  'paywall.compare': 'de valor em {count} casos',
   'paywall.empty': 'A loja não tem nada para vender agora. Tente daqui a pouco.',
   'paywall.unreachable': 'Não foi possível acessar a loja.',
   'paywall.failed': 'A compra não foi concluída. Você não foi cobrado.',

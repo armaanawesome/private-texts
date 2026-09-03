@@ -11,6 +11,7 @@ import {
   purchaseCasePack,
   restorePurchases,
 } from '@/entitlements/revenuecat';
+import { PAID_CASE_COUNT, referencePrice } from '@/entitlements/pricing';
 
 type Phase =
   | { kind: 'loading' }
@@ -150,6 +151,23 @@ export default function PaywallScreen() {
       ) : null}
 
       {pkg ? (
+        /*
+         * The reference figure, struck through, above the real price.
+         *
+         * The struck number is NOT a former price — the pack has never sold at
+         * another one — so the line beside it says "value across N cases" rather
+         * than implying a markdown. It is derived from the store's own currency
+         * code, never hardcoded, so a euro price is never sat beside a dollar
+         * sign. The charged amount below stays `priceString`, straight from the
+         * store.
+         */
+        <View style={styles.compareRow}>
+          <Text style={styles.struck}>{referencePrice(pkg.product.currencyCode)}</Text>
+          <Text style={styles.compare}>{t('paywall.compare', { count: PAID_CASE_COUNT })}</Text>
+        </View>
+      ) : null}
+
+      {pkg ? (
         <Pressable
           onPress={() => buy(pkg)}
           disabled={busy}
@@ -215,6 +233,24 @@ const styles = StyleSheet.create({
   },
   ctaBusy: { opacity: 0.5 },
   ctaText: { ...theme.type.body, color: theme.color.bg, fontWeight: '600' },
+  compareRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'center',
+    gap: theme.space.xs,
+    marginBottom: theme.space.sm,
+  },
+  /**
+   * `lineThrough` rather than a drawn rule: a View laid over the text would need
+   * the text's measured width, and would sit wrong the moment a currency symbol
+   * changed the string's length.
+   */
+  struck: {
+    ...theme.type.body,
+    color: theme.color.textDim,
+    textDecorationLine: 'line-through',
+  },
+  compare: { ...theme.type.meta, color: theme.color.textDim },
   pressed: { opacity: 0.7 },
   restore: {
     ...theme.type.meta,
