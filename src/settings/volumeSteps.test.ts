@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   VOLUME_STEPS,
   stepForVolume,
@@ -6,6 +8,47 @@ import {
   volumeForStep,
   volumeStepLabel,
 } from './volumeSteps';
+
+/**
+ * The slider must measure the gesture in WINDOW coordinates.
+ *
+ * This shipped reading `e.nativeEvent.locationX`, which is the touch position
+ * relative to the view *under the finger* rather than to the element holding the
+ * responder. The thumb is a 22pt child on the track, so a drag — which begins by
+ * grabbing the thumb — collapsed the reading to 0..22 measured inside the thumb.
+ * Divided by the track width, that pinned the volume at about 0.2, and no drag
+ * could exceed it.
+ *
+ * It was not merely a stuck control. Touching the slider once COMMITTED 0.2, and
+ * 0.2 squared is 0.04 amplitude, so every cue and bed landed near -35dBFS. One
+ * tap on the volume control permanently muted the game, and three rounds of
+ * fixing the audio pipeline could not recover it, because the fault was upstream
+ * of all of them.
+ *
+ * The arithmetic below is pure and was always correct — it was fed the wrong
+ * number. So this asserts on the component's source, which is the only place the
+ * mistake can live and the only part of it a Node suite can reach.
+ */
+const SLIDER = readFileSync(join(__dirname, 'VolumeSlider.tsx'), 'utf8');
+
+describe('the volume gesture is measured in window coordinates', () => {
+  it('never reads locationX, which is relative to whichever child is touched', () => {
+    const code = SLIDER.split('\n')
+      .filter((l) => !l.trim().startsWith('*') && !l.trim().startsWith('//'))
+      .join('\n');
+    expect(code).not.toMatch(/locationX/);
+  });
+
+  it('reads the gesture state, which is absolute', () => {
+    expect(SLIDER).toMatch(/g\.moveX/);
+    expect(SLIDER).toMatch(/g\.x0/);
+  });
+
+  /** An absolute X is only a position on the track once the origin is known. */
+  it('subtracts the measured origin of the track', () => {
+    expect(SLIDER).toMatch(/measureInWindow/);
+  });
+});
 
 describe('stepForVolume', () => {
   it('maps silence and full travel to the ends', () => {

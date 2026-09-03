@@ -57,18 +57,61 @@ export function VolumeSlider({
   const latest = useRef({ trackWidth, onChange, disabled, volume });
   latest.current = { trackWidth, onChange, disabled, volume };
 
-  const valueAt = (x: number): number =>
-    volumeAtPosition(x, latest.current.trackWidth, latest.current.volume);
+  /**
+   * The track's left edge in window coordinates.
+   *
+   * Needed because the gesture is measured in absolute screen space — see the
+   * note on `valueAt`. Re-measured on every layout, since a rotation or a font
+   * scale change moves it.
+   */
+  const trackRef = useRef<View>(null);
+  const trackLeft = useRef(0);
+  const measure = () => {
+    trackRef.current?.measureInWindow((x) => {
+      trackLeft.current = x;
+    });
+  };
+
+  /**
+   * Absolute X to a volume.
+   *
+   * **This used to read `e.nativeEvent.locationX`, and that was the bug that
+   * made the whole game silent.** `locationX` is the touch position relative to
+   * *the view under the finger*, not to the element holding the responder. The
+   * thumb is a 22pt child sitting on the track, so the moment a drag reached the
+   * thumb — which is immediately, because you grab the thumb to drag it — the
+   * reading collapsed to a number between 0 and 22 measured inside the thumb.
+   * Divided by the track width, that pinned the volume at about `22 / width`,
+   * which on this layout is 0.2, and no drag could push past it.
+   *
+   * It was worse than a stuck control. Touching the slider once *committed* 0.2,
+   * and 0.2 on the square response curve is 0.04 amplitude — every cue and bed
+   * landing near -35dBFS. A single tap on the volume control permanently muted
+   * the game, and nothing downstream in the audio pipeline could recover it.
+   *
+   * `gestureState.moveX` and `x0` are in window coordinates and do not care
+   * which child is under the finger, which is exactly the property this needs.
+   */
+  const valueAt = (windowX: number): number =>
+    volumeAtPosition(windowX - trackLeft.current, latest.current.trackWidth, latest.current.volume);
 
   const pan = useMemo(
     () =>
       PanResponder.create({
         onStartShouldSetPanResponder: () => !latest.current.disabled,
         onMoveShouldSetPanResponder: () => !latest.current.disabled,
-        onPanResponderGrant: (e) => setDragging(valueAt(e.nativeEvent.locationX)),
-        onPanResponderMove: (e) => setDragging(valueAt(e.nativeEvent.locationX)),
-        onPanResponderRelease: (e) => {
-          const next = valueAt(e.nativeEvent.locationX);
+        onPanResponderGrant: (_e, g) => {
+          // Re-measure on touch as well as on layout: the settings screen
+          // scrolls, and a view that was measured before it settled would
+          // otherwise carry a stale origin for the whole drag.
+          measure();
+          setDragging(valueAt(g.x0));
+        },
+        onPanResponderMove: (_e, g) => setDragging(valueAt(g.moveX)),
+        onPanResponderRelease: (_e, g) => {
+          // `moveX` is 0 for a tap that never moved, so fall back to where the
+          // touch started rather than committing the far left of the track.
+          const next = valueAt(g.moveX || g.x0);
           setDragging(null);
           latest.current.onChange(next);
         },
@@ -116,8 +159,14 @@ export function VolumeSlider({
         which is the shape that works.
       */}
       <View
+        ref={trackRef}
         style={[styles.track, disabled && styles.dim]}
-        onLayout={(e: LayoutChangeEvent) => setTrackWidth(e.nativeEvent.layout.width)}
+        onLayout={(e: LayoutChangeEvent) => {
+          setTrackWidth(e.nativeEvent.layout.width);
+          // Width comes from the layout event; the window X does not, so it has
+          // to be measured separately whenever the layout changes.
+          measure();
+        }}
       >
         <View style={[styles.fill, { width: `${shown * 100}%` }]} />
       </View>

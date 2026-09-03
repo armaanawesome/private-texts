@@ -685,6 +685,23 @@ and the empty catch swallowed the error *and* the sound. The first play of any
 cue is the most likely to hit it. `play()` is now called unconditionally and the
 rewind is best-effort.
 
+**The bug that actually kept it silent, found on the fourth pass.** The volume
+slider computed its value from `e.nativeEvent.locationX`, which is the touch
+position relative to *the view under the finger* — not to the element holding
+the responder. The thumb is a 22pt child on the track, so a drag, which begins
+by grabbing the thumb, collapsed the reading to 0..22 measured inside the thumb.
+Divided by the track width that pinned the volume at about **0.2**, and no drag
+could exceed it. The owner reported it precisely: "the volume slider isn't
+exceeding 20 it just stays there".
+
+It was worse than a stuck control. Touching the slider once *committed* 0.2, and
+0.2 on the square response curve is 0.04 amplitude — every cue and bed landing
+near -35dBFS. **One tap on the volume control permanently muted the game**, and
+three rounds of fixing the audio pipeline could not recover it, because the
+fault was upstream of all of them. Now `gestureState.moveX`/`x0`, which are
+window coordinates, minus the track's `measureInWindow` origin.
+`volumeSteps.test.ts` asserts the component never reads `locationX` again.
+
 **The real but secondary defect.** Every bed's fundamental sat at **55–78Hz**,
 and a handset speaker is a few millimetres across and rolls off hard below
 roughly 300Hz — the hardware cannot move air at that frequency. The files were

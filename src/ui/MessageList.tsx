@@ -7,6 +7,7 @@ import { theme } from './theme';
 import { ChatBubble, type BubbleGeometry } from './ChatBubble';
 import { TypingIndicator } from './TypingIndicator';
 import { ChatWallpaper } from './ChatWallpaper';
+import { wallpaperIndexFor } from './wallpapers';
 import { DateDivider } from './DateDivider';
 import { useCaseStore } from '@/state/caseStore';
 import { useTranslator } from '@/i18n/useTranslator';
@@ -36,9 +37,25 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
   const reduceMotion = useReduceMotion();
   const t = useTranslator();
   const markRead = useCaseStore((s) => s.markRead);
-  // The wallpaper is per CASE, not per thread: one household, one phone, one
-  // backdrop across every conversation in it.
   const caseId = useCaseStore((s) => s.script?.id);
+
+  /*
+   * The wallpaper is per CONTACT.
+   *
+   * It used to be per case, so every thread in a case shared one backdrop. A
+   * phone does not work that way, and a distinct field per conversation is also
+   * the cheapest way to tell the player which thread they are in.
+   *
+   * A group keys on the thread instead of on a person, so it gets its own
+   * backdrop rather than borrowing whichever member happened to be listed first.
+   * The case id stays in the seed so the same character name in two different
+   * cases is still two different contacts.
+   */
+  const others = thread.participantIds.filter((id) => id !== PLAYER_ID);
+  const solo = others.length === 1 ? others[0] : undefined;
+  const roster = characters.filter((c) => c.id !== PLAYER_ID).map((c) => c.id);
+  const wallpaperIndex = wallpaperIndexFor(roster, solo, thread.id);
+  const wallpaperSeed = `${caseId ?? ''}:${solo ?? thread.id}`;
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
 
   const initialCount = thread.messages.filter((m) => readMessageIds.includes(m.id)).length;
@@ -116,7 +133,7 @@ export function MessageList({ thread, characters, onPressClaims }: Props) {
   return (
     <View style={styles.flex}>
       {/* Behind everything, and pointer-transparent, so taps and pans reach the list. */}
-      {caseId ? <ChatWallpaper caseId={caseId} /> : null}
+      <ChatWallpaper seed={wallpaperSeed} index={wallpaperIndex} />
       <ScrollView
         ref={scrollRef}
         contentContainerStyle={styles.content}
