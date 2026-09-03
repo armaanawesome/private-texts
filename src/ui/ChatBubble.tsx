@@ -174,19 +174,37 @@ const styles = StyleSheet.create({
    * It was a 2px blue bar, which shouted "game" on the one surface whose whole
    * job is to be mistaken for a real messaging app.
    */
-  hasClaims: { borderWidth: StyleSheet.hairlineWidth, borderColor: theme.color.rule },
   /**
-   * The line carries a claim, so it is set in semibold.
+   * A message that can go on the record, marked on two axes at once.
    *
-   * The hairline border above was meant to mark these without shouting, and it
-   * marked them so quietly that players reported missing clues entirely — the
-   * whole point of a message that can go on the record is that you notice it is
-   * one. Weight rather than colour: a coloured line in a chat reads as a link or
-   * a system notice, whereas bold reads as emphasis inside somebody's own
-   * sentence, which is what this is. It also survives every locale, which a
-   * colour-coded convention explained nowhere does not.
+   * The redundancy is the point: the single-axis version shipped and players
+   * still reported missing clues. A 3pt edge in the accent reads at scrolling
+   * speed the way a hairline in `rule` never did, and it borrows the pull-quote
+   * convention rather than inventing a game-UI one.
    */
-  bodyClaim: { fontWeight: '600' },
+  hasClaims: {
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: theme.color.rule,
+    borderLeftWidth: 3,
+    borderLeftColor: theme.color.accent,
+  },
+  /**
+   * The line carries a claim, so it is set BOLD.
+   *
+   * It was `'600'`, and on the device that did nothing whatsoever.
+   * `theme.type.body` sets `fontFamily: 'sans-serif'` on Android, and React
+   * Native resolves a named Android family through `Typeface.create`, which
+   * understands only normal and bold — every numeric weight below 700 collapses
+   * back to regular. The semibold therefore rendered as plain text, the marking
+   * was invisible, and the missed-clue problem this was written to fix was never
+   * actually addressed. It was verified on a desktop browser, where 600 renders
+   * properly, which is exactly how it survived review.
+   *
+   * `'700'` is the one weight Android is guaranteed to honour. Paired with the
+   * brighter fill, because bold alone at 16px on a dark bubble is a smaller step
+   * than it looks on a monitor.
+   */
+  bodyClaim: { fontWeight: '700', color: '#FFFFFF' },
   /**
    * The copy that floats above the blur. This one *is* the moment, so it takes
    * the accent outline the in-thread marker deliberately refuses.

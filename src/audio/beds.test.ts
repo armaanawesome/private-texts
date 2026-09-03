@@ -39,12 +39,18 @@ describe('resolveBedVolume', () => {
     expect(resolveBedVolume(prefs({ reduceMotion: true }))).toBe(0);
   });
 
-  it('sits well under the cues at the same slider position', () => {
-    expect(resolveBedVolume(prefs())).toBeCloseTo(0.2, 5);
+  /**
+   * Under the cues, but audibly so. This asserted 0.2 while the bed files were
+   * themselves normalised to half scale, and the two compounded to roughly
+   * -36dBFS at the default slider — a number this test was perfectly happy with
+   * and no human could hear. The test moved because the rule did.
+   */
+  it('sits under the cues at the same slider position, but stays audible', () => {
+    expect(resolveBedVolume(prefs())).toBeCloseTo(0.5, 5);
   });
 
   it('follows the slider on the same square curve the cues use', () => {
-    expect(resolveBedVolume(prefs({ soundVolume: 0.5 }))).toBeCloseTo(0.25 * 0.2, 5);
+    expect(resolveBedVolume(prefs({ soundVolume: 0.5 }))).toBeCloseTo(0.25 * 0.5, 5);
     expect(resolveBedVolume(prefs({ soundVolume: 0 }))).toBe(0);
   });
 

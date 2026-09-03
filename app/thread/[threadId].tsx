@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocalSearchParams, Stack, Redirect } from 'expo-router';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { MessageList, PLAYER_ID } from '@/ui/MessageList';
+import { ThreadHeaderTitle } from '@/ui/ThreadHeader';
 import { ClaimMenu } from '@/ui/ClaimMenu';
 import { useCaseStore } from '@/state/caseStore';
 import { saveProgress } from '@/state/persistence';
@@ -17,8 +18,32 @@ export default function ThreadScreen() {
   const readCount = useCaseStore((s) => s.readMessageIds.length);
   const [sheetFor, setSheetFor] = useState<string | null>(null);
 
-  const title = script?.threads.find((t) => t.id === threadId)?.title ?? '';
-  const titleOptions = useMemo(() => ({ title }), [title]);
+  const openThreadData = script?.threads.find((t) => t.id === threadId);
+  const title = openThreadData?.title ?? '';
+
+  /*
+   * The header carries the people in the conversation, not just its name.
+   *
+   * `headerTitle` as a render function rather than a plain `title`, because a
+   * string cannot hold an avatar. Still memoised for the reason the comment
+   * below gives — a fresh options object every render makes the navigator
+   * setOptions in a loop — and the participant list is resolved here so the
+   * callback closes over a stable array.
+   */
+  const participants = useMemo(() => {
+    const ids = openThreadData?.participantIds ?? [];
+    return ids
+      .map((id) => script?.characters.find((c) => c.id === id))
+      .filter((c): c is NonNullable<typeof c> => c !== undefined);
+  }, [openThreadData, script]);
+
+  const titleOptions = useMemo(
+    () => ({
+      title,
+      headerTitle: () => <ThreadHeaderTitle title={title} participants={participants} />,
+    }),
+    [title, participants],
+  );
 
   /**
    * Records the resume position, and persists it as the conversation plays.

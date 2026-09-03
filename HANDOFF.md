@@ -640,6 +640,52 @@ the arc is ever reworked.
 
 ---
 
+## 7j. Three fixes that shipped and did nothing — 2026-09-03
+
+All three passed review, passed the suite, and were reported by the owner as
+simply absent from the device. None was a broken build; each was a correct
+implementation at a value no human could perceive. **The pattern is the lesson:
+a rendered pixel or an emitted sample is not the same as a perceived one, and
+this repo has now verified three separate features in a desktop browser that had
+no chance of working on a handset.**
+
+**1. Bold evidence lines did nothing on Android.** `ChatBubble` set
+`bodyClaim: { fontWeight: '600' }`. `theme.type.body` sets
+`fontFamily: 'sans-serif'` on Android, and React Native resolves a named Android
+family through `Typeface.create`, which understands only normal and bold —
+**every numeric weight below 700 collapses to regular.** It rendered correctly in
+the browser harness, which is exactly how it survived. Now `'700'` plus a white
+fill and a 3pt accent left edge on the bubble.
+
+**2. The chat wallpaper was invisible by construction.** Marks were `textDim` at
+`opacity: 0.05` over a tint six points off the background — under one step of
+8-bit colour in places, so some were not drawn at all. The file's own comment
+argued for that number at length. Now 0.14, denser, with three mark shapes and
+per-cell jitter from a stable hash.
+
+**3. Nobody could hear the audio, and it was not Limrun.** Measured, not
+guessed: every bed's fundamental sat at **55–78Hz**, and a handset speaker is a
+few millimetres across and rolls off hard below roughly 300Hz. The hardware
+cannot move air at that frequency. On top of that the files were normalised to
+half scale and attenuated again by `BED_GAIN = 0.2`, compounding to about
+**-36dBFS** at the default slider. Two independent reasons for silence.
+
+The measurement worth keeping, because it is what found this and would find it
+again — the share of a file's energy below 300Hz, roughly what a phone speaker
+throws away:
+
+```bash
+node -e "const fs=require('fs');const b=fs.readFileSync('assets/audio/bed-menu.wav');const rate=b.readUInt32LE(24);const n=(b.length-44)/2;let lp=0,lo=0,tot=0;const k=1-Math.exp(-2*Math.PI*300/rate);for(let i=0;i<n;i++){const s=b.readInt16LE(44+i*2)/32768;lp+=k*(s-lp);lo+=lp*lp;tot+=s*s;}console.log((lo/tot*100).toFixed(0)+'% below 300Hz')"
+```
+
+Beds went from essentially all of their energy under 300Hz to 43%, and from
+-36dBFS to about -26dBFS. `confession` moved 159Hz → 333Hz and `accusation`
+92Hz → 262Hz; both were also inaudible on a handset. **Still unheard by a
+human** — this replaces one unverified claim with a better-argued one, and only
+a listen closes it.
+
+---
+
 ## 7i. Audio — 22 files, all synthesised, none ever heard — 2026-09-02
 
 **Nobody has listened to any of this.** It is verified structurally: valid

@@ -184,19 +184,25 @@ function contradiction() {
   return buf;
 }
 
-/** She stops arguing. Low, slow, and the only cue allowed to take its time. */
+/**
+ * She stops arguing. Slow, and the only cue allowed to take its time.
+ *
+ * "Low" is what this used to be, and low is what made it inaudible: its
+ * strongest partial measured 159Hz, under the point where a handset speaker
+ * starts working. Same interval, same pacing, moved up an octave.
+ */
 function confession() {
   const buf = buffer(1.5, CUE_RATE);
-  addTone(buf, CUE_RATE, { freq: 220, start: 0, length: 1.3, gain: 0.5, curve: 3, attack: 0.02 });
+  addTone(buf, CUE_RATE, { freq: 440, start: 0, length: 1.3, gain: 0.5, curve: 3, attack: 0.02 });
   addTone(buf, CUE_RATE, {
-    freq: 174.6,
+    freq: 349.2,
     start: 0.18,
     length: 1.2,
     gain: 0.42,
     curve: 3,
     attack: 0.03,
   });
-  addTone(buf, CUE_RATE, { freq: 110, start: 0, length: 1.4, gain: 0.34, curve: 2.4, attack: 0.02 });
+  addTone(buf, CUE_RATE, { freq: 261.6, start: 0, length: 1.4, gain: 0.34, curve: 2.4, attack: 0.02 });
   return buf;
 }
 
@@ -209,11 +215,17 @@ function confession() {
  * being recorded, which is exactly what the accusation screen does.
  */
 function accusation() {
+  /*
+   * The knock was pitched at 92Hz, which on a phone is a knock you cannot hear —
+   * its measured dominant was 42Hz. A real gavel on a bench is mostly midrange
+   * anyway: the body of the block, not the room it sits in. Moved up, with the
+   * noise transient carrying more of the strike.
+   */
   const buf = buffer(0.6, CUE_RATE);
   for (const start of [0, 0.13]) {
-    addNoise(buf, CUE_RATE, { start, length: 0.05, gain: 0.6, cutoff: 3400, curve: 30 });
-    addTone(buf, CUE_RATE, { freq: 92, start, length: 0.13, gain: 0.62, curve: 16, attack: 0.001 });
-    addTone(buf, CUE_RATE, { freq: 184, start, length: 0.07, gain: 0.3, curve: 22, attack: 0.001 });
+    addNoise(buf, CUE_RATE, { start, length: 0.05, gain: 0.75, cutoff: 3400, curve: 30 });
+    addTone(buf, CUE_RATE, { freq: 262, start, length: 0.13, gain: 0.55, curve: 16, attack: 0.001 });
+    addTone(buf, CUE_RATE, { freq: 524, start, length: 0.07, gain: 0.42, curve: 22, attack: 0.001 });
   }
   return buf;
 }
@@ -239,8 +251,20 @@ function bed(seed) {
   let h = 0;
   for (let i = 0; i < seed.length; i += 1) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
 
-  // Roots from a minor scale, low. Everything here sits under 200Hz.
-  const ROOTS = [55, 58.27, 61.74, 65.41, 73.42, 77.78];
+  /*
+   * Roots from a minor scale — an octave and a half ABOVE where this started.
+   *
+   * The first version used 55–78Hz because that is where a room tone lives on
+   * studio monitors. On the device it was silence, and measurably so: a phone
+   * speaker is a few millimetres across and rolls off hard below roughly 300Hz,
+   * so every one of the seventeen beds was being asked to move air at a
+   * frequency the hardware cannot. Nobody heard any of it.
+   *
+   * These sit at 165–233Hz and carry an explicit octave partial on top, so the
+   * loudest energy in the file lands at 330–466Hz where a phone speaker actually
+   * works. The perceived pitch stays low enough to read as a room, not a tune.
+   */
+  const ROOTS = [164.81, 174.61, 185.0, 196.0, 220.0, 233.08];
   const root = ROOTS[h % ROOTS.length];
   const swell = 0.05 + ((h >> 3) % 7) * 0.011;
 
@@ -253,9 +277,22 @@ function bed(seed) {
     // what stops a sustained tone sounding like a dial tone.
     const a = Math.sin(2 * Math.PI * root * t);
     const b = Math.sin(2 * Math.PI * root * 1.004 * t);
-    const fifth = Math.sin(2 * Math.PI * root * 1.5 * t) * 0.34;
+    const fifth = Math.sin(2 * Math.PI * root * 1.5 * t) * 0.42;
+    /*
+     * The partials above the root are what survive a small speaker, so they
+     * carry most of the weight and the root itself is only the thing that gives
+     * them a pitch. Measured rather than guessed: with the root dominant, 57% of
+     * each bed's energy sat below 300Hz and was simply discarded by the
+     * hardware. This split puts the majority above it.
+     */
+    const octave = Math.sin(2 * Math.PI * root * 2 * t) * 0.46;
+    const twelfth = Math.sin(2 * Math.PI * root * 3 * t) * 0.2;
     const breath = Math.sin(2 * Math.PI * swell * t) * 0.5 + 0.5;
-    buf[i] = (a + b) * 0.3 + fifth * (0.35 + 0.4 * breath);
+    buf[i] =
+      (a + b) * 0.16 +
+      fifth * (0.35 + 0.4 * breath) +
+      octave * (0.5 + 0.5 * breath) +
+      twelfth * (0.3 + 0.5 * breath);
   }
 
   // A slow filtered-noise layer, so it reads as a room rather than as a synth.
@@ -272,7 +309,12 @@ function bed(seed) {
     const k = i / fade;
     buf[i] = buf[i] * k + buf[n - fade + i] * (1 - k);
   }
-  return normalise(buf.subarray(0, n - fade), 0.5);
+  /*
+   * 0.85, not 0.5. A bed is attenuated again at runtime by BED_GAIN in
+   * volume.ts, so half-scale here compounded into roughly -36dBFS on the
+   * device — under the noise floor of the room most people play in.
+   */
+  return normalise(buf.subarray(0, n - fade), 0.85);
 }
 
 /* ------------------------------------------------------------------ main -- */

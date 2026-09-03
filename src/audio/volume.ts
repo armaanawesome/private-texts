@@ -52,11 +52,19 @@ export function amplitudeFor(sliderPosition: number): number {
 /**
  * How loud a looping background bed sits under everything else.
  *
- * A fifth of the cue level. Background music mixed at the same gain as a text
- * tone stops being background — it competes with the thing the player is
- * actually doing, which here is reading somebody's messages.
+ * Half the cue level. Background music mixed at the same gain as a text tone
+ * stops being background — it competes with the thing the player is actually
+ * doing, which here is reading somebody's messages.
+ *
+ * It was a fifth, and a fifth was wrong. The bed files were also normalised to
+ * half scale, and the two attenuations compounded: at the default slider the
+ * bed reached the speaker at roughly -36dBFS, under the noise floor of an
+ * ordinary room. Combined with a fundamental below what a phone speaker can
+ * reproduce at all, the result was seventeen background tracks that nobody has
+ * ever heard. The files are now normalised to 0.85 and pitched an octave and a
+ * half higher; this is the runtime half of the same fix.
  */
-const BED_GAIN = 0.2;
+const BED_GAIN = 0.5;
 
 /**
  * Whether a bed should play at all, and how loud.
