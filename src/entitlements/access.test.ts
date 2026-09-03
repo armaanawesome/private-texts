@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCaseUnlocked, decideCaseAccess } from './access';
+import { isCaseUnlocked, decideCaseAccess, singleCaseEntitlement } from './access';
 import { CASE_PACK_ENTITLEMENT } from './ids';
 
 /**
@@ -17,8 +17,8 @@ import { CASE_PACK_ENTITLEMENT } from './ids';
  * must not strand a paying player in that same window.
  */
 
-const FREE = {} as const;
-const PAID = { requiredEntitlementId: CASE_PACK_ENTITLEMENT } as const;
+const FREE = { id: 'the-lighthouse' } as const;
+const PAID = { id: 'the-wake', requiredEntitlementId: CASE_PACK_ENTITLEMENT } as const;
 
 describe('isCaseUnlocked', () => {
   it('opens a case that names no entitlement', () => {
@@ -45,6 +45,54 @@ describe('isCaseUnlocked', () => {
 
   it('finds the entitlement among others', () => {
     expect(isCaseUnlocked(PAID, ['something_else', CASE_PACK_ENTITLEMENT])).toBe(true);
+  });
+
+  /**
+   * A case can now be bought two ways: the pack, or that one case on its own.
+   * Both must work, and neither may shadow the other — somebody who owns the
+   * pack must never be locked out of a case because they did not also buy it
+   * singly, and the reverse.
+   */
+  it('opens a paid case for someone who bought only that case', () => {
+    expect(isCaseUnlocked(PAID, [singleCaseEntitlement('the-wake')])).toBe(true);
+  });
+
+  it('does not open a case with a DIFFERENT case bought singly', () => {
+    expect(isCaseUnlocked(PAID, [singleCaseEntitlement('the-bothy')])).toBe(false);
+  });
+
+  it('opens for either route, and for both at once', () => {
+    expect(isCaseUnlocked(PAID, [CASE_PACK_ENTITLEMENT])).toBe(true);
+    expect(isCaseUnlocked(PAID, [singleCaseEntitlement('the-wake')])).toBe(true);
+    expect(isCaseUnlocked(PAID, [CASE_PACK_ENTITLEMENT, singleCaseEntitlement('the-wake')])).toBe(
+      true,
+    );
+  });
+});
+
+describe('singleCaseEntitlement', () => {
+  /**
+   * The identifier is a contract with the RevenueCat dashboard, and a near miss
+   * there is the exact failure `ids.ts` documents: the purchase succeeds, the
+   * receipt is valid, and the player is granted something this app does not
+   * recognise. So the shape is pinned, not merely described.
+   */
+  it('is single_case_<id> with underscores, matching what the dashboard must declare', () => {
+    expect(singleCaseEntitlement('the-wake')).toBe('single_case_the_wake');
+    expect(singleCaseEntitlement('sunday-service')).toBe('single_case_sunday_service');
+    expect(singleCaseEntitlement('tutorial')).toBe('single_case_tutorial');
+  });
+
+  it('never collides between two different cases', () => {
+    const ids = ['the-wake', 'the-bothy', 'the-cut', 'open-mic', 'the-reunion'];
+    expect(new Set(ids.map(singleCaseEntitlement)).size).toBe(ids.length);
+  });
+
+  /** It must never accidentally equal the pack entitlement, which grants everything. */
+  it('is never the pack entitlement', () => {
+    for (const id of ['pack-1', 'case-pack-1', 'the-wake']) {
+      expect(singleCaseEntitlement(id)).not.toBe(CASE_PACK_ENTITLEMENT);
+    }
   });
 });
 

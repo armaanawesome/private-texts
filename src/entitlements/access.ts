@@ -34,7 +34,34 @@
  * this module keeps zero imports and `content/` can stay loadable in plain Node.
  */
 export interface GateableCase {
+  readonly id: string;
   readonly requiredEntitlementId?: string | undefined;
+}
+
+/**
+ * The entitlement that unlocks ONE case on its own.
+ *
+ * Derived from the case id rather than written down per case, so a seventeenth
+ * case is sellable the day it is authored with nothing to add here. RevenueCat
+ * entitlement identifiers do not take hyphens comfortably, hence the underscore.
+ *
+ * `ids.ts` carries the story of what happens when an identifier here and one in
+ * the dashboard disagree: `purchase()` still succeeds, the receipt is still
+ * valid, and the player pays for nothing. So the dashboard entitlement for a
+ * single case MUST be exactly this string — `single_case_the_wake` for
+ * `the-wake` — and `diagnoseEntitlements()` proves which is actually granted.
+ *
+ * ## The prefix is `single_case_`, and that is a security boundary
+ *
+ * It was `case_`, which a test caught colliding: a case with the id `pack-1`
+ * produced `case_pack_1`, **exactly** `CASE_PACK_ENTITLEMENT`. Buying that one
+ * case for a pound would have unlocked all twelve. `single_case_` cannot collide
+ * with `case_pack_1` for any input at all, because the two prefixes are
+ * disjoint — the guarantee is structural rather than a promise about which case
+ * ids somebody will choose later.
+ */
+export function singleCaseEntitlement(caseId: string): string {
+  return `single_case_${caseId.replace(/-/g, '_')}`;
 }
 
 /**
@@ -49,7 +76,11 @@ export function isCaseUnlocked(
   entitlementIds: readonly string[],
 ): boolean {
   const required = script.requiredEntitlementId;
-  return required === undefined || entitlementIds.includes(required);
+  if (required === undefined) return true;
+  // Either the pack, or this one case bought on its own. Two ways in, and the
+  // check is deliberately an OR rather than a precedence rule — owning the pack
+  // must never be *worse* than owning a single case, whichever arrived first.
+  return entitlementIds.includes(required) || entitlementIds.includes(singleCaseEntitlement(script.id));
 }
 
 export type CaseAccess =
