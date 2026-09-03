@@ -663,12 +663,34 @@ fill and a 3pt accent left edge on the bubble.
 argued for that number at length. Now 0.14, denser, with three mark shapes and
 per-cell jitter from a stable hash.
 
-**3. Nobody could hear the audio, and it was not Limrun.** Measured, not
-guessed: every bed's fundamental sat at **55–78Hz**, and a handset speaker is a
-few millimetres across and rolls off hard below roughly 300Hz. The hardware
-cannot move air at that frequency. On top of that the files were normalised to
-half scale and attenuated again by `BED_GAIN = 0.2`, compounding to about
-**-36dBFS** at the default slider. Two independent reasons for silence.
+**3. Nobody could hear the audio, and it was not Limrun.** This took two passes,
+and the first pass fixed a real problem that was not the cause. Worth reading in
+order, because the mistake generalises: *the measurable defect is not
+automatically the operative one.*
+
+**The actual cause — the audio session.** `sound.ts` set
+`playsInSilentMode: false`, reasoned about in its own comment as though the flag
+only meant the iOS mute switch. expo-audio's type documentation is explicit that
+on **Android**, when it is `false`, "playback is suppressed when the ringer mode
+is silent or vibrate". Most people carry a phone on vibrate, so the whole
+soundtrack was suppressed at the session level before a sample was ever read. No
+amount of retuning could reach that, and a full pass of retuning did not. Ringer
+mode governs alerts; a game belongs on the media stream, and this app already
+offers a sound toggle and a volume slider in Settings. Now `true`.
+
+**A second, independent bug in the same file.** `playCue` was
+`seekTo(0).then(play).catch(() => {})`, which makes playback conditional on a
+promise that can reject: seeking a player that has not finished loading fails,
+and the empty catch swallowed the error *and* the sound. The first play of any
+cue is the most likely to hit it. `play()` is now called unconditionally and the
+rewind is best-effort.
+
+**The real but secondary defect.** Every bed's fundamental sat at **55–78Hz**,
+and a handset speaker is a few millimetres across and rolls off hard below
+roughly 300Hz — the hardware cannot move air at that frequency. The files were
+also normalised to half scale and attenuated again by `BED_GAIN = 0.2`,
+compounding to about **-36dBFS**. Both were worth fixing; neither was why
+nothing played.
 
 The measurement worth keeping, because it is what found this and would find it
 again — the share of a file's energy below 300Hz, roughly what a phone speaker

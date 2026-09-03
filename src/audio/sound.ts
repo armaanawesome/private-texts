@@ -24,16 +24,30 @@ let primed = false;
 /**
  * Configures the audio session once, lazily.
  *
- * `playsInSilentMode: false` is the deliberate choice: someone playing this on a
- * train with the ringer switch off expects silence, and a game that overrides
- * that is the reason people delete games. `mixWithOthers` is the matching one —
- * a 150ms sting must not stop the podcast the player is listening to.
+ * ## `playsInSilentMode: true`, and this is the line that silenced the game
+ *
+ * It was `false`, reasoned about as though it only meant the iOS mute switch:
+ * someone playing on a train with the ringer off expects silence. On **Android
+ * that flag does something much broader** — expo-audio's own type documentation
+ * is explicit that when it is `false`, "playback is suppressed when the ringer
+ * mode is silent or vibrate". Most people carry a phone on vibrate. So the whole
+ * soundtrack was being suppressed at the session level, for most users, before a
+ * single sample was read. No amount of retuning the files could reach that, and
+ * two rounds of retuning did not.
+ *
+ * Ringer mode governs alerts, not media. A game belongs on the media stream, and
+ * this app already gives the player a real way to silence it — a sound toggle
+ * and a volume slider in Settings — which is a better control than a hardware
+ * switch that was never asked about this app in particular.
+ *
+ * `mixWithOthers` stays: a 150ms sting must not stop the podcast somebody is
+ * listening to.
  */
 export function primeAudio(): void {
   if (primed) return;
   primed = true;
   void setAudioModeAsync({
-    playsInSilentMode: false,
+    playsInSilentMode: true,
     shouldPlayInBackground: false,
     interruptionMode: 'mixWithOthers',
   }).catch(() => {
@@ -64,12 +78,25 @@ export function playCue(id: CueId, prefs: VolumePrefs): void {
       keepAudioSessionActive: true,
     }));
     player.volume = volume;
-    // Rewind first: these retrigger faster than they finish, and a player left
-    // at its end position plays nothing at all the second time.
-    void player
-      .seekTo(0)
-      .then(() => player.play())
-      .catch(() => {});
+    /*
+     * Rewind, then play — but never let the rewind decide whether the sound
+     * happens.
+     *
+     * This used to be `seekTo(0).then(play).catch(() => {})`, which makes
+     * playback conditional on a promise that can reject: seeking a player that
+     * has not finished loading fails, and the empty catch then swallowed both
+     * the error and the sound. The first play of every cue is the one most
+     * likely to hit it, which is exactly the play that matters.
+     *
+     * So `play()` is called unconditionally and synchronously, and the rewind is
+     * a best-effort that runs first and only when there is something to rewind.
+     * A cue that starts from the wrong position is a small defect; a cue that
+     * never plays is the bug this file has been shipping.
+     */
+    if (player.isLoaded && player.currentTime > 0) {
+      void player.seekTo(0).catch(() => {});
+    }
+    player.play();
   } catch {
     // A missing codec, a released player, a device with no audio route. None of
     // them are worth taking the case down for.
