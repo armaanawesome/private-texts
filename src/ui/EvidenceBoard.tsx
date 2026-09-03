@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { feedback } from '@/settings/feedback';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
+import { useTabBarClearance } from './useTabBarClearance';
 import { ClaimChip } from './ClaimChip';
 import { ClaimTimeline } from './ClaimTimeline';
 import { ContradictionResult } from './ContradictionResult';
@@ -13,6 +14,8 @@ import { TutorialCoach } from '@/tutorial/TutorialCoach';
 
 export function EvidenceBoard() {
   const reduceMotion = useReduceMotion();
+  // The native tab bar overlays this screen. Without this the last row is under it.
+  const clearance = useTabBarClearance();
   const script = useCaseStore((s) => s.script);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
   const pinnedClaimIds = useCaseStore((s) => s.pinnedClaimIds);
@@ -44,7 +47,7 @@ export function EvidenceBoard() {
       {/* `flex: 1` is not decoration here. The scroller is now a child of a flex
           column rather than the screen itself, and without it a ScrollView takes
           its content height and stops scrolling. */}
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+      <ScrollView style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: clearance }]}>
       <Sheet script={script} a={a} b={b} lit={lastVerdict?.ok === true} reduceMotion={reduceMotion} />
 
       <ContradictionResult

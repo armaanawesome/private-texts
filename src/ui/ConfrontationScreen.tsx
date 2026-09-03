@@ -4,6 +4,7 @@ import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { feedback } from '@/settings/feedback';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
+import { useTabBarClearance } from './useTabBarClearance';
 import {
   press,
   establishedMotiveIds,
@@ -43,6 +44,8 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
   const reduceMotion = useReduceMotion();
   const confrontation = script.confrontation;
   const scrollRef = useRef<ScrollView>(null);
+  // The native tab bar overlays this screen; without it the chips sit under it.
+  const clearance = useTabBarClearance();
 
   const [landed, setLanded] = useState<string[]>([]);
   const [used, setUsed] = useState<string[]>([]);
@@ -119,7 +122,7 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
     <View style={styles.root}>
       <ScrollView
         ref={scrollRef}
-        contentContainerStyle={styles.transcript}
+        contentContainerStyle={[styles.transcript, { paddingBottom: clearance }]}
         onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: !reduceMotion })}
       >
         <View style={styles.head}>
@@ -155,12 +158,12 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
         <Pressable
           onPress={onClosed}
           accessibilityRole="button"
-          style={({ pressed }) => [styles.close, pressed && styles.pressed]}
+          style={({ pressed }) => [styles.close, { marginBottom: clearance }, pressed && styles.pressed]}
         >
           <Text style={styles.closeText}>Close the case</Text>
         </Pressable>
       ) : (
-        <View style={styles.tray}>
+        <View style={[styles.tray, { paddingBottom: clearance }]}>
           <Text style={styles.trayLabel}>
             {landed.length === 0
               ? 'Put it to her. One fact at a time.'

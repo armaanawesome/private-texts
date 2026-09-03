@@ -4,6 +4,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { feedback } from '@/settings/feedback';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
+import { useTabBarClearance } from './useTabBarClearance';
 import { ConfrontationScreen } from './ConfrontationScreen';
 import { CaseClosedScreen } from './CaseClosedScreen';
 import { TutorialCoach } from '@/tutorial/TutorialCoach';
@@ -14,6 +15,8 @@ import { evaluateAccusation, motivesFor, type AccusationResult, type Character }
 
 export function AccusationScreen() {
   const reduceMotion = useReduceMotion();
+  // The native tab bar overlays this screen. Without this the last row is under it.
+  const clearance = useTabBarClearance();
   const script = useCaseStore((s) => s.script);
   const confirmedIds = useCaseStore((s) => s.confirmedContradictionIds);
   const readMessageIds = useCaseStore((s) => s.readMessageIds);
@@ -122,7 +125,7 @@ export function AccusationScreen() {
       {/* `flex: 1` is not decoration here. The scroller is now a child of a flex
           column rather than the screen itself, and without it a ScrollView takes
           its content height and stops scrolling. */}
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+      <ScrollView style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: clearance }]}>
       <Text style={styles.prompt}>Who killed them?</Text>
       <Text style={styles.sub}>
         Naming the right person is not enough. You have to be able to prove it.
