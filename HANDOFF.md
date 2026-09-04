@@ -801,7 +801,21 @@ is the argument for writing the rule as a test in the first place.
   user-authored cases sold with a 10% platform take. Not on merit: on the
   calendar. It needs an author tool, moderation, payouts and a store review
   posture, none of which exist, twenty-six days out from a deadline where the
-  deliverable is a video and a repo. The log is at `~/.claude/roast-log.md`.
+  deliverable is a video and a repo.
+
+  **The verdict is this paragraph, not the log.** `~/.claude/roast-log.md` holds
+  only the 2026-08-08 idea-selection entry; the judge never appended this one,
+  and an earlier version of this bullet pointed there as though it had.
+
+  Re-examined 2026-09-05, when working payments were offered as grounds to
+  revisit it. **Payments were never what killed it.** Nothing on that list is a
+  payments problem, and the verified path is the RevenueCat **Test Store** —
+  sandbox money, chosen precisely because Next Gen waives the paid developer
+  account (§1). Taking a real pound in and paying most of it back out to a
+  stranger needs a paid store account, a payouts rail RevenueCat does not
+  provide, and tax identity for every creator. Verifying the purchase flow moved
+  none of that; it clarified that the money path which works is the one that is
+  not real.
 
 ## 7j. Three fixes that shipped and did nothing — 2026-09-03
 
