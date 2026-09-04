@@ -12,7 +12,7 @@ Built for the **RevenueCat Shipaton 2026 — Next Gen (student) award**.
 | Repo | https://github.com/armaanawesome/read-receipts (public) |
 | Deadline | **2026-09-30 23:45 PDT** · internal target **2026-09-28** |
 | Started | 2026-08-08 |
-| This file last verified | **2026-09-04** — test count re-run (130 files, 4843 tests), §7 item 1 corrected, §7k added |
+| This file last verified | **2026-09-04** — test count re-run (132 files, 4866 tests), §7 item 1 corrected, §7k added |
 | Plan | `../docs/superpowers/plans/2026-08-08-shipaton-detective.md` |
 | Build constraints | `docs/BUILDING.md` — **read before touching eas.json** |
 | Security review | `docs/SECURITY.md` — threat model, findings, and **why `npm audit fix --force` must never be run here** |
@@ -72,7 +72,7 @@ accuse.
 | Onboarding | ✅ animated landing (sign in / play as guest) → Bakehouse, with the walkthrough running **inside** the case as coach marks. Re-armed from Settings |
 | Case closed | ✅ closed-file header, proof tally, coda, and three exits: next case, all cases, play again |
 
-**Tests:** `.\check.cmd` → **4843 passing across 130 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4866 passing across 132 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
 by running the suite on 2026-09-04, not copied forward. The files added since the
 last count are `src/audio/beds.test.ts`, `src/ui/claimMarking.test.ts`,
@@ -657,6 +657,63 @@ the arc is ever reworked.
   still hiding.
 
 ---
+
+## 7l. Purchases were tied to the handset, not the account — 2026-09-04
+
+**`Purchases.logIn` was never called.** `configurePurchases()` ran and nothing
+identified the player, so RevenueCat only ever saw the anonymous id it generates
+per install. A purchase therefore belonged to **that phone**. Signing into the
+same account on a second device produced a fresh anonymous id with no
+entitlements on it, and the cases somebody had paid for were simply absent —
+receipt valid, money moved, and the customer record it landed on belonging to a
+device in a drawer.
+
+`app/_layout.tsx` now passes the Supabase `user.id` to `useRevenueCatIdentity()`.
+Opaque and stable; never the email, which people change and which has no business
+in a third party's customer list.
+
+**The switch case is why the transition is a pure function with a test.** Calling
+`logIn` with a second id while the first is live does not fail — it **aliases the
+two accounts together permanently**, and the client cannot undo it. So a switch is
+`logOut` then `logIn`, in that order, and the hook queues the work so a fast
+sign-out-sign-in cannot interleave the pair.
+
+A purchase made before signing in is **not** lost: RevenueCat aliases the
+anonymous id onto the real one on first login. That is what makes it safe to sell
+to a guest at all.
+
+**Dashboard prerequisites now live in `docs/REVENUECAT-SETUP.md`** — the
+from-scratch procedure, written after a build showed $0.99 on a pack meant to be
+$9.99. The price is a property of the **product** and no code can change it; the
+app renders `priceString` and was telling the truth.
+
+### The sign-in screen
+
+A reveal toggle (drawn from three Views, struck when the password is visible), a
+forgot-password link, and the password rules as a live checklist with a meter.
+Grounded in Mobbin — [Upside](https://mobbin.com/screens/93357243-748b-429d-8276-99798dfc8488)
+and [Tripadvisor](https://mobbin.com/screens/c81ffa17-8df5-499b-8c3a-e15e4950b043)
+both put the eye inside the field and the reset link left-aligned directly under
+it. **Mobbin answered normally despite the session notice listing it as needing
+authentication** — §7g's "call it and see" holds.
+
+`checkPassword()` in `src/auth/passwordStrength.ts` is used by both the checklist
+and the submit, deliberately: a form showing three green ticks that then refuses
+is worse than no checklist. Minimum 8, with a letter and a digit, **sign-up
+only** — enforcing it at sign-in would tell somebody their own working password is
+invalid. Unicode-aware, so `contraseña` counts as containing letters; `[a-zA-Z]`
+would have failed three of the five shipped languages.
+
+The reset says the same thing whether or not the address has an account, because
+anything else is an account-existence oracle anybody can query.
+
+**Found while there: every validation message was hardcoded English** in a game
+that ships in five languages, so a Spanish player who left the email field empty
+was told "Enter your email address." They are `Message` values now, like the sync
+and auth errors already were.
+
+**Still unverified:** none of this screen has been seen rendered. The web harness
+could not be started because port 8081 was held by the owner's own Metro tunnel.
 
 ## 7k. The paywall sells two things now — 2026-09-04
 
