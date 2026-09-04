@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { render, type Message } from '@/i18n/message';
+import { EyeGlyph } from '@/ui/EyeGlyph';
 import { useAuth, checkPassword, MIN_PASSWORD_LENGTH, RULE_MESSAGE_KEY } from '@/auth';
 
 /**
@@ -103,6 +104,23 @@ export default function ResetPasswordScreen() {
     else setProblem(attempt.message);
   }, [busy, email, resetPassword]);
 
+  /**
+   * Send on arrival, once.
+   *
+   * The ref is not defensive tidiness: without it React's strict double-invoke
+   * in development sends two codes, the second invalidates the first, and the
+   * one in the player's inbox is already dead by the time they type it.
+   */
+  const sent = useRef(false);
+  useEffect(() => {
+    if (sent.current || email === '') return;
+    sent.current = true;
+    void resend();
+    // `resend` is recreated whenever `busy` changes, so it is deliberately not a
+    // dependency — including it would re-run this effect mid-send.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
+
   return (
     <KeyboardAvoidingView
       style={styles.root}
@@ -171,12 +189,9 @@ export default function ResetPasswordScreen() {
               hitSlop={theme.hit.slop}
               style={({ pressed }) => [styles.reveal, pressed && styles.pressed]}
             >
-              {/* The same mark as the sign-in screen: a drawn eye, struck when
-                  the password is visible, because the slash reads as "hide". */}
-              <View style={styles.eye}>
-                <View style={styles.eyeIris} />
-                {revealed ? <View style={styles.eyeSlash} /> : null}
-              </View>
+              {/* Struck when the password is visible: the slash reads as
+                  "hide this", which is what tapping it does next. */}
+              <EyeGlyph struck={revealed} />
             </Pressable>
           </View>
         </View>
@@ -270,23 +285,6 @@ const styles = StyleSheet.create({
     minHeight: theme.hit.min,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  eye: {
-    width: 22,
-    height: 14,
-    borderWidth: 1.5,
-    borderColor: theme.color.textDim,
-    borderRadius: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  eyeIris: { width: 6, height: 6, borderRadius: 3, backgroundColor: theme.color.textDim },
-  eyeSlash: {
-    position: 'absolute',
-    width: 26,
-    height: 1.5,
-    backgroundColor: theme.color.textDim,
-    transform: [{ rotate: '-45deg' }],
   },
 
   rules: { gap: theme.space.xs },

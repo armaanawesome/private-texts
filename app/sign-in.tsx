@@ -16,6 +16,7 @@ import { DEMO_CASE_ID } from '@content/cases';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { render, type Message } from '@/i18n/message';
+import { EyeGlyph } from '@/ui/EyeGlyph';
 import type { Translator } from '@/i18n/translate';
 import {
   useAuth,
@@ -47,7 +48,7 @@ export default function SignInScreen() {
   /** Set only by the landing page. Absent when this screen is opened from Settings. */
   const { onboarding } = useLocalSearchParams<{ onboarding?: string }>();
   const t = useTranslator();
-  const { status, signIn, signUp, signOut, resetPassword } = useAuth();
+  const { status, signIn, signUp, signOut } = useAuth();
 
   const [mode, setMode] = useState<'signIn' | 'signUp'>('signIn');
   const [email, setEmail] = useState('');
@@ -135,26 +136,23 @@ export default function SignInScreen() {
       emailRef.current?.focus();
       return;
     }
-    setBusy(true);
-    const attempt = await resetPassword(email);
-    setBusy(false);
-    // A genuine refusal — rate limiting, or an unreachable network — is about
-    // this device, not about whether the account exists, so it is worth saying.
-    if (!attempt.ok) {
-      setFormError(attempt.message);
-      return;
-    }
     /*
-     * Straight to the code screen rather than leaving a notice here.
+     * Navigate first; the reset screen sends.
      *
      * The email carries a code, not a working link — Supabase hosts no
      * update-password page, and its link redirects to the project's Site URL,
-     * which on a phone with no website goes nowhere. So the next step is in the
-     * app, and stopping on this screen would leave somebody holding a code with
-     * nothing to type it into.
+     * which on a phone with no website goes nowhere. So the next step is always
+     * in the app, and it should be reachable even when the send fails.
+     *
+     * That matters more than it looks: Supabase's built-in SMTP is rate limited
+     * to a couple of messages an hour and, on a project with no custom SMTP
+     * configured, delivers only to team addresses. Blocking navigation on the
+     * send would leave the one screen that can finish the reset unreachable
+     * precisely when somebody most needs to know what is going on. The failure
+     * is not swallowed — it is reported there, next to Send another code.
      */
     router.push({ pathname: '/reset-password', params: { email: email.trim() } });
-  }, [busy, email, resetPassword, router]);
+  }, [busy, email, router]);
 
   const runSync = useCallback(async () => {
     setBusy(true);
@@ -520,25 +518,6 @@ function Field({
 }
 
 /**
- * Drawn from three Views rather than an emoji or an icon font.
- *
- * The same reason the tick on the case tiles is drawn: an emoji renders in a
- * different typeface on every platform and carries a colour this screen does not
- * choose, and one icon is not worth a font dependency.
- *
- * Struck when the password is VISIBLE — the slash reads as "hide this", which is
- * what tapping it does next.
- */
-function EyeGlyph({ struck }: { struck: boolean }) {
-  return (
-    <View style={styles.eye}>
-      <View style={styles.eyeIris} />
-      {struck ? <View style={styles.eyeSlash} /> : null}
-    </View>
-  );
-}
-
-/**
  * The password policy, as a live checklist with a strength meter.
  *
  * Every rule is drawn from the start rather than appearing as it fails, so the
@@ -651,28 +630,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  eye: {
-    width: 22,
-    height: 14,
-    borderWidth: 1.5,
-    borderColor: theme.color.textDim,
-    /* Half the height, so the rounded ends meet in the middle and read as an
-       eye rather than as a rounded rectangle. */
-    borderRadius: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  eyeIris: { width: 6, height: 6, borderRadius: 3, backgroundColor: theme.color.textDim },
-  eyeSlash: {
-    position: 'absolute',
-    width: 26,
-    height: 1.5,
-    backgroundColor: theme.color.textDim,
-    transform: [{ rotate: '-45deg' }],
-  },
 
   forgotRow: { alignSelf: 'flex-start', minHeight: theme.hit.min, justifyContent: 'center' },
-  forgot: { ...theme.type.meta, color: theme.color.proof, textDecorationLine: 'underline' },
+  /* Near-white and underlined rather than the blue `proof` token: blue reads
+     as a web link in a palette whose only accent is amber, and it competed
+     with the CTA directly beneath it. */
+  forgot: { ...theme.type.body, color: theme.color.text, textDecorationLine: 'underline' },
 
   rules: { gap: theme.space.xs, marginTop: theme.space.xs },
   strengthRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },

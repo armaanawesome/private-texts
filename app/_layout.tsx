@@ -43,6 +43,19 @@ const debugOptions = { title: 'Test Store harness' } as const;
 const resetOptions = { title: '' } as const;
 
 /**
+ * Unconfigured, expo-router titles a route after its FILE — so these bars read
+ * `sign-in` and `language`, in lowercase, with a hyphen in one of them. Caught
+ * in the browser harness on the sign-in screen, which is in the demo video.
+ *
+ * Empty rather than translated: both screens already carry their own heading,
+ * and a second copy of it in the bar is worse than none. An empty parent title
+ * also makes the back label fall back to the system word for Back, in the
+ * reader's own language. `settings.tsx` sets its own translated title through a
+ * memoised options object, which is the other sanctioned way.
+ */
+const blankTitleOptions = { title: '' } as const;
+
+/**
  * No bar at all on the front door.
  *
  * The screen carries its own wordmark, and a header here would offer a back
@@ -181,6 +194,8 @@ export default function RootLayout() {
         <Stack.Screen name="paywall" options={paywallOptions} />
         <Stack.Screen name="debug" options={debugOptions} />
         <Stack.Screen name="reset-password" options={resetOptions} />
+        <Stack.Screen name="sign-in" options={blankTitleOptions} />
+        <Stack.Screen name="language" options={blankTitleOptions} />
       </Stack>
     </GestureHandlerRootView>
   );
