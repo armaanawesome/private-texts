@@ -4,7 +4,8 @@ import { Pressable, AppState } from 'react-native';
 import { useTranslator } from '@/i18n/useTranslator';
 import { hydrateSettings } from '@/settings/persistence';
 import { SettingsGlyph } from '@/settings/SettingsList';
-import { syncProgress } from '@/auth';
+import { syncProgress, useAuth } from '@/auth';
+import { useRevenueCatIdentity } from '@/entitlements/useRevenueCatIdentity';
 import { stopBed } from '@/audio';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -98,6 +99,23 @@ const indexOptions = {
 const rootStyle = { flex: 1, backgroundColor: theme.color.bg } as const;
 
 export default function RootLayout() {
+  /*
+   * Tell RevenueCat who is signed in, at the root, on every launch.
+   *
+   * Without this the SDK stays on an anonymous id it generates per install, so a
+   * purchase belongs to a HANDSET rather than to an account. Signing into the
+   * same account on a second phone produced a fresh anonymous id with no
+   * entitlements, and the cases somebody had paid for were simply missing, with
+   * nothing in the app able to explain it.
+   *
+   * It belongs here rather than on the sign-in screen because the case that
+   * matters most is the launch where nobody visits that screen at all: the
+   * session is restored from secure storage and the player expects to already
+   * own what they bought.
+   */
+  const { status } = useAuth();
+  useRevenueCatIdentity(status.kind === 'signedIn' ? status.user.id : null);
+
   /*
    * Read stored preferences once, at the root, before any screen renders.
    *

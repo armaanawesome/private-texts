@@ -7,6 +7,7 @@ import Purchases, {
 export { CASE_PACK_ENTITLEMENT } from './ids';
 import { CASE_PACK_ENTITLEMENT } from './ids';
 import { decidePurchasesMode, type PurchasesMode } from './keyPolicy';
+import { isAnonymousId } from './identity';
 import {
   explainEntitlementGap,
   type EntitlementEvidence,
@@ -97,6 +98,59 @@ export async function purchaseCasePack(pkg: PurchasesPackage): Promise<PurchaseO
       return { kind: 'cancelled' };
     }
     return { kind: 'failed', error: e };
+  }
+}
+
+/**
+ * Tell RevenueCat which account this is, so purchases follow the account rather
+ * than the handset.
+ *
+ * Configures first: `logIn` on an unconfigured SDK throws a native "singleton
+ * instance not set" error, and this is called from the root layout, which can
+ * easily win the race against the screen that configures.
+ *
+ * **A purchase made before signing in is not lost.** RevenueCat aliases the
+ * anonymous id onto the real one the first time it sees that id, so somebody who
+ * buys as a guest and makes an account afterwards keeps what they bought. That
+ * is what makes it safe to let people buy without an account at all.
+ *
+ * Never throws. A store that will not answer must not stop the app: the game is
+ * fully playable signed out, and the listener in useEntitlements picks the state
+ * up on its own once the SDK is willing.
+ */
+export async function identifyUser(appUserId: string): Promise<void> {
+  await configurePurchases();
+  if (!purchasesAreLive()) return;
+  try {
+    const { customerInfo, created } = await Purchases.logIn(appUserId);
+    if (__DEV__) {
+      const active = Object.keys(customerInfo.entitlements.active);
+      console.log(
+        `[entitlements] identified as ${appUserId}${created ? ' (new customer)' : ''} —`,
+        active.length ? active.join(', ') : '(no entitlements)',
+      );
+    }
+  } catch (e) {
+    console.warn('[entitlements] logIn failed', e);
+  }
+}
+
+/**
+ * Hand the SDK back to a fresh anonymous id on sign-out.
+ *
+ * Guarded on the anonymous prefix because `logOut` **rejects** when the SDK is
+ * already anonymous, and this runs on any sign-out — including one where nobody
+ * was ever identified, which is the normal case for a guest whose stored session
+ * had already expired.
+ */
+export async function forgetUser(): Promise<void> {
+  if (!purchasesAreLive()) return;
+  try {
+    const info = await Purchases.getCustomerInfo();
+    if (isAnonymousId(info.originalAppUserId)) return;
+    await Purchases.logOut();
+  } catch (e) {
+    console.warn('[entitlements] logOut failed', e);
   }
 }
 

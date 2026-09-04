@@ -16,11 +16,15 @@ import { DEMO_CASE_ID } from '@content/cases';
 import { theme } from '@/ui/theme';
 import { useTranslator } from '@/i18n/useTranslator';
 import { render, type Message } from '@/i18n/message';
+import type { Translator } from '@/i18n/translate';
 import {
   useAuth,
   validateCredentials,
   syncProgress,
   describeSyncResult,
+  checkPassword,
+  MIN_PASSWORD_LENGTH,
+  RULE_MESSAGE_KEY,
   type CredentialField,
   type CredentialProblem,
 } from '@/auth';
@@ -43,7 +47,7 @@ export default function SignInScreen() {
   /** Set only by the landing page. Absent when this screen is opened from Settings. */
   const { onboarding } = useLocalSearchParams<{ onboarding?: string }>();
   const t = useTranslator();
-  const { status, signIn, signUp, signOut } = useAuth();
+  const { status, signIn, signUp, signOut, resetPassword } = useAuth();
 
   const [mode, setMode] = useState<'signIn' | 'signUp'>('signIn');
   const [email, setEmail] = useState('');
@@ -63,6 +67,14 @@ export default function SignInScreen() {
   const [notice, setNotice] = useState<Message | null>(null);
   const [busy, setBusy] = useState(false);
   const [focused, setFocused] = useState<CredentialField | null>(null);
+  /**
+   * Off by default, and reset whenever the mode changes.
+   *
+   * A reveal that persisted across a mode switch would leave somebody's password
+   * on screen after they thought they had left the form, which is the one thing
+   * a reveal toggle must not do.
+   */
+  const [revealed, setRevealed] = useState(false);
 
   const passwordRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);
@@ -103,6 +115,34 @@ export default function SignInScreen() {
     const solved = await readSolvedCaseIds();
     router.replace(solved.has(DEMO_CASE_ID) ? '/' : `/case/${DEMO_CASE_ID}/threads`);
   }, [onboarding, router]);
+
+  /**
+   * Send the reset email.
+   *
+   * The success line is the same whether or not the address has an account, and
+   * it is shown even when Supabase reports nothing back, because Supabase itself
+   * answers identically either way. A form that says "no account with that
+   * email" is an account-existence oracle anybody can query.
+   *
+   * The one thing worth checking first is that the field is not empty, which is
+   * about this screen rather than about the account.
+   */
+  const sendReset = useCallback(async () => {
+    if (busy) return;
+    setFormError(null);
+    if (email.trim() === '') {
+      setNotice({ key: 'signIn.reset.needEmail' });
+      emailRef.current?.focus();
+      return;
+    }
+    setBusy(true);
+    const attempt = await resetPassword(email);
+    setBusy(false);
+    if (attempt.ok) setNotice({ key: 'signIn.reset.sent' });
+    // A genuine refusal — rate limiting, or an unreachable network — is about
+    // this device, not about whether the account exists, so it is worth saying.
+    else setFormError(attempt.message);
+  }, [busy, email, resetPassword]);
 
   const runSync = useCallback(async () => {
     setBusy(true);
@@ -263,6 +303,9 @@ export default function SignInScreen() {
                       setMode(option);
                       setProblem(null);
                       setFormError(null);
+                      setNotice(null);
+                      // Never carry a revealed password across a mode switch.
+                      setRevealed(false);
                     }}
                     accessibilityRole="tab"
                     accessibilityState={{ selected }}
@@ -288,7 +331,7 @@ export default function SignInScreen() {
                 setEmail(next);
                 if (problem?.field === 'email') setProblem(null);
               }}
-              problem={problem?.field === 'email' ? problem.message : null}
+              problem={problem?.field === 'email' ? render(problem.message, t) : null}
               focused={focused === 'email'}
               onFocus={() => setFocused('email')}
               onBlur={() => setFocused(null)}
@@ -308,17 +351,45 @@ export default function SignInScreen() {
                 setPassword(next);
                 if (problem?.field === 'password') setProblem(null);
               }}
-              problem={problem?.field === 'password' ? problem.message : null}
+              problem={problem?.field === 'password' ? render(problem.message, t) : null}
               focused={focused === 'password'}
               onFocus={() => setFocused('password')}
               onBlur={() => setFocused(null)}
               editable={!busy}
-              secureTextEntry
+              secureTextEntry={!revealed}
+              revealed={revealed}
+              onToggleReveal={() => setRevealed((on) => !on)}
+              revealLabel={t(revealed ? 'signIn.hidePassword' : 'signIn.showPassword')}
               textContentType={mode === 'signUp' ? 'newPassword' : 'password'}
               autoComplete={mode === 'signUp' ? 'new-password' : 'current-password'}
               returnKeyType="go"
               onSubmitEditing={() => void submit()}
             />
+
+            {/*
+              The rules, live, while there is still time to act on them.
+
+              Shown for sign-up only — at sign-in the account already exists and
+              its password is whatever it is, so a checklist there would tell
+              somebody their own working password is wrong.
+
+              Drawn from the same `checkPassword` the submit uses, so the ticks
+              and the button can never disagree. A screen that shows three ticks
+              and then refuses to submit is worse than no checklist at all.
+            */}
+            {mode === 'signUp' ? (
+              <PasswordRules password={password} t={t} />
+            ) : (
+              <Pressable
+                onPress={() => void sendReset()}
+                disabled={busy}
+                accessibilityRole="button"
+                hitSlop={theme.hit.slop}
+                style={styles.forgotRow}
+              >
+                <Text style={styles.forgot}>{t('signIn.forgot')}</Text>
+              </Pressable>
+            )}
 
             {formError ? (
               <View
@@ -375,33 +446,133 @@ function Field({
   inputRef,
   problem,
   focused,
+  revealed,
+  onToggleReveal,
+  revealLabel,
   ...input
 }: {
   label: string;
   inputRef: React.RefObject<TextInput | null>;
   problem: string | null;
   focused: boolean;
+  /** Present only on the password field. Absent leaves the row exactly as it was. */
+  revealed?: boolean;
+  onToggleReveal?: () => void;
+  revealLabel?: string;
 } & React.ComponentProps<typeof TextInput>) {
   return (
     <View style={styles.field}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        ref={inputRef}
-        accessibilityLabel={label}
-        placeholderTextColor={theme.color.textDim}
-        // Autocapitalising an email address is the single most common cause of
-        // a login that "should work" — iOS capitalises the first letter and the
-        // address no longer matches what was registered.
-        autoCapitalize="none"
-        autoCorrect={false}
-        style={[styles.input, focused && styles.inputFocused, problem !== null && styles.inputBad]}
-        {...input}
-      />
+      {/* The border moves to the row so the toggle sits INSIDE the field rather
+          than beside it — otherwise tapping near the eye lands outside the
+          control the player thinks they are touching. */}
+      <View
+        style={[
+          styles.inputRow,
+          focused && styles.inputFocused,
+          problem !== null && styles.inputBad,
+        ]}
+      >
+        <TextInput
+          ref={inputRef}
+          accessibilityLabel={label}
+          placeholderTextColor={theme.color.textDim}
+          // Autocapitalising an email address is the single most common cause of
+          // a login that "should work" — iOS capitalises the first letter and the
+          // address no longer matches what was registered.
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={styles.input}
+          {...input}
+        />
+        {onToggleReveal ? (
+          <Pressable
+            onPress={onToggleReveal}
+            accessibilityRole="button"
+            accessibilityLabel={revealLabel}
+            accessibilityState={{ selected: revealed === true }}
+            hitSlop={theme.hit.slop}
+            style={({ pressed }) => [styles.reveal, pressed && styles.pressed]}
+          >
+            <EyeGlyph struck={revealed === true} />
+          </Pressable>
+        ) : null}
+      </View>
       {problem !== null ? (
         <Text style={styles.fieldError} accessibilityRole="alert" accessibilityLiveRegion="polite">
           {problem}
         </Text>
       ) : null}
+    </View>
+  );
+}
+
+/**
+ * Drawn from three Views rather than an emoji or an icon font.
+ *
+ * The same reason the tick on the case tiles is drawn: an emoji renders in a
+ * different typeface on every platform and carries a colour this screen does not
+ * choose, and one icon is not worth a font dependency.
+ *
+ * Struck when the password is VISIBLE — the slash reads as "hide this", which is
+ * what tapping it does next.
+ */
+function EyeGlyph({ struck }: { struck: boolean }) {
+  return (
+    <View style={styles.eye}>
+      <View style={styles.eyeIris} />
+      {struck ? <View style={styles.eyeSlash} /> : null}
+    </View>
+  );
+}
+
+/**
+ * The password policy, as a live checklist with a strength meter.
+ *
+ * Every rule is drawn from the start rather than appearing as it fails, so the
+ * player can read the whole requirement before choosing — a checklist that grows
+ * while you type is a series of small rejections.
+ *
+ * The state of each line is carried by a mark AND by colour, never colour alone.
+ */
+function PasswordRules({ password, t }: { password: string; t: Translator }) {
+  const report = checkPassword(password);
+  const width = report.strength === 'strong' ? '100%' : report.strength === 'fair' ? '66%' : '33%';
+  const tone =
+    report.strength === 'strong'
+      ? theme.color.solved
+      : report.strength === 'fair'
+        ? theme.color.accent
+        : theme.color.danger;
+
+  return (
+    <View style={styles.rules}>
+      <View style={styles.strengthRow}>
+        <Text style={styles.rulesLabel}>{t('signIn.rulesLabel')}</Text>
+        {/* The meter is only meaningful once there is something to measure. */}
+        {password !== '' ? (
+          <Text style={[styles.strengthWord, { color: tone }]}>
+            {t(`signIn.strength.${report.strength}`)}
+          </Text>
+        ) : null}
+      </View>
+
+      {password !== '' ? (
+        <View style={styles.meterTrack}>
+          <View style={[styles.meterFill, { width, backgroundColor: tone }]} />
+        </View>
+      ) : null}
+
+      {report.rules.map((rule) => (
+        <View key={rule.id} style={styles.ruleRow}>
+          <View style={[styles.ruleMark, rule.met && styles.ruleMarkOn]}>
+            {rule.met ? <Text style={styles.ruleTick}>✓</Text> : null}
+          </View>
+          <Text style={[styles.ruleText, rule.met && styles.ruleTextOn]}>
+            {t(RULE_MESSAGE_KEY[rule.id], { count: MIN_PASSWORD_LENGTH })}
+          </Text>
+        </View>
+      ))}
     </View>
   );
 }
@@ -436,13 +607,21 @@ const styles = StyleSheet.create({
 
   field: { gap: theme.space.xs },
   label: { ...theme.type.sender, color: theme.color.textDim },
-  input: {
-    ...theme.type.body,
-    color: theme.color.text,
+  /* The chrome moved here from `input` so the reveal button sits inside the
+     field's own border rather than next to it. */
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: theme.color.surface,
     borderRadius: theme.radius.chip,
     borderWidth: 1,
     borderColor: theme.color.rule,
+    paddingRight: theme.space.xs,
+  },
+  input: {
+    ...theme.type.body,
+    flex: 1,
+    color: theme.color.text,
     paddingHorizontal: theme.space.md,
     minHeight: theme.hit.min + 4,
   },
@@ -453,6 +632,65 @@ const styles = StyleSheet.create({
   /* `danger` is the non-text token; it is a border here, never the message. */
   inputBad: { borderColor: theme.color.danger },
   fieldError: { ...theme.type.meta, color: theme.color.dangerText },
+
+  reveal: {
+    width: theme.hit.min,
+    minHeight: theme.hit.min,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eye: {
+    width: 22,
+    height: 14,
+    borderWidth: 1.5,
+    borderColor: theme.color.textDim,
+    /* Half the height, so the rounded ends meet in the middle and read as an
+       eye rather than as a rounded rectangle. */
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eyeIris: { width: 6, height: 6, borderRadius: 3, backgroundColor: theme.color.textDim },
+  eyeSlash: {
+    position: 'absolute',
+    width: 26,
+    height: 1.5,
+    backgroundColor: theme.color.textDim,
+    transform: [{ rotate: '-45deg' }],
+  },
+
+  forgotRow: { alignSelf: 'flex-start', minHeight: theme.hit.min, justifyContent: 'center' },
+  forgot: { ...theme.type.meta, color: theme.color.proof, textDecorationLine: 'underline' },
+
+  rules: { gap: theme.space.xs, marginTop: theme.space.xs },
+  strengthRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
+  rulesLabel: { ...theme.type.meta, color: theme.color.textDim },
+  /* 700, not 600: a named Android family resolves through Typeface.create,
+     which knows only normal and bold, so 600 renders as regular. */
+  strengthWord: { ...theme.type.meta, fontWeight: '700' },
+  meterTrack: {
+    height: 3,
+    borderRadius: 1.5,
+    backgroundColor: theme.color.rail,
+    overflow: 'hidden',
+  },
+  meterFill: { height: 3, borderRadius: 1.5 },
+  ruleRow: { flexDirection: 'row', alignItems: 'center', gap: theme.space.sm },
+  /* The state is a MARK as well as a colour. Colour alone would leave somebody
+     who cannot separate these two hues with no way to read the checklist. */
+  ruleMark: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: theme.color.rule,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ruleMarkOn: { borderColor: theme.color.solved, backgroundColor: theme.color.solved },
+  ruleTick: { fontSize: 10, lineHeight: 14, color: theme.color.bg, fontWeight: '700' },
+  ruleText: { ...theme.type.meta, color: theme.color.textDim },
+  ruleTextOn: { color: theme.color.text },
 
   problemBlock: {
     backgroundColor: theme.color.surface,

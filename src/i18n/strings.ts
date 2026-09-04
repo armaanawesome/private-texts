@@ -239,6 +239,37 @@ export const EN = {
   'signIn.signOut': 'Sign out',
   'signIn.signOutNote': 'Signing out leaves every case save on this phone. Nothing is deleted.',
 
+  /**
+   * Field-level problems. These were English prose returned from
+   * `credentials.ts` and rendered directly, so a Spanish player met an English
+   * sentence under a Spanish field.
+   */
+  'signIn.problem.emailEmpty': 'Enter your email address.',
+  'signIn.problem.emailShape': 'That does not look like an email address.',
+  'signIn.problem.passwordEmpty': 'Enter your password.',
+
+  /** The live checklist under the password field, and the meter beside it. */
+  'signIn.rulesLabel': 'Your password needs',
+  'signIn.rule.length': 'At least {count} characters',
+  'signIn.rule.letter': 'A letter',
+  'signIn.rule.number': 'A number',
+  'signIn.strength.weak': 'Weak',
+  'signIn.strength.fair': 'Fair',
+  'signIn.strength.strong': 'Strong',
+
+  'signIn.showPassword': 'Show password',
+  'signIn.hidePassword': 'Hide password',
+
+  'signIn.forgot': 'Forgot your password?',
+  /**
+   * Says nothing about whether the address has an account, because saying so
+   * would turn this form into an account-existence oracle anybody could query.
+   * Supabase answers identically either way and this sentence matches it.
+   */
+  'signIn.reset.sent':
+    'If that address has an account, a reset link is on its way. Check your inbox, and your spam folder.',
+  'signIn.reset.needEmail': 'Enter your email address first, then tap this again.',
+
   'paywall.title': 'More cases',
   'paywall.body':
     'Another death, another phone, another story that does not hold up. Unlock the case pack to keep going.',
@@ -493,6 +524,22 @@ const ES: Catalogue = {
   'signIn.signOut': 'Cerrar sesión',
   'signIn.signOutNote':
     'Al cerrar sesión, todas las partidas guardadas permanecen en este teléfono. No se borra nada.',
+  'signIn.problem.emailEmpty': 'Escribe tu correo electrónico.',
+  'signIn.problem.emailShape': 'Eso no parece un correo electrónico.',
+  'signIn.problem.passwordEmpty': 'Escribe tu contraseña.',
+  'signIn.rulesLabel': 'Tu contraseña necesita',
+  'signIn.rule.length': 'Al menos {count} caracteres',
+  'signIn.rule.letter': 'Una letra',
+  'signIn.rule.number': 'Un número',
+  'signIn.strength.weak': 'Débil',
+  'signIn.strength.fair': 'Aceptable',
+  'signIn.strength.strong': 'Fuerte',
+  'signIn.showPassword': 'Mostrar contraseña',
+  'signIn.hidePassword': 'Ocultar contraseña',
+  'signIn.forgot': '¿Olvidaste tu contraseña?',
+  'signIn.reset.sent':
+    'Si esa dirección tiene una cuenta, el enlace ya va en camino. Revisa tu bandeja de entrada y la carpeta de spam.',
+  'signIn.reset.needEmail': 'Escribe primero tu correo electrónico y vuelve a tocar aquí.',
 
   'paywall.title': 'Más casos',
   'paywall.body':
@@ -732,6 +779,22 @@ const FR: Catalogue = {
   'signIn.signOut': 'Se déconnecter',
   'signIn.signOutNote':
     'La déconnexion laisse toutes les sauvegardes sur ce téléphone. Rien n’est supprimé.',
+  'signIn.problem.emailEmpty': 'Saisissez votre adresse e-mail.',
+  'signIn.problem.emailShape': 'Cela ne ressemble pas à une adresse e-mail.',
+  'signIn.problem.passwordEmpty': 'Saisissez votre mot de passe.',
+  'signIn.rulesLabel': 'Votre mot de passe doit contenir',
+  'signIn.rule.length': 'Au moins {count} caractères',
+  'signIn.rule.letter': 'Une lettre',
+  'signIn.rule.number': 'Un chiffre',
+  'signIn.strength.weak': 'Faible',
+  'signIn.strength.fair': 'Correct',
+  'signIn.strength.strong': 'Fort',
+  'signIn.showPassword': 'Afficher le mot de passe',
+  'signIn.hidePassword': 'Masquer le mot de passe',
+  'signIn.forgot': 'Mot de passe oublié ?',
+  'signIn.reset.sent':
+    'Si cette adresse a un compte, le lien est déjà parti. Vérifiez votre boîte de réception, et vos spams.',
+  'signIn.reset.needEmail': 'Saisissez d’abord votre adresse e-mail, puis touchez de nouveau.',
 
   'paywall.title': 'Plus d’affaires',
   'paywall.body':
@@ -965,6 +1028,22 @@ const DE: Catalogue = {
   'signIn.signOut': 'Abmelden',
   'signIn.signOutNote':
     'Beim Abmelden bleibt jeder gespeicherte Fall auf diesem Telefon. Nichts wird gelöscht.',
+  'signIn.problem.emailEmpty': 'Gib deine E-Mail-Adresse ein.',
+  'signIn.problem.emailShape': 'Das sieht nicht nach einer E-Mail-Adresse aus.',
+  'signIn.problem.passwordEmpty': 'Gib dein Passwort ein.',
+  'signIn.rulesLabel': 'Dein Passwort braucht',
+  'signIn.rule.length': 'Mindestens {count} Zeichen',
+  'signIn.rule.letter': 'Einen Buchstaben',
+  'signIn.rule.number': 'Eine Ziffer',
+  'signIn.strength.weak': 'Schwach',
+  'signIn.strength.fair': 'Passabel',
+  'signIn.strength.strong': 'Stark',
+  'signIn.showPassword': 'Passwort anzeigen',
+  'signIn.hidePassword': 'Passwort verbergen',
+  'signIn.forgot': 'Passwort vergessen?',
+  'signIn.reset.sent':
+    'Falls es zu dieser Adresse ein Konto gibt, ist der Link schon unterwegs. Sieh im Posteingang nach, und im Spam-Ordner.',
+  'signIn.reset.needEmail': 'Gib zuerst deine E-Mail-Adresse ein und tippe dann noch einmal.',
 
   'paywall.title': 'Mehr Fälle',
   'paywall.body':
@@ -1191,6 +1270,22 @@ const PT_BR: Catalogue = {
   'signIn.backToCases': 'Voltar aos casos',
   'signIn.signOut': 'Sair',
   'signIn.signOutNote': 'Sair mantém todos os casos salvos neste celular. Nada é apagado.',
+  'signIn.problem.emailEmpty': 'Digite seu e-mail.',
+  'signIn.problem.emailShape': 'Isso não parece um e-mail.',
+  'signIn.problem.passwordEmpty': 'Digite sua senha.',
+  'signIn.rulesLabel': 'Sua senha precisa de',
+  'signIn.rule.length': 'Pelo menos {count} caracteres',
+  'signIn.rule.letter': 'Uma letra',
+  'signIn.rule.number': 'Um número',
+  'signIn.strength.weak': 'Fraca',
+  'signIn.strength.fair': 'Razoável',
+  'signIn.strength.strong': 'Forte',
+  'signIn.showPassword': 'Mostrar senha',
+  'signIn.hidePassword': 'Ocultar senha',
+  'signIn.forgot': 'Esqueceu sua senha?',
+  'signIn.reset.sent':
+    'Se esse endereço tiver uma conta, o link já está a caminho. Confira sua caixa de entrada e o spam.',
+  'signIn.reset.needEmail': 'Digite seu e-mail primeiro e toque aqui de novo.',
 
   'paywall.title': 'Mais casos',
   'paywall.body':

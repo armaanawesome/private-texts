@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { validateCredentials, normaliseEmail, MIN_PASSWORD_LENGTH } from './credentials';
+import { checkPassword } from './passwordStrength';
 
 const signIn = (email: string, password: string) =>
   validateCredentials({ email, password, mode: 'signIn' });
@@ -16,7 +17,7 @@ describe('validateCredentials', () => {
     it('asks for an address when the field is empty', () => {
       expect(signIn('', 'hunter22')).toEqual({
         field: 'email',
-        message: 'Enter your email address.',
+        message: { key: 'signIn.problem.emailEmpty' },
       });
     });
 
@@ -48,14 +49,28 @@ describe('validateCredentials', () => {
     it('asks for a password when the field is empty', () => {
       expect(signIn('alex@example.com', '')).toEqual({
         field: 'password',
-        message: 'Enter your password.',
+        message: { key: 'signIn.problem.passwordEmpty' },
       });
     });
 
     it('requires the minimum length when creating an account', () => {
       const problem = signUp('alex@example.com', 'abc');
       expect(problem?.field).toBe('password');
-      expect(problem?.message).toContain(String(MIN_PASSWORD_LENGTH));
+      expect(problem?.message).toEqual({ key: 'signIn.rule.length' });
+    });
+
+    /*
+     * Length alone is no longer the whole policy. A password can clear the
+     * minimum and still be refused, and the message has to name the rule that
+     * actually failed rather than the length it already satisfies.
+     */
+    it('requires a letter and a digit when creating an account', () => {
+      expect(signUp('alex@example.com', 'a'.repeat(MIN_PASSWORD_LENGTH))?.message).toEqual({
+        key: 'signIn.rule.number',
+      });
+      expect(signUp('alex@example.com', '12345678')?.message).toEqual({
+        key: 'signIn.rule.letter',
+      });
     });
 
     it('does NOT apply the length rule when signing in', () => {
@@ -69,14 +84,29 @@ describe('validateCredentials', () => {
       expect(signIn('alex@example.com', 'abc')).toBeNull();
     });
 
-    it('accepts a password of exactly the minimum length', () => {
-      expect(signUp('alex@example.com', 'a'.repeat(MIN_PASSWORD_LENGTH))).toBeNull();
+    it('accepts a password of exactly the minimum length that meets the rules', () => {
+      const shortest = `${'a'.repeat(MIN_PASSWORD_LENGTH - 1)}1`;
+      expect(shortest).toHaveLength(MIN_PASSWORD_LENGTH);
+      expect(signUp('alex@example.com', shortest)).toBeNull();
     });
 
     it('does not trim the password', () => {
       // Spaces are legal password characters and trimming them would silently
-      // send something other than what was typed.
-      expect(signUp('alex@example.com', '  abcd  ')).toBeNull();
+      // send something other than what was typed. The spaces count toward the
+      // length, which is the point: what is sent is what was typed.
+      expect(signUp('alex@example.com', '  abcd1  ')).toBeNull();
+    });
+
+    /*
+     * The submit and the checklist under the field must ask the same question.
+     * They are the same function, and this is what keeps them so — a form that
+     * shows three green ticks and then refuses is worse than no checklist.
+     */
+    it('agrees with the checklist the screen draws, for every candidate', () => {
+      for (const candidate of ['', 'a', 'abc', 'abcdefgh', '12345678', 'hunter22', 'contraseña7']) {
+        const blocked = signUp('alex@example.com', candidate) !== null;
+        expect(blocked).toBe(!checkPassword(candidate).meetsPolicy);
+      }
     });
   });
 });

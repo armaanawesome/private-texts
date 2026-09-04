@@ -32,6 +32,7 @@ export interface AuthApi {
   signIn: (email: string, password: string) => Promise<AuthAttempt>;
   signUp: (email: string, password: string) => Promise<SignUpAttempt>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<AuthAttempt>;
 }
 
 const toAuthUser = (user: User | null | undefined): AuthUser | null =>
@@ -143,5 +144,30 @@ export function useAuth(): AuthApi {
     await handle.client.auth.signOut();
   }, []);
 
-  return { status, signIn, signUp, signOut };
+  /**
+   * Send the reset email.
+   *
+   * **Deliberately says nothing about whether the address has an account.**
+   * Supabase answers the same way either way, and the screen's wording matches
+   * that: a form that says "no account with that email" is an account-existence
+   * oracle anybody can query, which is how a leaked address list becomes a
+   * confirmed customer list.
+   *
+   * No `redirectTo`, so the link lands on the project's **Site URL** and Supabase
+   * hosts the update-password page. Pointing it back into the app would mean a
+   * deep link, a URL on the dashboard allowlist, and an in-app screen holding a
+   * recovery session — real work for a flow somebody uses once. The hosted page
+   * is a complete flow today: they set a new password and come back and sign in.
+   */
+  const resetPassword = useCallback(async (email: string): Promise<AuthAttempt> => {
+    const handle = getSupabase();
+    if (handle.kind === 'unavailable') return { ok: false, message: { raw: handle.reason } };
+    const { error } = await handle.client.auth.resetPasswordForEmail(normaliseEmail(email));
+    // A rate-limit refusal IS worth showing — it is about this device, not about
+    // whether the account exists, and it tells them why nothing arrived.
+    if (error) return { ok: false, message: describeAuthError(error.message) };
+    return { ok: true };
+  }, []);
+
+  return { status, signIn, signUp, signOut, resetPassword };
 }

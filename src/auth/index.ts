@@ -27,9 +27,17 @@ export {
   validateCredentials,
   normaliseEmail,
   MIN_PASSWORD_LENGTH,
+  RULE_MESSAGE_KEY,
   type CredentialProblem,
   type CredentialField,
 } from './credentials';
+export {
+  checkPassword,
+  type PasswordReport,
+  type PasswordRule,
+  type PasswordRuleId,
+  type PasswordStrength,
+} from './passwordStrength';
 export {
   syncProgress,
   describeSyncResult,
