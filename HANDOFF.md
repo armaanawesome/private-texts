@@ -12,7 +12,7 @@ Built for the **RevenueCat Shipaton 2026 — Next Gen (student) award**.
 | Repo | https://github.com/armaanawesome/read-receipts (public) |
 | Deadline | **2026-09-30 23:45 PDT** · internal target **2026-09-28** |
 | Started | 2026-08-08 |
-| This file last verified | **2026-08-29** — test count re-run, and Supabase re-checked against the live project rather than from notes |
+| This file last verified | **2026-09-04** — test count re-run (130 files, 4843 tests), §7 item 1 corrected, §7k added |
 | Plan | `../docs/superpowers/plans/2026-08-08-shipaton-detective.md` |
 | Build constraints | `docs/BUILDING.md` — **read before touching eas.json** |
 | Security review | `docs/SECURITY.md` — threat model, findings, and **why `npm audit fix --force` must never be run here** |
@@ -42,9 +42,11 @@ read a thread → long-press a message → put a statement on the record → pin
 on the board → COMPARE → contradiction confirmed → a locked thread unlocks →
 accuse.
 
-> **Everything below §2 that touches saves, accounts, settings or languages is
-> on the branch `feat/accounts-settings-i18n`, which is NOT merged to master.**
-> Merging it is the first decision of the next session. See §9.
+> **`feat/accounts-settings-i18n` is merged.** Verified 2026-09-04 with
+> `git branch --merged master`: it carries nothing master does not have, and
+> master is 34 commits ahead of it. This file called merging it "the first
+> decision of the next session" for three weeks after it had happened. The
+> branch still exists and can be deleted.
 
 | Area | State |
 |---|---|
@@ -54,7 +56,7 @@ accuse.
 | Evidence board | ✅ functional, **no craft pass** |
 | Accusation screen | ✅ functional, **no craft pass** |
 | Routes | ✅ landing → threads → board → accuse, + settings, language, sign-in — all reachable. `/how-to-play` is **gone**; `/landing` replaces it |
-| Paywall | ✅ custom UI, **purchase unverified** |
+| Paywall | ✅ two-option chooser (this case / the pack), typed failure messages, confirmation page. **A completed purchase has still never been observed** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
 | 15 case packs + tutorial | ✅ written, and **all sixteen read end to end by the owner** (2026-08-28) |
 | Autosave / resume | ✅ tested, **never exercised by a human closing the app mid-case** |
@@ -70,10 +72,12 @@ accuse.
 | Onboarding | ✅ animated landing (sign in / play as guest) → Bakehouse, with the walkthrough running **inside** the case as coach marks. Re-armed from Settings |
 | Case closed | ✅ closed-file header, proof tally, coda, and three exits: next case, all cases, play again |
 
-**Tests:** `.\check.cmd` → **4794 passing across 126 files**, typecheck clean,
+**Tests:** `.\check.cmd` → **4843 passing across 130 files**, typecheck clean,
 coverage 94.3% statements / 91.1% branches on the measured directories. Verified
-by running the suite on 2026-09-03, not copied forward. The file added since the
-last count is `src/audio/beds.test.ts`. Most of the growth is
+by running the suite on 2026-09-04, not copied forward. The files added since the
+last count are `src/audio/beds.test.ts`, `src/ui/claimMarking.test.ts`,
+`src/ui/chatWallpaper.test.ts`, `src/entitlements/pricing.test.ts` and
+`src/entitlements/offering.test.ts`. Most of the growth is
 translation: registering a pack in a locale runs every generic suite over it, and
 all sixty-four locale registrations (16 cases x 4 languages) are now in.
 
@@ -89,7 +93,7 @@ number has been wrong in this file twice — it said 86 when 15 packs existed, a
 in a document does not fail.
 
 **A green suite is not a playthrough.** It is worth being precise about what the
-4794 actually prove: that no case is unsolvable, no thread is unreachable, no
+4843 actually prove: that no case is unsolvable, no thread is unreachable, no
 contradiction fires that the author did not declare, and no translation drops an
 id. They prove nothing whatever about whether a case is *enjoyable*, whether a
 screen looks right, or whether a purchase completes.
@@ -327,17 +331,28 @@ ones anticipated:
 
 ## 7. Open bugs and unknowns
 
-**1. Entitlement identifier — RESOLVED 2026-08-11. Do not revert it.**
-The constant is **`case_pack_1`** — one digit, no leading zero
-(`src/entitlements/ids.ts`). It was `case_pack_01`, a real purchase unlocked
-nothing, and the owner confirmed the dashboard identifier cannot be changed, so
-the code moved to match it.
+**1. Entitlement identifier — moved again 2026-09-04. The constant is now
+`all_cases`.**
+`src/entitlements/ids.ts`. The Test Store would not let `case_pack_1` change
+price, so the owner created a new product, offering and entitlement — all three
+named `all_cases`, at $9.99 — and the constant moved to it.
 
-This section previously said the opposite: that an earlier session's change to
-`case_pack_1` was unverified and the constant was "back to `case_pack_01`". That
-is no longer true and following it would silently re-break purchases. The failure
-mode is the worst kind — `purchase()` succeeds, the receipt is valid, and the
-player pays for nothing with no error anywhere.
+`case_pack_1` is **still honoured**, via `LEGACY_PACK_ENTITLEMENTS`. Deleting it
+would silently revoke twelve cases from anybody who bought the old pack, and "we
+renamed a string" is not a reason to take away something somebody paid for. It
+is also the safety net for the offering being switched back in the dashboard.
+
+**This section said `case_pack_1` and "do not revert it" until 2026-09-04**, and
+before that it said `case_pack_01`. Each was true when written. Treat the
+constant in `ids.ts` and the `[entitlements] active:` log as the authority, never
+this paragraph — the failure mode is the worst kind, because `purchase()`
+succeeds, the receipt is valid, and the player pays for nothing with no error
+anywhere.
+
+**Two things must be true in the dashboard** or the whole flow is silently dead:
+the `all_cases` offering has to be set as **Current** (`getCasePackOffering()`
+reads `offerings.current`), and the entitlement identifier has to be exactly
+`all_cases`, character for character.
 
 `explainEntitlementGap()` (`src/entitlements/diagnosis.ts`) is what tells the two
 causes apart: a wrong constant, versus a dashboard that grants nothing at all. A
@@ -362,14 +377,17 @@ keystore already existed on EAS). It has not yet been installed on a real
 handset, so Android remains the least-exercised platform. The `development`
 (Debug + Metro) path on Android is still untried.
 
-**5. LICENSE is still Expo's.** `LICENSE` reads *"Copyright (c) 2015-present 650
-Industries, Inc. (aka Expo)"* — boilerplate from `create-expo-app`, never
-replaced. Shipping a judged repo under someone else's copyright is the kind of
-thing a judge notices. It needs a name, which is a decision rather than a fix.
+**5. LICENSE — FIXED.** MIT, `Copyright (c) 2026 Armaan Ebrahim`. It was Expo's
+`create-expo-app` boilerplate. Verified by reading the file, 2026-09-04.
 
-**6. The app icon is the Expo scaffold.** `assets/icon.png` is still the blue
-chevron **with the construction guides visible on it**. Verified by opening it,
-2026-08-12. It is the first thing on a store listing and in a demo video.
+**6. The app icon — FIXED.** `assets/icon.png` is the Canva mark (two
+overlapping speech bubbles on oxblood), not the Expo chevron. Alternates
+carrying a detective element were drawn on 2026-09-03 and **rejected — the owner
+prefers this one. Do not redo it.**
+
+The one real caveat is in §2's table and is still open: `app.json` sets `icon`
+with no `adaptiveIcon`, so Android launchers mask it to a circle and clip the
+bubble edges.
 
 **7. `docs/ARCHITECTURE.md` does not exist.** Task 18 Step 4. The README carries
 an architecture section, so this is a nice-to-have rather than a blocker.
@@ -639,6 +657,94 @@ the arc is ever reworked.
   still hiding.
 
 ---
+
+## 7k. The paywall sells two things now — 2026-09-04
+
+`app/paywall.tsx` was one package and one button. A locked tile linked to
+`/paywall` with no idea which case had been tapped, so the only thing it could
+ever offer was the pack.
+
+**The tile now carries its case id.** `/paywall?caseId=the-wake` draws two
+cards — this case, and all twelve with the reference figure struck through — one
+selection, one CTA, and the store's own `priceString` on both. Selection is a
+border plus a filled radio mark, not colour alone, because the two cards are
+otherwise one accent hue apart and that is not a safe way to tell somebody what
+a button is about to charge them.
+
+### The dashboard has to hold up its end
+
+The `$1` card **only renders when the store actually sells that product.** As of
+this writing it does not, so on the current dashboard the screen draws one card
+and looks like the old paywall. That is the intended behaviour, not a regression.
+
+Per case sold on its own, the dashboard needs a product `single_case_the_wake`,
+an entitlement of exactly the same name, both attached to the **current**
+offering. `access.ts` grants the case on that entitlement and
+`singleCaseEntitlement()` derives the string, so a seventeenth case is sellable
+with nothing to add in code.
+
+**The `single_case_` prefix is a security boundary, and a test proved it.** It
+was `case_`, and on its first run the new test found that a case with the id
+`pack-1` produced `case_pack_1` — *exactly* the old pack entitlement. Buying one
+case for a pound would have unlocked all twelve. The two prefixes are now
+disjoint for every possible input, which is a structural guarantee rather than a
+promise about which case ids somebody picks later.
+
+### Failures say which failure it was
+
+RevenueCat numbers every one of them, so `src/entitlements/offering.ts` maps the
+code rather than matching on a message that changes with the OS language.
+Offline, declined, already-owned, pending, in-progress, product-unavailable and
+a store outage each get their own sentence in all five languages. Cancelling
+stays silent — it is not an error and saying anything reads as an accusation.
+Already-owned starts a **restore** instead of a second charge.
+
+`FAILURE_MESSAGE_KEY` is a `Record<PurchaseFailure, StringKey>`, so the compiler
+demands an entry and `offering.test.ts` demands the catalogue actually has the
+sentence. That pair is what stops a new failure kind shipping as a blank line.
+
+**The eight-second settle timeout is the `case_pack_01` failure caught in the
+act.** Between the store saying yes and the entitlement arriving there is a
+window that a correct setup closes in well under a second. Anything past it means
+the money moved and the grant did not — the exact fault this file has now
+recorded three times — so the screen says so and points at Restore purchases
+instead of leaving somebody watching a spinner wondering whether they were
+charged.
+
+**App killed mid-payment needs no recovery code.** The store replays the purchase
+into `CustomerInfo`, `useEntitlements` reads it before the first screen paints,
+and the tile is simply open. The listener has always been the source of truth
+rather than the purchase call, which is why this costs nothing.
+
+### The route guard caught the first attempt
+
+The paywall computed `{ id, requiredEntitlementId: CASE_PACK_ENTITLEMENT }` to
+decide whether to close itself. `routeGuards.test.ts` fails any file under
+`app/` that mentions that field, because a route reasoning about it is a second
+definition of the lock rule — precisely how the grid and the route came to
+disagree the first time. `holdsCasePack()` in `access.ts` is the one definition
+it should have been asking. **The test was right and the code was wrong**, which
+is the argument for writing the rule as a test in the first place.
+
+### Also in this session
+
+- **Ten per-contact chat wallpapers** (`src/ui/wallpapers.ts`,
+  `ChatWallpaper.tsx`). Outlined line art on near-black, one per roster seat, so
+  no two contacts in a case share a backdrop. Assigned **by roster position, not
+  by hash** — the first hashed version put `tutorial:tom` and `tutorial:ivy` on
+  the same plum field, which is the one thing the feature exists to prevent.
+- **`src/ui/useTabBarClearance.ts`** — the native tab bar was sitting on top of
+  the confrontation tray, the evidence board and the accusation screen. Reported
+  from a screenshot. `unstable-native-tabs` exposes no height and
+  `@react-navigation/bottom-tabs` is not installed, so it is the platform's
+  documented bar height plus `insets.bottom`. Over-padding costs dead space;
+  under-padding hides a control the player has to tap, so the arithmetic is
+  deliberately generous.
+- **The marketplace idea was run through `/roast` and the verdict was KILL** —
+  user-authored cases sold with a 10% platform take. Not on merit: on the
+  calendar. It needs an author tool, moderation, payouts and a store review
+  posture, none of which exist, twenty-six days out from a deadline where the
+  deliverable is a video and a repo. The log is at `~/.claude/roast-log.md`.
 
 ## 7j. Three fixes that shipped and did nothing — 2026-09-03
 
@@ -1042,24 +1148,25 @@ remaining, and the Design Award is judged on craft alone.
 
 ### Next session, in order
 
-1. **Merge `feat/accounts-settings-i18n` to master.** It carries the tutorial,
-   autosave, resume, settings, audio model, accounts and all of i18n — the
-   majority of the last week's work — and it is unmerged. Everything else on
-   this list is smaller than the risk of leaving it there.
-2. **LICENSE and app icon** (§7 items 5 and 6). Both are judge-visible, both are
-   still scaffold defaults, and the LICENSE needs a *decision* rather than a fix.
-3. Evidence board craft pass (§8) — the highest-value design work remaining.
+1. **Watch a purchase complete.** This is the only hard eligibility requirement
+   — the SDK must power at least one in-app purchase — and it has **never been
+   observed**, through five builds. Everything in §7k is code that has only ever
+   been reasoned about. Nothing else on this list matters if this does not work.
+   The dashboard prerequisites are in §7 item 1.
+2. **Hear the audio on a real handset.** Four rounds of fixes, all still unheard
+   by a human (§7j). Android specifically, because the cause was an Android
+   audio-session flag.
+3. Evidence board craft pass (§8) — the highest-value design work remaining, and
+   the Design Award is judged on craft alone.
 4. Then Tasks 15, 17–21.
 
-   The mixed-language Continue card that used to head this list is **fixed**
-   (§7b). Translation of packs 7–15 is running in four background agents and is
-   not on the critical path — none of it is judge-visible before the free tier,
-   which has been complete in all four languages for a week.
+   The two items that headed this list for weeks — merging
+   `feat/accounts-settings-i18n`, and the LICENSE and icon — are all **done**,
+   and were done well before this file stopped saying so. See §2 and §7.
 
-**Two ship-blockers with no code in them:** the LICENSE still reads *"Copyright
-(c) 2015-present 650 Industries, Inc. (aka Expo)"*, and `assets/icon.png` is
-still the Expo chevron with construction guides visible. Neither is hard. Both
-are the first thing a judge sees.
+**The remaining judge-visible gaps are all device work:** five screenshots at
+1179×2556, the two-minute video, and an APK somebody has actually installed.
+None of them can be done from this machine.
 
 **All 15 packs are written** (2026-08-12), plus a tutorial, each with its own
 test file. The

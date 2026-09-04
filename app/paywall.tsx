@@ -401,7 +401,15 @@ function OptionCard(props: {
           {label}
         </Text>
       </View>
-      {was ? <Text style={styles.struck}>{was}</Text> : null}
+      {/*
+        The card without a struck figure still reserves its line.
+
+        Measured in the harness: without this the two prices sat twenty points
+        apart, and so did the two notes under them. Prices are the whole thing
+        being compared here, and a comparison whose numbers are not on one
+        baseline makes the reader do the aligning.
+      */}
+      {was ? <Text style={styles.struck}>{was}</Text> : <View style={styles.struckSpacer} />}
       <Text style={styles.cardPrice}>{price}</Text>
       {note ? (
         <Text style={styles.cardNote} numberOfLines={3}>
@@ -478,6 +486,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.sm,
     paddingVertical: 2,
     borderBottomLeftRadius: theme.radius.chip,
+    // Matches the card's own corner, so the pill fills it instead of leaving a
+    // square edge inside a rounded one.
+    borderTopRightRadius: theme.radius.chip + 4,
   },
   /**
    * 700, not 600. A named Android family resolves through `Typeface.create`,
@@ -510,6 +521,7 @@ const styles = StyleSheet.create({
     color: theme.color.textDim,
     textDecorationLine: 'line-through',
   },
+  struckSpacer: { height: theme.type.meta.lineHeight },
 
   cta: {
     minHeight: theme.hit.min + 6,
