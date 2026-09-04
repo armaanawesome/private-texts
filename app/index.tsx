@@ -340,7 +340,21 @@ function CaseTile({
    */
   return (
     <View style={styles.tile}>
-    <Link href={locked ? '/paywall' : `/case/${script.id}/threads`} asChild>
+    {/*
+      The case id travels with the tap.
+
+      Without it the paywall has no idea which case was locked, so it can only
+      offer the pack — and "unlock this one" is the whole reason somebody who
+      just tapped a single case would buy anything at all.
+    */}
+    <Link
+      href={
+        locked
+          ? { pathname: '/paywall', params: { caseId: script.id } }
+          : `/case/${script.id}/threads`
+      }
+      asChild
+    >
       <Pressable
         accessibilityRole="button"
         // The case title stays as authored — it is case content, not chrome.

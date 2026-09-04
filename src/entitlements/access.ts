@@ -30,7 +30,7 @@
  * the one component every case tab and the thread screen route through. A gate
  * at the destination cannot be walked around by arriving a different way.
  */
-import { LEGACY_PACK_ENTITLEMENTS } from './ids';
+import { CASE_PACK_ENTITLEMENT, LEGACY_PACK_ENTITLEMENTS } from './ids';
 
 /**
  * The one field gating needs. Structural rather than importing `CaseScript`, so
@@ -63,8 +63,10 @@ export interface GateableCase {
  * disjoint — the guarantee is structural rather than a promise about which case
  * ids somebody will choose later.
  */
+export const SINGLE_CASE_PREFIX = 'single_case_';
+
 export function singleCaseEntitlement(caseId: string): string {
-  return `single_case_${caseId.replace(/-/g, '_')}`;
+  return `${SINGLE_CASE_PREFIX}${caseId.replace(/-/g, '_')}`;
 }
 
 /**
@@ -94,6 +96,23 @@ export function isCaseUnlocked(
   if (entitlementIds.includes(required)) return true;
   if (LEGACY_PACK_ENTITLEMENTS.some((id) => entitlementIds.includes(id))) return true;
   return entitlementIds.includes(singleCaseEntitlement(script.id));
+}
+
+/**
+ * Whether they hold the pack — the one on sale now, or one that used to be.
+ *
+ * For the caller that has no case in hand: the paywall reached without a
+ * `caseId` is selling the pack and nothing else, so the pack is what closes it.
+ *
+ * It exists so that caller does not write `requiredEntitlementId` itself.
+ * `routeGuards.test.ts` fails any file under `app/` that mentions the field,
+ * because a route reasoning about it is a second definition of the lock rule,
+ * and a second definition is exactly how the grid and the route came to
+ * disagree the first time.
+ */
+export function holdsCasePack(entitlementIds: readonly string[]): boolean {
+  if (entitlementIds.includes(CASE_PACK_ENTITLEMENT)) return true;
+  return LEGACY_PACK_ENTITLEMENTS.some((id) => entitlementIds.includes(id));
 }
 
 export type CaseAccess =

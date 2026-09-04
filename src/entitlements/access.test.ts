@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCaseUnlocked, decideCaseAccess, singleCaseEntitlement } from './access';
+import { isCaseUnlocked, decideCaseAccess, singleCaseEntitlement, holdsCasePack } from './access';
 import { CASE_PACK_ENTITLEMENT } from './ids';
 
 /**
@@ -82,6 +82,31 @@ describe('isCaseUnlocked', () => {
     expect(isCaseUnlocked(PAID, [CASE_PACK_ENTITLEMENT, singleCaseEntitlement('the-wake')])).toBe(
       true,
     );
+  });
+});
+
+describe('holdsCasePack', () => {
+  /**
+   * The paywall's own question when it was opened with no case in hand. It must
+   * agree with `isCaseUnlocked` on the pack, or the screen either closes on
+   * somebody who bought nothing or stays open on somebody who bought everything.
+   */
+  it('accepts the pack on sale now and the one that used to be', () => {
+    expect(holdsCasePack(['all_cases'])).toBe(true);
+    expect(holdsCasePack(['case_pack_1'])).toBe(true);
+    expect(holdsCasePack(['nothing', 'all_cases'])).toBe(true);
+  });
+
+  it('is not satisfied by one case, or by nothing', () => {
+    expect(holdsCasePack([])).toBe(false);
+    expect(holdsCasePack([singleCaseEntitlement('the-wake')])).toBe(false);
+    expect(holdsCasePack(['case_pack_01'])).toBe(false);
+  });
+
+  it('agrees with isCaseUnlocked wherever the pack is what grants a case', () => {
+    for (const ids of [[], ['all_cases'], ['case_pack_1'], ['unrelated']]) {
+      expect(holdsCasePack(ids)).toBe(isCaseUnlocked(PAID, ids));
+    }
   });
 });
 

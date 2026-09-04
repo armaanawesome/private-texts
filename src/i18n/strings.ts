@@ -257,7 +257,46 @@ export const EN = {
   /** `{price}` is always the store's own localised price string, never a formatted number. */
   'paywall.unlock': 'Unlock · {price}',
   'paywall.unlockLabel': 'Unlock the case pack for {price}',
+  'paywall.unlockCaseLabel': 'Unlock this case for {price}',
   'paywall.notNow': 'Not now',
+
+  /**
+   * The two-option chooser. Shown only when the store actually sells this case
+   * on its own — otherwise the pack is the only thing on screen, and a heading
+   * announcing a choice would be describing one the player does not have.
+   */
+  'paywall.choose': 'Two ways in',
+  'paywall.option.single': 'This case',
+  'paywall.option.singleNote': 'Unlocks {title} on its own',
+  'paywall.option.bundle': 'All {count} cases',
+  'paywall.option.bundleNote': 'Every paid case, this one included',
+  'paywall.option.best': 'Best value',
+
+  /** Between the store saying yes and the entitlement arriving. Usually a blink. */
+  'paywall.settling': 'Confirming with the store…',
+  'paywall.done.title': 'Thank you for your purchase',
+  'paywall.done.body': 'Enjoy playing.',
+  'paywall.done.cta': 'Back to the cases',
+
+  /**
+   * One line per way a purchase can fail, because they need different actions
+   * from the player. A single "something went wrong" sends somebody with no
+   * signal off to check their card details.
+   */
+  'paywall.error.cancelled': 'Nothing was bought. You have not been charged.',
+  'paywall.error.offline':
+    'No connection to the store. Check your network and try again — nothing has been charged.',
+  'paywall.error.declined': 'The store turned the payment down. You have not been charged.',
+  'paywall.error.alreadyOwned': 'You already own this. Restoring it now.',
+  'paywall.error.pending':
+    'The payment is waiting for approval. It unlocks by itself once it clears.',
+  'paywall.error.inProgress': 'A purchase is already open. Finish that one first.',
+  'paywall.error.unavailable': 'That is not on sale on this device right now.',
+  'paywall.error.store': 'The store is having trouble. Try again in a moment.',
+  'paywall.error.unknown': 'The purchase did not go through. You have not been charged.',
+  /** Paid, but the entitlement never arrived — the failure `ids.ts` is about. */
+  'paywall.error.notGranted':
+    'The payment went through but the cases have not unlocked yet. Try Restore purchases.',
 } as const;
 
 export type StringKey = keyof typeof EN;
@@ -468,6 +507,30 @@ const ES: Catalogue = {
   'paywall.unlock': 'Desbloquear · {price}',
   'paywall.unlockLabel': 'Desbloquear el pack de casos por {price}',
   'paywall.notNow': 'Ahora no',
+  'paywall.unlockCaseLabel': 'Desbloquear este caso por {price}',
+  'paywall.choose': 'Dos maneras de entrar',
+  'paywall.option.single': 'Este caso',
+  'paywall.option.singleNote': 'Desbloquea {title} por separado',
+  'paywall.option.bundle': 'Los {count} casos',
+  'paywall.option.bundleNote': 'Todos los casos de pago, este incluido',
+  'paywall.option.best': 'La mejor opción',
+  'paywall.settling': 'Confirmando con la tienda…',
+  'paywall.done.title': 'Gracias por tu compra',
+  'paywall.done.body': 'Que lo disfrutes.',
+  'paywall.done.cta': 'Volver a los casos',
+  'paywall.error.cancelled': 'No se ha comprado nada. No se te ha cobrado.',
+  'paywall.error.offline':
+    'Sin conexión con la tienda. Revisa tu red e inténtalo de nuevo: no se te ha cobrado nada.',
+  'paywall.error.declined': 'La tienda rechazó el pago. No se te ha cobrado.',
+  'paywall.error.alreadyOwned': 'Ya es tuyo. Restaurándolo ahora.',
+  'paywall.error.pending':
+    'El pago está pendiente de aprobación. Se desbloqueará solo en cuanto se apruebe.',
+  'paywall.error.inProgress': 'Ya hay una compra abierta. Termina esa primero.',
+  'paywall.error.unavailable': 'Eso no está a la venta en este dispositivo ahora mismo.',
+  'paywall.error.store': 'La tienda está teniendo problemas. Inténtalo de nuevo en un momento.',
+  'paywall.error.unknown': 'La compra no se completó. No se te ha cobrado.',
+  'paywall.error.notGranted':
+    'El pago se realizó, pero los casos aún no se han desbloqueado. Prueba con Restaurar compras.',
 };
 
 /**
@@ -683,6 +746,30 @@ const FR: Catalogue = {
   'paywall.unlock': 'Déverrouiller · {price}',
   'paywall.unlockLabel': 'Déverrouiller le pack d’affaires pour {price}',
   'paywall.notNow': 'Plus tard',
+  'paywall.unlockCaseLabel': 'Déverrouiller cette affaire pour {price}',
+  'paywall.choose': 'Deux façons d’entrer',
+  'paywall.option.single': 'Cette affaire',
+  'paywall.option.singleNote': 'Déverrouille {title} seule',
+  'paywall.option.bundle': 'Les {count} affaires',
+  'paywall.option.bundleNote': 'Toutes les affaires payantes, celle-ci comprise',
+  'paywall.option.best': 'Le meilleur choix',
+  'paywall.settling': 'Confirmation auprès de la boutique…',
+  'paywall.done.title': 'Merci pour votre achat',
+  'paywall.done.body': 'Bon jeu.',
+  'paywall.done.cta': 'Retour aux affaires',
+  'paywall.error.cancelled': 'Rien n’a été acheté. Vous n’avez pas été débité.',
+  'paywall.error.offline':
+    'Pas de connexion à la boutique. Vérifiez votre réseau et réessayez : rien n’a été débité.',
+  'paywall.error.declined': 'La boutique a refusé le paiement. Vous n’avez pas été débité.',
+  'paywall.error.alreadyOwned': 'Vous le possédez déjà. Restauration en cours.',
+  'paywall.error.pending':
+    'Le paiement attend une approbation. Le déverrouillage se fera tout seul une fois validé.',
+  'paywall.error.inProgress': 'Un achat est déjà en cours. Terminez-le d’abord.',
+  'paywall.error.unavailable': 'Ce n’est pas en vente sur cet appareil pour le moment.',
+  'paywall.error.store': 'La boutique rencontre un problème. Réessayez dans un instant.',
+  'paywall.error.unknown': 'L’achat n’a pas abouti. Vous n’avez pas été débité.',
+  'paywall.error.notGranted':
+    'Le paiement est passé mais les affaires ne sont pas encore déverrouillées. Essayez Restaurer les achats.',
 };
 
 /**
@@ -892,6 +979,30 @@ const DE: Catalogue = {
   'paywall.unlock': 'Freischalten · {price}',
   'paywall.unlockLabel': 'Das Fallpaket für {price} freischalten',
   'paywall.notNow': 'Später',
+  'paywall.unlockCaseLabel': 'Diesen Fall für {price} freischalten',
+  'paywall.choose': 'Zwei Wege hinein',
+  'paywall.option.single': 'Dieser Fall',
+  'paywall.option.singleNote': 'Schaltet nur {title} frei',
+  'paywall.option.bundle': 'Alle {count} Fälle',
+  'paywall.option.bundleNote': 'Jeder kostenpflichtige Fall, dieser eingeschlossen',
+  'paywall.option.best': 'Bestes Angebot',
+  'paywall.settling': 'Wird mit dem Store bestätigt…',
+  'paywall.done.title': 'Danke für deinen Kauf',
+  'paywall.done.body': 'Viel Spaß beim Spielen.',
+  'paywall.done.cta': 'Zurück zu den Fällen',
+  'paywall.error.cancelled': 'Es wurde nichts gekauft. Dir wurde nichts berechnet.',
+  'paywall.error.offline':
+    'Keine Verbindung zum Store. Prüfe dein Netz und versuch es noch einmal — berechnet wurde nichts.',
+  'paywall.error.declined': 'Der Store hat die Zahlung abgelehnt. Dir wurde nichts berechnet.',
+  'paywall.error.alreadyOwned': 'Das gehört dir bereits. Wird jetzt wiederhergestellt.',
+  'paywall.error.pending':
+    'Die Zahlung wartet auf eine Freigabe. Sobald sie durch ist, schaltet sich das von selbst frei.',
+  'paywall.error.inProgress': 'Ein Kauf läuft bereits. Schließ den zuerst ab.',
+  'paywall.error.unavailable': 'Das ist auf diesem Gerät gerade nicht im Verkauf.',
+  'paywall.error.store': 'Der Store hat gerade Probleme. Versuch es gleich noch einmal.',
+  'paywall.error.unknown': 'Der Kauf ist nicht durchgegangen. Dir wurde nichts berechnet.',
+  'paywall.error.notGranted':
+    'Die Zahlung ist durch, aber die Fälle sind noch nicht freigeschaltet. Versuch es mit Käufe wiederherstellen.',
 };
 
 const PT_BR: Catalogue = {
@@ -1094,6 +1205,30 @@ const PT_BR: Catalogue = {
   'paywall.unlock': 'Desbloquear · {price}',
   'paywall.unlockLabel': 'Desbloquear o pacote de casos por {price}',
   'paywall.notNow': 'Agora não',
+  'paywall.unlockCaseLabel': 'Desbloquear este caso por {price}',
+  'paywall.choose': 'Duas formas de entrar',
+  'paywall.option.single': 'Este caso',
+  'paywall.option.singleNote': 'Desbloqueia {title} sozinho',
+  'paywall.option.bundle': 'Os {count} casos',
+  'paywall.option.bundleNote': 'Todos os casos pagos, este incluído',
+  'paywall.option.best': 'Melhor escolha',
+  'paywall.settling': 'Confirmando com a loja…',
+  'paywall.done.title': 'Obrigado pela sua compra',
+  'paywall.done.body': 'Bom jogo.',
+  'paywall.done.cta': 'Voltar aos casos',
+  'paywall.error.cancelled': 'Nada foi comprado. Você não foi cobrado.',
+  'paywall.error.offline':
+    'Sem conexão com a loja. Confira sua rede e tente de novo: nada foi cobrado.',
+  'paywall.error.declined': 'A loja recusou o pagamento. Você não foi cobrado.',
+  'paywall.error.alreadyOwned': 'Isso já é seu. Restaurando agora.',
+  'paywall.error.pending':
+    'O pagamento está esperando aprovação. Assim que passar, desbloqueia sozinho.',
+  'paywall.error.inProgress': 'Já existe uma compra aberta. Termine aquela primeiro.',
+  'paywall.error.unavailable': 'Isso não está à venda neste aparelho agora.',
+  'paywall.error.store': 'A loja está com problemas. Tente de novo daqui a pouco.',
+  'paywall.error.unknown': 'A compra não foi concluída. Você não foi cobrado.',
+  'paywall.error.notGranted':
+    'O pagamento passou, mas os casos ainda não desbloquearam. Tente Restaurar compras.',
 };
 
 export const CATALOGUES: Readonly<Record<LocaleTag, Catalogue>> = {
