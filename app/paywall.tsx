@@ -27,7 +27,9 @@ type Phase =
   | { kind: 'unavailable'; reason: Message }
   /** Paid. Waiting for the entitlement to arrive on the listener. */
   | { kind: 'settling' }
-  | { kind: 'purchased' };
+  | { kind: 'purchased' }
+  /** The store said no. `reason` is the classified sentence, not a generic one. */
+  | { kind: 'failed'; reason: Message };
 
 /**
  * How long to wait for an entitlement after the store says yes.
@@ -174,8 +176,7 @@ export default function PaywallScreen() {
   useEffect(() => {
     if (phase.kind !== 'settling') return;
     const timer = setTimeout(() => {
-      setPhase({ kind: 'ready' });
-      setProblem({ key: 'paywall.error.notGranted' });
+      setPhase({ kind: 'failed', reason: { key: 'paywall.error.notGranted' } });
     }, SETTLE_TIMEOUT_MS);
     return () => clearTimeout(timer);
   }, [phase.kind]);
@@ -215,13 +216,17 @@ export default function PaywallScreen() {
     const failure = classifyPurchaseFailure(outcome.error);
     if (failure === 'cancelled') return;
     if (failure === 'alreadyOwned') {
-      // They own it and this device does not know. A second charge is the wrong
-      // answer; a restore is the right one, so just do it.
+      /*
+       * Not a failure page. They own it and this device does not know, so the
+       * repair is a restore, not a second charge — and putting "your payment was
+       * not completed" in front of somebody who has already paid would be the
+       * worst sentence available here.
+       */
       setProblem({ key: FAILURE_MESSAGE_KEY.alreadyOwned });
       void restore();
       return;
     }
-    setProblem({ key: FAILURE_MESSAGE_KEY[failure] });
+    setPhase({ kind: 'failed', reason: { key: FAILURE_MESSAGE_KEY[failure] } });
   }
 
   if (phase.kind === 'purchased') {
@@ -240,6 +245,44 @@ export default function PaywallScreen() {
           style={({ pressed }) => [styles.cta, styles.doneCta, pressed && styles.pressed]}
         >
           <Text style={styles.ctaText}>{t('paywall.done.cta')}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  if (phase.kind === 'failed') {
+    return (
+      <View style={styles.done}>
+        {/*
+          The same ring as the confirmation, in danger, carrying "!" instead of
+          a tick. Two screens that mean opposite things should be recognisably
+          the same object — it is the mark and the colour that differ, not the
+          layout, so nobody has to re-read the page to work out what happened.
+        */}
+        <View style={[styles.doneMark, styles.failedMark]}>
+          <Text style={[styles.doneTick, styles.failedTick]}>!</Text>
+        </View>
+        <Text style={styles.doneTitle}>{t('paywall.failedTitle')}</Text>
+        {/* The classified reason. "No connection to the store" and "the store
+            turned the payment down" ask for different things from the player,
+            and every one of these lines also says whether they were charged. */}
+        <Text style={styles.doneBody}>{render(phase.reason, t)}</Text>
+        <Pressable
+          onPress={() => {
+            setProblem(null);
+            setPhase({ kind: 'ready' });
+          }}
+          accessibilityRole="button"
+          style={({ pressed }) => [styles.cta, styles.doneCta, pressed && styles.pressed]}
+        >
+          <Text style={styles.ctaText}>{t('common.retry')}</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => router.back()}
+          accessibilityRole="button"
+          hitSlop={theme.hit.slop}
+        >
+          <Text style={styles.notNow}>{t('paywall.notNow')}</Text>
         </Pressable>
       </View>
     );
@@ -576,6 +619,10 @@ const styles = StyleSheet.create({
     marginBottom: theme.space.sm,
   },
   doneTick: { fontSize: 30, lineHeight: 36, color: theme.color.solved, fontWeight: '700' },
+  /* `danger` is the non-text token and is used as the ring here; the glyph
+     inside takes `dangerText`, which is the one that passes contrast. */
+  failedMark: { borderColor: theme.color.danger },
+  failedTick: { color: theme.color.dangerText },
   doneTitle: { ...theme.type.title, color: theme.color.text, textAlign: 'center' },
   doneBody: { ...theme.type.body, color: theme.color.textDim, textAlign: 'center' },
   doneCta: { alignSelf: 'stretch', marginTop: theme.space.lg, paddingHorizontal: theme.space.lg },

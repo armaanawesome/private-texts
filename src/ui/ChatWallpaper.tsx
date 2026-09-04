@@ -271,7 +271,26 @@ function ChatWallpaperImpl({ seed, index }: { seed: string; index: number }) {
      * conversation, and the message list's tap-to-advance and its scrolling both
      * have to pass straight through it.
      */
-    <View style={[StyleSheet.absoluteFill, { backgroundColor: paper.field }]} pointerEvents="none">
+    <View
+      style={[StyleSheet.absoluteFill, { backgroundColor: paper.field }]}
+      pointerEvents="none"
+      /*
+       * Flattened to a single texture, because this layer is about 160 views
+       * that never change.
+       *
+       * Counted from the source: roughly 42 of the 50 grid cells are drawn, and
+       * each motif is a wrapper plus 2.8 views on average. Every one of them is
+       * a real native view the compositor walks each frame, sitting underneath a
+       * conversation that repaints on every tap.
+       *
+       * Rasterising is right here and nowhere else in the app: the content is
+       * decorative, static for the life of the thread, and already
+       * `pointerEvents="none"`. Nothing inside it animates, so there is no cache
+       * to invalidate — which is the usual reason not to do this.
+       */
+      shouldRasterizeIOS
+      renderToHardwareTextureAndroid
+    >
       {cells}
     </View>
   );

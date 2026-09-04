@@ -132,7 +132,45 @@ function ChatBubbleImpl({ message, sender, isOwn, geometry, onPressClaims, reduc
   );
 }
 
-export const ChatBubble = memo(ChatBubbleImpl);
+/**
+ * The memo was already here and did nothing, and that is why the game slowed
+ * down the longer a conversation ran.
+ *
+ * `memo` compares props shallowly, and `MessageList` hands this component two
+ * props that are freshly built on every single render:
+ *
+ *     geometry={{ first, last }}                 // a new object each time
+ *     onPressClaims={() => onPressClaims(m.id)}  // a new closure each time
+ *
+ * Both fail `===`, so every bubble re-rendered on every tap. Revealing the
+ * fortieth message re-rendered forty bubbles, each an `Animated.View` with
+ * children — so the cost of a tap grew with the conversation, which is exactly
+ * the reported "tapping fast made it slower and the graphics got worse".
+ *
+ * Comparing by value fixes it without changing a single call site. Rebuilding
+ * the props stably in MessageList would work too, but it would mean a `useMemo`
+ * over the whole list and a signature change reaching `StaticBubble`, for the
+ * same result.
+ *
+ * **Ignoring `onPressClaims` is safe, and only because of what it is.** The
+ * closure captures `m.id` — fixed for the life of the bubble — and the
+ * `onPressClaims` MessageList was given, which is `setSheetFor`, a `useState`
+ * setter React guarantees is stable. There is no changing state for a stale
+ * closure to capture. If that callback ever becomes something that closes over
+ * state, this comparator has to start comparing it.
+ */
+export function sameBubble(a: Props, b: Props): boolean {
+  return (
+    a.message === b.message &&
+    a.sender === b.sender &&
+    a.isOwn === b.isOwn &&
+    a.reduceMotion === b.reduceMotion &&
+    a.geometry.first === b.geometry.first &&
+    a.geometry.last === b.geometry.last
+  );
+}
+
+export const ChatBubble = memo(ChatBubbleImpl, sameBubble);
 
 /** Same visual, no interaction — used for the lifted copy in the claim menu. */
 export const StaticBubble = forwardRef<View, Omit<Props, 'onPressClaims' | 'reduceMotion'>>(

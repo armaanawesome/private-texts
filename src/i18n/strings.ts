@@ -328,6 +328,12 @@ export const EN = {
   'paywall.done.title': 'Thank you for your purchase',
   'paywall.done.body': 'Enjoy playing.',
   'paywall.done.cta': 'Back to the cases',
+  /**
+   * The failed page. The BODY is the classified reason from `offering.ts`, not a
+   * generic line — "no connection to the store" and "the store turned the
+   * payment down" need different things from the player.
+   */
+  'paywall.failedTitle': 'Your payment was not completed',
 
   /**
    * One line per way a purchase can fail, because they need different actions
@@ -599,6 +605,7 @@ const ES: Catalogue = {
   'paywall.done.title': 'Gracias por tu compra',
   'paywall.done.body': 'Que lo disfrutes.',
   'paywall.done.cta': 'Volver a los casos',
+  'paywall.failedTitle': 'Tu pago no se completó',
   'paywall.error.cancelled': 'No se ha comprado nada. No se te ha cobrado.',
   'paywall.error.offline':
     'Sin conexión con la tienda. Revisa tu red e inténtalo de nuevo: no se te ha cobrado nada.',
@@ -868,6 +875,7 @@ const FR: Catalogue = {
   'paywall.done.title': 'Merci pour votre achat',
   'paywall.done.body': 'Bon jeu.',
   'paywall.done.cta': 'Retour aux affaires',
+  'paywall.failedTitle': 'Votre paiement n’a pas abouti',
   'paywall.error.cancelled': 'Rien n’a été acheté. Vous n’avez pas été débité.',
   'paywall.error.offline':
     'Pas de connexion à la boutique. Vérifiez votre réseau et réessayez : rien n’a été débité.',
@@ -1131,6 +1139,7 @@ const DE: Catalogue = {
   'paywall.done.title': 'Danke für deinen Kauf',
   'paywall.done.body': 'Viel Spaß beim Spielen.',
   'paywall.done.cta': 'Zurück zu den Fällen',
+  'paywall.failedTitle': 'Deine Zahlung wurde nicht abgeschlossen',
   'paywall.error.cancelled': 'Es wurde nichts gekauft. Dir wurde nichts berechnet.',
   'paywall.error.offline':
     'Keine Verbindung zum Store. Prüfe dein Netz und versuch es noch einmal — berechnet wurde nichts.',
@@ -1387,6 +1396,7 @@ const PT_BR: Catalogue = {
   'paywall.done.title': 'Obrigado pela sua compra',
   'paywall.done.body': 'Bom jogo.',
   'paywall.done.cta': 'Voltar aos casos',
+  'paywall.failedTitle': 'Seu pagamento não foi concluído',
   'paywall.error.cancelled': 'Nada foi comprado. Você não foi cobrado.',
   'paywall.error.offline':
     'Sem conexão com a loja. Confira sua rede e tente de novo: nada foi cobrado.',
