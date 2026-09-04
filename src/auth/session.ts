@@ -137,6 +137,23 @@ export function describeAuthError(raw: string | null | undefined): Message {
   if (/rate limit|too many requests|for security purposes/i.test(message)) {
     return { key: 'auth.error.rateLimit' };
   }
+  /*
+   * The three the password-reset flow can produce.
+   *
+   * The leaked-password one earns its own sentence rather than falling through
+   * to `raw`: it is the single rejection a player can hit with every rule on the
+   * screen showing green, so naming it is the difference between a clear
+   * instruction and an apparent bug.
+   */
+  if (/token has expired|invalid.*token|otp.*(expired|invalid)|invalid.*code/i.test(message)) {
+    return { key: 'auth.error.badCode' };
+  }
+  if (/easy to guess|known to be weak|pwned|leaked|compromised/i.test(message)) {
+    return { key: 'auth.error.leakedPassword' };
+  }
+  if (/different from the old password|should be different/i.test(message)) {
+    return { key: 'auth.error.samePassword' };
+  }
   if (/network|fetch|timeout|failed to fetch|connection/i.test(message)) {
     return { key: 'auth.error.network' };
   }

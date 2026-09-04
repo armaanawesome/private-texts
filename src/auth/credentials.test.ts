@@ -10,7 +10,7 @@ const signUp = (email: string, password: string) =>
 describe('validateCredentials', () => {
   it('accepts a filled-in form', () => {
     expect(signIn('alex@example.com', 'hunter22')).toBeNull();
-    expect(signUp('alex@example.com', 'hunter22')).toBeNull();
+    expect(signUp('alex@example.com', 'Hunter22!')).toBeNull();
   });
 
   describe('email', () => {
@@ -64,12 +64,15 @@ describe('validateCredentials', () => {
      * minimum and still be refused, and the message has to name the rule that
      * actually failed rather than the length it already satisfies.
      */
-    it('requires a letter and a digit when creating an account', () => {
+    it('requires every character class the dashboard asks for', () => {
       expect(signUp('alex@example.com', 'a'.repeat(MIN_PASSWORD_LENGTH))?.message).toEqual({
-        key: 'signIn.rule.number',
+        key: 'signIn.rule.uppercase',
       });
       expect(signUp('alex@example.com', '12345678')?.message).toEqual({
-        key: 'signIn.rule.letter',
+        key: 'signIn.rule.lowercase',
+      });
+      expect(signUp('alex@example.com', 'Bakehouse1')?.message).toEqual({
+        key: 'signIn.rule.symbol',
       });
     });
 
@@ -85,7 +88,7 @@ describe('validateCredentials', () => {
     });
 
     it('accepts a password of exactly the minimum length that meets the rules', () => {
-      const shortest = `${'a'.repeat(MIN_PASSWORD_LENGTH - 1)}1`;
+      const shortest = `Aa1!${'b'.repeat(MIN_PASSWORD_LENGTH - 4)}`;
       expect(shortest).toHaveLength(MIN_PASSWORD_LENGTH);
       expect(signUp('alex@example.com', shortest)).toBeNull();
     });
@@ -94,7 +97,7 @@ describe('validateCredentials', () => {
       // Spaces are legal password characters and trimming them would silently
       // send something other than what was typed. The spaces count toward the
       // length, which is the point: what is sent is what was typed.
-      expect(signUp('alex@example.com', '  abcd1  ')).toBeNull();
+      expect(signUp('alex@example.com', ' Abcd1! ')).toBeNull();
     });
 
     /*
@@ -103,7 +106,16 @@ describe('validateCredentials', () => {
      * shows three green ticks and then refuses is worse than no checklist.
      */
     it('agrees with the checklist the screen draws, for every candidate', () => {
-      for (const candidate of ['', 'a', 'abc', 'abcdefgh', '12345678', 'hunter22', 'contraseña7']) {
+      for (const candidate of [
+        '',
+        'a',
+        'abc',
+        'abcdefgh',
+        '12345678',
+        'hunter22',
+        'Contraseña7!',
+        'Bakehouse1',
+      ]) {
         const blocked = signUp('alex@example.com', candidate) !== null;
         expect(blocked).toBe(!checkPassword(candidate).meetsPolicy);
       }

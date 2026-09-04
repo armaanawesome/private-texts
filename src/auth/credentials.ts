@@ -53,8 +53,10 @@ export function normaliseEmail(email: string): string {
  */
 export const RULE_MESSAGE_KEY: Readonly<Record<PasswordRuleId, StringKey>> = {
   length: 'signIn.rule.length',
-  letter: 'signIn.rule.letter',
+  lowercase: 'signIn.rule.lowercase',
+  uppercase: 'signIn.rule.uppercase',
   number: 'signIn.rule.number',
+  symbol: 'signIn.rule.symbol',
 };
 
 export function validateCredentials(input: {

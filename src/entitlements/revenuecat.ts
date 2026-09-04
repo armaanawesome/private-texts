@@ -8,6 +8,7 @@ export { CASE_PACK_ENTITLEMENT } from './ids';
 import { CASE_PACK_ENTITLEMENT } from './ids';
 import { decidePurchasesMode, type PurchasesMode } from './keyPolicy';
 import { isAnonymousId } from './identity';
+import { singleCaseEntitlement } from './access';
 import {
   explainEntitlementGap,
   type EntitlementEvidence,
@@ -68,6 +69,41 @@ export async function getCasePackOffering(): Promise<PurchasesOffering | null> {
   if (!purchasesAreLive()) return null;
   const offerings = await Purchases.getOfferings();
   return offerings.current;
+}
+
+export interface CaseOfferings {
+  /** The offering marked Current in the dashboard. Holds the pack. */
+  readonly current: PurchasesOffering | null;
+  /** The offering named after this one case, if the dashboard has one. */
+  readonly forCase: PurchasesOffering | null;
+}
+
+/**
+ * Everything on sale for one case, across however many offerings it takes.
+ *
+ * ## Why this is not just `offerings.current`
+ *
+ * Confirmed against the live catalogue on 2026-09-05: the dashboard holds
+ * **thirteen offerings**, not one. `all_cases` is Current and contains a single
+ * package; each case is its own offering named `single_case_<id>`, also with a
+ * single package. Reading only `offerings.current` therefore finds the pack and
+ * nothing else, and the per-case card never appears no matter how many products
+ * have been created.
+ *
+ * Both shapes are legitimate RevenueCat — one offering with thirteen packages
+ * would work identically — so the app reads both rather than demanding the
+ * dashboard be rebuilt around one of them. `offerings.all` is keyed by offering
+ * identifier, and that key is the same string `singleCaseEntitlement()` derives,
+ * which makes the lookup exact rather than a search.
+ */
+export async function getCaseOfferings(caseId?: string): Promise<CaseOfferings> {
+  if (!purchasesAreLive()) return { current: null, forCase: null };
+  const offerings = await Purchases.getOfferings();
+  const wanted = caseId === undefined ? null : singleCaseEntitlement(caseId);
+  return {
+    current: offerings.current,
+    forCase: wanted === null ? null : (offerings.all[wanted] ?? null),
+  };
 }
 
 export type PurchaseOutcome =

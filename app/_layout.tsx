@@ -35,6 +35,14 @@ const paywallOptions = {
 const debugOptions = { title: 'Test Store harness' } as const;
 
 /**
+ * Empty title, like the paywall's: the screen carries its own heading, and an
+ * untranslated one in the bar would be the only English on screen for four of
+ * the five languages. Not a modal — it is the second step of a flow that started
+ * on the sign-in screen, so back belongs there.
+ */
+const resetOptions = { title: '' } as const;
+
+/**
  * No bar at all on the front door.
  *
  * The screen carries its own wordmark, and a header here would offer a back
@@ -172,6 +180,7 @@ export default function RootLayout() {
         <Stack.Screen name="landing" options={landingOptions} />
         <Stack.Screen name="paywall" options={paywallOptions} />
         <Stack.Screen name="debug" options={debugOptions} />
+        <Stack.Screen name="reset-password" options={resetOptions} />
       </Stack>
     </GestureHandlerRootView>
   );

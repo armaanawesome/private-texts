@@ -118,10 +118,10 @@ Then **+ New package** inside it:
 | Identifier | `$rc_lifetime` |
 | Attached product | `all_cases` |
 
-> **`getCasePackOffering()` reads `offerings.current` and nothing else.** An
-> offering that is not marked current is invisible to the app, which then reports
-> "The store has nothing to sell right now." If you build a second offering and
-> forget this switch, that is the symptom.
+> **The pack must live in the offering marked Current.** `getCaseOfferings()`
+> reads `offerings.current` for it, so an offering that is not current is
+> invisible and the app reports "The store has nothing to sell right now." The
+> per-case offerings in §6 are looked up by name instead and do not need this.
 
 **Stop here if you chose "pack only" in §0.** Skip to §7.
 
@@ -157,6 +157,14 @@ anything; reuse the product string to keep it simple.
 The four free cases — `tutorial`, `the-lighthouse`, `the-night-round`,
 `the-understudy` — get nothing. They are not gated.
 
+> **Either dashboard shape works.** Verified against the live catalogue on
+> 2026-09-05: it holds **thirteen offerings** — `all_cases` marked Current with
+> one package, and each case as its own offering named `single_case_<id>`. One
+> offering carrying thirteen packages would work identically. `getCaseOfferings`
+> reads `offerings.current` **and** `offerings.all[single_case_<id>]`, so neither
+> layout needs rebuilding. Reading only `current` was the bug that made a fully
+> populated dashboard still draw one card.
+
 > **Never name a per-case product `case_pack_1` or `all_cases`.** The
 > `single_case_` prefix exists because a test caught `case_` colliding: a case id
 > of `pack-1` produced exactly `case_pack_1`, and a $0.99 purchase would have
@@ -164,23 +172,73 @@ The four free cases — `tutorial`, `the-lighthouse`, `the-night-round`,
 
 ---
 
-## 7. Supabase, so purchases follow the account
+## 7. Supabase — and the Site URL question
 
-Two settings, both in the Supabase dashboard. Neither is optional now that the
-app calls `Purchases.logIn`.
+### Site URL: `privatetexts://`
 
-1. **Authentication → URL Configuration → Site URL.** The password-reset email
-   sends people here. Unset, the link goes nowhere useful.
-2. **Authentication → Policies.** Set a minimum password length of **8** to match
-   the client, and switch on **leaked password protection** — it checks against
-   Have I Been Pwned, which is strictly better than any word list the app could
-   ship.
+**Correction to an earlier version of this file, which said Supabase hosts an
+update-password page. It does not.** Its recovery link runs `/auth/v1/verify`
+and then redirects to your Site URL with the tokens in the fragment — the page
+at that URL is expected to do the work. With the default
+`http://localhost:3000`, every reset email on a phone lands on nothing.
 
-The app passes the Supabase `user.id` UUID to RevenueCat as the app user id, so a
-purchase belongs to the account rather than to the handset. Nothing to configure
-for that; it is code.
+Set **Authentication → URL Configuration → Site URL** to the app's own scheme:
 
----
+```
+privatetexts://
+```
+
+(That is the `scheme` in `app.json`. The name predates the rename to Read
+Receipts; changing it would invalidate every link already sent, so it stays.)
+
+Add the same value under **Redirect URLs**.
+
+This matters mainly for the **email-confirmation** link on sign-up. Clicking it
+confirms the account server-side before the redirect happens, so the account is
+confirmed either way — the Site URL only decides whether the player lands back
+in the app or on a browser error. `privatetexts://` gives them the app.
+
+### The reset itself uses a code, not the link
+
+Because there is no web page to receive those tokens, the app finishes the reset
+with the emailed **one-time code** instead. Your dashboard already has *Email OTP
+length 8* and *expiration 3600s*, which is exactly what this needs.
+
+One edit: **Authentication → Emails → Reset Password**. Add the token to the
+template so the code is visible. Keep the link if you like; it is the code that
+is used.
+
+```html
+<h2>Reset your password</h2>
+<p>Enter this code in Read Receipts:</p>
+<p style="font-size:28px;letter-spacing:6px;"><b>{{ .Token }}</b></p>
+<p>It expires in an hour. If you did not ask for this, ignore this email.</p>
+```
+
+`app/reset-password.tsx` takes that code plus a new password, calls `verifyOtp`
+and then `updateUser`, and the player ends up signed in.
+
+### Password policy
+
+Already set, and the app now mirrors it exactly — minimum **8**, with
+**lowercase, uppercase, digits and symbols**. `src/auth/passwordStrength.ts`
+draws those five rules as a live checklist and blocks the submit on the same
+function.
+
+**If you change the policy in the dashboard, change that file too.** A checklist
+showing five green ticks against a server that then refuses is worse than no
+checklist — it turns a small correction into a mystery.
+
+**Leaked-password protection is on**, which is the one rejection the client
+cannot predict: every rule can be green and Supabase will still refuse a
+password found in a breach. `describeAuthError` recognises that response and
+says so in all five languages, rather than falling through to raw server text.
+
+### Purchases follow the account
+
+The app passes the Supabase `user.id` UUID to RevenueCat as the app user id, so
+a purchase belongs to the account rather than the handset. Nothing to configure;
+it is code.
 
 ## 8. Verify, in this order
 

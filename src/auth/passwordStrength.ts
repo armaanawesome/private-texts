@@ -3,37 +3,35 @@
  *
  * Pure and import-free so the Node suite covers it, and so the same rules serve
  * two places that must not disagree: the live checklist under the field, and the
- * check that blocks the submit. A screen showing three green ticks that then
- * refuses to submit is worse than no checklist at all.
+ * check that blocks the submit.
  *
- * ## This is a usability control, not a security control
+ * ## These rules MIRROR the Supabase dashboard. They do not invent policy.
  *
- * Nothing here is trusted. Supabase enforces the real minimum server-side, and
- * anybody can bypass this file by talking to the API directly. Its job is to stop
- * somebody choosing `dog` and finding out only after a round trip, and to say
- * what is missing while they can still see the field.
+ * Authentication → Policies is set to **minimum 8** and **"Lowercase, uppercase
+ * letters, digits and symbols"**, so those are the five rules below. The server
+ * is the authority; this file exists so somebody learns what is missing while
+ * they can still see the field, rather than after a round trip.
  *
- * **The stronger protection is server-side and belongs in the dashboard**:
- * Authentication → Policies carries a minimum length and a leaked-password check
- * against Have I Been Pwned. A list of banned passwords maintained here would be
- * a worse version of something the platform already does properly, so there is
- * not one.
+ * **When the dashboard changes, this file changes with it.** A checklist showing
+ * green ticks against a server that then refuses is worse than no checklist at
+ * all — it turns a small correction into a mystery. Not hypothetical: this file
+ * asked for a letter and a digit while the dashboard asked for four character
+ * classes, so `bakehouse1` passed here and would have been rejected there.
  *
- * ## Why the minimum is 8 and not Supabase's default 6
- *
- * Six characters with no other requirement admits `abcdef`. Eight with a letter
- * and a digit is the floor most people already expect and costs a player nothing
- * they will notice. It applies to NEW passwords only — see credentials.ts for why
- * enforcing it at sign-in would lock people out of their own accounts.
+ * Leaked-password protection is on in the same panel, checking Have I Been
+ * Pwned. Nothing here duplicates it — a word list maintained in the client would
+ * be a worse version of something the platform already does properly — and it is
+ * one reason a sign-up can still fail with every rule below satisfied.
  */
 
+/** Matches "Minimum password length" in the dashboard. */
 export const MIN_PASSWORD_LENGTH = 8;
 
 /** The length at which a password stops being merely long enough. */
 const COMFORTABLE_LENGTH = 12;
 
 /** Each is a line in the checklist under the field, in this order. */
-export type PasswordRuleId = 'length' | 'letter' | 'number';
+export type PasswordRuleId = 'length' | 'lowercase' | 'uppercase' | 'number' | 'symbol';
 
 export interface PasswordRule {
   readonly id: PasswordRuleId;
@@ -52,36 +50,46 @@ export interface PasswordReport {
   readonly firstUnmet: PasswordRuleId | null;
 }
 
-const HAS_LETTER = /\p{L}/u;
-const HAS_NUMBER = /\p{Nd}/u;
-/** Anything that is not a letter, a digit, or whitespace. Bonus, never required. */
-const HAS_SYMBOL = /[^\p{L}\p{Nd}\s]/u;
-
-/**
+/*
  * Unicode-aware on purpose.
  *
- * The game ships in five languages, and `[a-zA-Z]` would tell somebody typing
- * `contraseña` or `paßwort` that their password contains no letters. `\p{L}` and
- * `\p{Nd}` cover every alphabet and every decimal digit, which is the only
- * behaviour that is correct in all five.
+ * The game ships in five languages, and `[a-z]` would tell somebody typing
+ * `contraseña` that their password has no lowercase letters. `\p{Ll}` and
+ * `\p{Lu}` are the Unicode cased-letter classes and `\p{Nd}` every decimal
+ * digit, which is the only behaviour correct in all five.
+ *
+ * A symbol is defined by exclusion — anything that is not a letter, a digit or
+ * whitespace — rather than as a list of punctuation, because a list would have
+ * to guess which marks the server counts.
  */
+const HAS_LOWER = /\p{Ll}/u;
+const HAS_UPPER = /\p{Lu}/u;
+const HAS_NUMBER = /\p{Nd}/u;
+const HAS_SYMBOL = /[^\p{L}\p{Nd}\s]/u;
+
 export function checkPassword(password: string): PasswordReport {
   const rules: readonly PasswordRule[] = [
     { id: 'length', met: password.length >= MIN_PASSWORD_LENGTH },
-    { id: 'letter', met: HAS_LETTER.test(password) },
+    { id: 'lowercase', met: HAS_LOWER.test(password) },
+    { id: 'uppercase', met: HAS_UPPER.test(password) },
     { id: 'number', met: HAS_NUMBER.test(password) },
+    { id: 'symbol', met: HAS_SYMBOL.test(password) },
   ];
 
   const meetsPolicy = rules.every((rule) => rule.met);
   const firstUnmet = rules.find((rule) => !rule.met)?.id ?? null;
 
-  // Two ways past the floor, so the meter has somewhere to go for people who
-  // prefer a long passphrase to a short one with punctuation in it. Neither is
-  // required; both are worth showing.
-  const bonus =
-    (HAS_SYMBOL.test(password) ? 1 : 0) + (password.length >= COMFORTABLE_LENGTH ? 1 : 0);
-
-  const strength: PasswordStrength = !meetsPolicy ? 'weak' : bonus >= 2 ? 'strong' : 'fair';
+  /*
+   * Length is the only axis the policy does not already require, and it is the
+   * one that still matters once four character classes are mandatory. Anything
+   * the form would reject stays weak, so the meter can never encourage a
+   * password that will not be accepted.
+   */
+  const strength: PasswordStrength = !meetsPolicy
+    ? 'weak'
+    : password.length >= COMFORTABLE_LENGTH
+      ? 'strong'
+      : 'fair';
 
   return { rules, meetsPolicy, strength, firstUnmet };
 }

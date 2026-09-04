@@ -8,7 +8,7 @@ import { render, type Message } from '@/i18n/message';
 import { useLocalisedCase } from '@/i18n/useCase';
 import { useEntitlements } from '@/entitlements/useEntitlements';
 import {
-  getCasePackOffering,
+  getCaseOfferings,
   purchaseCasePack,
   restorePurchases,
 } from '@/entitlements/revenuecat';
@@ -93,8 +93,23 @@ export default function PaywallScreen() {
       return;
     }
     try {
-      const offering = await getCasePackOffering();
-      const picked = chooseOptions(offering?.availablePackages ?? [], caseId);
+      /*
+       * Both offerings, merged, because the catalogue is split across them.
+       *
+       * The dashboard keeps the pack in the Current offering and each case in
+       * its own offering named after it. Reading only Current would find the
+       * pack and nothing else — which is exactly what shipped, and why a build
+       * with all twelve per-case products created still drew one card.
+       *
+       * The two sets cannot collide: a package is the single-case option only on
+       * an exact `single_case_<id>` identifier, and the pack only on `all_cases`.
+       */
+      const { current, forCase } = await getCaseOfferings(caseId);
+      const packages = [
+        ...(current?.availablePackages ?? []),
+        ...(forCase?.availablePackages ?? []),
+      ];
+      const picked = chooseOptions(packages, caseId);
       if (!picked.single && !picked.bundle) {
         setPhase({ kind: 'unavailable', reason: { key: 'paywall.empty' } });
         return;

@@ -33,6 +33,8 @@ export interface AuthApi {
   signUp: (email: string, password: string) => Promise<SignUpAttempt>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<AuthAttempt>;
+  verifyRecoveryCode: (email: string, code: string) => Promise<AuthAttempt>;
+  updatePassword: (password: string) => Promise<AuthAttempt>;
 }
 
 const toAuthUser = (user: User | null | undefined): AuthUser | null =>
@@ -153,11 +155,17 @@ export function useAuth(): AuthApi {
    * oracle anybody can query, which is how a leaked address list becomes a
    * confirmed customer list.
    *
-   * No `redirectTo`, so the link lands on the project's **Site URL** and Supabase
-   * hosts the update-password page. Pointing it back into the app would mean a
-   * deep link, a URL on the dashboard allowlist, and an in-app screen holding a
-   * recovery session — real work for a flow somebody uses once. The hosted page
-   * is a complete flow today: they set a new password and come back and sign in.
+   * ## The reset is finished with a CODE, not with the link
+   *
+   * Supabase does **not** host an update-password page. Its recovery link runs
+   * `/auth/v1/verify` and then redirects to the project's Site URL carrying the
+   * tokens — so on a phone with no website that link is a dead end, which is
+   * precisely what a Site URL of `http://localhost:3000` produces.
+   *
+   * The email template therefore carries `{{ .Token }}` as well, and
+   * `verifyRecoveryCode` below exchanges that code for a session in the app. No
+   * deep link, no redirect allowlist, and it can be tested in a simulator.
+   * `docs/REVENUECAT-SETUP.md` §7 has the template and the Site URL to set.
    */
   const resetPassword = useCallback(async (email: string): Promise<AuthAttempt> => {
     const handle = getSupabase();
@@ -169,5 +177,57 @@ export function useAuth(): AuthApi {
     return { ok: true };
   }, []);
 
-  return { status, signIn, signUp, signOut, resetPassword };
+  /**
+   * Exchange the emailed code for a session.
+   *
+   * On success the player is **signed in** on a recovery session, which is what
+   * makes `updatePassword` below possible — `updateUser` acts on the current
+   * session and there is no other way to hold one without the old password.
+   *
+   * A wrong or expired code is a real failure worth showing, and unlike a
+   * sign-in failure it gives nothing away: the code was already sent to an
+   * address, so saying it did not match reveals nothing that address did not
+   * already know.
+   */
+  const verifyRecoveryCode = useCallback(
+    async (email: string, code: string): Promise<AuthAttempt> => {
+      const handle = getSupabase();
+      if (handle.kind === 'unavailable') return { ok: false, message: { raw: handle.reason } };
+      const { error } = await handle.client.auth.verifyOtp({
+        email: normaliseEmail(email),
+        token: code.trim(),
+        type: 'recovery',
+      });
+      if (error) return { ok: false, message: describeAuthError(error.message) };
+      return { ok: true };
+    },
+    [],
+  );
+
+  /**
+   * Set the new password on the session `verifyRecoveryCode` just opened.
+   *
+   * The server has the final say on what is acceptable, and it enforces more
+   * than the client checks — the leaked-password check against Have I Been
+   * Pwned rejects a password that satisfies every rule on the screen. That
+   * refusal arrives here and is shown, rather than being pre-empted by a word
+   * list the app would have to carry and keep current.
+   */
+  const updatePassword = useCallback(async (password: string): Promise<AuthAttempt> => {
+    const handle = getSupabase();
+    if (handle.kind === 'unavailable') return { ok: false, message: { raw: handle.reason } };
+    const { error } = await handle.client.auth.updateUser({ password });
+    if (error) return { ok: false, message: describeAuthError(error.message) };
+    return { ok: true };
+  }, []);
+
+  return {
+    status,
+    signIn,
+    signUp,
+    signOut,
+    resetPassword,
+    verifyRecoveryCode,
+    updatePassword,
+  };
 }

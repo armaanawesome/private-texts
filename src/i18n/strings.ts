@@ -251,7 +251,9 @@ export const EN = {
   /** The live checklist under the password field, and the meter beside it. */
   'signIn.rulesLabel': 'Your password needs',
   'signIn.rule.length': 'At least {count} characters',
-  'signIn.rule.letter': 'A letter',
+  'signIn.rule.lowercase': 'A lowercase letter',
+  'signIn.rule.uppercase': 'An uppercase letter',
+  'signIn.rule.symbol': 'A symbol',
   'signIn.rule.number': 'A number',
   'signIn.strength.weak': 'Weak',
   'signIn.strength.fair': 'Fair',
@@ -269,6 +271,24 @@ export const EN = {
   'signIn.reset.sent':
     'If that address has an account, a reset link is on its way. Check your inbox, and your spam folder.',
   'signIn.reset.needEmail': 'Enter your email address first, then tap this again.',
+
+  /**
+   * The reset is finished with a CODE, not with the emailed link. Supabase does
+   * not host an update-password page — its link redirects to the project's Site
+   * URL, which on a phone with no website is a dead end.
+   */
+  'reset.title': 'Set a new password',
+  'reset.body': 'We sent a code to {email}. It expires in an hour.',
+  'reset.code': 'Code from the email',
+  'reset.newPassword': 'New password',
+  'reset.submit': 'Save new password',
+  'reset.resend': 'Send another code',
+  'reset.needCode': 'Enter the code from the email.',
+  'reset.done': 'Password changed. You are signed in.',
+  'auth.error.badCode': 'That code has expired or does not match. Send another one.',
+  'auth.error.leakedPassword':
+    'That password has turned up in a data breach, so it is not safe to use. Try a different one.',
+  'auth.error.samePassword': 'That is the password you already have. Choose a different one.',
 
   'paywall.title': 'More cases',
   'paywall.body':
@@ -529,7 +549,9 @@ const ES: Catalogue = {
   'signIn.problem.passwordEmpty': 'Escribe tu contraseña.',
   'signIn.rulesLabel': 'Tu contraseña necesita',
   'signIn.rule.length': 'Al menos {count} caracteres',
-  'signIn.rule.letter': 'Una letra',
+  'signIn.rule.lowercase': 'Una minúscula',
+  'signIn.rule.uppercase': 'Una mayúscula',
+  'signIn.rule.symbol': 'Un símbolo',
   'signIn.rule.number': 'Un número',
   'signIn.strength.weak': 'Débil',
   'signIn.strength.fair': 'Aceptable',
@@ -540,6 +562,18 @@ const ES: Catalogue = {
   'signIn.reset.sent':
     'Si esa dirección tiene una cuenta, el enlace ya va en camino. Revisa tu bandeja de entrada y la carpeta de spam.',
   'signIn.reset.needEmail': 'Escribe primero tu correo electrónico y vuelve a tocar aquí.',
+  'reset.title': 'Elige una contraseña nueva',
+  'reset.body': 'Enviamos un código a {email}. Caduca en una hora.',
+  'reset.code': 'Código del correo',
+  'reset.newPassword': 'Contraseña nueva',
+  'reset.submit': 'Guardar contraseña',
+  'reset.resend': 'Enviar otro código',
+  'reset.needCode': 'Escribe el código del correo.',
+  'reset.done': 'Contraseña cambiada. Ya has iniciado sesión.',
+  'auth.error.badCode': 'Ese código caducó o no coincide. Pide otro.',
+  'auth.error.leakedPassword':
+    'Esa contraseña ha aparecido en una filtración, así que no es segura. Prueba con otra.',
+  'auth.error.samePassword': 'Esa es la contraseña que ya tienes. Elige otra.',
 
   'paywall.title': 'Más casos',
   'paywall.body':
@@ -784,7 +818,9 @@ const FR: Catalogue = {
   'signIn.problem.passwordEmpty': 'Saisissez votre mot de passe.',
   'signIn.rulesLabel': 'Votre mot de passe doit contenir',
   'signIn.rule.length': 'Au moins {count} caractères',
-  'signIn.rule.letter': 'Une lettre',
+  'signIn.rule.lowercase': 'Une minuscule',
+  'signIn.rule.uppercase': 'Une majuscule',
+  'signIn.rule.symbol': 'Un symbole',
   'signIn.rule.number': 'Un chiffre',
   'signIn.strength.weak': 'Faible',
   'signIn.strength.fair': 'Correct',
@@ -795,6 +831,18 @@ const FR: Catalogue = {
   'signIn.reset.sent':
     'Si cette adresse a un compte, le lien est déjà parti. Vérifiez votre boîte de réception, et vos spams.',
   'signIn.reset.needEmail': 'Saisissez d’abord votre adresse e-mail, puis touchez de nouveau.',
+  'reset.title': 'Choisissez un nouveau mot de passe',
+  'reset.body': 'Nous avons envoyé un code à {email}. Il expire dans une heure.',
+  'reset.code': 'Code reçu par e-mail',
+  'reset.newPassword': 'Nouveau mot de passe',
+  'reset.submit': 'Enregistrer le mot de passe',
+  'reset.resend': 'Envoyer un autre code',
+  'reset.needCode': 'Saisissez le code reçu par e-mail.',
+  'reset.done': 'Mot de passe modifié. Vous êtes connecté.',
+  'auth.error.badCode': 'Ce code a expiré ou ne correspond pas. Demandez-en un autre.',
+  'auth.error.leakedPassword':
+    'Ce mot de passe est apparu dans une fuite de données, il n’est donc pas sûr. Essayez-en un autre.',
+  'auth.error.samePassword': 'C’est le mot de passe que vous avez déjà. Choisissez-en un autre.',
 
   'paywall.title': 'Plus d’affaires',
   'paywall.body':
@@ -1033,7 +1081,9 @@ const DE: Catalogue = {
   'signIn.problem.passwordEmpty': 'Gib dein Passwort ein.',
   'signIn.rulesLabel': 'Dein Passwort braucht',
   'signIn.rule.length': 'Mindestens {count} Zeichen',
-  'signIn.rule.letter': 'Einen Buchstaben',
+  'signIn.rule.lowercase': 'Einen Kleinbuchstaben',
+  'signIn.rule.uppercase': 'Einen Großbuchstaben',
+  'signIn.rule.symbol': 'Ein Sonderzeichen',
   'signIn.rule.number': 'Eine Ziffer',
   'signIn.strength.weak': 'Schwach',
   'signIn.strength.fair': 'Passabel',
@@ -1044,6 +1094,18 @@ const DE: Catalogue = {
   'signIn.reset.sent':
     'Falls es zu dieser Adresse ein Konto gibt, ist der Link schon unterwegs. Sieh im Posteingang nach, und im Spam-Ordner.',
   'signIn.reset.needEmail': 'Gib zuerst deine E-Mail-Adresse ein und tippe dann noch einmal.',
+  'reset.title': 'Neues Passwort festlegen',
+  'reset.body': 'Wir haben einen Code an {email} geschickt. Er läuft in einer Stunde ab.',
+  'reset.code': 'Code aus der E-Mail',
+  'reset.newPassword': 'Neues Passwort',
+  'reset.submit': 'Passwort speichern',
+  'reset.resend': 'Neuen Code senden',
+  'reset.needCode': 'Gib den Code aus der E-Mail ein.',
+  'reset.done': 'Passwort geändert. Du bist angemeldet.',
+  'auth.error.badCode': 'Dieser Code ist abgelaufen oder stimmt nicht. Fordere einen neuen an.',
+  'auth.error.leakedPassword':
+    'Dieses Passwort ist in einem Datenleck aufgetaucht und damit nicht sicher. Nimm ein anderes.',
+  'auth.error.samePassword': 'Das ist dein bisheriges Passwort. Wähle ein anderes.',
 
   'paywall.title': 'Mehr Fälle',
   'paywall.body':
@@ -1275,7 +1337,9 @@ const PT_BR: Catalogue = {
   'signIn.problem.passwordEmpty': 'Digite sua senha.',
   'signIn.rulesLabel': 'Sua senha precisa de',
   'signIn.rule.length': 'Pelo menos {count} caracteres',
-  'signIn.rule.letter': 'Uma letra',
+  'signIn.rule.lowercase': 'Uma letra minúscula',
+  'signIn.rule.uppercase': 'Uma letra maiúscula',
+  'signIn.rule.symbol': 'Um símbolo',
   'signIn.rule.number': 'Um número',
   'signIn.strength.weak': 'Fraca',
   'signIn.strength.fair': 'Razoável',
@@ -1286,6 +1350,18 @@ const PT_BR: Catalogue = {
   'signIn.reset.sent':
     'Se esse endereço tiver uma conta, o link já está a caminho. Confira sua caixa de entrada e o spam.',
   'signIn.reset.needEmail': 'Digite seu e-mail primeiro e toque aqui de novo.',
+  'reset.title': 'Defina uma nova senha',
+  'reset.body': 'Enviamos um código para {email}. Ele expira em uma hora.',
+  'reset.code': 'Código do e-mail',
+  'reset.newPassword': 'Nova senha',
+  'reset.submit': 'Salvar senha',
+  'reset.resend': 'Enviar outro código',
+  'reset.needCode': 'Digite o código do e-mail.',
+  'reset.done': 'Senha alterada. Você está conectado.',
+  'auth.error.badCode': 'Esse código expirou ou não confere. Peça outro.',
+  'auth.error.leakedPassword':
+    'Essa senha apareceu em um vazamento de dados, então não é segura. Escolha outra.',
+  'auth.error.samePassword': 'Essa é a senha que você já tem. Escolha outra.',
 
   'paywall.title': 'Mais casos',
   'paywall.body':

@@ -138,11 +138,23 @@ export default function SignInScreen() {
     setBusy(true);
     const attempt = await resetPassword(email);
     setBusy(false);
-    if (attempt.ok) setNotice({ key: 'signIn.reset.sent' });
     // A genuine refusal — rate limiting, or an unreachable network — is about
     // this device, not about whether the account exists, so it is worth saying.
-    else setFormError(attempt.message);
-  }, [busy, email, resetPassword]);
+    if (!attempt.ok) {
+      setFormError(attempt.message);
+      return;
+    }
+    /*
+     * Straight to the code screen rather than leaving a notice here.
+     *
+     * The email carries a code, not a working link — Supabase hosts no
+     * update-password page, and its link redirects to the project's Site URL,
+     * which on a phone with no website goes nowhere. So the next step is in the
+     * app, and stopping on this screen would leave somebody holding a code with
+     * nothing to type it into.
+     */
+    router.push({ pathname: '/reset-password', params: { email: email.trim() } });
+  }, [busy, email, resetPassword, router]);
 
   const runSync = useCallback(async () => {
     setBusy(true);
