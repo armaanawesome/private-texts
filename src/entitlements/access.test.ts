@@ -57,6 +57,21 @@ describe('isCaseUnlocked', () => {
     expect(isCaseUnlocked(PAID, [singleCaseEntitlement('the-wake')])).toBe(true);
   });
 
+  /**
+   * The pack entitlement moved from `case_pack_1` to `all_cases`, because the
+   * Test Store would not let the original's price change. Anyone who bought the
+   * old one keeps what they paid for — revoking twelve cases because a string
+   * was renamed is the worst outcome available here, and it would be completely
+   * silent.
+   */
+  it('still honours the retired pack entitlement', () => {
+    expect(isCaseUnlocked(PAID, ['case_pack_1'])).toBe(true);
+  });
+
+  it('honours the pack entitlement that is on sale now', () => {
+    expect(isCaseUnlocked(PAID, ['all_cases'])).toBe(true);
+  });
+
   it('does not open a case with a DIFFERENT case bought singly', () => {
     expect(isCaseUnlocked(PAID, [singleCaseEntitlement('the-bothy')])).toBe(false);
   });

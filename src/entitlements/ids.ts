@@ -19,4 +19,21 @@
  * — `diagnoseEntitlements()` in revenuecat.ts is the thing that proves what the
  * dashboard actually grants.
  */
-export const CASE_PACK_ENTITLEMENT = 'case_pack_1';
+export const CASE_PACK_ENTITLEMENT = 'all_cases';
+
+/**
+ * Pack entitlements that are no longer sold but must still grant access.
+ *
+ * `case_pack_1` was the original, and its price could not be changed in the Test
+ * Store — so a new product, offering and entitlement called `all_cases` was
+ * created at $9.99 and the constant above moved to it.
+ *
+ * The old id stays honoured rather than being deleted, because deleting it would
+ * silently revoke access from anybody who had already bought the pack. A player
+ * who paid does not care which identifier was current on the day they paid, and
+ * "we renamed a string" is not a reason to take twelve cases away.
+ *
+ * It is also the safety net for the offering being switched back in the
+ * dashboard: whichever of the two is actually granted, the app recognises it.
+ */
+export const LEGACY_PACK_ENTITLEMENTS = ['case_pack_1'] as const;

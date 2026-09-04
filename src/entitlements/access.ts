@@ -1,7 +1,9 @@
 /**
  * Whether a case may be opened, as a pure decision.
  *
- * Pure and import-free for the same reason `keyPolicy.ts` and `ids.ts` are: it
+ * Pure, and its only import is the zero-import ids.ts - the property that
+ * matters is keeping react-native-purchases out of the graph, not the literal
+ * absence of an import line. Same reason `keyPolicy.ts` and `ids.ts` are: it
  * has to be testable in the Node suite, and it must stay reachable from a route
  * guard without dragging react-native-purchases into the import graph.
  *
@@ -28,6 +30,7 @@
  * the one component every case tab and the thread screen route through. A gate
  * at the destination cannot be walked around by arriving a different way.
  */
+import { LEGACY_PACK_ENTITLEMENTS } from './ids';
 
 /**
  * The one field gating needs. Structural rather than importing `CaseScript`, so
@@ -77,10 +80,20 @@ export function isCaseUnlocked(
 ): boolean {
   const required = script.requiredEntitlementId;
   if (required === undefined) return true;
-  // Either the pack, or this one case bought on its own. Two ways in, and the
-  // check is deliberately an OR rather than a precedence rule — owning the pack
-  // must never be *worse* than owning a single case, whichever arrived first.
-  return entitlementIds.includes(required) || entitlementIds.includes(singleCaseEntitlement(script.id));
+  /*
+   * Three ways in, and deliberately an OR with no precedence:
+   *
+   *  - the pack on sale now (`all_cases`),
+   *  - a pack that used to be on sale (`case_pack_1`), because renaming a string
+   *    is not a reason to revoke twelve cases somebody paid for,
+   *  - this one case, bought on its own.
+   *
+   * Owning the pack must never be *worse* than owning a single case, whichever
+   * arrived first, which is why none of these shadows another.
+   */
+  if (entitlementIds.includes(required)) return true;
+  if (LEGACY_PACK_ENTITLEMENTS.some((id) => entitlementIds.includes(id))) return true;
+  return entitlementIds.includes(singleCaseEntitlement(script.id));
 }
 
 export type CaseAccess =
