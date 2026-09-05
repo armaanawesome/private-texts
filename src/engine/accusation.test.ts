@@ -100,6 +100,41 @@ describe('evaluateAccusation', () => {
     if (!r.correct) expect(r.reason).toMatch(/cannot prove/i);
   });
 
+  /**
+   * `kind` exists so the UI can translate the refusal instead of rendering the
+   * English `reason` at players in five languages. It is only worth anything if
+   * it names the gate that actually fired, so these pin it to the same three
+   * cases the `reason` assertions above cover.
+   */
+  it('names which gate refused', () => {
+    const noProof = evaluateAccusation(
+      SCRIPT,
+      'nadia',
+      progress({ confirmedContradictionIds: ['x1'] }),
+    );
+    if (!noProof.correct) expect(noProof.kind).toBe('proof');
+
+    const noMotive = evaluateAccusation(SCRIPT, 'nadia', progress({ readMessageIds: ['msg-a'] }));
+    if (!noMotive.correct) expect(noMotive.kind).toBe('motive');
+
+    const wrongPerson = evaluateAccusation(SCRIPT, 'tom', SOLVED);
+    if (!wrongPerson.correct) expect(wrongPerson.kind).toBe('identity');
+  });
+
+  /**
+   * The same leak the next test guards, now that a second field could give the
+   * answer away: if `kind` differed between the killer and an innocent it would
+   * confirm by elimination just as loudly as different prose would.
+   */
+  it('gives the same kind for the killer and an innocent when motive is missing', () => {
+    const noMotive = progress({ readMessageIds: [] });
+    const a = evaluateAccusation(SCRIPT, 'tom', noMotive);
+    const b = evaluateAccusation(SCRIPT, 'nadia', noMotive);
+    expect(a.correct).toBe(false);
+    expect(b.correct).toBe(false);
+    if (!a.correct && !b.correct) expect(a.kind).toBe(b.kind);
+  });
+
   it('checks motive globally, not against the accused, so a refusal leaks nothing', () => {
     // Accusing Tom with full proof but no motive established must give the SAME
     // refusal as accusing Nadia would. Otherwise "you cannot say why" would

@@ -32,6 +32,16 @@ export const theme = {
     danger: '#C4483C',
     /** Any danger-coloured text. 5.9:1 on bg. */
     dangerText: '#F2695C',
+    /**
+     * The ONLY danger red you may put type on: a filled destructive button.
+     *
+     * `danger` is 4.02:1 against `text`, so the accusation sheet's confirm
+     * button failed AA the moment it was drawn — the same trap the `danger`
+     * note above exists to warn about, sprung by a filled button rather than a
+     * label. This is that hue darkened until `text` clears at 5.55:1. Fill
+     * only; for danger-coloured type on a dark ground use `dangerText`.
+     */
+    dangerFill: '#A03A2F',
 
     /*
      * Structural neutrals for the comparison sheet. Three additions, each with

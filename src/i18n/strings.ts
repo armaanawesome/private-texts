@@ -186,6 +186,37 @@ export const EN = {
   'board.subject.one': 'one person',
   'board.overlap': 'both true at once',
 
+  /*
+   * The accusation. Same defect the board carried: every string on this
+   * screen was a hardcoded English literal, the OS alert included.
+   *
+   * The three refusals mirror the three gates in `engine/accusation.ts` and
+   * are keyed off its `kind` discriminator, NOT off its English `reason`
+   * prose — matching on the sentence would break the moment anyone edits it.
+   */
+  'accuse.prompt': 'Who killed them?',
+  'accuse.sub': 'Naming the right person is not enough. You have to be able to prove it.',
+  'accuse.card.none': 'nothing proven',
+  'accuse.card.count': '{n} contradictions',
+  'accuse.card.countOne': '1 contradiction',
+  'accuse.card.label': 'Accuse {name}. {n} proven contradictions name them.',
+  'accuse.card.labelOne': 'Accuse {name}. 1 proven contradiction names them.',
+  'accuse.card.labelNone': 'Accuse {name}. Nothing proven against them.',
+  'accuse.sheet.title': 'Accuse {name}',
+  'accuse.sheet.have': 'What you have',
+  'accuse.sheet.none': 'Nothing proven against them yet.',
+  'accuse.sheet.proof': '{n} proven contradictions name them',
+  'accuse.sheet.proofOne': '1 proven contradiction names them',
+  'accuse.sheet.reassure':
+    'If your evidence does not fit them, you will be told so and can name someone else.',
+  'accuse.sheet.confirm': 'Accuse',
+  'accuse.refusal.proof': 'You cannot prove it yet. Something in their story still holds up.',
+  'accuse.refusal.motive':
+    'You can break the story, but you cannot yet say why. Keep reading.',
+  'accuse.refusal.identity': 'The evidence you have does not fit this person.',
+  'accuse.refusal.oneLeft': 'One thing in their story still holds up.',
+  'accuse.refusal.manyLeft': '{n} things in their story still hold up.',
+
   'settings.title': 'Settings',
   'settings.sound.section': 'Sound',
   'settings.sound.label': 'Sound effects',
@@ -516,6 +547,30 @@ const ES: Catalogue = {
   'board.subject.one': 'una persona',
   'board.overlap': 'ambas ciertas a la vez',
 
+  'accuse.prompt': '¿Quién los mató?',
+  'accuse.sub': 'Nombrar a la persona correcta no basta. Tienes que poder demostrarlo.',
+  'accuse.card.none': 'nada demostrado',
+  'accuse.card.count': '{n} contradicciones',
+  'accuse.card.countOne': '1 contradicción',
+  'accuse.card.label':
+    'Acusar a {name}. {n} contradicciones demostradas apuntan a esta persona.',
+  'accuse.card.labelOne': 'Acusar a {name}. 1 contradicción demostrada apunta a esta persona.',
+  'accuse.card.labelNone': 'Acusar a {name}. No hay nada demostrado en su contra.',
+  'accuse.sheet.title': 'Acusar a {name}',
+  'accuse.sheet.have': 'Lo que tienes',
+  'accuse.sheet.none': 'Todavía no hay nada demostrado en su contra.',
+  'accuse.sheet.proof': '{n} contradicciones demostradas apuntan a esta persona',
+  'accuse.sheet.proofOne': '1 contradicción demostrada apunta a esta persona',
+  'accuse.sheet.reassure':
+    'Si tus pruebas no encajan con esta persona, se te dirá y podrás nombrar a otra.',
+  'accuse.sheet.confirm': 'Acusar',
+  'accuse.refusal.proof': 'Todavía no puedes demostrarlo. Algo en su versión sigue en pie.',
+  'accuse.refusal.motive':
+    'Puedes romper su versión, pero aún no puedes decir por qué. Sigue leyendo.',
+  'accuse.refusal.identity': 'Las pruebas que tienes no encajan con esta persona.',
+  'accuse.refusal.oneLeft': 'Queda una cosa en su versión que sigue en pie.',
+  'accuse.refusal.manyLeft': 'Quedan {n} cosas en su versión que siguen en pie.',
+
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Sonido',
   'settings.sound.label': 'Efectos de sonido',
@@ -797,6 +852,30 @@ const FR: Catalogue = {
   'board.subject.one': 'une seule personne',
   'board.overlap': 'vraies en même temps',
 
+  'accuse.prompt': 'Qui les a tués ?',
+  'accuse.sub': 'Nommer la bonne personne ne suffit pas. Il faut pouvoir le prouver.',
+  'accuse.card.none': 'rien de prouvé',
+  'accuse.card.count': '{n} contradictions',
+  'accuse.card.countOne': '1 contradiction',
+  'accuse.card.label': 'Accuser {name}. {n} contradictions prouvées désignent cette personne.',
+  'accuse.card.labelOne': 'Accuser {name}. 1 contradiction prouvée désigne cette personne.',
+  'accuse.card.labelNone': 'Accuser {name}. Rien de prouvé contre cette personne.',
+  'accuse.sheet.title': 'Accuser {name}',
+  'accuse.sheet.have': 'Ce que tu as',
+  'accuse.sheet.none': 'Rien de prouvé contre cette personne pour l’instant.',
+  'accuse.sheet.proof': '{n} contradictions prouvées désignent cette personne',
+  'accuse.sheet.proofOne': '1 contradiction prouvée désigne cette personne',
+  'accuse.sheet.reassure':
+    'Si tes preuves ne correspondent pas, on te le dira et tu pourras en nommer une autre.',
+  'accuse.sheet.confirm': 'Accuser',
+  'accuse.refusal.proof':
+    'Tu ne peux pas encore le prouver. Quelque chose dans sa version tient toujours.',
+  'accuse.refusal.motive':
+    'Tu peux casser sa version, mais tu ne peux pas encore dire pourquoi. Continue à lire.',
+  'accuse.refusal.identity': 'Les preuves que tu as ne correspondent pas à cette personne.',
+  'accuse.refusal.oneLeft': 'Une chose dans sa version tient toujours.',
+  'accuse.refusal.manyLeft': '{n} choses dans sa version tiennent toujours.',
+
   'settings.title': 'Réglages',
   'settings.sound.section': 'Son',
   'settings.sound.label': 'Effets sonores',
@@ -1076,6 +1155,30 @@ const DE: Catalogue = {
   'board.subject.one': 'eine Person',
   'board.overlap': 'beide gleichzeitig wahr',
 
+  'accuse.prompt': 'Wer hat sie getötet?',
+  'accuse.sub': 'Die richtige Person zu nennen reicht nicht. Du musst es beweisen können.',
+  'accuse.card.none': 'nichts bewiesen',
+  'accuse.card.count': '{n} Widersprüche',
+  'accuse.card.countOne': '1 Widerspruch',
+  'accuse.card.label': '{name} beschuldigen. {n} bewiesene Widersprüche weisen auf diese Person.',
+  'accuse.card.labelOne': '{name} beschuldigen. 1 bewiesener Widerspruch weist auf diese Person.',
+  'accuse.card.labelNone': '{name} beschuldigen. Nichts gegen diese Person bewiesen.',
+  'accuse.sheet.title': '{name} beschuldigen',
+  'accuse.sheet.have': 'Was du hast',
+  'accuse.sheet.none': 'Noch nichts gegen diese Person bewiesen.',
+  'accuse.sheet.proof': '{n} bewiesene Widersprüche weisen auf diese Person',
+  'accuse.sheet.proofOne': '1 bewiesener Widerspruch weist auf diese Person',
+  'accuse.sheet.reassure':
+    'Wenn deine Beweise nicht zu dieser Person passen, wird man es dir sagen und du kannst jemand anderen nennen.',
+  'accuse.sheet.confirm': 'Beschuldigen',
+  'accuse.refusal.proof':
+    'Du kannst es noch nicht beweisen. Etwas an dieser Darstellung hält stand.',
+  'accuse.refusal.motive':
+    'Du kannst die Darstellung brechen, aber noch nicht sagen, warum. Lies weiter.',
+  'accuse.refusal.identity': 'Die Beweise, die du hast, passen nicht zu dieser Person.',
+  'accuse.refusal.oneLeft': 'Eine Sache an dieser Darstellung hält stand.',
+  'accuse.refusal.manyLeft': '{n} Dinge an dieser Darstellung halten stand.',
+
   'settings.title': 'Einstellungen',
   'settings.sound.section': 'Ton',
   'settings.sound.label': 'Soundeffekte',
@@ -1349,6 +1452,30 @@ const PT_BR: Catalogue = {
   'board.compare.label': 'Verificar as duas declarações fixadas. {n} de 2 fixadas.',
   'board.subject.one': 'uma pessoa',
   'board.overlap': 'ambas verdadeiras ao mesmo tempo',
+
+  'accuse.prompt': 'Quem os matou?',
+  'accuse.sub': 'Apontar a pessoa certa não basta. Você precisa conseguir provar.',
+  'accuse.card.none': 'nada provado',
+  'accuse.card.count': '{n} contradições',
+  'accuse.card.countOne': '1 contradição',
+  'accuse.card.label': 'Acusar {name}. {n} contradições provadas apontam para essa pessoa.',
+  'accuse.card.labelOne': 'Acusar {name}. 1 contradição provada aponta para essa pessoa.',
+  'accuse.card.labelNone': 'Acusar {name}. Nada provado contra essa pessoa.',
+  'accuse.sheet.title': 'Acusar {name}',
+  'accuse.sheet.have': 'O que você tem',
+  'accuse.sheet.none': 'Ainda não há nada provado contra essa pessoa.',
+  'accuse.sheet.proof': '{n} contradições provadas apontam para essa pessoa',
+  'accuse.sheet.proofOne': '1 contradição provada aponta para essa pessoa',
+  'accuse.sheet.reassure':
+    'Se suas provas não servirem para essa pessoa, você será avisado e poderá apontar outra.',
+  'accuse.sheet.confirm': 'Acusar',
+  'accuse.refusal.proof':
+    'Você ainda não consegue provar. Algo na versão dessa pessoa continua de pé.',
+  'accuse.refusal.motive':
+    'Você consegue quebrar a versão, mas ainda não sabe dizer por quê. Continue lendo.',
+  'accuse.refusal.identity': 'As provas que você tem não servem para essa pessoa.',
+  'accuse.refusal.oneLeft': 'Uma coisa na versão dessa pessoa continua de pé.',
+  'accuse.refusal.manyLeft': '{n} coisas na versão dessa pessoa continuam de pé.',
 
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Som',

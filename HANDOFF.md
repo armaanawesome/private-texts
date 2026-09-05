@@ -54,7 +54,7 @@ accuse.
 | State store (`src/state`) | ✅ + autosave, resume, save-merge |
 | Chat UI + craft pass | ✅ Mobbin-grounded |
 | Evidence board | ✅ craft pass done 2026-09-05 (§8) — docked compare tray, localised, ruled ground. **Unseen on a device** |
-| Accusation screen | ✅ functional, **no craft pass** |
+| Accusation screen | ✅ craft pass done 2026-09-05 (§8) — in-world confirm sheet replaces the OS alert, localised, keyed refusal. **Unseen on a device** |
 | Routes | ✅ landing → threads → board → accuse, + settings, language, sign-in — all reachable. `/how-to-play` is **gone**; `/landing` replaces it |
 | Paywall | ✅ two-option chooser (this case / the pack), typed failure messages, confirmation page. **A completed purchase has still never been observed** |
 | RevenueCat Test Store | ⚠️ SDK configures; **a completed purchase has never been observed** |
@@ -1213,16 +1213,55 @@ new pairing including the 0.7-opacity counter on accent — lowest is 5.17:1.
 
 **Not verified on a device.** Nothing here has been seen on real hardware.
 
+### The accusation craft pass — done 2026-09-05
+
+**The confirmation was `Alert.alert`.** The most dramatic decision in the
+product — naming a killer — was drawn by the operating system in its own
+chrome, on a screen whose whole premise is that you are holding a real phone.
+It is now `AccusationSheet`, built on Wise's "Close this group" structure: who,
+then the substance, then two unambiguous choices.
+
+The substance is the point. The sheet leads with **what you actually have on
+this person** — the proof marks and their established motives — so when that is
+nothing, the game says so *before* you commit. That is the proof-gated refusal
+arriving early enough to teach instead of punish, which is the thesis this
+screen exists to state.
+
+The refusal itself gained a danger border and a hairline mark instead of
+another grey card, matching the board and the failed-payment page.
+
+Two real bugs fixed on the way:
+
+- **Same i18n defect as the board** — every string was a hardcoded English
+  literal, the alert included. Twenty-two `accuse.*` keys across five locales.
+- **The count line lied on the motive gate.** It read "N things in their story
+  still hold up" whether you were missing proof *or* motive — but on the motive
+  gate the story is already broken and what is missing is the why. It is now
+  shown for the proof gate only.
+
+`engine/accusation.ts` gained a `kind: 'proof' | 'motive' | 'identity'`
+discriminator so the UI can key the refusal instead of rendering the engine's
+English prose. Additive — `reason` stays for tests and dev logs. Two engine
+tests pin `kind` to the gate that fired and prove it cannot leak the killer by
+differing between an innocent and the real one.
+
+`theme.color.dangerFill` (#A03A2F) is new: `danger` is 4.02:1 against `text`,
+so the filled confirm button failed AA the moment it was drawn. Fill only.
+
+`src/ui/accuseCraft.test.ts` guards all three regressions; both it and the new
+engine assertions were mutation-checked. Contrast re-verified, lowest 5.55:1.
+The design detector returns clean.
+
+**Not verified on a device.**
+
 ### Still open on design
 
-1. Craft pass on the accusation screen — the proof-gated refusal is the design
-   thesis on screen and currently reads as a plain alert
-2. `find-animation-opportunities` across all screens
-3. **Engine verdict text is still English-only** — `contradiction.ts` and
-   `accusation.ts` return prose `reason` strings that the board renders
-   verbatim. Localising them means changing the engine's return type to a
-   message key; deliberately not done in the craft pass, and it is the last
-   English left on this screen.
+1. `find-animation-opportunities` across all screens
+2. **`ConfrontationScreen` is still English-only** — it was not in scope here
+   and is the last unlocalised screen in the game.
+3. **`contradiction.ts` verdict text is still English-only.** The board renders
+   its prose `reason` verbatim. `accusation.ts` is now keyed off `kind` and is
+   the worked example to copy.
 
 ### Already established, do not redo
 

@@ -1,9 +1,23 @@
 import type { CaseScript, Progress } from './types';
 import { establishedMotiveIds } from './motive';
 
+/**
+ * Which of the three gates refused. Named separately from `reason` so the UI can
+ * translate the refusal: `reason` is English prose, and the accusation screen
+ * renders it to players in five languages. Matching on the sentence would work
+ * until the first time somebody rewords it.
+ */
+export type RefusalKind = 'proof' | 'motive' | 'identity';
+
 export type AccusationResult =
   | { readonly correct: true; readonly epilogue: string }
-  | { readonly correct: false; readonly reason: string; readonly missingCount: number };
+  | {
+      readonly correct: false;
+      readonly kind: RefusalKind;
+      /** English source text. Kept for tests and dev logs; the UI renders the keyed version. */
+      readonly reason: string;
+      readonly missingCount: number;
+    };
 
 /**
  * Three gates, in this order, and the order is the whole design.
@@ -29,6 +43,7 @@ export function evaluateAccusation(
   if (missing.length > 0) {
     return {
       correct: false,
+      kind: 'proof',
       reason: 'You cannot prove it yet. Something in their story still holds up.',
       missingCount: missing.length,
     };
@@ -40,6 +55,7 @@ export function evaluateAccusation(
   if (missingMotives.length > 0) {
     return {
       correct: false,
+      kind: 'motive',
       reason: 'You can break the story, but you cannot yet say why. Keep reading.',
       missingCount: missingMotives.length,
     };
@@ -48,6 +64,7 @@ export function evaluateAccusation(
   if (accusedId !== script.solution.killerId) {
     return {
       correct: false,
+      kind: 'identity',
       reason: 'The evidence you have does not fit this person.',
       missingCount: 0,
     };

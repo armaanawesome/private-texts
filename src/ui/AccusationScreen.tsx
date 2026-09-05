@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { feedback } from '@/settings/feedback';
 import { useReduceMotion } from '@/settings/useReduceMotion';
@@ -7,13 +7,34 @@ import { theme } from './theme';
 import { useTabBarClearance } from './useTabBarClearance';
 import { ConfrontationScreen } from './ConfrontationScreen';
 import { CaseClosedScreen } from './CaseClosedScreen';
+import { AccusationSheet } from './AccusationSheet';
 import { TutorialCoach } from '@/tutorial/TutorialCoach';
 import { useCaseStore } from '@/state/caseStore';
 import { saveProgress } from '@/state/persistence';
 import { syncProgress } from '@/auth';
-import { evaluateAccusation, motivesFor, type AccusationResult, type Character } from '@/engine';
+import { useTranslator } from '@/i18n/useTranslator';
+import type { StringKey } from '@/i18n/strings';
+import {
+  evaluateAccusation,
+  motivesFor,
+  type AccusationResult,
+  type Character,
+  type RefusalKind,
+} from '@/engine';
+
+/**
+ * One key per gate in `engine/accusation.ts`. Keyed off the discriminator rather
+ * than the engine's English `reason`, which is still returned for tests and dev
+ * logs but must never reach a player in a five-language app.
+ */
+const REFUSAL_KEY: Record<RefusalKind, StringKey> = {
+  proof: 'accuse.refusal.proof',
+  motive: 'accuse.refusal.motive',
+  identity: 'accuse.refusal.identity',
+};
 
 export function AccusationScreen() {
+  const t = useTranslator();
   const reduceMotion = useReduceMotion();
   // The native tab bar overlays this screen. Without this the last row is under it.
   const clearance = useTabBarClearance();
@@ -23,6 +44,8 @@ export function AccusationScreen() {
   const markSolved = useCaseStore((s) => s.markSolved);
   const [result, setResult] = useState<AccusationResult | null>(null);
   const [closed, setClosed] = useState(false);
+  /** The person awaiting confirmation in the sheet. */
+  const [pending, setPending] = useState<Character | null>(null);
 
   if (!script) return null;
 
@@ -41,49 +64,37 @@ export function AccusationScreen() {
       );
     }).length;
 
-  function accuse(person: Character) {
-    Alert.alert(
-      `Accuse ${person.name}?`,
-      // This used to read "This is final. Be sure you can prove it." It was not
-      // true. Naming the wrong person returns a refusal and the screen falls
-      // straight back to the suspects with every proof intact, so the player can
-      // name somebody else immediately. Copy that threatens a consequence the
-      // game does not impose teaches people to stop playing.
-      'If your evidence does not fit them, you will be told so and can name someone else.',
-      [
-        { text: 'Back', style: 'cancel' },
-        {
-          text: 'Accuse',
-          style: 'destructive',
-          onPress: () => {
-            feedback.notify('warning');
-            feedback.cue('accusation');
-            const outcome = evaluateAccusation(script!, person.id, progress);
-            setResult(outcome);
-            // Written to disk here rather than left in component state, which is
-            // where the result used to live and die: closing the app after
-            // solving a case forgot it had been solved. Now that cases unlock in
-            // order, forgetting it would re-lock the rest of the game.
-            if (outcome.correct) {
-              markSolved();
-              void saveProgress(script!.id);
-              /*
-               * Push it now, not merely at the next backgrounding.
-               *
-               * Solving a case is the one moment in the game worth losing
-               * nothing from, and it is also when a player is most likely to put
-               * the phone down in a way that never produces a clean background
-               * event. Fire and forget: a signed-out player gets a cheap no-op,
-               * and a failure is retried by the next sync rather than surfaced
-               * over the top of the epilogue.
-               */
-              void syncProgress();
-            }
-          },
-        },
-      ],
-      { cancelable: true },
-    );
+  /**
+   * Runs once the player confirms in the sheet.
+   *
+   * The confirmation itself moved to `AccusationSheet`; what happens after it
+   * did not change, including the order of the three writes below.
+   */
+  function commitAccusation(person: Character) {
+    setPending(null);
+    feedback.notify('warning');
+    feedback.cue('accusation');
+    const outcome = evaluateAccusation(script!, person.id, progress);
+    setResult(outcome);
+    // Written to disk here rather than left in component state, which is
+    // where the result used to live and die: closing the app after
+    // solving a case forgot it had been solved. Now that cases unlock in
+    // order, forgetting it would re-lock the rest of the game.
+    if (outcome.correct) {
+      markSolved();
+      void saveProgress(script!.id);
+      /*
+       * Push it now, not merely at the next backgrounding.
+       *
+       * Solving a case is the one moment in the game worth losing
+       * nothing from, and it is also when a player is most likely to put
+       * the phone down in a way that never produces a clean background
+       * event. Fire and forget: a signed-out player gets a cheap no-op,
+       * and a failure is retried by the next sync rather than surfaced
+       * over the top of the epilogue.
+       */
+      void syncProgress();
+    }
   }
 
   // A correct accusation opens the confrontation rather than the epilogue: the
@@ -126,24 +137,31 @@ export function AccusationScreen() {
           column rather than the screen itself, and without it a ScrollView takes
           its content height and stops scrolling. */}
       <ScrollView style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: clearance }]}>
-      <Text style={styles.prompt}>Who killed them?</Text>
-      <Text style={styles.sub}>
-        Naming the right person is not enough. You have to be able to prove it.
-      </Text>
+      <Text style={styles.prompt}>{t('accuse.prompt')}</Text>
+      <Text style={styles.sub}>{t('accuse.sub')}</Text>
 
       {result && !result.correct ? (
         <Animated.View
           entering={reduceMotion ? undefined : FadeIn.duration(theme.motion.base)}
           style={styles.refusal}
         >
-          <Text style={styles.refusalText}>{result.reason}</Text>
-          {result.missingCount > 0 ? (
-            <Text style={styles.refusalMeta}>
-              {result.missingCount === 1
-                ? 'One thing in their story still holds up.'
-                : `${result.missingCount} things in their story still hold up.`}
-            </Text>
-          ) : null}
+          {/* Hairline and a danger border, the same vocabulary the board and the
+              failed-payment page use. This is the game's thesis being enforced —
+              it earns a frame of its own rather than another grey card. */}
+          <View style={styles.refusalMark} />
+          <View style={styles.refusalBody}>
+            <Text style={styles.refusalText}>{t(REFUSAL_KEY[result.kind])}</Text>
+            {/* Proof only. On the motive gate the story is already broken and
+                what is missing is the why, so "N things still hold up" was
+                telling the player something untrue about their own progress. */}
+            {result.kind === 'proof' && result.missingCount > 0 ? (
+              <Text style={styles.refusalMeta}>
+                {result.missingCount === 1
+                  ? t('accuse.refusal.oneLeft')
+                  : t('accuse.refusal.manyLeft', { n: result.missingCount })}
+              </Text>
+            ) : null}
+          </View>
         </Animated.View>
       ) : null}
 
@@ -153,9 +171,15 @@ export function AccusationScreen() {
           return (
             <Pressable
               key={c.id}
-              onPress={() => accuse(c)}
+              onPress={() => setPending(c)}
               accessibilityRole="button"
-              accessibilityLabel={`Accuse ${c.name}. ${n} proven contradiction${n === 1 ? '' : 's'} name them.`}
+              accessibilityLabel={
+                n === 0
+                  ? t('accuse.card.labelNone', { name: c.name })
+                  : n === 1
+                    ? t('accuse.card.labelOne', { name: c.name })
+                    : t('accuse.card.label', { name: c.name, n })
+              }
               style={({ pressed }) => [styles.card, pressed && styles.pressed]}
             >
               <View style={[styles.avatar, { backgroundColor: c.avatarColor }]}>
@@ -164,7 +188,11 @@ export function AccusationScreen() {
               <View style={styles.identity}>
                 <Text style={styles.name}>{c.name}</Text>
                 <Text style={styles.count}>
-                  {n === 0 ? 'nothing proven' : `${n} contradiction${n === 1 ? '' : 's'}`}
+                  {n === 0
+                    ? t('accuse.card.none')
+                    : n === 1
+                      ? t('accuse.card.countOne')
+                      : t('accuse.card.count', { n })}
                 </Text>
                 {/* Without this the motive gate is invisible: the player would
                     be refused for a reason they cannot see they are missing. */}
@@ -186,6 +214,15 @@ export function AccusationScreen() {
         })}
         </View>
       </ScrollView>
+
+      <AccusationSheet
+        person={pending}
+        proofCount={pending ? proofAgainst(pending.id) : 0}
+        motives={pending ? motivesFor(script.motives, pending.id, readMessageIds) : []}
+        reduceMotion={reduceMotion}
+        onConfirm={() => pending && commitAccusation(pending)}
+        onDismiss={() => setPending(null)}
+      />
     </View>
   );
 }
@@ -197,15 +234,21 @@ const styles = StyleSheet.create({
   prompt: { ...theme.type.title, color: theme.color.text },
   sub: { ...theme.type.body, color: theme.color.textDim },
   refusal: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: theme.space.sm,
     backgroundColor: theme.color.surface,
     borderWidth: 1,
-    borderColor: theme.color.rule,
+    // danger, not rule. This is the one moment the game says no, and a grey
+    // hairline made it read as a status note rather than a verdict.
+    borderColor: theme.color.danger,
     borderRadius: theme.radius.chip,
     padding: theme.space.md,
-    gap: theme.space.xs,
   },
+  refusalMark: { width: 14, height: 1, backgroundColor: theme.color.danger, marginTop: 11 },
+  refusalBody: { gap: theme.space.xs, flexShrink: 1 },
   // dangerText, not danger: 3.1:1 is unreadable as type.
-  refusalText: { ...theme.type.body, color: theme.color.dangerText },
+  refusalText: { ...theme.type.body, color: theme.color.dangerText, fontWeight: '600' },
   refusalMeta: { ...theme.type.meta, color: theme.color.textDim },
   grid: { gap: theme.space.sm },
   card: {

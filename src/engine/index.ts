@@ -7,4 +7,4 @@ export { loadCase } from './schema';
 export { visibleThreads, availableClaims } from './progression';
 export { establishedMotiveIds, motivesFor } from './motive';
 export { press, remainingBeats, type PressOutcome } from './confrontation';
-export { evaluateAccusation, type AccusationResult } from './accusation';
+export { evaluateAccusation, type AccusationResult, type RefusalKind } from './accusation';
