@@ -166,6 +166,26 @@ export const EN = {
   'case.tab.board': 'Board',
   'case.tab.accuse': 'Accuse',
 
+  /*
+   * The board. Every string here used to be a hardcoded English literal on the
+   * one screen the game is named for, so a Spanish player read the whole
+   * instrument in English.
+   */
+  'board.record': 'On the record',
+  'board.record.empty':
+    'Nothing yet. Read the threads, and hold a message to write down what it claims.',
+  'board.proven': 'Proven',
+  'board.proven.count': '{done} of {total}',
+  /** Labels the empty instrument by what it does, rather than repeating the dock's instruction. */
+  'board.waiting': 'Two statements drawn against one clock.',
+  'board.slot.empty': 'Pin a statement',
+  'board.slot.filledLabel': 'Statement {n}: {label}. Tap to unpin.',
+  'board.slot.emptyLabel': 'Statement {n}: empty. Pin a statement from the record.',
+  'board.compare': 'Run the check',
+  'board.compare.label': 'Run the check on the two pinned statements. {n} of 2 pinned.',
+  'board.subject.one': 'one person',
+  'board.overlap': 'both true at once',
+
   'settings.title': 'Settings',
   'settings.sound.section': 'Sound',
   'settings.sound.label': 'Sound effects',
@@ -482,6 +502,20 @@ const ES: Catalogue = {
   'case.tab.board': 'Tablero',
   'case.tab.accuse': 'Acusar',
 
+  'board.record': 'En el expediente',
+  'board.record.empty':
+    'Nada todavía. Lee los mensajes y mantén pulsado uno para anotar lo que afirma.',
+  'board.proven': 'Demostrado',
+  'board.proven.count': '{done} de {total}',
+  'board.waiting': 'Dos afirmaciones sobre un mismo reloj.',
+  'board.slot.empty': 'Fija una afirmación',
+  'board.slot.filledLabel': 'Afirmación {n}: {label}. Toca para soltarla.',
+  'board.slot.emptyLabel': 'Afirmación {n}: vacía. Fija una afirmación del expediente.',
+  'board.compare': 'Comprobar',
+  'board.compare.label': 'Comprobar las dos afirmaciones fijadas. {n} de 2 fijadas.',
+  'board.subject.one': 'una persona',
+  'board.overlap': 'ambas ciertas a la vez',
+
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Sonido',
   'settings.sound.label': 'Efectos de sonido',
@@ -749,6 +783,20 @@ const FR: Catalogue = {
   'case.tab.board': 'Tableau',
   'case.tab.accuse': 'Accuser',
 
+  'board.record': 'Au dossier',
+  'board.record.empty':
+    'Rien pour l’instant. Lis les messages et maintiens-en un pour noter ce qu’il affirme.',
+  'board.proven': 'Prouvé',
+  'board.proven.count': '{done} sur {total}',
+  'board.waiting': 'Deux déclarations sur une même horloge.',
+  'board.slot.empty': 'Épingle une déclaration',
+  'board.slot.filledLabel': 'Déclaration {n} : {label}. Touche pour la retirer.',
+  'board.slot.emptyLabel': 'Déclaration {n} : vide. Épingle une déclaration du dossier.',
+  'board.compare': 'Vérifier',
+  'board.compare.label': 'Vérifier les deux déclarations épinglées. {n} sur 2 épinglées.',
+  'board.subject.one': 'une seule personne',
+  'board.overlap': 'vraies en même temps',
+
   'settings.title': 'Réglages',
   'settings.sound.section': 'Son',
   'settings.sound.label': 'Effets sonores',
@@ -1014,6 +1062,20 @@ const DE: Catalogue = {
   'case.tab.board': 'Tafel',
   'case.tab.accuse': 'Anklagen',
 
+  'board.record': 'Zu Protokoll',
+  'board.record.empty':
+    'Noch nichts. Lies die Nachrichten und halte eine gedrückt, um festzuhalten, was sie behauptet.',
+  'board.proven': 'Bewiesen',
+  'board.proven.count': '{done} von {total}',
+  'board.waiting': 'Zwei Aussagen an einer Uhr gemessen.',
+  'board.slot.empty': 'Aussage anheften',
+  'board.slot.filledLabel': 'Aussage {n}: {label}. Zum Lösen tippen.',
+  'board.slot.emptyLabel': 'Aussage {n}: leer. Hefte eine Aussage aus dem Protokoll an.',
+  'board.compare': 'Prüfen',
+  'board.compare.label': 'Die beiden angehefteten Aussagen prüfen. {n} von 2 angeheftet.',
+  'board.subject.one': 'eine Person',
+  'board.overlap': 'beide gleichzeitig wahr',
+
   'settings.title': 'Einstellungen',
   'settings.sound.section': 'Ton',
   'settings.sound.label': 'Soundeffekte',
@@ -1273,6 +1335,20 @@ const PT_BR: Catalogue = {
   'case.tab.threads': 'Mensagens',
   'case.tab.board': 'Quadro',
   'case.tab.accuse': 'Acusar',
+
+  'board.record': 'No registro',
+  'board.record.empty':
+    'Nada ainda. Leia as mensagens e segure uma para anotar o que ela afirma.',
+  'board.proven': 'Provado',
+  'board.proven.count': '{done} de {total}',
+  'board.waiting': 'Duas declarações sobre o mesmo relógio.',
+  'board.slot.empty': 'Fixe uma declaração',
+  'board.slot.filledLabel': 'Declaração {n}: {label}. Toque para soltar.',
+  'board.slot.emptyLabel': 'Declaração {n}: vazia. Fixe uma declaração do registro.',
+  'board.compare': 'Verificar',
+  'board.compare.label': 'Verificar as duas declarações fixadas. {n} de 2 fixadas.',
+  'board.subject.one': 'uma pessoa',
+  'board.overlap': 'ambas verdadeiras ao mesmo tempo',
 
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Som',

@@ -24,9 +24,14 @@ interface Props {
  * running underneath rather than a scripted if-statement.
  */
 export function ContradictionResult({ verdict, revelation, reduceMotion }: Props) {
-  if (!verdict) {
-    return <Text style={styles.hint}>Pin two statements, then run the check.</Text>;
-  }
+  /*
+   * Nothing, deliberately. This used to render "Pin two statements, then run
+   * the check." — which the docked slots and the 0/2 counter now say twice over
+   * while the player is looking straight at them. Three restatements of one
+   * instruction is not thorough, it is noise, and it pushed the instrument off
+   * the top of the screen to make room for itself.
+   */
+  if (!verdict) return null;
 
   return (
     <Animated.View
@@ -54,5 +59,4 @@ const styles = StyleSheet.create({
   reasonOk: { ...theme.type.body, color: theme.color.dangerText, fontWeight: '600', flexShrink: 1 },
   reasonNo: { ...theme.type.body, color: theme.color.textDim, flexShrink: 1 },
   revelation: { ...theme.type.body, color: theme.color.text },
-  hint: { ...theme.type.meta, color: theme.color.textDim },
 });

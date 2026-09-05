@@ -53,7 +53,7 @@ accuse.
 | Deduction engine (`src/engine`) | ✅ pure TS, 94% stmts |
 | State store (`src/state`) | ✅ + autosave, resume, save-merge |
 | Chat UI + craft pass | ✅ Mobbin-grounded |
-| Evidence board | ✅ functional, **no craft pass** |
+| Evidence board | ✅ craft pass done 2026-09-05 (§8) — docked compare tray, localised, ruled ground. **Unseen on a device** |
 | Accusation screen | ✅ functional, **no craft pass** |
 | Routes | ✅ landing → threads → board → accuse, + settings, language, sign-in — all reachable. `/how-to-play` is **gone**; `/landing` replaces it |
 | Paywall | ✅ two-option chooser (this case / the pack), typed failure messages, confirmation page. **A completed purchase has still never been observed** |
@@ -1179,21 +1179,50 @@ is why it uses the platform system font and no custom chrome.
 
 **The evidence board is the opposite** — it is diegetically the player's own
 workspace, and it is where the game's visual identity should live. That contrast
-is the strongest design idea available here **and it is currently unexploited.**
-The board today is a plain list. This is the single highest-value design work
-remaining, and the Design Award is judged on craft alone.
+is the strongest design idea available here.
 
-### What a fresh session should do
+### The board craft pass — done 2026-09-05
 
-1. `using-superpowers` → `find-skills` → `impeccable` + `frontend-design`
-2. Mobbin: search evidence boards, pinboards, comparison and diff UIs, annotation
-   tools — *not* messaging apps, that pass is done
-3. Rebuild the board around the COMPARE moment: the connector line, the shake,
-   the revelation typing out
-4. Craft pass on the accusation screen — the proof-gated refusal is the design
+Mobbin has no evidence-board template, as expected. Three screens carried the
+weight instead, and each fixed something specific:
+
+- **Trip.com "Select Stays"** — a docked tray whose button reads `Compare (0/3)`.
+  The compare control used to sit *inside* the ScrollView, so past about six
+  claims it scrolled off behind the player at the exact moment they were pinning
+  their second statement. It is now `BoardDock`, pinned above the tab bar, and
+  the count lives in the label: a disabled button that will not say why is a
+  dead end. Two pinned **slots** sit above it, tinted to match the bars they
+  become, and tapping one unpins — before this the only way to drop a statement
+  was to hunt down its chip again.
+- **Ultrahuman "Stress Timeline"** — the measurement gets the headline. The
+  overlap window was one dim 12pt line with the time inlined; it is now 20pt
+  mono `dangerText` with the explanation quiet underneath.
+- **Oura "sleep window"** — a ruled ground. `RuledGround` gives the board its
+  own material so it stops wearing the chat's flat surface. Rasterised, like
+  `ChatWallpaper`, because it is forty static hairlines.
+
+Also fixed here: **every visible string on this screen was a hardcoded English
+literal** while the other twelve screens went through the catalogue, so a
+Spanish player read the whole instrument in English. Twelve `board.*` keys now
+exist in all five locales. And three separate restatements of "pin two
+statements" collapsed to one — the slots and the counter say it structurally.
+
+`src/ui/boardCraft.test.ts` guards both regressions (the English literals, and
+the dock returning to the inside of the scroller). Contrast re-checked on every
+new pairing including the 0.7-opacity counter on accent — lowest is 5.17:1.
+
+**Not verified on a device.** Nothing here has been seen on real hardware.
+
+### Still open on design
+
+1. Craft pass on the accusation screen — the proof-gated refusal is the design
    thesis on screen and currently reads as a plain alert
-5. `find-animation-opportunities` across all screens
-6. Sound: three cues only (receive, pin, contradiction) via `expo-audio`
+2. `find-animation-opportunities` across all screens
+3. **Engine verdict text is still English-only** — `contradiction.ts` and
+   `accusation.ts` return prose `reason` strings that the board renders
+   verbatim. Localising them means changing the engine's return type to a
+   message key; deliberately not done in the craft pass, and it is the last
+   English left on this screen.
 
 ### Already established, do not redo
 

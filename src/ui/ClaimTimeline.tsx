@@ -21,6 +21,10 @@ export interface TimelineClaim {
 interface Props {
   /** The person both statements are about. */
   readonly subjectName: string;
+  /** Localised qualifier under the name — empty when the two claims name different people. */
+  readonly subjectMeta: string;
+  /** Localised phrase for what the lit band means. */
+  readonly overlapLabel: string;
   readonly a: TimelineClaim;
   readonly b: TimelineClaim;
   /**
@@ -52,7 +56,15 @@ const TICKS = 24;
  * The bars grow from the left rather than fading in, because the rail is the
  * already-visible default and growth along it reads as measurement being taken.
  */
-export function ClaimTimeline({ subjectName, a, b, conflict, reduceMotion }: Props) {
+export function ClaimTimeline({
+  subjectName,
+  subjectMeta,
+  overlapLabel,
+  a,
+  b,
+  conflict,
+  reduceMotion,
+}: Props) {
   const [trackWidth, setTrackWidth] = useState(0);
   const progress = useSharedValue(reduceMotion ? 1 : 0);
   const band = useSharedValue(reduceMotion ? 1 : 0);
@@ -109,7 +121,7 @@ export function ClaimTimeline({ subjectName, a, b, conflict, reduceMotion }: Pro
         <Text style={styles.subject} numberOfLines={1}>
           {subjectName}
         </Text>
-        <Text style={styles.subjectMeta}>one person</Text>
+        {subjectMeta ? <Text style={styles.subjectMeta}>{subjectMeta}</Text> : null}
       </View>
 
       <View style={styles.axis}>
@@ -146,15 +158,25 @@ export function ClaimTimeline({ subjectName, a, b, conflict, reduceMotion }: Pro
         <Row claim={b} geom={bGeom} barStyle={barB} tone={theme.color.proof} />
       </View>
 
+      {/*
+        The finding, written out.
+
+        It used to be one dim 12pt line with the time inlined into it, which
+        buried the single number the player worked the whole case to produce.
+        Ultrahuman's stress timeline does the opposite and is right to: the
+        measurement gets the headline, and the sentence explaining it sits
+        underneath in the quiet style. The player should be able to read the
+        overlap off this block from arm's length.
+      */}
       {lit && overlap ? (
         <View style={styles.verdict}>
           <View style={styles.verdictMark} />
-          <Text style={styles.verdictText}>
+          <View style={styles.verdictBody}>
             <Text style={styles.verdictTime}>
               {clockOf(overlap.start)}–{clockOf(overlap.end)}
             </Text>
-            {'   both true at once'}
-          </Text>
+            <Text style={styles.verdictText}>{overlapLabel}</Text>
+          </View>
         </View>
       ) : null}
     </View>
@@ -255,8 +277,15 @@ const styles = StyleSheet.create({
   bar: { position: 'absolute', height: RAIL_H, borderRadius: RAIL_H / 2 },
   span: { ...theme.type.claim, color: theme.color.textDim, fontSize: 11 },
 
-  verdict: { flexDirection: 'row', alignItems: 'center', gap: theme.space.sm },
-  verdictMark: { width: 10, height: 2, backgroundColor: theme.color.danger },
+  verdict: { flexDirection: 'row', alignItems: 'flex-start', gap: theme.space.sm },
+  /** Aligned to the optical centre of the time, which is now the first line. */
+  verdictMark: { width: 10, height: 1, backgroundColor: theme.color.danger, marginTop: 11 },
+  verdictBody: { gap: 2, flexShrink: 1 },
+  /**
+   * The headline. Mono because it is a measurement, at the size the rest of the
+   * app gives a title — this is the number the player worked the case to find,
+   * and it spent its life until now as 12pt of dim body copy.
+   */
+  verdictTime: { ...theme.type.claim, fontSize: 20, lineHeight: 24, color: theme.color.dangerText },
   verdictText: { ...theme.type.meta, color: theme.color.textDim, flexShrink: 1 },
-  verdictTime: { ...theme.type.claim, fontSize: 12, color: theme.color.dangerText },
 });
