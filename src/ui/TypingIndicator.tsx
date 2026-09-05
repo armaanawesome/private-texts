@@ -10,6 +10,7 @@ import Animated, {
   cancelAnimation,
 } from 'react-native-reanimated';
 import { theme } from './theme';
+import { useTranslator } from '@/i18n/useTranslator';
 
 function Dot({ delay }: { delay: number }) {
   const scale = useSharedValue(1);
@@ -35,8 +36,9 @@ function Dot({ delay }: { delay: number }) {
  * the UI thread, so playback never competes with JS work for frames.
  */
 export function TypingIndicator() {
+  const t = useTranslator();
   return (
-    <View style={styles.bubble} accessibilityLabel="Someone is typing">
+    <View style={styles.bubble} accessibilityLabel={t('a11y.typing')}>
       <Dot delay={0} />
       <Dot delay={140} />
       <Dot delay={280} />

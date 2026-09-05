@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { View, StyleSheet, PanResponder, type LayoutChangeEvent } from 'react-native';
 import { theme } from '@/ui/theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import {
   VOLUME_STEPS,
   stepForVolume,
@@ -44,6 +45,7 @@ export function VolumeSlider({
   onChange: (next: number) => void;
   disabled: boolean;
 }) {
+  const t = useTranslator();
   const [trackWidth, setTrackWidth] = useState(0);
   /** Non-null only while a finger is down. The thumb follows this, not the prop. */
   const [dragging, setDragging] = useState<number | null>(null);
@@ -138,7 +140,7 @@ export function VolumeSlider({
        */
       accessible
       accessibilityRole="adjustable"
-      accessibilityLabel="Sound effects volume"
+      accessibilityLabel={t('a11y.volume')}
       accessibilityValue={{ min: 0, max: VOLUME_STEPS, now: step, text: volumeStepLabel(step) }}
       accessibilityState={{ disabled }}
       accessibilityActions={[{ name: 'increment' }, { name: 'decrement' }]}

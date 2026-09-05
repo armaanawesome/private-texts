@@ -9,6 +9,7 @@ import { visibleThreads, type CaseScript, type Thread } from '@/engine';
 import { ThreadListSkeleton } from '@/ui/Skeleton';
 import { CaseClosedScreen } from '@/ui/CaseClosedScreen';
 import { TutorialCoach } from '@/tutorial/TutorialCoach';
+import { useTranslator } from '@/i18n/useTranslator';
 
 const PLAYER_ID = 'you';
 
@@ -21,6 +22,7 @@ const PLAYER_ID = 'you';
  * to convince you that you are holding somebody's phone.
  */
 export default function ThreadsScreen() {
+  const t = useTranslator();
   const { resume } = useLocalSearchParams<{ caseId: string; resume?: string }>();
   const router = useRouter();
   const script = useCaseStore((s) => s.script);
@@ -120,9 +122,7 @@ export default function ThreadsScreen() {
 
       {hidden > 0 ? (
         <Text style={styles.locked}>
-          {hidden === 1
-            ? 'One conversation is still out of reach. Prove something first.'
-            : `${hidden} conversations are still out of reach. Prove something first.`}
+          {hidden === 1 ? t('thread.lockedOne') : t('thread.locked', { n: hidden })}
         </Text>
       ) : null}
       </ScrollView>
@@ -141,6 +141,7 @@ function ThreadRow({
   readMessageIds: readonly string[];
   first: boolean;
 }) {
+  const t = useTranslator();
   const unread = thread.messages.filter((m) => !readMessageIds.includes(m.id)).length;
   const last = thread.messages[thread.messages.length - 1];
 
@@ -160,7 +161,13 @@ function ThreadRow({
     <Link href={`/thread/${thread.id}`} asChild>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`${thread.title}. ${unread > 0 ? `${unread} unread.` : 'No unread messages.'}`}
+        accessibilityLabel={
+          unread === 0
+            ? t('thread.rowLabelNone', { title: thread.title })
+            : unread === 1
+              ? t('thread.rowLabelOne', { title: thread.title })
+              : t('thread.rowLabel', { title: thread.title, n: unread })
+        }
         style={({ pressed }) => [styles.row, !first && styles.divided, pressed && styles.pressed]}
       >
         <View style={[styles.avatar, { backgroundColor: tint }]}>

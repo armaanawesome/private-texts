@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { theme } from './theme';
 import { useReduceMotion } from '@/settings/useReduceMotion';
+import { useTranslator } from '@/i18n/useTranslator';
 
 /**
  * Placeholders in the shape of the thing that is coming.
@@ -73,12 +74,13 @@ export function SkeletonBlock({ style }: { style?: StyleProp<ViewStyle> }) {
  * unlock on every single launch.
  */
 export function CaseGridSkeleton({ count = 6 }: { count?: number }) {
+  const t = useTranslator();
   return (
     <View
       style={styles.grid}
       accessible
       accessibilityRole="progressbar"
-      accessibilityLabel="Loading cases"
+      accessibilityLabel={t('a11y.loadingCases')}
     >
       {Array.from({ length: count }, (_, i) => (
         <View key={i} style={styles.tile}>
@@ -94,8 +96,9 @@ export function CaseGridSkeleton({ count = 6 }: { count?: number }) {
 
 /** The inbox, while the save is read back. Mirrors the real row's geometry. */
 export function ThreadListSkeleton({ count = 5 }: { count?: number }) {
+  const t = useTranslator();
   return (
-    <View accessible accessibilityRole="progressbar" accessibilityLabel="Loading conversations">
+    <View accessible accessibilityRole="progressbar" accessibilityLabel={t('a11y.loadingThreads')}>
       {Array.from({ length: count }, (_, i) => (
         <View key={i} style={[styles.row, i > 0 && styles.divided]}>
           <SkeletonBlock style={styles.avatar} />

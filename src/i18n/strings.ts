@@ -255,6 +255,31 @@ export const EN = {
   'confront.leftOne': '1 left to say',
   'confront.chipLabel': 'Put to {name}: {label}',
 
+  'thread.locked': '{n} conversations are still out of reach. Prove something first.',
+  'thread.lockedOne': 'One conversation is still out of reach. Prove something first.',
+  'thread.rowLabel': '{title}. {n} unread.',
+  'thread.rowLabelOne': '{title}. 1 unread.',
+  'thread.rowLabelNone': '{title}. No unread messages.',
+  /*
+   * 'Open her messages' until 2026-09-05 — and the victim of case 1 is Tom
+   * Vardy, so the very first screen of the tutorial had the wrong pronoun.
+   * The accessibility label beside it already read 'Open the messages'; the
+   * neutral wording was sitting right there.
+   */
+  'briefing.open': 'Open the messages',
+  'claim.heading': 'Put on the record',
+
+  /*
+   * Screen-reader-only strings. They were the last English left in the app,
+   * and the easiest to miss precisely because nothing on screen shows them:
+   * a Spanish VoiceOver user heard 'Someone is typing' in English.
+   */
+  'a11y.volume': 'Sound effects volume',
+  'a11y.loadingCases': 'Loading cases',
+  'a11y.loadingThreads': 'Loading conversations',
+  'a11y.typing': 'Someone is typing',
+  'a11y.close': 'Close',
+
   'settings.title': 'Settings',
   'settings.sound.section': 'Sound',
   'settings.sound.label': 'Sound effects',
@@ -628,6 +653,20 @@ const ES: Catalogue = {
   'confront.leftOne': 'Queda 1 por decir',
   'confront.chipLabel': 'Plantear a {name}: {label}',
 
+  'thread.locked': '{n} conversaciones siguen fuera de alcance. Demuestra algo primero.',
+  'thread.lockedOne': 'Una conversación sigue fuera de alcance. Demuestra algo primero.',
+  'thread.rowLabel': '{title}. {n} sin leer.',
+  'thread.rowLabelOne': '{title}. 1 sin leer.',
+  'thread.rowLabelNone': '{title}. Ningún mensaje sin leer.',
+  'briefing.open': 'Abrir los mensajes',
+  'claim.heading': 'Anotar en el expediente',
+
+  'a11y.volume': 'Volumen de los efectos de sonido',
+  'a11y.loadingCases': 'Cargando casos',
+  'a11y.loadingThreads': 'Cargando conversaciones',
+  'a11y.typing': 'Alguien está escribiendo',
+  'a11y.close': 'Cerrar',
+
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Sonido',
   'settings.sound.label': 'Efectos de sonido',
@@ -952,6 +991,20 @@ const FR: Catalogue = {
   'confront.leftOne': 'Encore 1 à dire',
   'confront.chipLabel': 'Opposer à {name} : {label}',
 
+  'thread.locked': '{n} conversations sont encore hors de portée. Prouve d’abord quelque chose.',
+  'thread.lockedOne': 'Une conversation est encore hors de portée. Prouve d’abord quelque chose.',
+  'thread.rowLabel': '{title}. {n} non lus.',
+  'thread.rowLabelOne': '{title}. 1 non lu.',
+  'thread.rowLabelNone': '{title}. Aucun message non lu.',
+  'briefing.open': 'Ouvrir les messages',
+  'claim.heading': 'Noter au dossier',
+
+  'a11y.volume': 'Volume des effets sonores',
+  'a11y.loadingCases': 'Chargement des affaires',
+  'a11y.loadingThreads': 'Chargement des conversations',
+  'a11y.typing': 'Quelqu’un écrit',
+  'a11y.close': 'Fermer',
+
   'settings.title': 'Réglages',
   'settings.sound.section': 'Son',
   'settings.sound.label': 'Effets sonores',
@@ -1274,6 +1327,20 @@ const DE: Catalogue = {
   'confront.leftOne': 'Noch 1 zu sagen',
   'confront.chipLabel': '{name} vorhalten: {label}',
 
+  'thread.locked': '{n} Gespräche sind noch nicht erreichbar. Beweise erst etwas.',
+  'thread.lockedOne': 'Ein Gespräch ist noch nicht erreichbar. Beweise erst etwas.',
+  'thread.rowLabel': '{title}. {n} ungelesen.',
+  'thread.rowLabelOne': '{title}. 1 ungelesen.',
+  'thread.rowLabelNone': '{title}. Keine ungelesenen Nachrichten.',
+  'briefing.open': 'Die Nachrichten öffnen',
+  'claim.heading': 'Zu Protokoll nehmen',
+
+  'a11y.volume': 'Lautstärke der Soundeffekte',
+  'a11y.loadingCases': 'Fälle werden geladen',
+  'a11y.loadingThreads': 'Gespräche werden geladen',
+  'a11y.typing': 'Jemand tippt',
+  'a11y.close': 'Schließen',
+
   'settings.title': 'Einstellungen',
   'settings.sound.section': 'Ton',
   'settings.sound.label': 'Soundeffekte',
@@ -1590,6 +1657,20 @@ const PT_BR: Catalogue = {
   'confront.left': 'Faltam {n} a dizer',
   'confront.leftOne': 'Falta 1 a dizer',
   'confront.chipLabel': 'Apresentar a {name}: {label}',
+
+  'thread.locked': '{n} conversas ainda estão fora de alcance. Prove algo primeiro.',
+  'thread.lockedOne': 'Uma conversa ainda está fora de alcance. Prove algo primeiro.',
+  'thread.rowLabel': '{title}. {n} não lidas.',
+  'thread.rowLabelOne': '{title}. 1 não lida.',
+  'thread.rowLabelNone': '{title}. Nenhuma mensagem não lida.',
+  'briefing.open': 'Abrir as mensagens',
+  'claim.heading': 'Registrar',
+
+  'a11y.volume': 'Volume dos efeitos sonoros',
+  'a11y.loadingCases': 'Carregando casos',
+  'a11y.loadingThreads': 'Carregando conversas',
+  'a11y.typing': 'Alguém está digitando',
+  'a11y.close': 'Fechar',
 
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Som',

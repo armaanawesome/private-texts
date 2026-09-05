@@ -3,6 +3,7 @@ import { BlurView } from 'expo-blur';
 import Animated, { FadeIn, FadeOut, ZoomIn } from 'react-native-reanimated';
 import { feedback } from '@/settings/feedback';
 import { theme } from './theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import { StaticBubble } from './ChatBubble';
 import type { Character, Claim, Message } from '@/engine';
 
@@ -34,6 +35,7 @@ export function ClaimMenu({
   onClose,
   reduceMotion,
 }: Props) {
+  const t = useTranslator();
   const open = message !== null && sender !== null;
   const claims = message?.claims ?? [];
 
@@ -46,7 +48,7 @@ export function ClaimMenu({
           style={StyleSheet.absoluteFill}
         >
           <BlurView intensity={38} tint="dark" style={StyleSheet.absoluteFill} />
-          <Pressable style={styles.dismissArea} onPress={onClose} accessibilityLabel="Close" />
+          <Pressable style={styles.dismissArea} onPress={onClose} accessibilityLabel={t('a11y.close')} />
 
           <View style={styles.stage} pointerEvents="box-none">
             <Animated.View
@@ -65,7 +67,7 @@ export function ClaimMenu({
               entering={reduceMotion ? undefined : FadeInUpDelayed}
               style={styles.card}
             >
-              <Text style={styles.heading}>Put on the record</Text>
+              <Text style={styles.heading}>{t('claim.heading')}</Text>
               {claims.map((c, i) => (
                 <Pressable
                   key={c.id}

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
+import { useTranslator } from '@/i18n/useTranslator';
 import { clockOf } from './timeScale';
 import type { CaseScript } from '@/engine';
 
@@ -20,6 +21,7 @@ interface Props {
  * rather than as more of the same.
  */
 export function BriefingScreen({ script, onStart }: Props) {
+  const t = useTranslator();
   const reduceMotion = useReduceMotion();
   const b = script.briefing;
   if (!b) return null;
@@ -72,10 +74,12 @@ export function BriefingScreen({ script, onStart }: Props) {
       <Pressable
         onPress={onStart}
         accessibilityRole="button"
-        accessibilityLabel="Open the messages"
+        accessibilityLabel={t('briefing.open')}
         style={({ pressed }) => [styles.cta, pressed && styles.pressed]}
       >
-        <Text style={styles.ctaText}>Open her messages</Text>
+        {/* Neutral. This read 'Open her messages' while case 1's victim is Tom
+            Vardy — the wrong pronoun on the very first screen of the tutorial. */}
+        <Text style={styles.ctaText}>{t('briefing.open')}</Text>
       </Pressable>
     </ScrollView>
   );
