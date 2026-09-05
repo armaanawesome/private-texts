@@ -26,8 +26,6 @@ import { DEFAULT_LOCALE, type LocaleTag } from './locales';
  * unsolvable in a way no UI string can. See docs/pack-ledger.md.
  */
 export const EN = {
-  'common.cancel': 'Cancel',
-  'common.done': 'Done',
   'common.back': 'Back',
   'common.retry': 'Try again',
   'common.working': 'Working…',
@@ -217,6 +215,46 @@ export const EN = {
   'accuse.refusal.oneLeft': 'One thing in their story still holds up.',
   'accuse.refusal.manyLeft': '{n} things in their story still hold up.',
 
+  /*
+   * The comparison verdicts, one key per rule in `engine/contradiction.ts`,
+   * keyed off its `kind` discriminator rather than its English `reason`.
+   *
+   * `needTwo` and `stale` are the two verdicts `caseStore` synthesises rather
+   * than the engine producing them; they are here because they land in the
+   * same field and are drawn by the same component.
+   */
+  'verdict.sameStatement': 'That is the same statement twice.',
+  'verdict.differentThings': 'These are about two different things.',
+  'verdict.personVsThing': 'One is about a person, the other about a thing.',
+  'verdict.differentPeople': 'These are about different people.',
+  'verdict.differentTimes': 'These describe different times.',
+  'verdict.differentKinds': 'These describe different kinds of thing.',
+  'verdict.placeConflict': 'One person, two places, same moment.',
+  'verdict.actionConflict': 'They cannot have been doing both at once.',
+  'verdict.objectConflict': 'Only one person can have had it.',
+  'verdict.sameArea': 'Those two places are the same area.',
+  'verdict.compatible': 'Those two things can both be true.',
+  'verdict.sameHands': 'Both statements put it in the same hands.',
+  'verdict.notUnique': 'There could be more than one of those.',
+  'verdict.needTwo': 'Pin two statements to compare them.',
+  'verdict.stale': 'Those statements are no longer on the record.',
+
+  /*
+   * The confrontation.
+   *
+   * `confront.open` used to read 'Put it to her. One fact at a time.' — the
+   * only line in the game that assumed the killer's gender, across sixteen
+   * cases that do not all have a woman at the end of them. Character records
+   * carry a name and an avatar colour and nothing else, so there is no
+   * pronoun to look up and none is needed.
+   */
+  'confront.repeat': 'You have said that already.',
+  'confront.close': 'Close the case',
+  'confront.open': 'Put it to them. One fact at a time.',
+  'confront.left': '{n} left to say',
+  'confront.leftOne': '1 left to say',
+  'confront.chipLabel': 'Put to {name}: {label}',
+
   'settings.title': 'Settings',
   'settings.sound.section': 'Sound',
   'settings.sound.label': 'Sound effects',
@@ -335,7 +373,6 @@ export const EN = {
   'reset.submit': 'Save new password',
   'reset.resend': 'Send another code',
   'reset.needCode': 'Enter the code from the email.',
-  'reset.done': 'Password changed. You are signed in.',
   'auth.error.badCode': 'That code has expired or does not match. Send another one.',
   'auth.error.leakedPassword':
     'That password has turned up in a data breach, so it is not safe to use. Try a different one.',
@@ -352,7 +389,6 @@ export const EN = {
    * the pack unlocks, so this reads as what the pack is worth rather than as a
    * price it used to carry — it has never carried another price.
    */
-  'paywall.compare': 'value across {count} cases',
   'paywall.empty': 'The store has nothing to sell right now. Try again in a moment.',
   'paywall.unreachable': 'Could not reach the store.',
   'paywall.failed': 'The purchase did not go through. You have not been charged.',
@@ -417,8 +453,6 @@ export type StringKey = keyof typeof EN;
 export type Catalogue = Partial<Record<StringKey, string>>;
 
 const ES: Catalogue = {
-  'common.cancel': 'Cancelar',
-  'common.done': 'Hecho',
   'common.back': 'Atrás',
   'common.retry': 'Reintentar',
   'common.working': 'Procesando…',
@@ -571,6 +605,29 @@ const ES: Catalogue = {
   'accuse.refusal.oneLeft': 'Queda una cosa en su versión que sigue en pie.',
   'accuse.refusal.manyLeft': 'Quedan {n} cosas en su versión que siguen en pie.',
 
+  'verdict.sameStatement': 'Esa es la misma afirmación dos veces.',
+  'verdict.differentThings': 'Estas hablan de dos cosas distintas.',
+  'verdict.personVsThing': 'Una habla de una persona y la otra de un objeto.',
+  'verdict.differentPeople': 'Estas hablan de personas distintas.',
+  'verdict.differentTimes': 'Estas hablan de momentos distintos.',
+  'verdict.differentKinds': 'Estas hablan de cosas de distinto tipo.',
+  'verdict.placeConflict': 'Una persona, dos lugares, el mismo momento.',
+  'verdict.actionConflict': 'No pudo estar haciendo ambas cosas a la vez.',
+  'verdict.objectConflict': 'Solo una persona pudo tenerlo.',
+  'verdict.sameArea': 'Esos dos lugares son la misma zona.',
+  'verdict.compatible': 'Esas dos cosas pueden ser ciertas a la vez.',
+  'verdict.sameHands': 'Ambas afirmaciones lo ponen en las mismas manos.',
+  'verdict.notUnique': 'Podría haber más de uno de esos.',
+  'verdict.needTwo': 'Fija dos afirmaciones para compararlas.',
+  'verdict.stale': 'Esas afirmaciones ya no están en el expediente.',
+
+  'confront.repeat': 'Eso ya lo has dicho.',
+  'confront.close': 'Cerrar el caso',
+  'confront.open': 'Plántaselo a esta persona. Un hecho cada vez.',
+  'confront.left': 'Quedan {n} por decir',
+  'confront.leftOne': 'Queda 1 por decir',
+  'confront.chipLabel': 'Plantear a {name}: {label}',
+
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Sonido',
   'settings.sound.label': 'Efectos de sonido',
@@ -664,7 +721,6 @@ const ES: Catalogue = {
   'reset.submit': 'Guardar contraseña',
   'reset.resend': 'Enviar otro código',
   'reset.needCode': 'Escribe el código del correo.',
-  'reset.done': 'Contraseña cambiada. Ya has iniciado sesión.',
   'auth.error.badCode': 'Ese código caducó o no coincide. Pide otro.',
   'auth.error.leakedPassword':
     'Esa contraseña ha aparecido en una filtración, así que no es segura. Prueba con otra.',
@@ -676,7 +732,6 @@ const ES: Catalogue = {
   'paywall.bullet.case': 'Doce casos completos más',
   'paywall.bullet.suspects': 'Nuevos sospechosos, nuevas contradicciones',
   'paywall.bullet.permanent': 'Tuyo para siempre: esto no es una suscripción',
-  'paywall.compare': 'de valor en {count} casos',
   'paywall.empty': 'La tienda no tiene nada que vender ahora mismo. Inténtalo de nuevo en un momento.',
   'paywall.unreachable': 'No se pudo conectar con la tienda.',
   'paywall.failed': 'La compra no se completó. No se te ha cobrado.',
@@ -716,8 +771,6 @@ const ES: Catalogue = {
  * missing keys. One code path, not two.
  */
 const FR: Catalogue = {
-  'common.cancel': 'Annuler',
-  'common.done': 'Terminé',
   'common.back': 'Retour',
   'common.retry': 'Réessayer',
   'common.working': 'En cours…',
@@ -876,6 +929,29 @@ const FR: Catalogue = {
   'accuse.refusal.oneLeft': 'Une chose dans sa version tient toujours.',
   'accuse.refusal.manyLeft': '{n} choses dans sa version tiennent toujours.',
 
+  'verdict.sameStatement': 'C’est deux fois la même déclaration.',
+  'verdict.differentThings': 'Elles parlent de deux choses différentes.',
+  'verdict.personVsThing': 'L’une parle d’une personne, l’autre d’un objet.',
+  'verdict.differentPeople': 'Elles parlent de personnes différentes.',
+  'verdict.differentTimes': 'Elles parlent de moments différents.',
+  'verdict.differentKinds': 'Elles parlent de choses de nature différente.',
+  'verdict.placeConflict': 'Une personne, deux endroits, le même moment.',
+  'verdict.actionConflict': 'Cette personne ne pouvait pas faire les deux à la fois.',
+  'verdict.objectConflict': 'Une seule personne pouvait l’avoir.',
+  'verdict.sameArea': 'Ces deux endroits sont dans la même zone.',
+  'verdict.compatible': 'Ces deux choses peuvent être vraies en même temps.',
+  'verdict.sameHands': 'Les deux déclarations le mettent dans les mêmes mains.',
+  'verdict.notUnique': 'Il pourrait y en avoir plusieurs.',
+  'verdict.needTwo': 'Épingle deux déclarations pour les comparer.',
+  'verdict.stale': 'Ces déclarations ne sont plus au dossier.',
+
+  'confront.repeat': 'Tu l’as déjà dit.',
+  'confront.close': 'Clore l’affaire',
+  'confront.open': 'Mets cette personne devant les faits. Un fait à la fois.',
+  'confront.left': 'Encore {n} à dire',
+  'confront.leftOne': 'Encore 1 à dire',
+  'confront.chipLabel': 'Opposer à {name} : {label}',
+
   'settings.title': 'Réglages',
   'settings.sound.section': 'Son',
   'settings.sound.label': 'Effets sonores',
@@ -972,7 +1048,6 @@ const FR: Catalogue = {
   'reset.submit': 'Enregistrer le mot de passe',
   'reset.resend': 'Envoyer un autre code',
   'reset.needCode': 'Saisissez le code reçu par e-mail.',
-  'reset.done': 'Mot de passe modifié. Vous êtes connecté.',
   'auth.error.badCode': 'Ce code a expiré ou ne correspond pas. Demandez-en un autre.',
   'auth.error.leakedPassword':
     'Ce mot de passe est apparu dans une fuite de données, il n’est donc pas sûr. Essayez-en un autre.',
@@ -984,7 +1059,6 @@ const FR: Catalogue = {
   'paywall.bullet.case': 'Douze affaires complètes de plus',
   'paywall.bullet.suspects': 'De nouveaux suspects, de nouvelles contradictions',
   'paywall.bullet.permanent': 'À vous définitivement — ce n’est pas un abonnement',
-  'paywall.compare': 'de valeur sur {count} affaires',
   'paywall.empty': 'La boutique n’a rien à proposer pour le moment. Réessayez dans un instant.',
   'paywall.unreachable': 'Impossible de joindre la boutique.',
   'paywall.failed': 'L’achat n’a pas abouti. Vous n’avez pas été débité.',
@@ -1024,8 +1098,6 @@ const FR: Catalogue = {
  * sounds like a bank.
  */
 const DE: Catalogue = {
-  'common.cancel': 'Abbrechen',
-  'common.done': 'Fertig',
   'common.back': 'Zurück',
   'common.retry': 'Erneut versuchen',
   'common.working': 'Wird ausgeführt…',
@@ -1179,6 +1251,29 @@ const DE: Catalogue = {
   'accuse.refusal.oneLeft': 'Eine Sache an dieser Darstellung hält stand.',
   'accuse.refusal.manyLeft': '{n} Dinge an dieser Darstellung halten stand.',
 
+  'verdict.sameStatement': 'Das ist zweimal dieselbe Aussage.',
+  'verdict.differentThings': 'Die beiden handeln von zwei verschiedenen Dingen.',
+  'verdict.personVsThing': 'Die eine handelt von einer Person, die andere von einem Gegenstand.',
+  'verdict.differentPeople': 'Die beiden handeln von verschiedenen Personen.',
+  'verdict.differentTimes': 'Die beiden handeln von verschiedenen Zeiten.',
+  'verdict.differentKinds': 'Die beiden handeln von verschiedenen Arten von Dingen.',
+  'verdict.placeConflict': 'Eine Person, zwei Orte, derselbe Moment.',
+  'verdict.actionConflict': 'Beides gleichzeitig ging nicht.',
+  'verdict.objectConflict': 'Nur eine Person kann es gehabt haben.',
+  'verdict.sameArea': 'Diese beiden Orte sind dieselbe Gegend.',
+  'verdict.compatible': 'Beides kann gleichzeitig wahr sein.',
+  'verdict.sameHands': 'Beide Aussagen legen es in dieselben Hände.',
+  'verdict.notUnique': 'Davon könnte es mehr als eines geben.',
+  'verdict.needTwo': 'Hefte zwei Aussagen an, um sie zu vergleichen.',
+  'verdict.stale': 'Diese Aussagen stehen nicht mehr im Protokoll.',
+
+  'confront.repeat': 'Das hast du schon gesagt.',
+  'confront.close': 'Fall schließen',
+  'confront.open': 'Halte es dieser Person vor. Eine Tatsache nach der anderen.',
+  'confront.left': 'Noch {n} zu sagen',
+  'confront.leftOne': 'Noch 1 zu sagen',
+  'confront.chipLabel': '{name} vorhalten: {label}',
+
   'settings.title': 'Einstellungen',
   'settings.sound.section': 'Ton',
   'settings.sound.label': 'Soundeffekte',
@@ -1274,7 +1369,6 @@ const DE: Catalogue = {
   'reset.submit': 'Passwort speichern',
   'reset.resend': 'Neuen Code senden',
   'reset.needCode': 'Gib den Code aus der E-Mail ein.',
-  'reset.done': 'Passwort geändert. Du bist angemeldet.',
   'auth.error.badCode': 'Dieser Code ist abgelaufen oder stimmt nicht. Fordere einen neuen an.',
   'auth.error.leakedPassword':
     'Dieses Passwort ist in einem Datenleck aufgetaucht und damit nicht sicher. Nimm ein anderes.',
@@ -1286,7 +1380,6 @@ const DE: Catalogue = {
   'paywall.bullet.case': 'Zwölf weitere Fälle in voller Länge',
   'paywall.bullet.suspects': 'Neue Verdächtige, neue Widersprüche',
   'paywall.bullet.permanent': 'Dauerhaft deins — kein Abo',
-  'paywall.compare': 'Gegenwert für {count} Fälle',
   'paywall.empty': 'Der Store hat gerade nichts anzubieten. Versuch es gleich noch einmal.',
   'paywall.unreachable': 'Der Store war nicht erreichbar.',
   'paywall.failed': 'Der Kauf ist nicht durchgegangen. Dir wurde nichts berechnet.',
@@ -1321,8 +1414,6 @@ const DE: Catalogue = {
 };
 
 const PT_BR: Catalogue = {
-  'common.cancel': 'Cancelar',
-  'common.done': 'Concluído',
   'common.back': 'Voltar',
   'common.retry': 'Tentar de novo',
   'common.working': 'Processando…',
@@ -1477,6 +1568,29 @@ const PT_BR: Catalogue = {
   'accuse.refusal.oneLeft': 'Uma coisa na versão dessa pessoa continua de pé.',
   'accuse.refusal.manyLeft': '{n} coisas na versão dessa pessoa continuam de pé.',
 
+  'verdict.sameStatement': 'Essa é a mesma declaração duas vezes.',
+  'verdict.differentThings': 'Elas falam de duas coisas diferentes.',
+  'verdict.personVsThing': 'Uma fala de uma pessoa, a outra de um objeto.',
+  'verdict.differentPeople': 'Elas falam de pessoas diferentes.',
+  'verdict.differentTimes': 'Elas falam de momentos diferentes.',
+  'verdict.differentKinds': 'Elas falam de coisas de tipos diferentes.',
+  'verdict.placeConflict': 'Uma pessoa, dois lugares, o mesmo momento.',
+  'verdict.actionConflict': 'Não dava para fazer as duas coisas ao mesmo tempo.',
+  'verdict.objectConflict': 'Só uma pessoa podia estar com isso.',
+  'verdict.sameArea': 'Esses dois lugares são a mesma área.',
+  'verdict.compatible': 'Essas duas coisas podem ser verdadeiras ao mesmo tempo.',
+  'verdict.sameHands': 'As duas declarações põem isso nas mesmas mãos.',
+  'verdict.notUnique': 'Pode haver mais de um desses.',
+  'verdict.needTwo': 'Fixe duas declarações para compará-las.',
+  'verdict.stale': 'Essas declarações não estão mais no registro.',
+
+  'confront.repeat': 'Você já disse isso.',
+  'confront.close': 'Encerrar o caso',
+  'confront.open': 'Ponha na frente dessa pessoa. Um fato de cada vez.',
+  'confront.left': 'Faltam {n} a dizer',
+  'confront.leftOne': 'Falta 1 a dizer',
+  'confront.chipLabel': 'Apresentar a {name}: {label}',
+
   'settings.title': 'Ajustes',
   'settings.sound.section': 'Som',
   'settings.sound.label': 'Efeitos sonoros',
@@ -1569,7 +1683,6 @@ const PT_BR: Catalogue = {
   'reset.submit': 'Salvar senha',
   'reset.resend': 'Enviar outro código',
   'reset.needCode': 'Digite o código do e-mail.',
-  'reset.done': 'Senha alterada. Você está conectado.',
   'auth.error.badCode': 'Esse código expirou ou não confere. Peça outro.',
   'auth.error.leakedPassword':
     'Essa senha apareceu em um vazamento de dados, então não é segura. Escolha outra.',
@@ -1581,7 +1694,6 @@ const PT_BR: Catalogue = {
   'paywall.bullet.case': 'Mais doze casos completos',
   'paywall.bullet.suspects': 'Novos suspeitos, novas contradições',
   'paywall.bullet.permanent': 'Seu para sempre — não é assinatura',
-  'paywall.compare': 'de valor em {count} casos',
   'paywall.empty': 'A loja não tem nada para vender agora. Tente daqui a pouco.',
   'paywall.unreachable': 'Não foi possível acessar a loja.',
   'paywall.failed': 'A compra não foi concluída. Você não foi cobrado.',

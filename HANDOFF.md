@@ -1254,14 +1254,31 @@ The design detector returns clean.
 
 **Not verified on a device.**
 
-### Still open on design
+### The game is now fully localised — 2026-09-05
 
-1. `find-animation-opportunities` across all screens
-2. **`ConfrontationScreen` is still English-only** — it was not in scope here
-   and is the last unlocalised screen in the game.
-3. **`contradiction.ts` verdict text is still English-only.** The board renders
-   its prose `reason` verbatim. `accusation.ts` is now keyed off `kind` and is
-   the worked example to copy.
+`ConfrontationScreen` and the comparison verdicts were the last English-only
+surfaces. Both now go through the catalogue.
+
+`contradiction.ts` gained `VerdictKind` (15 members: 13 rules, plus `needTwo`
+and `stale` which `caseStore` synthesises), matching the `RefusalKind` pattern
+`accusation.ts` established. `ContradictionResult` selects through a
+`Record<VerdictKind, StringKey>`, so **a new rule without a translation is a
+type error, not a silently English line.**
+
+Two real bugs fell out of it:
+
+- **`confront.open` read "Put it to her."** The only line in the game that
+  assumed the killer's gender, across sixteen cases that do not all end with a
+  woman. `Character` carries a name and an avatar colour and nothing else, so
+  there was never a pronoun to look up. Now "Put it to them."
+- **Four catalogue keys had outlived their screens** — `common.cancel`,
+  `common.done`, `reset.done`, `paywall.compare`: twenty dead lines across five
+  catalogues, and real translator work on strings nobody would ever read.
+
+`src/i18n/orphanKeys.test.ts` makes the rule `strings.ts` already stated in its
+header executable — it is what found those four. `translate.test.ts` covers
+parity and placeholders within the catalogue; nothing had ever compared the
+catalogue against the screens.
 
 ### Already established, do not redo
 

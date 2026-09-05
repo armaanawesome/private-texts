@@ -188,7 +188,13 @@ export const useCaseStore = create<CaseState>((set, get) => ({
   submitPins: () => {
     const { script, pinnedClaimIds, confirmedContradictionIds } = get();
     if (!script || pinnedClaimIds.length !== 2) {
-      set({ lastVerdict: { ok: false, reason: 'Pin two statements to compare them.' } });
+      set({
+        lastVerdict: {
+          ok: false,
+          kind: 'needTwo',
+          reason: 'Pin two statements to compare them.',
+        },
+      });
       return;
     }
     const claims = allClaims(script);
@@ -196,7 +202,13 @@ export const useCaseStore = create<CaseState>((set, get) => ({
     const a = claims.get(idA);
     const b = claims.get(idB);
     if (!a || !b) {
-      set({ lastVerdict: { ok: false, reason: 'Those statements are no longer on the record.' } });
+      set({
+        lastVerdict: {
+          ok: false,
+          kind: 'stale',
+          reason: 'Those statements are no longer on the record.',
+        },
+      });
       return;
     }
 

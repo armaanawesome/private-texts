@@ -5,6 +5,7 @@ import { feedback } from '@/settings/feedback';
 import { useReduceMotion } from '@/settings/useReduceMotion';
 import { theme } from './theme';
 import { useTabBarClearance } from './useTabBarClearance';
+import { useTranslator } from '@/i18n/useTranslator';
 import {
   press,
   establishedMotiveIds,
@@ -36,11 +37,15 @@ function firstSentence(s: string): string {
  *
  * The whole game is read as text messages, so the confrontation is too — but
  * this is the one thread where the player speaks. Every line they can say is
- * something they proved or read; nothing here is free. She gives ground one fact
- * at a time and confesses when there is nothing left to push back with, so the
+ * something they proved or read; nothing here is free. They give ground one fact
+ * at a time and confess when there is nothing left to push back with, so the
  * ending belongs to the player's case rather than to a script running out.
+ *
+ * Every character reference here is gender-neutral: `Character` carries a name
+ * and an avatar colour and nothing else, so there is no pronoun to look up.
  */
 export function ConfrontationScreen({ script, progress, onClosed }: Props) {
+  const t = useTranslator();
   const reduceMotion = useReduceMotion();
   const confrontation = script.confrontation;
   const scrollRef = useRef<ScrollView>(null);
@@ -88,7 +93,7 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
 
     if (outcome.kind === 'repeat') {
       feedback.notify('warning');
-      say([{ key: `r-${Date.now()}`, who: 'them', text: 'You have said that already.' }]);
+      say([{ key: `r-${Date.now()}`, who: 'them', text: t('confront.repeat') }]);
       return;
     }
 
@@ -102,14 +107,14 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
     }
 
     feedback.notify('success');
-    // The two moments the game is allowed to be heard: a fact landing, and her
-    // giving it up. Both are `signal` cues, so Reduce Motion does not silence them.
+    // The two moments the game is allowed to be heard: a fact landing, and the
+    // killer giving it up. Both are `signal` cues, so Reduce Motion does not silence them.
     feedback.cue(outcome.complete ? 'confession' : 'contradiction');
     setLanded((l) => [...l, outcome.beat.id]);
     setUsed((u) => [...u, item.key]);
 
     const next: Line[] = [{ key: `p-${outcome.beat.id}`, who: 'you', text: outcome.beat.press }];
-    // The last beat gets no rebuttal in content — she has nothing left.
+    // The last beat gets no rebuttal in content — there is nothing left to say.
     if (outcome.beat.rebuttal.trim() !== '') {
       next.push({ key: `t-${outcome.beat.id}`, who: 'them', text: outcome.beat.rebuttal });
     }
@@ -160,14 +165,19 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
           accessibilityRole="button"
           style={({ pressed }) => [styles.close, { marginBottom: clearance }, pressed && styles.pressed]}
         >
-          <Text style={styles.closeText}>Close the case</Text>
+          <Text style={styles.closeText}>{t('confront.close')}</Text>
         </Pressable>
       ) : (
         <View style={[styles.tray, { paddingBottom: clearance }]}>
           <Text style={styles.trayLabel}>
+            {/* `them`, not `her`. This was the only line in the game that
+                assumed the killer's gender, across sixteen cases that do not
+                all end with a woman. */}
             {landed.length === 0
-              ? 'Put it to her. One fact at a time.'
-              : `${confrontation.beats.length - landed.length} left to say`}
+              ? t('confront.open')
+              : confrontation.beats.length - landed.length === 1
+                ? t('confront.leftOne')
+                : t('confront.left', { n: confrontation.beats.length - landed.length })}
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>
             {evidence.map((e) => {
@@ -177,7 +187,7 @@ export function ConfrontationScreen({ script, progress, onClosed }: Props) {
                   key={e.key}
                   onPress={() => put(e)}
                   accessibilityRole="button"
-                  accessibilityLabel={`Put to ${killer.name}: ${e.label}`}
+                  accessibilityLabel={t('confront.chipLabel', { name: killer.name, label: e.label })}
                   style={({ pressed }) => [styles.chip, spent && styles.chipSpent, pressed && styles.pressed]}
                 >
                   <Text style={[styles.chipText, spent && styles.chipTextSpent]} numberOfLines={3}>

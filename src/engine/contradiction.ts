@@ -3,9 +3,43 @@ import { windowsOverlap } from './time';
 import { placesConflict } from './places';
 import { anchorOf } from './anchor';
 
+/**
+ * Which rule produced the verdict.
+ *
+ * Exists so the board can translate what the engine decided. `reason` is
+ * English prose and the board renders it to players in five languages, so
+ * matching on the sentence would work right up until somebody rewords it.
+ * `accusation.ts` does the same thing with `RefusalKind`.
+ *
+ * `needTwo` and `stale` are not produced here — `caseStore` synthesises them
+ * for the two states the board can be in before a comparison is possible. They
+ * live in this union because they end up in the same `lastVerdict` field and
+ * are rendered by the same component.
+ */
+export type VerdictKind =
+  // Nothing was compared: the pair never met a rule.
+  | 'sameStatement'
+  | 'differentThings'
+  | 'personVsThing'
+  | 'differentPeople'
+  | 'differentTimes'
+  | 'differentKinds'
+  // A rule ran and the pair conflicts.
+  | 'placeConflict'
+  | 'actionConflict'
+  | 'objectConflict'
+  // A rule ran and the pair is compatible.
+  | 'sameArea'
+  | 'compatible'
+  | 'sameHands'
+  | 'notUnique'
+  // Synthesised by caseStore, never by checkContradiction.
+  | 'needTwo'
+  | 'stale';
+
 export type ContradictionVerdict =
-  | { readonly ok: true; readonly reason: string }
-  | { readonly ok: false; readonly reason: string };
+  | { readonly ok: true; readonly kind: VerdictKind; readonly reason: string }
+  | { readonly ok: false; readonly kind: VerdictKind; readonly reason: string };
 
 /**
  * The world the rules are judged against.
@@ -35,40 +69,40 @@ export interface RuleContext {
  */
 export function checkContradiction(ctx: RuleContext, a: Claim, b: Claim): ContradictionVerdict {
   if (a.id === b.id) {
-    return { ok: false, reason: 'That is the same statement twice.' };
+    return { ok: false, kind: 'sameStatement', reason: 'That is the same statement twice.' };
   }
 
   if (anchorOf(a) !== anchorOf(b)) {
-    return { ok: false, reason: mismatchReason(a, b) };
+    return { ok: false, ...mismatch(a, b) };
   }
 
   if (!windowsOverlap(a.window, b.window)) {
-    return { ok: false, reason: 'These describe different times.' };
+    return { ok: false, kind: 'differentTimes', reason: 'These describe different times.' };
   }
 
   if (a.predicate.kind !== b.predicate.kind) {
-    return { ok: false, reason: 'These describe different kinds of thing.' };
+    return { ok: false, kind: 'differentKinds', reason: 'These describe different kinds of thing.' };
   }
 
   if (a.predicate.kind === 'at_place' && b.predicate.kind === 'at_place') {
     return placesConflict(ctx.places, a.predicate.placeId, b.predicate.placeId)
-      ? { ok: true, reason: 'One person, two places, same moment.' }
-      : { ok: false, reason: 'Those two places are the same area.' };
+      ? { ok: true, kind: 'placeConflict', reason: 'One person, two places, same moment.' }
+      : { ok: false, kind: 'sameArea', reason: 'Those two places are the same area.' };
   }
 
   if (a.predicate.kind === 'doing' && b.predicate.kind === 'doing') {
     const sameGroup = a.predicate.exclusiveGroup === b.predicate.exclusiveGroup;
     const differentAction = a.predicate.actionId !== b.predicate.actionId;
     return sameGroup && differentAction
-      ? { ok: true, reason: 'They cannot have been doing both at once.' }
-      : { ok: false, reason: 'Those two things can both be true.' };
+      ? { ok: true, kind: 'actionConflict', reason: 'They cannot have been doing both at once.' }
+      : { ok: false, kind: 'compatible', reason: 'Those two things can both be true.' };
   }
 
   if (a.predicate.kind === 'has_object' && b.predicate.kind === 'has_object') {
     // Same anchor already guarantees the same object; what matters is whether
     // two different hands are claiming it, and whether there is only one of it.
     if (a.subject === b.subject) {
-      return { ok: false, reason: 'Both statements put it in the same hands.' };
+      return { ok: false, kind: 'sameHands', reason: 'Both statements put it in the same hands.' };
     }
     // Bound outside the closure: TypeScript drops the narrowing on `a.predicate`
     // once it is read inside a callback.
@@ -78,12 +112,12 @@ export function checkContradiction(ctx: RuleContext, a: Claim, b: Claim): Contra
     // an exception here would kill a playthrough mid-comparison.
     const object = ctx.objects.find((o) => o.id === objectId);
     return object?.unique === true
-      ? { ok: true, reason: 'Only one person can have had it.' }
-      : { ok: false, reason: 'There could be more than one of those.' };
+      ? { ok: true, kind: 'objectConflict', reason: 'Only one person can have had it.' }
+      : { ok: false, kind: 'notUnique', reason: 'There could be more than one of those.' };
   }
 
   // with_person: being with one person does not exclude being with another.
-  return { ok: false, reason: 'Those two things can both be true.' };
+  return { ok: false, kind: 'compatible', reason: 'Those two things can both be true.' };
 }
 
 /**
@@ -92,11 +126,15 @@ export function checkContradiction(ctx: RuleContext, a: Claim, b: Claim): Contra
  * Worth the care: this is the message a player sees most often, and a vague one
  * ("these do not match") teaches nothing about how the game thinks.
  */
-function mismatchReason(a: Claim, b: Claim): string {
+function mismatch(a: Claim, b: Claim): { kind: VerdictKind; reason: string } {
   const aIsObject = a.predicate.kind === 'has_object';
   const bIsObject = b.predicate.kind === 'has_object';
 
-  if (aIsObject && bIsObject) return 'These are about two different things.';
-  if (aIsObject !== bIsObject) return 'One is about a person, the other about a thing.';
-  return 'These are about different people.';
+  if (aIsObject && bIsObject) {
+    return { kind: 'differentThings', reason: 'These are about two different things.' };
+  }
+  if (aIsObject !== bIsObject) {
+    return { kind: 'personVsThing', reason: 'One is about a person, the other about a thing.' };
+  }
+  return { kind: 'differentPeople', reason: 'These are about different people.' };
 }

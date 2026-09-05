@@ -1,7 +1,35 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { theme } from './theme';
-import type { ContradictionVerdict } from '@/engine';
+import { useTranslator } from '@/i18n/useTranslator';
+import type { StringKey } from '@/i18n/strings';
+import type { ContradictionVerdict, VerdictKind } from '@/engine';
+
+/**
+ * One key per rule the engine can fire, plus the two `caseStore` synthesises.
+ *
+ * Keyed off `kind`, never off the engine's English `reason` — the board draws
+ * this line to players in five languages, and matching on the sentence would
+ * hold only until somebody rewords it. A missing arm is a type error rather
+ * than a silently English line, which is the point of the Record.
+ */
+const VERDICT_KEY: Record<VerdictKind, StringKey> = {
+  sameStatement: 'verdict.sameStatement',
+  differentThings: 'verdict.differentThings',
+  personVsThing: 'verdict.personVsThing',
+  differentPeople: 'verdict.differentPeople',
+  differentTimes: 'verdict.differentTimes',
+  differentKinds: 'verdict.differentKinds',
+  placeConflict: 'verdict.placeConflict',
+  actionConflict: 'verdict.actionConflict',
+  objectConflict: 'verdict.objectConflict',
+  sameArea: 'verdict.sameArea',
+  compatible: 'verdict.compatible',
+  sameHands: 'verdict.sameHands',
+  notUnique: 'verdict.notUnique',
+  needTwo: 'verdict.needTwo',
+  stale: 'verdict.stale',
+};
 
 interface Props {
   verdict: ContradictionVerdict | null;
@@ -24,6 +52,8 @@ interface Props {
  * running underneath rather than a scripted if-statement.
  */
 export function ContradictionResult({ verdict, revelation, reduceMotion }: Props) {
+  const t = useTranslator();
+
   /*
    * Nothing, deliberately. This used to render "Pin two statements, then run
    * the check." — which the docked slots and the 0/2 counter now say twice over
@@ -35,15 +65,18 @@ export function ContradictionResult({ verdict, revelation, reduceMotion }: Props
 
   return (
     <Animated.View
-      // Keyed on the reason so a second verdict re-enters instead of swapping
-      // text silently under the player's eyes.
-      key={verdict.reason}
+      // Keyed on the kind so a second verdict re-enters instead of swapping
+      // text silently under the player's eyes. Equivalent to the old key on
+      // `reason`: each kind carries exactly one sentence.
+      key={verdict.kind}
       entering={reduceMotion ? undefined : FadeIn.duration(theme.motion.base).delay(theme.motion.base)}
       style={styles.copy}
     >
       <View style={styles.headline}>
         {verdict.ok ? <View style={styles.mark} /> : null}
-        <Text style={verdict.ok ? styles.reasonOk : styles.reasonNo}>{verdict.reason}</Text>
+        <Text style={verdict.ok ? styles.reasonOk : styles.reasonNo}>
+          {t(VERDICT_KEY[verdict.kind])}
+        </Text>
       </View>
       {verdict.ok && revelation ? <Text style={styles.revelation}>{revelation}</Text> : null}
     </Animated.View>

@@ -74,7 +74,7 @@ describe('Tutorial — The Bakehouse', () => {
   /* 2 and 3. Pinning two claims, and what a contradiction actually is. */
   it('fires exactly one pair, and says why in the engine’s own words', () => {
     const verdict = checkContradiction(script, claim('c-roza-ovens'), claim('c-roza-square'));
-    expect(verdict).toEqual({ ok: true, reason: 'One person, two places, same moment.' });
+    expect(verdict).toEqual({ ok: true, kind: 'placeConflict', reason: 'One person, two places, same moment.' });
 
     const firing = [];
     for (let i = 0; i < allClaims.length; i += 1) {
@@ -94,7 +94,7 @@ describe('Tutorial — The Bakehouse', () => {
    */
   it('refuses the nested-place pair, because the yard is inside the bakery', () => {
     const verdict = checkContradiction(script, claim('c-tom-yard'), claim('c-tom-bakery'));
-    expect(verdict).toEqual({ ok: false, reason: 'Those two places are the same area.' });
+    expect(verdict).toEqual({ ok: false, kind: 'sameArea', reason: 'Those two places are the same area.' });
 
     // It must reject for the RIGHT reason. If the windows ever stop overlapping
     // the pair still fails, but on time — and the place lesson silently dies.
@@ -104,7 +104,7 @@ describe('Tutorial — The Bakehouse', () => {
 
   it('refuses the same-person pair whose moments never meet', () => {
     const verdict = checkContradiction(script, claim('c-roza-station'), claim('c-roza-ovens'));
-    expect(verdict).toEqual({ ok: false, reason: 'These describe different times.' });
+    expect(verdict).toEqual({ ok: false, kind: 'differentTimes', reason: 'These describe different times.' });
 
     // And these two places genuinely conflict, so time is the only thing saving
     // her. That is precisely what makes it a lesson rather than a dead pairing.
@@ -115,7 +115,7 @@ describe('Tutorial — The Bakehouse', () => {
 
   it('refuses a pair that is about two different people', () => {
     const verdict = checkContradiction(script, claim('c-tom-ovens'), claim('c-roza-ovens'));
-    expect(verdict).toEqual({ ok: false, reason: 'These are about different people.' });
+    expect(verdict).toEqual({ ok: false, kind: 'differentPeople', reason: 'These are about different people.' });
   });
 
   /**
