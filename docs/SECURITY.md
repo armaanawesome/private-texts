@@ -132,6 +132,10 @@ is a per-user row-count trigger rather than a wider constraint.
 
 ### 5. INFORMATIONAL — `npm audit` reports 16 vulnerabilities. Do not "fix" them.
 
+> **Updated 2026-09-05: the count is now 20, and one of them ships.** The three
+> advisories below are still build-time only and still must not be "fixed". Two
+> more have appeared since — see the checklist audit below.
+
 **Not fixed, deliberately. Read this before running `npm audit fix --force`.**
 
 `npm audit --omit=dev` reports 16 vulnerabilities, 5 high. They collapse to three
@@ -232,6 +236,82 @@ Both gates now hold the load, and `src/entitlements/routeGuards.test.ts` asserts
 it. Worth stating plainly because it is now the second instance: **in this app,
 any rule deciding whether content may be seen has to be enforced at the route,
 because expo-router publishes a deep link for every file under `app/`.**
+
+## Checklist audit — 2026-09-05
+
+Twenty items, checked against the code rather than recalled. Four do not apply:
+this is a native app talking to Supabase, with no server of its own, no cookies,
+no uploads and no user-generated content. Saying so is more useful than ticking
+them.
+
+| # | Item | Verdict | Evidence |
+|---|---|---|---|
+| 1 | Hide API keys | **PASS** | `.env` ignored at `.gitignore:44` and never tracked. Only publishable keys live in `EXPO_PUBLIC_*`; `config.ts` refuses to start on a secret one |
+| 2 | Purge git secrets | **PASS** | History and tree scanned for `sb_secret_`, `service_role`, JWT and store-key prefixes. Every hit is a guard or its test |
+| 3 | Use public DB key | **PASS** | Anon/publishable only. `isSecretKey()` rejects `sb_secret_` and `"role":"service_role"` before `createClient` |
+| 4 | Enable row-level security | **PASS** | Enabled on `public.case_progress`; four policies, every one `to authenticated`. Re-verified against the live project 2026-08-29 |
+| 5 | Encrypt sensitive data | **GAP** | See below |
+| 6 | Enforce server-side auth | **BY DESIGN** | Auth and row access are enforced server-side by RLS. Entitlement gating is client-side and cannot be otherwise — see the threat model |
+| 7 | Lock record access | **PASS** | `(select auth.uid()) = user_id` on all four policies; composite PK `(user_id, case_id)` |
+| 8 | Block field tampering | **PASS** | The update policy carries **both** `using` and `with check`. With `using` alone a row can be edited into someone else's ownership |
+| 9 | Secure session cookies | **N/A** | No cookies. The session is a token in app storage, which is item 5 |
+| 10 | Hash passwords | **PASS** | Supabase hashes; the app never stores, logs or transmits one anywhere but the auth call. Grepped for it |
+| 11 | Rate limit login | **PASS, not ours** | Supabase enforces it. `describeAuthError` recognises the response and says so in five languages |
+| 12 | Bot protection | **GAP** | See below |
+| 13 | Parameterize queries | **PASS** | PostgREST query builder only. No `.rpc(`, no raw SQL, no template-literal query anywhere in `src/`, `app/` or `content/` |
+| 14 | Validate all input | **PASS** | Zod at five boundaries — `sync`, `engine/schema`, `settings/schema`, `resume`, `saveBlob` — plus `credentials.ts` before any auth call |
+| 15 | Escape user content | **N/A** | There is none. All prose is authored, compiled into the binary, and rendered by RN `<Text>`, which interprets no markup |
+| 16 | Restrict file uploads | **N/A** | No upload path exists: no Supabase Storage, no picker, no `FormData` |
+| 17 | Trim API responses | **PASS** | `.select(SELECT_COLUMNS)`, never `*` |
+| 18 | Security headers | **N/A** | No server. The web build is a local harness and is not deployed |
+| 19 | Force HTTPS | **PASS** | No `http://` outside one localhost test fixture. Supabase and RevenueCat are both TLS |
+| 20 | Scan dependencies | **PASS, with a change** | See below |
+
+### 5. Encrypt sensitive data — the one real gap
+
+The Supabase **refresh token sits in AsyncStorage, unencrypted**. `client.ts`
+says so in its own comment: `expo-secure-store` was removed deliberately, because
+adding a native module back would force a dev-client rebuild against a finite EAS
+quota.
+
+The storage is app-private, so this needs a rooted or jailbroken device, or an
+unencrypted device backup, to reach. What it would yield is one account's read
+message ids. **It must not be reused for anything that matters more** — and if a
+native rebuild is happening anyway, moving the session to `expo-secure-store` is
+a small change with no interface consequences.
+
+### 12. Bot protection — absent, and cheap to add
+
+Supabase supports hCaptcha or Turnstile on sign-up; it is switched off. The abuse
+available is mass account creation against the project's own quota, which is
+threat-model item (4). Enabling it is a dashboard toggle plus a token on the
+client call — worth doing before any public release, not before the hackathon.
+
+### 20. Dependencies — one advisory now reaches the bundle
+
+The count has moved from 16 to **20 in production dependencies (5 high)**, and
+the composition changed. Finding 5 above still holds for three of them, but there
+are two new advisories and they are not the same as each other:
+
+| Advisory | Package | Arrives via | Ships? |
+|---|---|---|---|
+| [GHSA-6gmq-8vp8-gcm6](https://github.com/advisories/GHSA-6gmq-8vp8-gcm6) | `@xmldom/xmldom` | `expo-splash-screen` → `@expo/config-plugins` → plist/xcode | **No** — prebuild only |
+| [GHSA-vcc3-ghjq-m6fr](https://github.com/advisories/GHSA-vcc3-ghjq-m6fr) | `decode-uri-component` | **`expo-router` → `query-string`** | **Yes** |
+
+The second one is the first advisory in this project that is actually in the
+shipped JavaScript. Installed is `0.2.2` and the affected range is `<=0.4.2`, so
+there is no patched release to move to.
+
+**Impact, stated honestly:** it is a denial of service through a malformed
+percent-encoded URI. The app parses search params from its own deep links
+(`privatetexts://paywall?caseId=…`), so reaching it requires persuading a player
+to open a crafted link, and the worst outcome is the app hanging. No data is
+exposed. `npm audit`'s offered fix is `expo-router@5.1.11` — a **major
+downgrade**, the same destructive trap finding 5 documents for `expo` itself.
+
+Left in place, recorded here, and worth re-checking when Expo repins.
+
+---
 
 ## Still outstanding
 
